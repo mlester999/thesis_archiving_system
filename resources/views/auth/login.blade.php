@@ -21,12 +21,12 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <!-- Email Address -->
-                <x-input-label class="mt-8" for="email" :value="__('Student ID')" />
+            <!-- Student ID -->
+                <x-input-label class="mt-8" for="student_id" :value="__('Student ID')" />
 
-                <x-text-input id="email" class="mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-text-input id="student_id" class="mt-1 w-full" type="text" name="student_id" :value="old('student_id')" required autofocus />
 
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-input-error :messages="$errors->get('student_id')" class="mt-2" />
 
             <!-- Password -->
                 <x-input-label class="mt-4" for="password" :value="__('Password')" />

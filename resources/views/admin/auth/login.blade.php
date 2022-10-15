@@ -11,7 +11,7 @@
         <!-- Left Side -->
         <div class="p-6 md:p-16">
         <!-- Top Content -->
-        <h2 class="font-mono mb-5 text-4xl font-bold">Log In</h2>
+        <h2 class="font-sans mb-5 text-4xl font-bold">Log In</h2>
         <p class="max-w-sm mb-12 font-sans font-light text-gray-600">
           Please log in your admin account.
         </p>
@@ -21,12 +21,12 @@
         <form method="POST" action="{{ route('admin.login') }}">
             @csrf
 
-            <!-- Email Address -->
-                <x-input-label for="email" :value="__('Username')" />
+            <!-- Username -->
+                <x-input-label for="username" :value="__('Username')" />
 
-                <x-text-input id="email" class="mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-text-input id="username" class="mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
 
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-input-error :messages="$errors->get('username')" class="mt-2" />
 
             <!-- Password -->
                 <x-input-label class="mt-4" for="password" :value="__('Password')" />

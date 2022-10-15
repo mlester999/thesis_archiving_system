@@ -10,6 +10,8 @@
       href="images/favicon-32x32.png"
     />
 
+    <link rel="shortcut icon" href="{{ asset('library_icon.ico') }}">
+
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -36,53 +38,48 @@
           <a href="/dashboard"><img class="w-80" src="images/Logo.png" alt="" /></a>
         </div>
 
+        @php
+
+          $id = Auth::user()->id;
+          $adminData = App\Models\User::find($id);
+          $adminDataDisplay = explode(" ", $adminData->first_name);
+
+        @endphp
+
         <!-- Right Buttons Menu -->
-        <div class="hidden space-x-8 tracking-wider font-bold lg:flex">
+        <div class="profile-menu space-x-8 tracking-wider font-bold lg:flex">
+          <ul>
+            <li>
             <button
-            class="flex h-11 items-center justify-center rounded-full bg-white px-2 text-slate-600 hover:bg-slate-100 duration:200"
+            class="z-20 flex h-11 items-center justify-center rounded-full bg-white px-2 text-slate-600 hover:bg-slate-100 duration:200"
           >
             <img
               src="{{ asset('images/R.png') }}"
               alt=""
               class="h-8 w-8 rounded-full object-cover"
             />
-            <span class="pl-2 text-sm">Sannel</span>
+            <span class="pl-2 text-sm">{{ $adminDataDisplay[0] }}</span>
             <i class="fa-solid fa-chevron-down mx-2"></i>
           </button>
+
+          <div class="dropdown shadow-2xl">
+            <ul>
+              <li class="pb-4 hover:text-slate-500 duration-200">
+                <a href="#" class="text-xs"><i class="fas fa-user fa-xl"></i> Profile</a>
+              </li>
+              <li class="pb-4 hover:text-slate-500 duration-200">
+                <a href="#" class="text-xs"><i class="fas fa-sliders-h"></i>Settings</a>
+              </li>
+              <li class="pb-4 hover:text-slate-500 duration-200">
+                <a href="{{ route('logout') }}" class="text-xs"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              </li>
+            </ul>
           </div>
-
-        <!-- Hamburger Button -->
-        <button
-          id="menu-btn"
-          class="block hamburger lg:hidden focus:outline-none"
-          type="button"
-        >
-          <span class="hamburger-top"></span>
-          <span class="hamburger-middle"></span>
-          <span class="hamburger-bottom"></span>
-        </button>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div
-        id="menu"
-        class="absolute hidden p-6 rounded-lg bg-darkViolet left-6 right-6 top-20 z-100"
-      >
-        <div
-          class="flex flex-col items-center justify-center w-full space-y-6 font-bold text-white rounded-sm"
-        >
-          <a href="#" class="w-full text-center">Features</a>
-          <a href="#" class="w-full text-center">Pricing</a>
-          <a href="#" class="w-full text-center">Resources</a>
-          <a href="#" class="w-full pt-6 border-t border-gray-400 text-center"
-            >Login</a
-          >
-          <a href="#" class="w-full py-3 text-center rounded-full bg-cyan"
-            >Sign Up</a
-          >
-        </div>
+        </li>
+        </ul>
       </div>
     </nav>
+    
     <div class="relative container mx-auto p-6 bg-white shadow-lg max-w-full">
         <div class="flex items-center mx-40">
             <div class="hidden space-x-8 tracking-wider font-bold lg:flex">

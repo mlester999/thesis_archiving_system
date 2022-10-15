@@ -6,58 +6,98 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-const btn = document.getElementById("menu-btn");
-const menu = document.getElementById("menu");
-
-const linkForm = document.getElementById("link-form");
-
-btn.addEventListener("click", navToggle);
-
-// Toggle Mobile Menu
-function navToggle() {
-    btn.classList.toggle("open");
-    menu.classList.toggle("flex");
-    menu.classList.toggle("hidden");
-}
-
-// Slider
+// Elements
 const slides = document.querySelectorAll(".slide");
 const btnLeft = document.querySelector(".slider__btn--left");
 const btnRight = document.querySelector(".slider__btn--right");
+const dotContainer = document.querySelector(".dots");
 
-let currSlide = 0;
-const maxSlide = slides.length;
-
-const goToSlide = function (slide) {
-    slides.forEach((s, index) => {
-        s.style.transform = `translateX(${100 * (index - slide)}%)`;
+setTimeout(() => {
+    slides.forEach((el, i) => {
+        el.style.transition = "transform 1s";
     });
+}, 100);
+
+// Display the menu if the profile button was clicked
+document
+    .querySelector(".profile-menu ul li")
+    .addEventListener("click", function () {
+        this.classList.toggle("active");
+    });
+
+// Images Sliders in the Home Page
+const sliders = function () {
+    let currSlide = 0;
+    const maxSlide = slides.length;
+
+    // Functions
+    const createDots = function () {
+        slides.forEach((_, index) => {
+            dotContainer.insertAdjacentHTML(
+                "beforeend",
+                `<button class="dots__dot" data-slide="${index}"></button>`
+            );
+        });
+    };
+
+    const activateDot = function (slide) {
+        document
+            .querySelectorAll(".dots__dot")
+            .forEach((dot) => dot.classList.remove("dots__dot--active"));
+
+        document
+            .querySelector(`.dots__dot[data-slide="${slide}"]`)
+            .classList.add("dots__dot--active");
+    };
+
+    const goToSlide = function (slide) {
+        slides.forEach((s, index) => {
+            s.style.transform = `translateX(${100 * (index - slide)}%)`;
+        });
+    };
+
+    const nextSlide = function () {
+        if (currSlide === maxSlide - 1) {
+            currSlide = 0;
+        } else {
+            currSlide++;
+        }
+
+        goToSlide(currSlide);
+        activateDot(currSlide);
+    };
+
+    const prevSlide = function () {
+        if (currSlide === 0) {
+            currSlide = maxSlide - 1;
+        } else {
+            currSlide--;
+        }
+
+        goToSlide(currSlide);
+        activateDot(currSlide);
+    };
+
+    const init = function () {
+        goToSlide(0);
+        createDots();
+        activateDot(0);
+    };
+    init();
+
+    // Event Handlers
+    btnLeft.addEventListener("click", prevSlide);
+    btnRight.addEventListener("click", nextSlide);
+
+    dotContainer.addEventListener("click", function (e) {
+        if (e.target.classList.contains("dots__dot")) {
+            const { slide } = e.target.dataset;
+            goToSlide(slide);
+            activateDot(slide);
+        }
+    });
+
+    setInterval(nextSlide, 5000);
 };
 
-goToSlide(0);
-
-const nextSlide = function () {
-    if (currSlide === maxSlide - 1) {
-        currSlide = 0;
-    } else {
-        currSlide++;
-    }
-
-    goToSlide(currSlide);
-};
-
-const prevSlide = function () {
-    if (currSlide === 0) {
-        currSlide = maxSlide - 1;
-    } else {
-        currSlide--;
-    }
-
-    goToSlide(currSlide);
-};
-
-// Previous slide
-btnLeft.addEventListener("click", prevSlide);
-
-// Next slide
-btnRight.addEventListener("click", nextSlide);
+sliders();

@@ -44,7 +44,6 @@
 
             <div class="w-full min-h-screen p-6 absolute z-20">
                 
-                
                 <div class="outline outline-white outline-1 w-11/12 md:w-5/6 2xl:w-5/6 absolute top-1/3 mt-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md bg-white/30 rounded-lg md:p-20 p-10">
                     
                     <h1 class="font-bold text-white text-lg text-center md:text-xl lg:text-3xl xl:text-4xl tracking-wider mb-4" style="text-shadow: 2px 1px #000;">Theses and Capstone Projects Archiving System</h1>

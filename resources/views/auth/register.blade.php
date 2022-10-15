@@ -9,14 +9,32 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- Name -->
+            <!-- Full Name -->
             <div>
-                <x-input-label for="name" :value="__('Name')" />
+                <x-input-label for="firstName" :value="__('First Name')" />
 
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-text-input id="firstName" class="block mt-1 w-full" type="text" name="firstName" :value="old('fullName')" required autofocus />
 
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                <x-input-error :messages="$errors->get('firstName')" class="mt-2" />
             </div>
+
+            <!-- Last Name -->
+            <div>
+                <x-input-label for="lastName" :value="__('Last Name')" />
+
+                <x-text-input id="lastName" class="block mt-1 w-full" type="text" name="lastName" :value="old('lastName')" required autofocus />
+
+                <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
+            </div>
+
+            <!-- Username -->
+            <div class="mt-4">
+            <x-input-label for="username" :value="__('Username')" />
+
+            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
 
             <!-- Email Address -->
             <div class="mt-4">

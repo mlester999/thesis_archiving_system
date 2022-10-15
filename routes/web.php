@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +19,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// User Routes
+Route::controller(UserController::class)->group(function () {
+    Route::get('/logout', 'destroy')->name('logout');
+});
+
 Route::get('/dashboard', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('home');
 
 require __DIR__.'/auth.php';
 
+// Admin Routes
+Route::controller(AdminController::class)->group(function () {
+    Route::get('/admin/logout', 'destroy')->name('admin.logout');
+    Route::get('/admin/profile', 'Profile')->name('admin.profile');
+    Route::get('/admin/edit/profile', 'EditProfile')->name('admin.edit.profile');
+    Route::post('/admin/store/profile', 'StoreProfile')->name('admin.store.profile');
+
+    Route::get('/admin/change/password', 'ChangePassword')->name('admin.change.password');
+    Route::post('/admin/update/password', 'UpdatePassword')->name('admin.update.password');
+
+    Route::get('/admin/user/list', 'UserList')->name('admin.user.list');
+});
+
 Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+    return view('admin.index');
 })->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
 
 require __DIR__.'/adminauth.php';
