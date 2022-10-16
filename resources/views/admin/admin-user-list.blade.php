@@ -30,7 +30,63 @@
 	  </div>
 	</div>
 
-	<!--Modal-->
+	<div
+	  class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+	>
+	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200">
+		<thead class="bg-gray-50">
+		  <tr
+			tabindex="0"
+			class="focus:outline-none h-16 w-full text-md leading-none text-gray-800"
+		  >
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">#</th>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student ID</th>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student Name</th>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address</th>
+			<th class="font-semibold text-left pl-2 text-gray-700 uppercase tracking-normal">Created at</th>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Action</th>
+		  </tr>
+		</thead>
+		<tbody class="w-full">
+			@foreach($users as $user)
+		  <tr
+			tabindex="0"
+			class="focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
+		  >
+			<td class="pl-8 cursor-pointer">
+			  <div class="flex items-center">
+				<div>
+				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
+				</div>
+			  </div>
+			</td>
+			<td class="pl-12">
+			  <p class="text-md font-medium leading-none text-gray-800">
+				{{ $user->student_id }}
+			  </p>
+			</td>
+			<td class="pl-12">
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
+			</td>
+			<td class="pl-12">
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
+			</td>
+			<td class="pl-2">
+				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at }}</p>
+			  </td>
+			<td class="pl-12">
+				<a href="#" class="text-green-600 hover:text-green-900">Edit</a>
+			  </td>
+		  </tr>
+		  @endforeach
+		</tbody>
+	  </table>
+	  <div
+		class="px-5 bg-white pt-8 pb-5 flex flex-col xs:flex-row xs:justify-between"
+		>	
+		{{ $users->links() }}
+	  </div>
+	  	<!--Modal-->
 	<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
 		<div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 		
@@ -90,7 +146,7 @@
 	
 				<!-- Email Address -->
 				<div class="mt-4 px-4">
-					<x-input-label for="email" :value="__('Email')" />
+					<x-input-label for="email" :value="__('Email Address')" />
 	
 					<x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
 	
@@ -130,63 +186,6 @@
 			</form>			
 		  </div>
 		</div>
-	  </div>
-
-	<div
-	  class="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto"
-	>
-	  <table class="w-full whitespace-nowrap">
-		<thead>
-		  <tr
-			tabindex="0"
-			class="focus:outline-none h-16 w-full text-md leading-none text-gray-800"
-		  >
-			<th class="font-semibold text-left pl-4">#</th>
-			<th class="font-semibold text-left pl-12">Student ID</th>
-			<th class="font-semibold text-left pl-12">Student Name</th>
-			<th class="font-semibold text-left pl-20">Email Address</th>
-			<th class="font-semibold text-left pl-12">Created at</th>
-			<th class="font-semibold text-left pl-12">Action</th>
-		  </tr>
-		</thead>
-		<tbody class="w-full">
-			@foreach($users as $user)
-		  <tr
-			tabindex="0"
-			class="focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
-		  >
-			<td class="pl-4 cursor-pointer">
-			  <div class="flex items-center">
-				<div>
-				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
-				</div>
-			  </div>
-			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $user->student_id }}
-			  </p>
-			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
-			</td>
-			<td class="pl-20">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
-			</td>
-			<td class="pl-12">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at }}</p>
-			  </td>
-			<td class="pl-12">
-				<a href="#" class="text-green-600 hover:text-green-900">Edit</a>
-			  </td>
-		  </tr>
-		  @endforeach
-		</tbody>
-	  </table>
-	  <div
-		class="px-5 bg-white pt-8 pb-5 flex flex-col xs:flex-row xs:justify-between"
-		>	
-		{{ $users->links() }}
 	  </div>
 	</div>
   </div>
