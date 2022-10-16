@@ -12,7 +12,7 @@
         <div class="p-6 md:p-16">
         <!-- Top Content -->
         <h2 class="font-sans mb-5 text-4xl font-bold">Log In</h2>
-        <p class="max-w-sm mb font-sans font-light text-gray-600">
+        <p class="max-w-sm font-sans font-light text-gray-600">
           Please log in your student account.
         </p>
         <!-- Session Status -->

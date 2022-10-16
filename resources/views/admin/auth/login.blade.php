@@ -12,7 +12,7 @@
         <div class="p-6 md:p-16">
         <!-- Top Content -->
         <h2 class="font-sans mb-5 text-4xl font-bold">Log In</h2>
-        <p class="max-w-sm mb-12 font-sans font-light text-gray-600">
+        <p class="max-w-sm font-sans font-light text-gray-600">
           Please log in your admin account.
         </p>
         <!-- Session Status -->
@@ -22,7 +22,7 @@
             @csrf
 
             <!-- Username -->
-                <x-input-label for="username" :value="__('Username')" />
+                <x-input-label class="mt-8" for="username" :value="__('Username')" />
 
                 <x-text-input id="username" class="mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
 
@@ -48,7 +48,7 @@
 
             <div class="flex flex-col mx-auto items-center justify-between mt-6 mb-2 space-y-6 md:flex-row md:space-y-0">
                 @if (Route::has('admin.password.request'))
-                    <a class="font-thin mr-24 text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="font-thin mr-24 text-gray-600 hover:text-gray-900" href="{{ route('admin.password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif

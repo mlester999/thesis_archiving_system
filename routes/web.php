@@ -26,7 +26,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::get('/dashboard', function () {
     return view('home');
-})->middleware(['auth'])->name('home');
+})->middleware(['auth', 'verified'])->name('home');
 
 require __DIR__.'/auth.php';
 

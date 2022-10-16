@@ -1,12 +1,19 @@
-<x-guest-layout>
+<x-admin-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
+            {{-- <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            </a> --}}
         </x-slot>
 
-        <form method="POST" action="{{ route('password.update') }}">
+        <div class="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
+            <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
+            <!-- Left Side -->
+            <div class="p-6 md:p-16">
+            <!-- Top Content -->
+            <h2 class="font-sans mb-5 text-4xl font-bold mr-48">Resetasdasd Password</h2>
+
+        <form method="POST" action="{{ route('admin.password.update') }}">
             @csrf
 
             <!-- Password Reset Token -->
@@ -46,6 +53,8 @@
                     {{ __('Reset Password') }}
                 </x-primary-button>
             </div>
+        </div>
         </form>
+    </div>
     </x-auth-card>
-</x-guest-layout>
+</x-admin-guest-layout>
