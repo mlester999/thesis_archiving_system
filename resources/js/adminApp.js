@@ -26,24 +26,39 @@ function navToggle() {
     menu.classList.toggle("hidden");
 }
 
-const labelsBarChart = ["January", "February", "March", "April", "May", "June"];
+var openmodal = document.querySelectorAll(".modal-open");
+for (var i = 0; i < openmodal.length; i++) {
+    openmodal[i].addEventListener("click", function (event) {
+        event.preventDefault();
+        toggleModal();
+    });
+}
 
-const dataBarChart = {
-    labels: labelsBarChart,
-    datasets: [
-        {
-            label: "My First Dataset",
-            backgroundColor: "hsl(252, 82.9%, 67.8%)",
-            borderColor: "hsl(252, 82.9%, 67.8%)",
-            data: [0, 10, 5, 2, 20, 30, 45],
-        },
-    ],
+const overlay = document.querySelector(".modal-overlay");
+overlay.addEventListener("click", toggleModal);
+
+var closemodal = document.querySelectorAll(".modal-close");
+for (var i = 0; i < closemodal.length; i++) {
+    closemodal[i].addEventListener("click", toggleModal);
+}
+
+document.onkeydown = function (evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = evt.key === "Escape" || evt.key === "Esc";
+    } else {
+        isEscape = evt.keyCode === 27;
+    }
+    if (isEscape && document.body.classList.contains("modal-active")) {
+        toggleModal();
+    }
 };
 
-const configBarChart = {
-    type: "bar",
-    data: dataBarChart,
-    options: {},
-};
-
-let chartBar = new Chart(document.getElementById("chartBar"), configBarChart);
+function toggleModal() {
+    const body = document.querySelector("body");
+    const modal = document.querySelector(".modal");
+    modal.classList.toggle("opacity-0");
+    modal.classList.toggle("pointer-events-none");
+    body.classList.toggle("modal-active");
+}

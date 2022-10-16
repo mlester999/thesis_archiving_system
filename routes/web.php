@@ -26,7 +26,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::get('/dashboard', function () {
     return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+})->middleware(['auth'])->name('home');
 
 require __DIR__.'/auth.php';
 
@@ -41,10 +41,11 @@ Route::controller(AdminController::class)->group(function () {
     Route::post('/admin/update/password', 'UpdatePassword')->name('admin.update.password');
 
     Route::get('/admin/user/list', 'UserList')->name('admin.user.list');
+    Route::post('/admin/user/register', 'RegisterUser')->name('admin.user.register');
 });
 
 Route::get('/admin/dashboard', function () {
     return view('admin.index');
-})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
+})->middleware(['auth:admin'])->name('admin.dashboard');
 
 require __DIR__.'/adminauth.php';
