@@ -49,10 +49,10 @@
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
-		<tbody class="w-full">
+		<tbody class="w-full" id="main-table-body">
 			@foreach($users as $key => $user)
 		  <tr
-			tabindex="0"
+			tabindex="{{ $user->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
 		  >
 			<td class="pl-8 cursor-pointer">
@@ -89,19 +89,23 @@
 			  </td>
 			<td class="pl-12">
 				{{-- <a href="#" class="text-green-600 hover:text-green-900">Edit</a> --}}
-				<button onclick="toggleDD('myDropdown')" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-					<p class="px-4">Action</p>
-					<span class="border-1 p-2 hover:bg-gray-100">
-						<i class="fa-solid fa-caret-down"></i>	
-					</span>
-					<div class="absolute hidden group-focus:block z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
-						<ul class="text-left border rounded">
-							<li class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
-							<li class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
-						</ul>
-					</div>
-				</button>
+				
+				<button id="dropdownDefault" data-dropdown-toggle="dropdown" class="show-menu text-black border-2 border-green-500 bg-white hover:bg-slate-100 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button">Action <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+				<!-- Dropdown menu -->
+				<div id="dropdown" class="hidden z-10 w-28 bg-white rounded divide-y divide-gray-100 shadow-xl" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 510.4px, 0px);" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom">
+					<ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
+					<li>
+						<button id="{{ $user->id }}" class="view-modal-open w-full block py-2 px-4 hover:bg-gray-100 border-gray-200 border-b"><i class="fa-solid fa-eye mr-1"></i> View</button>
+					</li>
+					<li>
+						<button class="block py-2 w-full px-4 hover:bg-gray-100 border-gray-200 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</button>
+					</li>
+					<li>
+						<button class="block w-full py-2 px-4 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</button>
+					</li>
+					</ul>
+				</div>
+
 			  </td>
 		  </tr>
 		  @endforeach
@@ -214,6 +218,52 @@
 		  </div>
 		</div>
 	  </div>
+
+	  	<!--View Modal-->
+	<div class="view-modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+		<div class="view-modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+		
+		<div class="view-modal-container bg-white w-11/12 md:max-w-md lg:max-w-2xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+		  
+		  <div class="view-modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+			<svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+			  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+			</svg>
+			<span class="text-sm">(Esc)</span>
+		  </div>
+	
+		  <!-- Add margin if you want to see some of the overlay behind the modal-->
+		  <div class="view-modal-content py-4 text-left px-6">
+			<!--Title-->
+			<div class="flex justify-between items-center pb-6">
+			  <p class="text-2xl font-bold">Student Details</p>
+			  <div class="view-modal-close cursor-pointer z-50">
+				<svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+				  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+				</svg>
+			  </div>
+			</div>
+
+			@php
+			$userData = App\Models\User::find(2);
+			$userDataDisplay = $userData->last_name . ', ' . $userData->first_name;
+
+			@endphp
+
+			<div class="grid grid-cols-2 py-2">
+				<div>
+					<img src="{{ asset('/images/R.png') }}" alt="">
+				</div>
+				<div>
+					<p>Student Name:</p>
+					<p>{{ $userDataDisplay }}</p>
+				</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+
 	</div>
 	@include('admin.body.footer')
   </div>

@@ -16,6 +16,8 @@
 
     <link rel="shortcut icon" href="{{ asset('library_icon.ico') }}">
 
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+
     	<!--Regular Datatables CSS-->
 	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
 	<!--Responsive Extension Datatables CSS-->
@@ -59,6 +61,7 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 
 	<!--Datatables -->
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
