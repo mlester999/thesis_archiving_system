@@ -6,6 +6,8 @@
             </a>
         </x-slot>
 
+        
+
         <form method="POST" action="{{ route('register') }}">
             @csrf
 

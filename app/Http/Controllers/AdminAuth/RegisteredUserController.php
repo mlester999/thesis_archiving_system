@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminAuth;
 
+use App\Events\AdminRegisterMailEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
@@ -49,7 +50,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        event(new AdminRegisterMailEvent($user));
 
         Auth::guard('admin')->login($user);
 

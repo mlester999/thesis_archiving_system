@@ -60,7 +60,7 @@
                             @if (Route::has('admin.login'))
 
                                 @auth('admin')
-                                    <a href="{{ url('/admin/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Dashboard</a>
+                                    <a href="{{ url('admin/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Dashboard</a>
                                 @else
                                     <a href="{{ route('admin.login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Login</a>
             

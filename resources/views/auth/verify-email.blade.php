@@ -6,9 +6,14 @@
             </a> --}}
         </x-slot>
 
-        <div class="w-full relative z-10 sm:max-w-md mt-6 px-12 py-8 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="relative max-w-xl flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
+            <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
+            <!-- Left Side -->
+            <div class="p-6 md:p-16">
+            <!-- Top Content -->
+            <h2 class="font-sans mb-5 text-4xl font-bold mr-12">Verify Email Address</h2>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-md text-gray-600">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
         </div>
 
@@ -18,25 +23,16 @@
             </div>
         @endif
 
-        <div class="mt-4 flex items-center justify-between">
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 
-                <div>
+                <div class="flex items-center justify-center mt-8">
                     <x-primary-button>
                         {{ __('Resend Verification Email') }}
                     </x-primary-button>
                 </div>
+            </div>
             </form>
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-
-                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    {{ __('Log Out') }}
-                </button>
-            </form>
-        </div>
     </div>
     </x-auth-card>
 </x-guest-layout>

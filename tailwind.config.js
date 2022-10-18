@@ -25,8 +25,15 @@ module.exports = {
                 mono: ["Rokkitt", "monospace"],
             },
             spacing: {
+                26: "6.5rem",
                 180: "32rem",
             },
+        },
+    },
+
+    variants: {
+        extend: {
+            display: ["group-focus"],
         },
     },
 

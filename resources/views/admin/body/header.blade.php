@@ -1,16 +1,71 @@
+@php
+$id = Auth::guard('admin')->user()->id;
+$adminData = App\Models\Admin::find($id);
+$adminDataDisplay = explode(" ", $adminData->first_name);
+
+@endphp
+
 <!-- Header -->
 <nav class="bg-green-600 shadow-md">
     <div class="mx-auto">
-        <div class="flex justify-between py-2 px-8">
+        <div class="flex justify-between py-2 px-12">
             <div class="flex items-center space-x-2 font-bold text-gray-400">
                 <img class="max-w-xs" src="/images/Logo.png" alt="">
             </div>
 
-            <div class="hidden md:flex space-x-4">
+            <li class="flex-1 hidden md:flex md:flex-none md:mt-2 space-x-4 list-none">
+                <div class="relative inline-block">
+                  <button
+                    onclick="toggleDD('myDropdown')"
+                    class="drop-button text-white py-2 px-2"
+                  >
+                    <span class="pr-2"><i class="fa-solid fa-user"></i></span>
+                    Hello, {{ $adminDataDisplay[0] }}
+                    <svg
+                      class="h-3 fill-current inline"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                      />
+                    </svg>
+                  </button>
+                  <div
+                    id="myDropdown"
+                    class="dropdownlist absolute shadow-lg bg-white rounded text-black right-0 mt-3 w-48 overflow-auto z-30 invisible"
+                  >
+
+                    <a
+                      href="{{ route('admin.profile') }}"
+                      class="p-2 hover:bg-slate-300 text-black text-sm no-underline hover:no-underline block"
+                      ><i class="fa-solid fa-fw fa-user-gear ml-4 mt-2"></i> View Profile</a
+                    >
+                    <a
+                      href="{{ route('admin.change.password') }}"
+                      class="p-2 hover:bg-slate-300 text-black text-sm no-underline hover:no-underline block"
+                      ><i class="fa-solid fa-fw fa-lock ml-4 mt-2"></i> Change Password</a
+                    >
+                    <a
+                      href="#"
+                      class="p-2 hover:bg-slate-300 text-black text-sm no-underline hover:no-underline block"
+                      ><i class="fa fa-cog fa-fw ml-4 mt-2"></i> Settings</a
+                    >
+                    <form method="POST" action="{{ route('admin.logout') }}">
+                        @csrf
+                    <button
+                      href="#"
+                      class="p-2 w-full text-left hover:bg-slate-300 text-red-500 text-sm no-underline hover:no-underline block"
+                      ><i class="fas fa-sign-out-alt fa-fw ml-4 my-2"></i> Log Out</
+                    >
+                    </form>
+                </div>
+              </li>
+            {{-- <div class="hidden md:flex space-x-4">
                 <div class="hidden md:flex">
                     <input type="text" class="lg:w-96 sm:w-48 h-10 mt-2 bg-gray-100 rounded-md px-4 focus:outline-none" placeholder="Search">
                 </div>
-            </div>
+            </div> --}}
 
              <!-- Hamburger Button -->
         <button

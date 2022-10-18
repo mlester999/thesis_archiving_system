@@ -11,7 +11,7 @@
             <!-- Left Side -->
             <div class="p-6 md:p-16">
             <!-- Top Content -->
-            <h2 class="font-sans mb-5 text-4xl font-bold mr-48">Resetasdasd Password</h2>
+            <h2 class="font-sans mb-5 text-4xl font-bold mr-48">Reset Password</h2>
 
         <form method="POST" action="{{ route('admin.password.update') }}">
             @csrf

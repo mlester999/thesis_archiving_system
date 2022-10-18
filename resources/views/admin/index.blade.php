@@ -2,9 +2,9 @@
 @section('admin')
  
  <!-- Content -->
- <div class="bg-slate-200 h-screen w-full overflow-y-auto">
+ <div class="h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">
-        <h5 class="pb-6 pt-3 font-bold uppercase">Dashboard</h5>
+        <h5 class="pb-6 pt-3 font-bold uppercase text-2xl leading-7">Dashboard</h5>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
 
             {{-- First Container --}}

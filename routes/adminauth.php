@@ -15,7 +15,7 @@ Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'adm
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('store');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
                 ->name('verification.notice');
 
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-                ->middleware(['signed', 'throttle:6,1'])
+                ->middleware(['signed:admin', 'throttle:6,1'])
                 ->name('verification.verify');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])

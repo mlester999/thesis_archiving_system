@@ -46,6 +46,6 @@ Route::controller(AdminController::class)->group(function () {
 
 Route::get('/admin/dashboard', function () {
     return view('admin.index');
-})->middleware(['auth:admin'])->name('admin.dashboard');
+})->middleware(['auth:admin', 'custom_verify'])->name('admin.dashboard');
 
 require __DIR__.'/adminauth.php';

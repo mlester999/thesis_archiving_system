@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+::selection {
+    background: lightblue;
+}
+
 /* HAMBURGER MENU */
 
 .hamburger {

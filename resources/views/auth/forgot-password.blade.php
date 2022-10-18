@@ -13,7 +13,7 @@
             <!-- Top Content -->
             <h2 class="font-sans mb-5 text-4xl font-bold">Forgot Password</h2>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-md text-gray-600">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
 

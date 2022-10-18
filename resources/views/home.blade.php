@@ -71,7 +71,10 @@
                 <a href="#" class="text-xs"><i class="fas fa-sliders-h"></i>Settings</a>
               </li>
               <li class="pb-4 hover:text-slate-500 duration-200">
-                <a href="{{ route('logout') }}" class="text-xs"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                <button class="text-xs"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
               </li>
             </ul>
           </div>
