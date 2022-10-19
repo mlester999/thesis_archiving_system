@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
-use App\Http\Controllers\AdminAuth\ConfirmablePasswordController;
-use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
-use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
-use App\Http\Controllers\AdminAuth\NewPasswordController;
-use App\Http\Controllers\AdminAuth\PasswordResetLinkController;
-use App\Http\Controllers\AdminAuth\RegisteredUserController;
-use App\Http\Controllers\AdminAuth\VerifyEmailController;
+use App\Http\Livewire\UserList;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAuth\NewPasswordController;
+use App\Http\Controllers\AdminAuth\VerifyEmailController;
+use App\Http\Controllers\AdminAuth\RegisteredUserController;
+use App\Http\Controllers\AdminAuth\PasswordResetLinkController;
+use App\Http\Controllers\AdminAuth\ConfirmablePasswordController;
+use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
+use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
+use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'adm
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
+    
 });
 
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
@@ -54,4 +56,6 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::get('user-list', UserList::class)->name('user-list');
 });
