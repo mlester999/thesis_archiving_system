@@ -112,7 +112,7 @@
 						<ul class="text-left border rounded">
 							<li class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
 							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
+							<li wire:click="delete({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
 						</ul>
 					</div>
 				</button>
@@ -140,6 +140,26 @@
 		{{ $users->links() }}
 	  </div>
 
+	  {{-- Show Delete Modal --}}
+	  <form wire:submit.prevent="deleteUser" class="py-4">
+
+		<x-confirmation-modal wire:model.defer="showDeleteModal">
+		  <x-slot name="title">Delete User</x-slot>
+	  
+		  <x-slot name="content">
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this user?</h1> 
+			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
+		  </x-slot>
+		  
+			  <x-slot name="footer">
+				  <x-secondary-button wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				  <x-delete-button class="mx-2">Delete</x-delete-button>
+			  </x-slot>
+			  </x-confirmation-modal>
+		  </form>		
+
+
+	  {{-- Show Edit Modal --}}
 	  <form wire:submit.prevent="save" class="py-4">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
@@ -148,13 +168,13 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-2 py-2">
+				<div class="grid grid-cols-2 py-6">
 
 				<!-- First Name -->
 				<div class="px-4">
 					<x-input-label for="first_name" :value="__('First Name')" />
 	
-					<x-text-input wire:model="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" autofocus />
+					<x-text-input wire:model="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2" />
 				</div>
@@ -163,7 +183,7 @@
 				<div class="px-4">
 					<x-input-label for="last_name" :value="__('Last Name')" />
 	
-					<x-text-input wire:model="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')"/>
+					<x-text-input wire:model="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
 	
 					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
 				</div>
@@ -172,7 +192,7 @@
 				<div class="mt-4 px-4">
 				<x-input-label for="student_id" :value="__('Student ID')" />
 	
-				<x-text-input wire:model="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" :value="old('student_id')" />
+				<x-text-input wire:model="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
 	
 				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2" />
 			</div>
@@ -181,24 +201,15 @@
 				<div class="mt-4 px-4">
 					<x-input-label for="email" :value="__('Email Address')" />
 	
-					<x-text-input wire:model="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"/>
+					<x-text-input wire:model="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
 					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
-				</div>
-
-				<!-- Email Address -->
-				<div class="mt-4 px-4">
-					<x-input-label for="password" :value="__('Email Address')" />
-	
-					<x-text-input wire:model="editing.password" id="password" class="block mt-1 w-full" type="text" name="password" :value="old('password')"/>
-	
-					<x-input-error :messages="$errors->get('editing.password')" class="mt-2" />
 				</div>
 			</div>
 		</x-slot>
 		
 			<x-slot name="footer">
-				<x-secondary-button wire:click="$set('showEditModal', 'false')" class="mx-2">Cancel</x-secondary-button>
+				<x-secondary-button wire:click="$set('showEditModal', false)" class="mx-2">Cancel</x-secondary-button>
 				<x-primary-button class="mx-2">Save</x-primary-button>
 			</x-slot>
 			</x-dialog-modal>

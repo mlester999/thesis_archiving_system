@@ -7,9 +7,11 @@ use Livewire\Component;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Hash;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class UserList extends Component
 {
+    use LivewireAlert;
     use WithPagination;
 
     public $search = '';
@@ -17,6 +19,10 @@ class UserList extends Component
     public $sortField = 'id';
 
     public $sortDirection = 'asc';
+
+    public $deleteUser;
+
+    public $showDeleteModal = false;
 
     public $showEditModal = false;
 
@@ -41,7 +47,7 @@ class UserList extends Component
     }
 
     public function makeBlankUser() {
-        return User::make(['password' => Hash::make('0000')]);
+        return User::make();
     }
 
     public function sortBy($field) {
@@ -66,8 +72,23 @@ class UserList extends Component
 
         $this->editing->save();
 
-
         $this->showEditModal = false;
+
+        $this->alert('success', 'User Edit Successfully!');
+    }
+
+    public function delete($user) {
+        $this->deleteUser = User::find($user);
+
+        $this->showDeleteModal = true;
+    }
+
+    public function deleteUser() {
+        $this->deleteUser->delete();
+
+        $this->showDeleteModal = false;
+
+        $this->alert('success', 'User Deleted Successfully!');
     }
 
 
