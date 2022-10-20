@@ -7,7 +7,7 @@
 		  <h2
 			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
 		  >
-			Admin User List
+			Student List
 		  </h2>
 		</div>
 		<div class="mt-4 flex md:mt-0 md:ml-4 z-0">
@@ -23,7 +23,7 @@
 			type="button"
 			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
-			New User
+			New Student
 		  </button>
 		</div>
 	  </div>
@@ -40,12 +40,12 @@
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Username 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student ID 
 				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Admin Name 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student Name 
 				<span wire:click="sortBy('last_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'last_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -79,7 +79,7 @@
 			</td>
 			<td class="pl-12">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $user->username }}
+				{{ $user->student_id }}
 			  </p>
 			</td>
 			<td class="pl-12">
@@ -161,8 +161,8 @@
 					<p class="text-left mt-2 mb-2">{{ $firstName }}</p>
 					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
-					<h1 class="text-lg font-semibold text-left">Username:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $username }}</p>
+					<h1 class="text-lg font-semibold text-left">Student ID:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $studentId }}</p>
 					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $email }}</p>
 				  </div>
@@ -223,13 +223,13 @@
 					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
 				</div>
 	
-				<!-- Username -->
+				<!-- Student ID -->
 				<div class="mt-4 px-4">
-				<x-input-label for="username" :value="__('Username')" />
+				<x-input-label for="student_id" :value="__('Student ID')" />
 	
-				<x-text-input wire:model="editing.username" id="username" class="block mt-1 w-full" type="text" name="username" placeholder="Username" :value="old('username')" />
+				<x-text-input wire:model="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
 	
-				<x-input-error :messages="$errors->get('editing.username')" class="mt-2" />
+				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2" />
 			</div>
 	
 				<!-- Email Address -->

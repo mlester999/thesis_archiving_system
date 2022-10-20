@@ -23,7 +23,7 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
             <a href="{{ route('admin.dashboard') }}" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-dashboard-line class="w-5 mr-3" /> Dashboard</a>
             <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-inbox-archive-fill class="w-5 mr-3" /> Archives List</a>
             <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-mac-line class="w-5 mr-3" /> Access List</a>
-            <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-account-circle-line class="w-5 mr-3" /> Student List</a>
+            <a href="{{ route('admin.student-list') }}" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-account-circle-line class="w-5 mr-3" /> Student List</a>
             
             <hr>
 

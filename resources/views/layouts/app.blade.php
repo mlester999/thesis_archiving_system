@@ -43,7 +43,7 @@
       <div class="flex">
           @include('admin.body.sidebar')
 
-          <livewire:user-list /> 
+          {{ $slot }}
           
       </div>
       <!-- end main content-->

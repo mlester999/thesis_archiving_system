@@ -2,14 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Admin;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class UserList extends Component
+class StudentList extends Component
 {
     use LivewireAlert;
     use WithPagination;
@@ -29,7 +29,7 @@ class UserList extends Component
     // Viewing User Info
     public $firstName;
     public $lastName;
-    public $username;
+    public $studentId;
     public $email;
 
     // Modals
@@ -38,12 +38,12 @@ class UserList extends Component
     public $showViewModal = false;
 
     // Editing Table
-    public Admin $editing;
+    public User $editing;
 
     protected $rules = [
         'editing.first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.username' => 'required',
+        'editing.student_id' => 'required|numeric',
         'editing.email' => 'required|email',
     ];
 
@@ -64,27 +64,27 @@ class UserList extends Component
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add User";
+        $this->userTitle = "Add Student";
     }
 
     public function view($user) {
-        $this->viewUser = Admin::find($user);
+        $this->viewUser = User::find($user);
 
         $this->firstName = $this->viewUser->first_name;
 
         $this->lastName = $this->viewUser->last_name;
 
-        $this->username = $this->viewUser->username;
+        $this->studentId = $this->viewUser->student_id;
 
         $this->email = $this->viewUser->email;
 
         $this->showViewModal = true;
 
-        $this->userTitle = "User Info";
+        $this->userTitle = "Student Info";
     }
 
     public function makeBlankUser() {
-        return Admin::make();
+        return User::make();
     }
 
     public function sortBy($field) {
@@ -97,13 +97,13 @@ class UserList extends Component
         $this->sortField = $field;
     }
 
-    public function edit(Admin $user) {
+    public function edit(User $user) {
 
         if($this->editing->isNot($user)) $this->editing = $user;
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Edit User";
+        $this->userTitle = "Edit Student";
     }
 
     public function save() {
@@ -113,11 +113,11 @@ class UserList extends Component
 
         $this->showEditModal = false;
 
-        $this->alert('success', 'User Edit Successfully!');
+        $this->alert('success', 'Student Edit Successfully!');
     }
 
     public function delete($user) {
-        $this->deleteUser = Admin::find($user);
+        $this->deleteUser = User::find($user);
 
         $this->showDeleteModal = true;
     }
@@ -129,7 +129,7 @@ class UserList extends Component
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', 'User Deleted Successfully!');
+        $this->alert('success', 'Student Deleted Successfully!');
     }
 
 
@@ -137,8 +137,8 @@ class UserList extends Component
     {
         sleep(1);
 
-        return view('livewire.user-list', [
-            'users' => Admin::search('username', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+        return view('livewire.student-list', [
+            'users' => User::search('student_id', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
         ]);
     }
 }

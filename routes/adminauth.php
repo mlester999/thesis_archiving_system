@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\UserList;
+use App\Http\Livewire\StudentList;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuth\NewPasswordController;
 use App\Http\Controllers\AdminAuth\VerifyEmailController;
@@ -58,4 +59,6 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
                 ->name('logout');
 
     Route::get('user-list', UserList::class)->name('user-list');
+
+    Route::get('student-list', StudentList::class)->name('student-list');
 });
