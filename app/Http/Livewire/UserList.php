@@ -55,16 +55,17 @@ class UserList extends Component
 
         $this->showEditModal = false;
 
-        $this->resetErrorBag();
     }
 
     public function create() {
+
+        $this->resetErrorBag();
 
         if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add User";
+        $this->userTitle = "Add";
     }
 
     public function view($user) {
@@ -99,11 +100,13 @@ class UserList extends Component
 
     public function edit(Admin $user) {
 
+        $this->resetErrorBag();
+
         if($this->editing->isNot($user)) $this->editing = $user;
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Edit User";
+        $this->userTitle = "Edit";
     }
 
     public function save() {
@@ -113,7 +116,7 @@ class UserList extends Component
 
         $this->showEditModal = false;
 
-        $this->alert('success', 'User Edit Successfully!');
+        $this->alert('success', 'User' . ' ' . $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function delete($user) {
@@ -129,7 +132,7 @@ class UserList extends Component
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', 'User Deleted Successfully!');
+        $this->alert('success', 'User Delete Successfully!');
     }
 
 
@@ -138,7 +141,7 @@ class UserList extends Component
         sleep(1);
 
         return view('livewire.user-list', [
-            'users' => Admin::search('username', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'users' => Admin::search(['username', 'last_name', 'first_name', 'email'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
         ]);
     }
 }

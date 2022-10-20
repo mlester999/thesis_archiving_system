@@ -16,7 +16,7 @@
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
 				</span>
-				<input wire:model="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+				<input wire:model.lazy="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		  <button
 			wire:click="create"
@@ -172,7 +172,7 @@
 			  <x-slot name="footer">
 				  <x-secondary-button wire:click="$set('showViewModal', false)" class="mx-2">Cancel</x-secondary-button>
 			  </x-slot>
-			  </x-dialog-modal>	
+		</x-dialog-modal>	
 	  
 
 	  {{-- Show Delete Modal --}}
@@ -198,7 +198,7 @@
 	  <form wire:submit.prevent="save" class="py-4">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title">{{ $userTitle }}</x-slot>
+		<x-slot name="title">{{ $userTitle }} Student</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->
@@ -209,7 +209,7 @@
 				<div class="px-4">
 					<x-input-label for="first_name" :value="__('First Name')" />
 	
-					<x-text-input wire:model="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
+					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2" />
 				</div>
@@ -218,25 +218,25 @@
 				<div class="px-4">
 					<x-input-label for="last_name" :value="__('Last Name')" />
 	
-					<x-text-input wire:model="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
+					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
 	
 					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
 				</div>
 	
 				<!-- Student ID -->
-				<div class="mt-4 px-4">
+				<div class="mt-10 mb-6 px-4">
 				<x-input-label for="student_id" :value="__('Student ID')" />
 	
-				<x-text-input wire:model="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
+				<x-text-input wire:model.defer="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
 	
 				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2" />
 			</div>
 	
 				<!-- Email Address -->
-				<div class="mt-4 px-4">
+				<div class="mt-10 mb-6 px-4">
 					<x-input-label for="email" :value="__('Email Address')" />
 	
-					<x-text-input wire:model="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
+					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
 					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
 				</div>

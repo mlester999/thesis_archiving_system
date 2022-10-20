@@ -55,21 +55,20 @@ class StudentList extends Component
 
         $this->showEditModal = false;
 
-        $this->resetErrorBag();
     }
 
     public function create() {
+
+        $this->resetErrorBag();
 
         if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add Student";
+        $this->userTitle = "Add";
     }
 
-    public function view($user) {
-        $this->viewUser = User::find($user);
-
+    public function getInfo() {
         $this->firstName = $this->viewUser->first_name;
 
         $this->lastName = $this->viewUser->last_name;
@@ -77,6 +76,12 @@ class StudentList extends Component
         $this->studentId = $this->viewUser->student_id;
 
         $this->email = $this->viewUser->email;
+    }
+
+    public function view($user) {
+        $this->viewUser = User::find($user);
+
+        $this->getInfo();
 
         $this->showViewModal = true;
 
@@ -99,11 +104,13 @@ class StudentList extends Component
 
     public function edit(User $user) {
 
+        $this->resetErrorBag();
+
         if($this->editing->isNot($user)) $this->editing = $user;
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Edit Student";
+        $this->userTitle = "Edit";
     }
 
     public function save() {
@@ -113,7 +120,7 @@ class StudentList extends Component
 
         $this->showEditModal = false;
 
-        $this->alert('success', 'Student Edit Successfully!');
+        $this->alert('success', 'Student' . ' ' . $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function delete($user) {
@@ -129,16 +136,15 @@ class StudentList extends Component
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', 'Student Deleted Successfully!');
+        $this->alert('success', 'Student Delete Successfully!');
     }
-
 
     public function render()
     {
         sleep(1);
 
         return view('livewire.student-list', [
-            'users' => User::search('student_id', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'users' => User::search(['student_id', 'last_name', 'first_name', 'email'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
         ]);
     }
 }

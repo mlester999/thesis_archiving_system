@@ -198,7 +198,7 @@
 	  <form wire:submit.prevent="save" class="py-4">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title">{{ $userTitle }}</x-slot>
+		<x-slot name="title">{{ $userTitle }} User</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->
@@ -209,7 +209,7 @@
 				<div class="px-4">
 					<x-input-label for="first_name" :value="__('First Name')" />
 	
-					<x-text-input wire:model="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
+					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2" />
 				</div>
@@ -218,25 +218,25 @@
 				<div class="px-4">
 					<x-input-label for="last_name" :value="__('Last Name')" />
 	
-					<x-text-input wire:model="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
+					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
 	
 					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
 				</div>
 	
 				<!-- Username -->
-				<div class="mt-4 px-4">
+				<div class="mt-10 mb-6 px-4">
 				<x-input-label for="username" :value="__('Username')" />
 	
-				<x-text-input wire:model="editing.username" id="username" class="block mt-1 w-full" type="text" name="username" placeholder="Username" :value="old('username')" />
+				<x-text-input wire:model.defer="editing.username" id="username" class="block mt-1 w-full" type="text" name="username" placeholder="Username" :value="old('username')" />
 	
 				<x-input-error :messages="$errors->get('editing.username')" class="mt-2" />
 			</div>
 	
 				<!-- Email Address -->
-				<div class="mt-4 px-4">
+				<div class="mt-10 mb-6 px-4">
 					<x-input-label for="email" :value="__('Email Address')" />
 	
-					<x-text-input wire:model="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
+					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
 					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
 				</div>
