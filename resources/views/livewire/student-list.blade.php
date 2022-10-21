@@ -30,7 +30,16 @@
 	</div>
 
 	<div
-	  class="overflow-hidden sm:rounded-lg space-y-8 "
+	  x-data="{ 
+		open: false,
+		toggle() {
+			this.open = this.open ? this.close() : true
+		},
+		close() {
+			this.open = false
+		}
+	}"
+	  class="overflow-hidden sm:rounded-lg space-y-8"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
@@ -68,7 +77,7 @@
 			@forelse($users as $key => $user)
 		  <tr
 			tabindex="{{ $user->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
 			<td class="pl-8 cursor-pointer">
 			  <div class="flex items-center">
@@ -103,12 +112,12 @@
 				@endif
 			  </td>
 			<td class="pl-12">
-				<button onclick="toggleDD('myDropdown')" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
+				<button @click="toggle()" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
 					<span class="border-1 p-2 hover:bg-gray-100">
 						<i class="fa-solid fa-caret-down"></i>	
 					</span>
-					<div class="absolute hidden group-focus:block z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
+					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
 						<ul class="text-left border rounded">
 							<li wire:click="view({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
 							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
@@ -176,7 +185,7 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteUser" class="py-4">
+	  <form wire:submit.prevent="deleteUser">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
 		  <x-slot name="title">Delete User</x-slot>
@@ -195,7 +204,7 @@
 
 
 	  {{-- Show Edit Modal --}}
-	  <form wire:submit.prevent="save" class="py-4">
+	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
 		<x-slot name="title">{{ $userTitle }} Student</x-slot>

@@ -32,9 +32,7 @@ module.exports = {
     },
 
     variants: {
-        extend: {
-            display: ["group-focus"],
-        },
+        extend: {},
     },
 
     plugins: [require("@tailwindcss/forms")],
