@@ -28,8 +28,8 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
             <hr>
 
             <p class="uppercase text-gray-400 tracking-wider">Maintenance</p>
-            <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-list-check-2 class="w-5 mr-3" /> Department List</a>
-            <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-file-list-3-line class="w-5 mr-3" /> Curriculum List</a>
+            <a href="{{ route('admin.department-list') }}" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-list-check-2 class="w-5 mr-3" /> Department List</a>
+            <a href="{{ route('admin.curriculum-list') }}" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-file-list-3-line class="w-5 mr-3" /> Curriculum List</a>
             <a href="{{ route('admin.user-list') }}" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-profile-line class="w-5 mr-3" /> User List</a>
         </div>
     </div>
