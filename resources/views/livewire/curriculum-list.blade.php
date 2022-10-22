@@ -161,12 +161,12 @@
   
 				  <!-- First Name -->
 				  <div class="px-4">
-					 <img src="{{ asset('/images/R.png') }}" class="w-80">
+					 <img src="{{ asset('/images/pncLogo.png') }}" class="w-80">
 				  </div>
 	  
 				  <!-- Last Name -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">ID:</h1> 
+					<h1 class="text-lg font-semibold text-left">Curriculum ID:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $curriculumId }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Department:</h1> 
 					@php
@@ -253,7 +253,7 @@
                 <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option hidden>~ Select the Status ~</option>
                 <option value="1" selected >Active</option>
-                <option value="0">Deactive</option> 
+                <option value="0">Inactive</option> 
                 </select>
 	
 				<x-input-error :messages="$errors->get('editing.status')" />

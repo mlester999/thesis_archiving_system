@@ -86,7 +86,7 @@ class StudentList extends Component
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add";
+        $this->userTitle = "Add Student";
 
     }
 
@@ -134,7 +134,7 @@ class StudentList extends Component
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Edit";
+        $this->userTitle = "Edit Student";
     }
 
     public function save() {
@@ -151,6 +151,8 @@ class StudentList extends Component
         $this->deleteUser = User::find($user);
 
         $this->showDeleteModal = true;
+
+        $this->userTitle = "Delete Student";
     }
 
     public function deleteUser() {
@@ -168,7 +170,7 @@ class StudentList extends Component
         sleep(1);
 
         return view('livewire.student-list', [
-            'users' => User::search(['student_id', 'last_name', 'first_name', 'email'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'users' => User::search(['student_id', 'last_name', 'first_name', 'id'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
             'departments' => Department::all(),
             'curricula' => Curriculum::all(),
         ]);
