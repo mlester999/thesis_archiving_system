@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->integer('description_id');
+            $table->integer('curriculum_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('student_id')->unique();

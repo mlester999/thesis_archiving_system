@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Admin;
 use Livewire\Component;
+use App\Models\Curriculum;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Hash;
@@ -20,17 +22,17 @@ class CurriculumList extends Component
 
     public $sortDirection = 'asc';
 
-    public $userTitle;
+    public $curriculumTitle;
 
-    public $deleteUser;
+    public $deleteCurriculum;
 
-    public $viewUser;
+    public $viewCurriculum;
 
     // Viewing User Info
-    public $firstName;
-    public $lastName;
-    public $username;
-    public $email;
+    public $curriculumId;
+    public $departmentId;
+    public $name;
+    public $status;
 
     // Modals
     public $showDeleteModal = false;
@@ -38,17 +40,16 @@ class CurriculumList extends Component
     public $showViewModal = false;
 
     // Editing Table
-    public Admin $editing;
+    public Curriculum $editing;
 
     protected $rules = [
-        'editing.first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.username' => 'required',
-        'editing.email' => 'required|email',
+        'editing.department_id' => 'required',
+        'editing.name' => 'required',
+        'editing.status' => 'required',
     ];
 
     public function mount() {
-        $this->editing = $this->makeBlankUser();
+        $this->editing = $this->makeBlankCurriculum();
     }
 
     public function closeModal() {
@@ -61,31 +62,31 @@ class CurriculumList extends Component
 
         $this->resetErrorBag();
 
-        if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
+        if ($this->editing->getKey()) $this->editing = $this->makeBlankCurriculum();
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add Curriculum";
+        $this->curriculumTitle = "Add Curriculum";
     }
 
-    public function view($user) {
-        $this->viewUser = Admin::find($user);
+    public function view($curriculum) {
+        $this->viewCurriculum = Curriculum::find($curriculum);
 
-        $this->firstName = $this->viewUser->first_name;
+        $this->curriculumId = $this->viewCurriculum->id;
 
-        $this->lastName = $this->viewUser->last_name;
+        $this->departmentId = $this->viewCurriculum->department_id;
 
-        $this->username = $this->viewUser->username;
+        $this->name = $this->viewCurriculum->name;
 
-        $this->email = $this->viewUser->email;
+        $this->status = $this->viewCurriculum->status;
 
         $this->showViewModal = true;
 
-        $this->userTitle = "Curriculum Info";
+        $this->curriculumTitle = "Curriculum Info";
     }
 
-    public function makeBlankUser() {
-        return Admin::make();
+    public function makeBlankCurriculum() {
+        return Curriculum::make();
     }
 
     public function sortBy($field) {
@@ -98,15 +99,15 @@ class CurriculumList extends Component
         $this->sortField = $field;
     }
 
-    public function edit(Admin $user) {
+    public function edit(Curriculum $curriculum) {
 
         $this->resetErrorBag();
 
-        if($this->editing->isNot($user)) $this->editing = $user;
+        if($this->editing->isNot($curriculum)) $this->editing = $curriculum;
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Edit Curriculum";
+        $this->curriculumTitle = "Edit Curriculum";
     }
 
     public function save() {
@@ -116,25 +117,25 @@ class CurriculumList extends Component
 
         $this->showEditModal = false;
 
-        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
+        $this->alert('success', $this->curriculumTitle . ' ' . 'Successfully!');
     }
 
-    public function delete($user) {
-        $this->deleteUser = Admin::find($user);
+    public function delete($curriculum) {
+        $this->deleteCurriculum = Curriculum::find($curriculum);
 
         $this->showDeleteModal = true;
 
-        $this->userTitle = "Delete Curriculum";
+        $this->curriculumTitle = "Delete Curriculum";
     }
 
-    public function deleteUser() {
-        $this->deleteUser->delete();
+    public function deleteCurriculum() {
+        $this->deleteCurriculum->delete();
 
-        $this->editing = $this->makeBlankUser();
+        $this->editing = $this->makeBlankCurriculum();
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', 'Delete Curriculum Successfully!');
+        $this->alert('success', $this->curriculumTitle . ' ' . 'Successfully!');
     }
 
 
@@ -142,8 +143,9 @@ class CurriculumList extends Component
     {
         sleep(1);
 
-        return view('livewire.user-list', [
-            'users' => Admin::search(['username', 'last_name', 'first_name', 'email'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+        return view('livewire.curriculum-list', [
+            'curricula' => Curriculum::search(['id', 'department_id', 'name', 'status'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'departments' => Department::all(),
         ]);
     }
 }

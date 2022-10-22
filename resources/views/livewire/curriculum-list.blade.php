@@ -49,69 +49,69 @@
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Username 
-				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
+				<span wire:click="sortBy('department_id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'department_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Admin Name 
-				<span wire:click="sortBy('last_name')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'last_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+			<th class="font-semibold text-left text-gray-700 uppercase tracking-normal">Curriculum Name
+				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
-				<span wire:click="sortBy('email')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status
+				<span wire:click="sortBy('status')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Created at 
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
 				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status </th>
+			{{-- <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status </th> --}}
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
-			@forelse($users as $key => $user)
+			@forelse($curricula as $key => $curriculum)
 		  <tr
-			tabindex="{{ $user->id }}"
+			tabindex="{{ $curriculum->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8 cursor-pointer">
+			<td class="pl-8">
 			  <div class="flex items-center">
 				<div>
-				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
+				  <p class="text-md font-medium leading-none text-gray-800">{{ $curriculum->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-12">
+			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $user->username }}
+				@php
+					$department = App\Models\Department::find($curriculum->department_id);
+				@endphp
+				{{ $department->name }}
 			  </p>
 			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
+			<td>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $curriculum->name }}</p>
 			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
-			</td>
-			<td class="pl-12">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('M d, Y') }}</p>
-			  </td>
-			  <td class="pl-12">
-				@if($user->email_verified_at)
+			<td class="pl-8">
+                @if($curriculum->status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
-                    Verified
+                    Active
                 </span>
 				@else
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
-                    Not Verified
+                    Inactive
                 </span>
 				@endif
+			</td>
+			<td class="pl-8">
+				<p class="text-md font-medium leading-none text-gray-800">{{ $curriculum->created_at->format('M d, Y') }}</p>
 			  </td>
-			<td class="pl-12">
+			<td class="pl-8">
 				<button @click="toggle()" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
 					<span class="border-1 p-2 hover:bg-gray-100">
@@ -119,9 +119,9 @@
 					</span>
 					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
 						<ul class="text-left border rounded">
-							<li wire:click="view({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
-							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li wire:click="delete({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
+							<li wire:click="view({{ $curriculum->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
+							<li wire:click="edit({{ $curriculum->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
+							<li wire:click="delete({{ $curriculum->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
 						</ul>
 					</div>
 				</button>
@@ -135,7 +135,7 @@
 		  <td colspan="7" class="pl-8 cursor-pointer">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-xl py-8 font-medium leading-none text-gray-400">No users found...</p>
+				<p class="text-xl py-8 font-medium leading-none text-gray-400">No curricula found...</p>
 			  </div>
 			</div>
 		  </td>
@@ -146,13 +146,13 @@
 	  <div
 		class="flex flex-col xs:flex-row xs:justify-between"
 		>	
-		{{ $users->links() }}
+		{{ $curricula->links() }}
 	  </div>
 
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title">{{ $userTitle }}</x-slot>
+		  <x-slot name="title">{{ $curriculumTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -166,14 +166,26 @@
 	  
 				  <!-- Last Name -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">First Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $firstName }}</p>
-					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
-					<h1 class="text-lg font-semibold text-left">Username:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $username }}</p>
-					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $email }}</p>
+					<h1 class="text-lg font-semibold text-left">ID:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $curriculumId }}</p>
+					<h1 class="text-lg mt-2 font-semibold text-left">Department:</h1> 
+					@php
+					$departmentInfo = App\Models\Department::find($departmentId);
+					@endphp
+					<p class="text-left mt-2 mb-2">{{ $departmentInfo->name ?? 'Department Not Found' }}</p>
+					<h1 class="text-lg mt-2 font-semibold text-left">Curriculum:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $name }}</p>
+					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
+                    @if($status)
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
+                        Active
+                    </span>
+                    @else
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
+                        Inactive
+                    </span>
+                    @endif
+					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
 				  </div>
 			  </div>
 		  </x-slot>
@@ -185,13 +197,13 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteUser">
+	  <form wire:submit.prevent="deleteCurriculum">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title">{{ $userTitle }}</x-slot>
+		  <x-slot name="title">{{ $curriculumTitle }}</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this user?</h1> 
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this curriculum?</h1> 
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  
@@ -207,48 +219,44 @@
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title">{{ $userTitle }}</x-slot>
+		<x-slot name="title">{{ $curriculumTitle }}</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-2 py-6">
-
-				<!-- First Name -->
-				<div class="px-4">
-					<x-input-label for="first_name" :value="__('First Name')" />
+				<!-- Description -->
+				<div class="py-2">
+					<x-input-label for="department_id" :value="__('Department')" />
 	
-					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
+					<select wire:model.defer="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+						<option hidden>~ Select Department ~</option>
+						@foreach($departments as $key => $department)
+						<option value="{{ $department->id }}" selected >{{ $department->name }}</option>
+						@endforeach()
+						</select>
 	
-					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('department_id')" />
 				</div>
 	
-				<!-- Last Name -->
-				<div class="px-4">
-					<x-input-label for="last_name" :value="__('Last Name')" />
+				<!-- Name -->
+				<div class="py-2">
+					<x-input-label for="name" :value="__('Curriculum')" />
 	
-					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
+                    <x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Curriculum" :value="old('name')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.name')" />
 				</div>
 	
-				<!-- Username -->
-				<div class="mt-10 mb-6 px-4">
-				<x-input-label for="username" :value="__('Username')" />
+				<!-- Status -->
+				<div class="py-2">
+				<x-input-label for="status" :value="__('Status')" />
+                <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <option hidden>~ Select the Status ~</option>
+                <option value="1" selected >Active</option>
+                <option value="0">Deactive</option> 
+                </select>
 	
-				<x-text-input wire:model.defer="editing.username" id="username" class="block mt-1 w-full" type="text" name="username" placeholder="Username" :value="old('username')" />
-	
-				<x-input-error :messages="$errors->get('editing.username')" class="mt-2" />
-			</div>
-	
-				<!-- Email Address -->
-				<div class="mt-10 mb-6 px-4">
-					<x-input-label for="email" :value="__('Email Address')" />
-	
-					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
-	
-					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
-				</div>
+				<x-input-error :messages="$errors->get('editing.status')" />
 			</div>
 		</x-slot>
 		

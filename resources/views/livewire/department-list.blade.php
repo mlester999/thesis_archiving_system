@@ -50,18 +50,18 @@
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department Name 
-				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
 			<th class="font-semibold text-left text-gray-700 uppercase tracking-normal">Description
-				<span wire:click="sortBy('last_name')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'last_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status
-				<span wire:click="sortBy('email')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				<span wire:click="sortBy('status')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 

@@ -54,23 +54,27 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student Name 
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Student Name 
 				<span wire:click="sortBy('last_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'last_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
+			{{-- <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
 				<span wire:click="sortBy('email')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
+			</th> --}}
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Created at 
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Curriculum
+			</th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
 				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status </th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status </th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -91,16 +95,37 @@
 				{{ $user->student_id }}
 			  </p>
 			</td>
-			<td class="pl-12">
+			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
 			</td>
-			<td class="pl-12">
+			{{-- <td class="pl-12">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
-			</td>
-			<td class="pl-12">
+			</td> --}}
+			<td class="pl-8">
+				@php
+				$department = App\Models\Department::find($user->department_id);
+				$departmentInit = preg_split('~[a-z]~', $department->name,);
+				$splittedDept = implode('', $departmentInit);
+				$removeCommaDept = str_replace(',', '', $splittedDept);
+				$finalDepartment = str_replace(' ', '', $removeCommaDept);
+				@endphp
+
+				<p class="text-md font-medium leading-none text-gray-800">{{ $finalDepartment ?? 'Department Not Found' }}</p>
+			  </td>
+			  <td class="pl-8">
+				@php
+					$curriculum = App\Models\Curriculum::find($user->curriculum_id);
+					$curriculumInit = preg_split('~[a-z]~', $curriculum->name,);
+					$splittedCurr = implode('', $curriculumInit);
+					$finalCurriculum = str_replace(' ', '', $splittedCurr);
+				@endphp
+
+				<p class="text-md font-medium leading-none text-gray-800">{{ $finalCurriculum ?? 'Curriculum Not Found' }}</p>
+			  </td>
+			<td class="pl-8">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('M d, Y') }}</p>
 			  </td>
-			  <td class="pl-12">
+			  <td class="pl-8">
 				@if($user->email_verified_at)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Verified
@@ -111,7 +136,7 @@
                 </span>
 				@endif
 			  </td>
-			<td class="pl-12">
+			<td class="pl-8">
 				<button @click="toggle()" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
 					<span class="border-1 p-2 hover:bg-gray-100">
@@ -249,6 +274,35 @@
 	
 					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
 				</div>
+
+				<!-- Department -->
+				<div class="my-6 px-4">
+					<x-input-label for="department_id" :value="__('Department')" />
+	
+					<select wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+						<option hidden>~ Select Department ~</option>
+						@foreach($departments as $department)
+						<option value="{{ $department->id }}" selected >{{ $department->name }}</option>
+						@endforeach()
+						</select>
+	
+					<x-input-error :messages="$errors->get('department_id')" class="mt-2" />
+				</div>
+
+				<!-- Email Address -->
+				<div class="my-6 px-4">
+					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
+	
+					<select wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+						<option hidden>~ Select Curriculum ~</option> 
+						@foreach($curriculaOption as $curriculums)
+						<option value="{{ $curriculums->id }}" selected >{{ $curriculums->name }}</option>
+						@endforeach()
+						</select>
+	
+					<x-input-error :messages="$errors->get('curriculum_id')" class="mt-2" />
+				</div>
+
 			</div>
 		</x-slot>
 		

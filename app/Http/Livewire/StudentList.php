@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Curriculum;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +32,11 @@ class StudentList extends Component
     public $firstName;
     public $lastName;
     public $studentId;
+    public $departmentId;
+    public $curriculumId;
     public $email;
+
+    public $curriculaOption;
 
     // Modals
     public $showDeleteModal = false;
@@ -44,11 +50,26 @@ class StudentList extends Component
         'editing.first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.student_id' => 'required|numeric',
+        'editing.department_id' => 'required',
+        'editing.curriculum_id' => 'required',
         'editing.email' => 'required|email',
     ];
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
+        $this->editing->department_id = '0';
+
+        if($this->editing->department_id != '') {
+            $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->get();
+        } else {
+            $this->curriculaOption = [];
+        }
+    }
+
+    public function updatedEditingDepartmentId() {
+        if($this->editing->department_id != '') {
+            $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->get();
+        }
     }
 
     public function closeModal() {
@@ -66,22 +87,23 @@ class StudentList extends Component
         $this->showEditModal = true;
 
         $this->userTitle = "Add";
+
     }
 
-    public function getInfo() {
+    public function view($user) {
+        $this->viewUser = User::find($user);
+
         $this->firstName = $this->viewUser->first_name;
 
         $this->lastName = $this->viewUser->last_name;
 
         $this->studentId = $this->viewUser->student_id;
 
+        $this->departmentId = $this->viewUser->department_id;
+
+        $this->curriculumId = $this->viewUser->curriculum_id;
+
         $this->email = $this->viewUser->email;
-    }
-
-    public function view($user) {
-        $this->viewUser = User::find($user);
-
-        $this->getInfo();
 
         $this->showViewModal = true;
 
@@ -145,6 +167,8 @@ class StudentList extends Component
 
         return view('livewire.student-list', [
             'users' => User::search(['student_id', 'last_name', 'first_name', 'email'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'departments' => Department::all(),
+            'curricula' => Curriculum::all(),
         ]);
     }
 }
