@@ -35,6 +35,7 @@ class StudentList extends Component
     public $departmentId;
     public $curriculumId;
     public $email;
+    public $status;
 
     public $curriculaOption;
 
@@ -57,7 +58,6 @@ class StudentList extends Component
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
-        $this->editing->department_id = '0';
 
         if($this->editing->department_id != '') {
             $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->get();
@@ -104,6 +104,8 @@ class StudentList extends Component
         $this->curriculumId = $this->viewUser->curriculum_id;
 
         $this->email = $this->viewUser->email;
+
+        $this->status = $this->viewUser->status;
 
         $this->showViewModal = true;
 

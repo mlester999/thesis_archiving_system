@@ -126,7 +126,7 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('M d, Y') }}</p>
 			  </td>
 			  <td class="pl-8">
-				@if($user->email_verified_at)
+				@if($user->status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Verified
                 </span>
@@ -182,23 +182,49 @@
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-2 py-6">
+				  <div class="grid grid-cols-3 py-6">
   
 				  <!-- First Name -->
 				  <div class="px-4">
-					 <img src="{{ asset('/images/R.png') }}" class="w-80">
+					 <img src="{{ asset('/images/sample.jpg') }}" class="w-96 rounded-md">
+					 <h1 class="text-lg font-semibold text-center mt-4">Account Status:</h1> 
+					 @if($status)
+					 <p class="text-center my-2 items-center text-sm leading-5 font-semibold rounded-full bg-green-300 text-green-800">Verified</p>
+                     @else
+                     <p class="text-center my-2 items-center text-sm leading-5 font-semibold rounded-full bg-red-300 text-red-800">Not Verified</p>
+                     @endif
+					 
 				  </div>
 	  
 				  <!-- Last Name -->
-				  <div class="px-4">
+				  <div class="pl-4">
 					<h1 class="text-lg font-semibold text-left">First Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $firstName }}</p>
+					<p class="text-left my-2">{{ $firstName }}</p>
+					
+					<h1 class="text-lg font-semibold text-left mt-6">Student ID:</h1> 
+					<p class="text-left my-2">{{ $studentId }}</p>
+
+					<h1 class="text-lg font-semibold text-left mt-6">Department:</h1> 
+					@php
+					$departmentInfo = App\Models\Department::find($departmentId);
+					@endphp
+					<p class="text-md text-left mr-1 my-2">{{ $departmentInfo->name ?? 'Department Not Found' }}</p>
+
+					
+				  </div>
+
+				  <div class="pr-4">
 					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
-					<h1 class="text-lg font-semibold text-left">Student ID:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $studentId }}</p>
-					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
+
+					<h1 class="text-lg font-semibold text-left mt-6">Email Address:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $email }}</p>
+					
+					<h1 class="text-lg font-semibold text-left mt-6">Curriculum:</h1> 
+					@php
+					$curriculumInfo = App\Models\Curriculum::find($curriculumId);
+					@endphp
+					<p class="text-md text-left mt-2 mb-2">{{ $curriculumInfo->name ?? 'Curriculum Not Found' }}</p>
 				  </div>
 			  </div>
 		  </x-slot>
@@ -237,7 +263,7 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-2 py-6">
+				<div x-data="{show: true}" class="grid grid-cols-2 py-6">
 
 				<!-- First Name -->
 				<div class="px-4">
@@ -279,21 +305,21 @@
 				<div class="my-6 px-4">
 					<x-input-label for="department_id" :value="__('Department')" />
 	
-					<select wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select x-on:change="setTimeout(() => show = false, 1500)" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option hidden>~ Select Department ~</option>
 						@foreach($departments as $department)
-						<option value="{{ $department->id }}" selected >{{ $department->name }}</option>
+						<option value="{{ $department->id }}" selected>{{ $department->name }}</option>
 						@endforeach()
 						</select>
 	
 					<x-input-error :messages="$errors->get('department_id')" class="mt-2" />
 				</div>
 
-				<!-- Email Address -->
+				<!-- Curriculum -->
 				<div class="my-6 px-4">
 					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
 	
-					<select wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select x-bind:disabled="show" wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option hidden>~ Select Curriculum ~</option> 
 						@foreach($curriculaOption as $curriculums)
 						<option value="{{ $curriculums->id }}" selected >{{ $curriculums->name }}</option>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('curriculum_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->tinyInteger('status');
             $table->integer('student_id')->unique();
             $table->string('password')->nullable();
             $table->rememberToken();
