@@ -18,13 +18,6 @@ setTimeout(() => {
     });
 }, 100);
 
-// Display the menu if the profile button was clicked
-document
-    .querySelector(".profile-menu ul li")
-    .addEventListener("click", function () {
-        this.classList.toggle("active");
-    });
-
 // Images Sliders in the Home Page
 const sliders = function () {
     let currSlide = 0;

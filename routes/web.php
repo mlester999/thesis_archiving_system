@@ -22,6 +22,9 @@ Route::get('/', function () {
 // User Routes
 Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'destroy')->name('logout');
+    Route::get('/profile', 'Profile')->name('profile');
+    Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
+    Route::post('/store/profile', 'StoreProfile')->name('store.profile');
 });
 
 Route::get('/dashboard', function () {

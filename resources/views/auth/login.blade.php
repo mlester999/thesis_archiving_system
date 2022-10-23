@@ -24,19 +24,18 @@
             <!-- Student ID -->
                 <x-input-label class="mt-8" for="student_id" :value="__('Student ID')" />
 
-                <x-text-input id="student_id" class="mt-1 w-full" type="text" name="student_id" :value="old('student_id')" required autofocus />
+                <x-text-input id="student_id" class="mt-1 w-full" type="text" name="student_id" :value="old('student_id')" autofocus />
 
                 <x-input-error :messages="$errors->get('student_id')" class="mt-2" />
 
             <!-- Password -->
-                <x-input-label class="mt-4" for="password" :value="__('Password')" />
+                <x-input-label class="mt-8" for="password" :value="__('Password')" />
 
                 <x-text-input id="password" class="mt-1 w-full"
                                 type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+                                name="password" />
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-input-error :messages="$errors->get('password')" class="mt-4" />
 
             <!-- Remember Me -->
             <div class="mt-4">

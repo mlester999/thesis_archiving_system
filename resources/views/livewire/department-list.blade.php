@@ -219,7 +219,7 @@
 			<!--Body-->
 	
 				<!-- Name -->
-				<div class="py-2">
+				<div class="py-3">
 					<x-input-label for="name" :value="__('Department Name')" />
 	
 					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Department Name" :value="old('name')" autofocus />
@@ -228,8 +228,8 @@
 				</div>
 	
 				<!-- Description -->
-				<div class="py-2">
-					<x-input-label for="description" :value="__('Description')" />
+				<div class="py-3">
+					<x-input-label class="pt-3" for="description" :value="__('Description')" />
 	
                     <textarea wire:model.defer="editing.description" id="description" name="description" rows="4" class="block mt-1 p-2 w-full text-gray-900 rounded-md border border-gray-300 focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none" placeholder="Description..."></textarea>
 	
@@ -237,12 +237,12 @@
 				</div>
 	
 				<!-- Status -->
-				<div class="py-2">
-				<x-input-label for="status" :value="__('Status')" />
+				<div class="py-3">
+				<x-input-label class="pt-3" for="status" :value="__('Status')" />
                 <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option hidden>~ Select the Status ~</option>
-                <option value="1" selected >Active</option>
-                <option value="0">Inactive</option> 
+                <option value="" hidden>~ Select the Status ~</option>
+                <option value="0" selected >Inactive</option>
+                <option value="1">Active</option> 
                 </select>
 	
 				<x-input-error :messages="$errors->get('editing.status')" />

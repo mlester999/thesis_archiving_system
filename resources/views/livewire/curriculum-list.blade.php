@@ -224,22 +224,22 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<!-- Description -->
-				<div class="py-2">
-					<x-input-label for="department_id" :value="__('Department')" />
+				<!-- Department Name -->
+				<div class="py-3">
+					<x-input-label class="pt-3" for="department_id" :value="__('Department')" />
 	
 					<select wire:model.defer="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-						<option hidden>~ Select Department ~</option>
+						<option value="" hidden>~ Select Department ~</option>
 						@foreach($departments as $key => $department)
 						<option value="{{ $department->id }}" selected >{{ $department->name }}</option>
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('department_id')" />
+					<x-input-error :messages="$errors->get('editing.department_id')" />
 				</div>
 	
-				<!-- Name -->
-				<div class="py-2">
+				<!-- Curriculum Name -->
+				<div class="py-3">
 					<x-input-label for="name" :value="__('Curriculum')" />
 	
                     <x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Curriculum" :value="old('name')" autofocus />
@@ -248,12 +248,12 @@
 				</div>
 	
 				<!-- Status -->
-				<div class="py-2">
-				<x-input-label for="status" :value="__('Status')" />
+				<div class="py-3">
+				<x-input-label class="pt-3" for="status" :value="__('Status')" />
                 <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option hidden>~ Select the Status ~</option>
-                <option value="1" selected >Active</option>
-                <option value="0">Inactive</option> 
+                <option hidden selected>~ Select the Status ~</option>
+                <option value="0">Inactive</option>
+                <option value="1">Active</option> 
                 </select>
 	
 				<x-input-error :messages="$errors->get('editing.status')" />

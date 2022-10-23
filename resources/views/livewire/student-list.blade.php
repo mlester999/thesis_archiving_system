@@ -157,10 +157,10 @@
 		  wire:loading.class.delay="opacity-50"
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
 		>
-		  <td colspan="7" class="pl-8 cursor-pointer">
+		  <td colspan="8" class="pl-8 cursor-pointer">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-xl py-8 font-medium leading-none text-gray-400">No users found...</p>
+				<p class="text-xl py-8 font-medium leading-none text-gray-400">No students found...</p>
 			  </div>
 			</div>
 		  </td>
@@ -305,14 +305,14 @@
 				<div class="my-6 px-4">
 					<x-input-label for="department_id" :value="__('Department')" />
 	
-					<select x-on:change="setTimeout(() => show = false, 1500)" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-						<option hidden>~ Select Department ~</option>
+					<select x-on:change="setTimeout(() => show = false, 1500)" name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+						<option value="0" hidden>~ Select Department ~</option>
 						@foreach($departments as $department)
 						<option value="{{ $department->id }}" selected>{{ $department->name }}</option>
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('department_id')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.department_id')" class="mt-2" />
 				</div>
 
 				<!-- Curriculum -->
@@ -320,13 +320,13 @@
 					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
 	
 					<select x-bind:disabled="show" wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-						<option hidden>~ Select Curriculum ~</option> 
+						<option value="0" hidden>~ Select Curriculum ~</option> 
 						@foreach($curriculaOption as $curriculums)
 						<option value="{{ $curriculums->id }}" selected >{{ $curriculums->name }}</option>
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('curriculum_id')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.curriculum_id')" class="mt-2" />
 				</div>
 
 			</div>
