@@ -10,7 +10,7 @@ $curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
 
 <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-5xl mx-auto mt-16 relative">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-lg font-medium leading-6 text-gray-900 inline-block">Student Information</h3>
+      <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Student Information</h3>
       <a href="{{ route('edit.profile') }}"><i class="fa-solid fa-pen-to-square fa-2xl text-green-500 hover:text-green-600 duration-200 absolute right-6 top-8"></i></a>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details.</p>
     </div>

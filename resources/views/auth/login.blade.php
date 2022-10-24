@@ -33,7 +33,8 @@
 
                 <x-text-input id="password" class="mt-1 w-full"
                                 type="password"
-                                name="password" />
+                                name="password"
+                                autocomplete="current-password" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-4" />
 

@@ -16,9 +16,9 @@
       @endphp
 
       <!-- Right Buttons Menu -->
-      <div x-data="{ dropdownOpen: false }" class="space-x-8 tracking-wider font-bold">
+      <div x-data="{ dropdownOpenProfile: false }" class="space-x-8 tracking-wider font-bold">
         <button
-          @click="dropdownOpen = !dropdownOpen"
+          @click="dropdownOpenProfile = !dropdownOpenProfile"
           class="relative z-10 max-w-lg bg-transparent tracking-wide p-2 text-white rounded-lg text-sm py-3 overflow-hidden focus:outline-none focus:border-white"
         >
         <img src="{{ asset('images/mitch.jpg') }}" class="w-10 h-10 rounded-full object-cover inline-block mx-2" src="/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar">
@@ -27,55 +27,80 @@
         </button>
 
         <div
-          x-show="dropdownOpen"
-          @click="dropdownOpen = ! dropdownOpen"
+          x-show="dropdownOpenProfile"
+          @click="dropdownOpenProfile = ! dropdownOpenProfile"
           class="fixed inset-0 h-full w-full z-10"
         ></div>
 
         <div
-          x-show="dropdownOpen"
-          class="absolute right-12 mt-2 py-4 w-48 bg-white rounded-md shadow-2xl z-20"
+          x-show="dropdownOpenProfile"
+          class="absolute right-8 mt-2 py-4 w-52 bg-white rounded-md shadow-2xl z-20"
           x-transition
         >
           <a
             href="{{ route('profile') }}"
             class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
           >
-          <i class="fas fa-user fa-xl pl-8 pr-3"></i> Profile
+          <i class="fas fa-user fa-lg px-2"></i> Profile
           </a>
           <a
-            href="#"
+            href="{{ route('change.password') }}"
             class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
           >
-          <i class="fas fa-sliders-h pl-8 pr-3"></i> Settings
+          <i class="fa-solid fa-lg fa-lock px-2"></i> Change Password
           </a>
           <form action="{{ route('logout') }}" method="POST">
             @csrf
-          <button class="block w-full p-4 text-sm capitalize text-red-600 hover:bg-green-500 hover:text-white">
-            <i class="fas fa-sign-out-alt pr-3"></i> Logout</button>
+          <button class="block w-full p-4 text-sm text-left capitalize text-red-600 hover:bg-green-500 hover:text-white">
+            <i class="fas fa-lg fa-sign-out-alt px-2"></i> Logout</button>
           </form>
         </div>
       </div>
+    </div>
   </nav>
-  
-  <div class="relative container mx-auto p-6 bg-white shadow-lg max-w-full">
-      <div class="flex items-center mx-40">
-          <div class="hidden space-x-8 tracking-wider font-bold lg:flex">
-              <a href="#" class="px-6 text-black hover:text-slate-500 duration-200"
-                >Home</a
-              >
-              <a href="#" class="px-6 text-black hover:text-slate-500 duration-200"
-                >Projects</a
-              >
-              <a href="#" class="px-6 text-black hover:text-slate-500 duration-200"
-                >Department</a
-              >
-              <a href="#" class="px-6 text-black hover:text-slate-500 duration-200"
-                >Submit Thesis / Capstone</a
-              >
-              <a href="#" class="px-6 text-black hover:text-slate-500 duration-200"
-                >Department</a
-              >
-            </div>
+
+  <div x-data="{ dropdownOpenDept: false }" class="relative container mx-auto p-2 bg-white shadow-lg max-w-full">
+    <ul class="flex flex-wrap -mb-px mx-40">
+      <li class="mx-8">
+          <a href="{{ route('home') }}" class="{{ $currentPage=='home' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Home</a>
+      </li>
+      <li class="px-8">
+          <a href="{{ route('projects') }}" class="{{ $currentPage=='projects' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Projects</a>
+      </li>
+      <li class="px-8">
+        <div class="relative">
+          @php
+            $departmentData = App\Models\Department::all();
+            foreach($departmentData as $department) {
+              $departmentInit = preg_split('~[a-z]~', $department->name);
+              $splittedDept = implode('', $departmentInit);
+              $finalDepartment = strtolower(str_replace(' ', '', $splittedDept));
+            }
+          @endphp
+          <button @click="dropdownOpenDept = !dropdownOpenDept" class="{{ $currentPage=='department' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Department <i class="fa-solid fa-chevron-down mx-2"></i></button>
+          
+          <div
+          x-show="dropdownOpenDept"
+          @click.outside="dropdownOpenDept = false"
+          class="absolute -left-20 mt-2 py-4 w-80 bg-white rounded-md shadow-2xl z-20"
+          x-transition
+        >
+        @foreach($departmentData as $department)
+          <a
+            href="{{ route('department' . '.' . $finalDepartment) }}"
+            class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
+          >
+          {{ $department->name }}
+          </a>
+        @endforeach
+        </div>
       </div>
+      </li>
+      <li class="px-8">
+          <a href="{{ route('submit') }}" class="{{ $currentPage=='submit' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Submit Thesis / Capstone</a>
+      </li>
+      <li class="px-8">
+        <a href="{{ route('about') }}" class="{{ $currentPage=='about' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">About Us</a>
+    </li>
+  </ul>
   </div>

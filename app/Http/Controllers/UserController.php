@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -19,10 +20,31 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    public function Projects() {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('projects', ["currentPage" => 'projects'], compact('userData'));
+
+    }
+
+    public function SubmitThesis() {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('submit-thesis', ["currentPage" => 'submit'], compact('userData'));
+
+    }
+
+    public function About() {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('about', ["currentPage" => 'about'], compact('userData'));
+
+    }
+
     public function Profile() {
         $id = Auth::user()->id;
         $userData = User::find($id);
-        return view('profile',compact('userData'));
+        return view('profile', ["currentPage" => 'profile'], compact('userData'));
 
     }
 
@@ -30,7 +52,7 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $editUserData = User::find($id);
 
-        return view('profile-edit',compact('editUserData'));
+        return view('profile-edit', ["currentPage" => 'edit-profile'], compact('editUserData'));
     }
 
     public function StoreProfile(Request $request) {
@@ -55,5 +77,44 @@ class UserController extends Controller
         $storeUserData->save();
 
         return redirect()->route('profile');
+    }
+
+    public function ChangePassword() {
+
+        return view("change-password", ["currentPage" => 'change-password']);
+
+    }
+
+    public function UpdatePassword(Request $request) {
+
+        $validateData = $request->validate([
+            'currentPassword' => 'required',
+            'newPassword' => 'required',
+            'confirmNewPassword' => 'required|same:newPassword',
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+        if(Hash::check($request->currentPassword, $hashedPassword)) {
+            $id = Auth::user()->id;
+
+            $user = User::find($id);
+
+            $user->password = bcrypt($request->newPassword);
+
+            $user->save();
+
+            return redirect()->route('home');
+
+        } else {
+
+            return redirect()->back();
+
+        }
+    }
+
+    public function DeptCCE () {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('department-cce', ["currentPage" => 'cce'], compact('userData'));
     }
 }

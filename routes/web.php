@@ -22,13 +22,21 @@ Route::get('/', function () {
 // User Routes
 Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'destroy')->name('logout');
+    Route::get('/projects', 'Projects')->name('projects');
+    Route::get('/submit', 'SubmitThesis')->name('submit');
+    Route::get('/about', 'About')->name('about');
     Route::get('/profile', 'Profile')->name('profile');
     Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
     Route::post('/store/profile', 'StoreProfile')->name('store.profile');
+
+    Route::get('/change/password', 'ChangePassword')->name('change.password');
+    Route::post('/update/password', 'UpdatePassword')->name('update.password');
+
+    Route::get('/department/cce', 'DeptCCE')->name('department.cce');
 });
 
 Route::get('/dashboard', function () {
-    return view('home');
+    return view('home', ["currentPage" => 'home']);
 })->middleware(['auth', 'verified'])->name('home');
 
 require __DIR__.'/auth.php';
