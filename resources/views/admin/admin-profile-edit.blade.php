@@ -1,7 +1,13 @@
 @extends('admin.admin-master')
 @section('admin')
 
-<div class="bg-slate-200 h-screen w-full overflow-y-auto">
+        @php
+            if (count($errors) > 0) {
+              RealRashid\SweetAlert\Facades\Alert::warning("Fields is Required", "You need to fill in the input fields.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+        @endphp
+
+    <div class="bg-slate-200 h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">
         <h5 class="pb-6 pt-3 font-bold uppercase">Admin Edit Profile</h5>
 
@@ -14,25 +20,25 @@
                 <ul class="py-4 px-4">
                     <label id="first_name" class="font-medium text-gray-600">First Name:</label>
                     <input type="text" name="first_name" id="first_name" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="{{ $editAdminData->first_name }}" autofocus>
-                    <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="last_name" class="font-medium text-gray-600">Last Name:</label>
                     <input type="text" name="last_name" id="last_name" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="{{ $editAdminData->last_name }}">
-                    <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('last_name')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="username" class="font-medium text-gray-600">Username:</lab>
                     <input type="text" name="username" id="username" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="{{ $editAdminData->username }}">
-                    <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('username')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="email" class="font-medium text-gray-600">Email:</label>
                     <input type="text" name="email" id="email" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="{{ $editAdminData->email }}">
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
                 </ul>
 
                 <div class="flex justify-center mt-2">

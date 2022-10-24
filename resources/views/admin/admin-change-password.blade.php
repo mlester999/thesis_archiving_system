@@ -1,6 +1,12 @@
 @extends('admin.admin-master')
 @section('admin')
 
+        @php
+            if (count($errors) > 0) {
+                RealRashid\SweetAlert\Facades\Alert::warning("Fields is Required", "You need to fill in the input fields.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+        @endphp
+
 <div class="bg-slate-200 h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">
         <h5 class="pb-6 pt-3 font-bold uppercase">Admin Change Password</h5>
@@ -14,19 +20,19 @@
                 <ul class="py-4 px-4">
                     <label id="currentPassword" class="font-medium text-gray-600">Current Password:</label>
                     <input type="password" name="currentPassword" id="currentPassword" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="" autofocus>
-                    <x-input-error :messages="$errors->get('currentPassword')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('currentPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="newPassword" class="font-medium text-gray-600">New Password:</label>
                     <input type="password" name="newPassword" id="newPassword" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="">
-                    <x-input-error :messages="$errors->get('newPassword')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('newPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="confirmNewPassword" class="font-medium text-gray-600">Confirm New Password:</lab>
                     <input type="password" name="confirmNewPassword" id="confirmNewPassword" class="w-full text-black h-10 mt-2 bg-gray-100 rounded-md px-3 focus:outline-none" value="">
-                    <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" />
+                    {{-- <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <div class="flex justify-center mt-2">

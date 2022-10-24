@@ -16,7 +16,7 @@
       @endphp
 
       <!-- Right Buttons Menu -->
-      <div x-data="{ dropdownOpenProfile: false }" class="space-x-8 tracking-wider font-bold">
+      <div x-cloak x-data="{ dropdownOpenProfile: false }" class="space-x-8 tracking-wider font-bold">
         <button
           @click="dropdownOpenProfile = !dropdownOpenProfile"
           class="relative z-10 max-w-lg bg-transparent tracking-wide p-2 text-white rounded-lg text-sm py-3 overflow-hidden focus:outline-none focus:border-white"
@@ -59,7 +59,7 @@
     </div>
   </nav>
 
-  <div x-data="{ dropdownOpenDept: false }" class="relative container mx-auto p-2 bg-white shadow-lg max-w-full">
+  <div x-cloak x-data="{ dropdownOpenDept: false }" class="relative container mx-auto p-2 bg-white shadow-lg max-w-full">
     <ul class="flex flex-wrap -mb-px mx-40">
       <li class="mx-8">
           <a href="{{ route('home') }}" class="{{ $currentPage=='home' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Home</a>

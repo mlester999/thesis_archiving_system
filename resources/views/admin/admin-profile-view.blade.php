@@ -1,9 +1,9 @@
 @extends('admin.admin-master')
 @section('admin')
 
-<div class="bg-slate-200 h-screen w-full overflow-y-auto">
+<div class="bg-slate-100 h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">
-        <h5 class="pb-6 pt-3 font-bold uppercase">Admin Profile</h5>
+        <h5 class="pb-6 pt-3 font-bold leading-7 text-lg sm:text-2xl sm:truncate uppercase">Admin Profile</h5>
 
         {{-- First Container --}}
         <div class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">

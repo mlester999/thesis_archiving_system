@@ -41,5 +41,7 @@
         <div class="flex items-center justify-center min-h-screen">
             {{ $slot }}
         </div>
+
+        @include('sweetalert::alert')
     </body>
 </html>

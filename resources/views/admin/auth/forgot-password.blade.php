@@ -6,7 +6,13 @@
             </a> --}}
         </x-slot>
 
-        <div class="max-w-xl relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
+        @php
+            if (count($errors) > 0) {
+                RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "We can't find a user with that email address.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+        @endphp
+
+        <div class="max-w-2xl relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
             <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
             <!-- Left Side -->
             <div class="p-6 md:p-16">
@@ -29,7 +35,7 @@
 
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
 
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
             </div>
 
             <div class="flex items-center justify-center mt-4">

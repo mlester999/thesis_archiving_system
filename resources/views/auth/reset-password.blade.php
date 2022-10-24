@@ -6,6 +6,13 @@
             </a> --}}
         </x-slot>
 
+        @php
+            if (count($errors) > 0) {
+                RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "Password do not match. Please try again.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+            
+        @endphp
+
         <div class="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
             <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
             <!-- Left Side -->

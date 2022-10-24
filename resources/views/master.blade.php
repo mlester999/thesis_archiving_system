@@ -33,5 +33,6 @@
 
     @yield('user')
 
+    @include('sweetalert::alert')
 </body>
 </html>

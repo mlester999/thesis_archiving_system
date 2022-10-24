@@ -6,6 +6,13 @@
             </a> --}}
         </x-slot>
 
+        @php
+            if (count($errors) > 0) {
+                RealRashid\SweetAlert\Facades\Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+            
+        @endphp
+
         <div class="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
         <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
         <!-- Left Side -->
@@ -24,9 +31,9 @@
             <!-- Username -->
                 <x-input-label class="mt-8" for="username" :value="__('Username')" />
 
-                <x-text-input id="username" class="mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+                <x-text-input id="username" class="mt-1 w-full" type="text" name="username" :value="old('username')" autofocus />
 
-                <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('username')" class="mt-2" /> --}}
 
             <!-- Password -->
                 <x-input-label class="mt-4" for="password" :value="__('Password')" />
@@ -34,9 +41,9 @@
                 <x-text-input id="password" class="mt-1 w-full"
                                 type="password"
                                 name="password"
-                                required autocomplete="current-password" />
+                                autocomplete="current-password" />
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
 
             <!-- Remember Me -->
             <div class="mt-4">

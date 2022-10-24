@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\AdminAuth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminAuth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\AdminAuth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {

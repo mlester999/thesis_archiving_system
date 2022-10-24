@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -56,12 +57,9 @@ class AdminController extends Controller
 
         $storeAdminData->save();
 
-        $notification = array(
-            'message' => 'Admin Profile Updated Successfully',
-            'alert-type' => 'info',
-        );
+        Alert::success('Admin Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
-        return redirect()->route('admin.profile')->with($notification);
+        return redirect()->route('admin.profile');
     }
 
     public function ChangePassword() {
@@ -88,21 +86,15 @@ class AdminController extends Controller
 
             $admin->save();
 
-            $notification = array(
-                'message' => 'Admin Update Password Successfully',
-                'alert-type' => 'success',
-            );
+            Alert::success('Admin Password Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
-            return redirect()->route('admin.dashboard')->with($notification);
+            return redirect()->route('admin.dashboard');
 
         } else {
 
-            $notification = array(
-                'message' => "Current Password doesn't match",
-                'alert-type' => 'error',
-            );
+            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
-            return redirect()->back()->with($notification);
+            return redirect()->back();
 
         }
 

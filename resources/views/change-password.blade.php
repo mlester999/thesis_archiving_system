@@ -1,6 +1,13 @@
 @extends('master')
 @section('user')
 
+        @php
+            if (count($errors) > 0) {
+                RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "Please check the input fields carefully.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+
+        @endphp
+
 <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-5xl mx-auto mt-8 relative">
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Change Student Password</h3>
@@ -14,21 +21,21 @@
           <dt class="text-sm font-medium text-gray-500">Current Password</dt>
           <div class="relative">
           <input type="password" name="currentPassword" id="currentPassword" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" autofocus>
-          <x-input-error :messages="$errors->get('currentPassword')" class="mt-2"/>
+          {{-- <x-input-error :messages="$errors->get('currentPassword')" class="mt-2"/> --}}
         </div>
         </div>
         <div class="bg-white px-4 py-8 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">New Password</dt>
           <div class="relative">
           <input type="password" name="newPassword" id="newPassword" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
-            <x-input-error :messages="$errors->get('newPassword')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('newPassword')" class="mt-2" /> --}}
             </div>
         </div>
         <div class="bg-white px-4 py-8 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Confirm New Password</dt>
           <div class="relative">
           <input type="password" name="confirmNewPassword" id="confirmNewPassword" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
-            <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" /> --}}
             </div>
         </div>
         <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

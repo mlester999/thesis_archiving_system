@@ -6,6 +6,12 @@
             </a> --}}
         </x-slot>
 
+        @php
+            if (count($errors) > 0) {
+                RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "Password do not match. Please try again.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            }
+        @endphp
+
         <div class="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
             <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
             <!-- Left Side -->
@@ -23,9 +29,9 @@
             <div>
                 <x-input-label for="email" :value="__('Email')" />
 
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" autofocus />
 
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
             </div>
 
             <!-- Password -->
@@ -34,7 +40,7 @@
 
                 <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
             </div>
 
             <!-- Confirm Password -->
@@ -45,7 +51,7 @@
                                     type="password"
                                     name="password_confirmation" required />
 
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
             </div>
 
             <div class="flex items-center justify-end mt-4">

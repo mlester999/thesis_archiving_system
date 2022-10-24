@@ -169,7 +169,7 @@
 		</tbody>
 	  </table>
 	  <div
-		class="flex flex-col xs:flex-row xs:justify-between"
+		class="flex flex-col xs:flex-row xs:justify-between py-8"
 		>	
 		{{ $users->links() }}
 	  </div>

@@ -144,7 +144,7 @@
 		</tbody>
 	  </table>
 	  <div
-		class="flex flex-col xs:flex-row xs:justify-between"
+		class="flex flex-col xs:flex-row xs:justify-between py-8"
 		>	
 		{{ $curricula->links() }}
 	  </div>
@@ -203,7 +203,7 @@
 		  <x-slot name="title">{{ $curriculumTitle }}</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this curriculum?</h1> 
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete curriculum?</h1> 
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  

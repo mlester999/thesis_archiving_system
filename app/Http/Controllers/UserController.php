@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -76,6 +77,8 @@ class UserController extends Controller
 
         $storeUserData->save();
 
+        Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
         return redirect()->route('profile');
     }
 
@@ -103,9 +106,13 @@ class UserController extends Controller
 
             $user->save();
 
+            Alert::success('Password Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
             return redirect()->route('home');
 
         } else {
+
+            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
             return redirect()->back();
 
