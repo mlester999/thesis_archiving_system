@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('curricula', function (Blueprint $table) {
             $table->id();
-            $table->integer('department_id');
-            $table->string('department_name');
-            $table->string('name');
-            $table->tinyInteger('status');
+            $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('curr_name');
+            $table->string('curr_description');
+            $table->boolean('curr_status');
             $table->timestamps();
         });
     }

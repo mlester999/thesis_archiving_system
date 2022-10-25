@@ -22,10 +22,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('status')->default(0);
             $table->integer('student_id')->unique();
-            $table->integer('department_id');
-            $table->string('department_name');
-            $table->integer('curriculum_id');
-            $table->string('curriculum_name');
+            $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('curriculum_id')->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('password')->default(Hash::make('00000000'));
             $table->rememberToken();
             $table->timestamps();

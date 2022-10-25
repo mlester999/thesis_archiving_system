@@ -55,13 +55,18 @@
 				</span>
 			</th>
 			<th class="font-semibold text-left text-gray-700 uppercase tracking-normal">Curriculum Name
-				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				<span wire:click="sortBy('curr_description')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Acronym
+				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status
-				<span wire:click="sortBy('status')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				<span wire:click="sortBy('curr_status')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
@@ -91,14 +96,17 @@
 				@php
 					$department = App\Models\Department::find($curriculum->department_id);
 				@endphp
-				{{ $department->name }}
+				{{ \Illuminate\Support\Str::limit($department->dept_description, 30, '...') }}
 			  </p>
 			</td>
 			<td>
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $curriculum->name }}</p>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($curriculum->curr_description, 30, '...') }}</p>
 			</td>
 			<td class="pl-8">
-                @if($curriculum->status)
+				<p class="text-md font-medium leading-none text-gray-800">{{ $curriculum->curr_name }}</p>
+			  </td>
+			<td class="pl-8">
+                @if($curriculum->curr_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Active
                 </span>
@@ -172,11 +180,11 @@
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
-					<p class="text-left mt-2 mb-2">{{ $departmentInfo->name ?? 'Department Not Found' }}</p>
+					<p class="text-left mt-2 mb-2">{{ $departmentInfo->dept_name ?? 'Department Not Found' }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Curriculum:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $name }}</p>
+					<p class="text-left mt-2 mb-2">{{ $curr_name }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
-                    @if($status)
+                    @if($curr_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                         Active
                     </span>
@@ -231,32 +239,41 @@
 					<select wire:model.defer="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="" hidden>~ Select Department ~</option>
 						@foreach($departments as $key => $department)
-						<option value="{{ $department->id }}" selected >{{ $department->name }}</option>
+						<option value="{{ $department->id }}" selected >{{ $department->dept_description }}</option>
 						@endforeach()
 						</select>
 	
 					<x-input-error :messages="$errors->get('editing.department_id')" />
 				</div>
-	
+
 				<!-- Curriculum Name -->
 				<div class="py-3">
-					<x-input-label for="name" :value="__('Curriculum')" />
+					<x-input-label for="curr_description" :value="__('Curriculum Name')" />
 	
-                    <x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Curriculum" :value="old('name')" autofocus />
+					<x-text-input wire:model.defer="editing.curr_description" id="curr_description" class="block mt-1 w-full" type="text" name="curr_description" placeholder="Curriculum Name" :value="old('curr_description')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.name')" />
+					<x-input-error :messages="$errors->get('editing.curr_description')" />
 				</div>
 	
+				<!-- Curriculum Acronym -->
+				<div class="py-3">
+					<x-input-label for="curr_name" :value="__('Curriculum Acronym')" />
+	
+                    <x-text-input wire:model.defer="editing.curr_name" id="curr_name" class="block mt-1 w-full" type="text" name="curr_name" placeholder="Curriculum Acronym" :value="old('curr_name')" autofocus />
+	
+					<x-input-error :messages="$errors->get('editing.curr_name')" />
+				</div>
+
 				<!-- Status -->
 				<div class="py-3">
-				<x-input-label class="pt-3" for="status" :value="__('Status')" />
-                <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+				<x-input-label class="pt-3" for="curr_status" :value="__('Status')" />
+                <select wire:model.defer="editing.curr_status" id="curr_status" name="curr_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option hidden selected>~ Select the Status ~</option>
                 <option value="0">Inactive</option>
                 <option value="1">Active</option> 
                 </select>
 	
-				<x-input-error :messages="$errors->get('editing.status')" />
+				<x-input-error :messages="$errors->get('editing.curr_status')" />
 			</div>
 		</x-slot>
 		

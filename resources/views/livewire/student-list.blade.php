@@ -83,7 +83,7 @@
 			tabindex="{{ $user->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8 cursor-pointer">
+			<td class="pl-8">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
@@ -98,29 +98,11 @@
 			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
 			</td>
-			{{-- <td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
-			</td> --}}
 			<td class="pl-8">
-				@php
-				$department = App\Models\Department::find($user->department_id);
-				$departmentInit = preg_split('~[a-z]~', $department->name,);
-				$splittedDept = implode('', $departmentInit);
-				$removeCommaDept = str_replace(',', '', $splittedDept);
-				$finalDepartment = str_replace(' ', '', $removeCommaDept);
-				@endphp
-
-				<p class="text-md font-medium leading-none text-gray-800">{{ $finalDepartment ?? 'Department Not Found' }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $user->dept_name ?? 'Department Not Found' }}</p>
 			  </td>
 			  <td class="pl-8">
-				@php
-					$curriculum = App\Models\Curriculum::find($user->curriculum_id);
-					$curriculumInit = preg_split('~[a-z]~', $curriculum->name,);
-					$splittedCurr = implode('', $curriculumInit);
-					$finalCurriculum = str_replace(' ', '', $splittedCurr);
-				@endphp
-
-				<p class="text-md font-medium leading-none text-gray-800">{{ $finalCurriculum ?? 'Curriculum Not Found' }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $user->curr_name ?? 'Curriculum Not Found' }}</p>
 			  </td>
 			<td class="pl-8">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('M d, Y') }}</p>
@@ -208,7 +190,7 @@
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
-					<p class="text-md text-left mr-1 my-2">{{ $departmentInfo->name ?? 'Department Not Found' }}</p>
+					<p class="text-md text-left mr-1 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
 
 					
 				  </div>
@@ -224,7 +206,7 @@
 					@php
 					$curriculumInfo = App\Models\Curriculum::find($curriculumId);
 					@endphp
-					<p class="text-md text-left mt-2 mb-2">{{ $curriculumInfo->name ?? 'Curriculum Not Found' }}</p>
+					<p class="text-md text-left mt-2 mb-2">{{ $curriculumInfo->curr_description ?? 'Curriculum Not Found' }}</p>
 				  </div>
 			  </div>
 		  </x-slot>
@@ -308,7 +290,7 @@
 					<select x-on:change="setTimeout(() => show = false, 1500)" name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="0" hidden>~ Select Department ~</option>
 						@foreach($departments as $department)
-						<option value="{{ $department->id }}" selected>{{ $department->name }}</option>
+						<option value="{{ $department->id }}" selected>{{ $department->dept_name }}</option>
 						@endforeach()
 						</select>
 	
@@ -322,7 +304,7 @@
 					<select x-bind:disabled="show" wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="0" hidden>~ Select Curriculum ~</option> 
 						@foreach($curriculaOption as $curriculums)
-						<option value="{{ $curriculums->id }}" selected >{{ $curriculums->name }}</option>
+						<option value="{{ $curriculums->id }}" selected >{{ $curriculums->curr_name }}</option>
 						@endforeach()
 						</select>
 	

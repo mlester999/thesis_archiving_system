@@ -31,8 +31,9 @@ class CurriculumList extends Component
     // Viewing User Info
     public $curriculumId;
     public $departmentId;
-    public $name;
-    public $status;
+    public $curr_name;
+    public $curr_description;
+    public $curr_status;
 
     // Modals
     public $showDeleteModal = false;
@@ -44,8 +45,9 @@ class CurriculumList extends Component
 
     protected $rules = [
         'editing.department_id' => 'required',
-        'editing.name' => 'required',
-        'editing.status' => 'required',
+        'editing.curr_name' => 'required',
+        'editing.curr_description' => 'required',
+        'editing.curr_status' => 'required',
     ];
 
     public function mount() {
@@ -76,9 +78,11 @@ class CurriculumList extends Component
 
         $this->departmentId = $this->viewCurriculum->department_id;
 
-        $this->name = $this->viewCurriculum->name;
+        $this->curr_name = $this->viewCurriculum->curr_name;
 
-        $this->status = $this->viewCurriculum->status;
+        $this->curr_description = $this->viewCurriculum->curr_description;
+
+        $this->curr_status = $this->viewCurriculum->curr_status;
 
         $this->showViewModal = true;
 
@@ -144,9 +148,9 @@ class CurriculumList extends Component
         sleep(1);
 
         return view('livewire.curriculum-list', [
-            'curricula' => Curriculum::search(['id', 'department_id', 'name', 'status'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'curricula' => Curriculum::search(['id', 'department_id', 'description', 'status'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
             'departments' => Department::all(),
-            
+
         ]);
     }
 }

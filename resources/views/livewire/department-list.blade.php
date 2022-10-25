@@ -49,19 +49,19 @@
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department Name 
-				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department Name
+				<span wire:click="sortBy('dept_description')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left text-gray-700 uppercase tracking-normal">Description
-				<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Acronym
+				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status
-				<span wire:click="sortBy('status')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				<span wire:click="sortBy('dept_status')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
@@ -88,14 +88,16 @@
 			</td>
 			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $department->name }}
+				{{ $department->dept_description }}
 			  </p>
 			</td>
-			<td>
-			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($department->description, 35, '...') }}</p>
-			</td>
 			<td class="pl-8">
-                @if($department->status)
+				<p class="text-md font-medium leading-none text-gray-800">
+				  {{ $department->dept_name }}
+				</p>
+			  </td>
+			<td class="pl-8">
+                @if($department->dept_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Active
                 </span>
@@ -166,11 +168,11 @@
 					<h1 class="text-lg font-semibold text-left">Department ID:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $departmentId }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Department Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $name }}</p>
+					<p class="text-left mt-2 mb-2">{{ $dept_name }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Description:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $description }}</p>
+					<p class="text-left mt-2 mb-2">{{ $dept_description }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
-                    @if($status)
+                    @if($dept_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                         Active
                     </span>
@@ -217,35 +219,35 @@
 	
 		<x-slot name="content">
 			<!--Body-->
-	
-				<!-- Name -->
+
+				<!-- Department Name -->
 				<div class="py-3">
-					<x-input-label for="name" :value="__('Department Name')" />
+					<x-input-label for="dept_description" :value="__('Department Name')" />
 	
-					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Department Name" :value="old('name')" autofocus />
+					<x-text-input wire:model.defer="editing.dept_description" id="dept_description" class="block mt-1 w-full" type="text" name="dept_description" placeholder="Department Name" :value="old('dept_description')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.name')" />
+					<x-input-error :messages="$errors->get('editing.dept_description')" />
 				</div>
 	
-				<!-- Description -->
+				<!-- Department Acronym -->
 				<div class="py-3">
-					<x-input-label class="pt-3" for="description" :value="__('Description')" />
+					<x-input-label for="dept_name" :value="__('Department Acronym')" />
 	
-                    <textarea wire:model.defer="editing.description" id="description" name="description" rows="4" class="block mt-1 p-2 w-full text-gray-900 rounded-md border border-gray-300 focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none" placeholder="Description..."></textarea>
+					<x-text-input wire:model.defer="editing.dept_name" id="dept_name" class="block mt-1 w-full" type="text" name="dept_name" placeholder="Department Acronym" :value="old('dept_name')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.description')" />
+					<x-input-error :messages="$errors->get('editing.dept_name')" />
 				</div>
 	
 				<!-- Status -->
 				<div class="py-3">
-				<x-input-label class="pt-3" for="status" :value="__('Status')" />
-                <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+				<x-input-label class="pt-3" for="dept_status" :value="__('Status')" />
+                <select wire:model.defer="editing.dept_status" id="dept_status" name="dept_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select the Status ~</option>
                 <option value="0" selected >Inactive</option>
                 <option value="1">Active</option> 
                 </select>
 	
-				<x-input-error :messages="$errors->get('editing.status')" />
+				<x-input-error :messages="$errors->get('editing.dept_status')" />
 			</div>
 		</x-slot>
 		

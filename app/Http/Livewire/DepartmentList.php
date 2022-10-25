@@ -29,9 +29,9 @@ class DepartmentList extends Component
 
     // Viewing User Info
     public $departmentId;
-    public $name;
-    public $description;
-    public $status;
+    public $dept_name;
+    public $dept_description;
+    public $dept_status;
 
     // Modals
     public $showDeleteModal = false;
@@ -42,9 +42,9 @@ class DepartmentList extends Component
     public Department $editing;
 
     protected $rules = [
-        'editing.name' => 'required',
-        'editing.description' => 'required',
-        'editing.status' => 'required',
+        'editing.dept_name' => 'required',
+        'editing.dept_description' => 'required',
+        'editing.dept_status' => 'required',
     ];
 
     public function mount() {
@@ -73,11 +73,11 @@ class DepartmentList extends Component
 
         $this->departmentId = $this->viewDepartment->id;
 
-        $this->name = $this->viewDepartment->name;
+        $this->dept_name = $this->viewDepartment->dept_name;
 
-        $this->description = $this->viewDepartment->description;
+        $this->dept_description = $this->viewDepartment->dept_description;
 
-        $this->status = $this->viewDepartment->status;
+        $this->dept_status = $this->viewDepartment->dept_status;
 
         $this->showViewModal = true;
 

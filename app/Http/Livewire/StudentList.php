@@ -29,6 +29,7 @@ class StudentList extends Component
     public $viewUser;
 
     // Viewing User Info
+    public $userId;
     public $firstName;
     public $lastName;
     public $studentId;
@@ -93,6 +94,8 @@ class StudentList extends Component
     public function view($user) {
         $this->viewUser = User::find($user);
 
+        $this->userId = $this->viewUser->id;
+
         $this->firstName = $this->viewUser->first_name;
 
         $this->lastName = $this->viewUser->last_name;
@@ -144,7 +147,7 @@ class StudentList extends Component
 
         $this->showEditModal = false;
 
-        $this->alert('success', 'Student' . ' ' . $this->userTitle . ' ' . 'Successfully!');
+        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function delete($user) {
@@ -162,7 +165,7 @@ class StudentList extends Component
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', 'Student Delete Successfully!');
+        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function render()
@@ -170,7 +173,16 @@ class StudentList extends Component
         sleep(1);
 
         return view('livewire.student-list', [
-            'users' => User::search(['student_id', 'last_name', 'first_name', 'id'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'users' => User::join('departments', 'users.department_id', '=', 'departments.id')
+            ->join('curricula', 'users.curriculum_id', '=', 'curricula.id')
+            ->where('student_id', 'like', '%'  . $this->search . '%')
+            ->orWhere('last_name', 'like', '%'  . $this->search . '%')
+            ->orWhere('first_name', 'like', '%'  . $this->search . '%')
+            ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
+            ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
+            ->select('users.id', 'users.first_name', 'users.last_name', 'users.status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(5),
             'departments' => Department::all(),
             'curricula' => Curriculum::all(),
         ]);
