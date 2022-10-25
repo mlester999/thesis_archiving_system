@@ -244,6 +244,7 @@
 
 
 	  {{-- Show Edit Modal --}}
+	  <div x-data="{disabling: true}">
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
@@ -252,7 +253,7 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div x-data="{show: true}" class="grid grid-cols-2 py-6">
+				<div class="grid grid-cols-2 py-6">
 
 				<!-- First Name -->
 				<div class="px-4">
@@ -291,10 +292,10 @@
 				</div>
 
 				<!-- Department -->
-				<div class="my-6 px-4">
+				<div x-data class="my-6 px-4">
 					<x-input-label for="department_id" :value="__('Department')" />
 	
-					<select x-on:change="setTimeout(() => show = false, 1500)" name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select x-on:change.debounce.1500ms="disabling = false" name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="0" hidden>~ Select Department ~</option>
 						@foreach($departments as $department)
 						<option value="{{ $department->id }}" selected>{{ $department->dept_name }}</option>
@@ -305,10 +306,10 @@
 				</div>
 
 				<!-- Curriculum -->
-				<div class="my-6 px-4">
+				<div x-data class="my-6 px-4">
 					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
 	
-					<select x-bind:disabled="show" wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select x-bind:disabled="disabling" wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="0" hidden>~ Select Curriculum ~</option> 
 						@foreach($curriculaOption as $curriculums)
 						<option value="{{ $curriculums->id }}" selected >{{ $curriculums->curr_name }}</option>
@@ -323,10 +324,11 @@
 		
 			<x-slot name="footer">
 				<x-secondary-button wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
-				<x-primary-button class="mx-2">Save</x-primary-button>
+				<x-primary-button x-on:click="disabling = true" class="mx-2">Save</x-primary-button>
 			</x-slot>
 			</x-dialog-modal>
-		</form>		
+		</form>
+	</div>		
 	</div>
 	@include('admin.body.footer')
 </div>

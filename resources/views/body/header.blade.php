@@ -72,7 +72,7 @@
           @php
             $departmentData = App\Models\Department::all();
             foreach($departmentData as $department) {
-              $departmentInit = preg_split('~[a-z]~', $department->name);
+              $departmentInit = preg_split('~[a-z]~', $department->dept_name);
               $splittedDept = implode('', $departmentInit);
               $finalDepartment = strtolower(str_replace(' ', '', $splittedDept));
             }
