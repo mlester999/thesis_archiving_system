@@ -48,6 +48,9 @@
 			class="focus:outline-none h-16 w-full text-sm leading-none text-gray-800"
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
+				<span wire:click="sortBy('id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student ID 
 				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
@@ -65,8 +68,14 @@
 				</span>
 			</th> --}}
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
+				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Curriculum
+				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
 				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
@@ -91,9 +100,7 @@
 			  </div>
 			</td>
 			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $user->student_id }}
-			  </p>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->student_id }}</p>
 			</td>
 			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
@@ -190,7 +197,7 @@
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
-					<p class="text-md text-left mr-1 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
+					<p class="text-md text-left mr-2 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
 
 					
 				  </div>

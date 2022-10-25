@@ -48,6 +48,9 @@
 			class="focus:outline-none h-16 w-full text-sm leading-none text-gray-800"
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
+				<span wire:click="sortBy('id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('department_id')" class="cursor-pointer ml-2">
@@ -93,10 +96,7 @@
 			</td>
 			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				@php
-					$department = App\Models\Department::find($curriculum->department_id);
-				@endphp
-				{{ \Illuminate\Support\Str::limit($department->dept_description, 30, '...') }}
+				{{ \Illuminate\Support\Str::limit($curriculum->dept_description, 30, '...') }}
 			  </p>
 			</td>
 			<td>
@@ -180,9 +180,9 @@
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
-					<p class="text-left mt-2 mb-2">{{ $departmentInfo->dept_name ?? 'Department Not Found' }}</p>
+					<p class="text-left mt-2 mb-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Curriculum:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $curr_name }}</p>
+					<p class="text-left mt-2 mb-2">{{ $curr_description }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
                     @if($curr_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">

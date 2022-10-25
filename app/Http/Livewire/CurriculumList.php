@@ -34,6 +34,8 @@ class CurriculumList extends Component
     public $curr_name;
     public $curr_description;
     public $curr_status;
+    public $dept_name;
+    public $dept_description;
 
     // Modals
     public $showDeleteModal = false;
@@ -83,6 +85,10 @@ class CurriculumList extends Component
         $this->curr_description = $this->viewCurriculum->curr_description;
 
         $this->curr_status = $this->viewCurriculum->curr_status;
+
+        $this->dept_name = $this->viewCurriculum->dept_name;
+
+        $this->dept_description = $this->viewCurriculum->dept_description;
 
         $this->showViewModal = true;
 
@@ -148,9 +154,13 @@ class CurriculumList extends Component
         sleep(1);
 
         return view('livewire.curriculum-list', [
-            'curricula' => Curriculum::search(['id', 'department_id', 'description', 'status'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'curricula' => Curriculum::join('departments', 'curricula.department_id', '=', 'departments.id')
+            ->where('curr_name', 'like', '%'  . $this->search . '%')
+            ->orWhere('curr_description', 'like', '%'  . $this->search . '%')
+            ->orWhere('dept_description', 'like', '%'  . $this->search . '%')
+            ->select('curricula.id', 'curricula.curr_name', 'curricula.curr_description', 'curricula.curr_status', 'curricula.created_at', 'departments.dept_name', 'departments.dept_description')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
             'departments' => Department::all(),
-
         ]);
     }
 }

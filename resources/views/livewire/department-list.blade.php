@@ -48,6 +48,9 @@
 			class="focus:outline-none h-16 w-full text-sm leading-none text-gray-800"
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
+				<span wire:click="sortBy('id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department Name
 				<span wire:click="sortBy('dept_description')" class="cursor-pointer ml-2">
@@ -168,9 +171,9 @@
 					<h1 class="text-lg font-semibold text-left">Department ID:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $departmentId }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Department Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $dept_name }}</p>
-					<h1 class="text-lg mt-2 font-semibold text-left">Description:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $dept_description }}</p>
+					<h1 class="text-lg mt-2 font-semibold text-left">Acronym:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $dept_name }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
                     @if($dept_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
