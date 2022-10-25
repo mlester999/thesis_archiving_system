@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Listeners\MarkUserActive;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use App\Events\AdminRegisterMailEvent;
 use Illuminate\Auth\Events\Registered;
@@ -23,7 +25,12 @@ class EventServiceProvider extends ServiceProvider
 
         AdminRegisterMailEvent::class => [
             AdminRegisterMailListener::class
-        ]
+        ],
+
+        Verified::class => [
+            MarkUserActive::class,
+        ],
+
     ];
 
     /**

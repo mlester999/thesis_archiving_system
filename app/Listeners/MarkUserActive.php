@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 
+use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,6 +28,6 @@ class MarkUserActive
      */
     public function handle(Verified $event)
     {
-        dd($event);
+       $event->user->update(['status' => 1]);
     }
 }
