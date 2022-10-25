@@ -146,6 +146,7 @@ class CurriculumList extends Component
         return view('livewire.curriculum-list', [
             'curricula' => Curriculum::search(['id', 'department_id', 'name', 'status'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
             'departments' => Department::all(),
+            
         ]);
     }
 }

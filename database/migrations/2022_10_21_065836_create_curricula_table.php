@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('curricula', function (Blueprint $table) {
             $table->id();
             $table->integer('department_id');
+            $table->string('department_name');
             $table->string('name');
             $table->tinyInteger('status');
             $table->timestamps();

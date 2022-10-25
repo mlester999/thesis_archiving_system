@@ -18,12 +18,14 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('department_id');
-            $table->integer('curriculum_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('status')->default(0);
             $table->integer('student_id')->unique();
+            $table->integer('department_id');
+            $table->string('department_name');
+            $table->integer('curriculum_id');
+            $table->string('curriculum_name');
             $table->string('password')->default(Hash::make('00000000'));
             $table->rememberToken();
             $table->timestamps();
