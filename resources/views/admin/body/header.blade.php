@@ -14,9 +14,9 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
             </div>
 
             <li class="flex-1 hidden md:flex md:flex-none md:mt-2 space-x-4 list-none">
-                <div class="relative inline-block">
+                <div x-data="{open: false}" x-on:click.outside="open = false" class="relative inline-block">
                   <button
-                    onclick="toggleDD('myDropdown')"
+                    x-on:click="open = !open"
                     class="drop-button text-white py-2 px-2"
                   >
                     <span class="pr-2"><i class="fa-solid fa-user"></i></span>
@@ -32,8 +32,9 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
                     </svg>
                   </button>
                   <div
-                    id="myDropdown"
-                    class="dropdownlist absolute shadow-lg bg-white rounded text-black right-0 mt-3 w-48 overflow-auto z-30 invisible"
+                    x-show="open"
+                    x-cloak
+                    class="absolute shadow-lg bg-white rounded text-black right-0 mt-3 w-48 overflow-auto z-30"
                   >
 
                     <a
@@ -60,6 +61,7 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
                     >
                     </form>
                 </div>
+              </div>
               </li>
             {{-- <div class="hidden md:flex space-x-4">
                 <div class="hidden md:flex">

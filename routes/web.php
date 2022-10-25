@@ -33,6 +33,11 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/update/password', 'UpdatePassword')->name('update.password');
 
     Route::get('/department/cce', 'DeptCCE')->name('department.cce');
+    Route::get('/department/chas', 'DeptCHAS')->name('department.chas');
+    Route::get('/department/ceas', 'DeptCEAS')->name('department.ceas');
+    Route::get('/department/cbaa', 'DeptCBAA')->name('department.cbaa');
+    Route::get('/department/mae', 'DeptMAE')->name('department.mae');
+    Route::get('/department/mba', 'DeptMBA')->name('department.mba');
 });
 
 Route::get('/dashboard', function () {

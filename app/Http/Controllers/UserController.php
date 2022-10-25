@@ -124,4 +124,34 @@ class UserController extends Controller
         $userData = User::find($id);
         return view('department-cce', ["currentPage" => 'cce'], compact('userData'));
     }
+
+    public function DeptCHAS () {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('department-chas', ["currentPage" => 'chas'], compact('userData'));
+    }
+
+    public function DeptCEAS () {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('department-ceas', ["currentPage" => 'ceas'], compact('userData'));
+    }
+
+    public function DeptCBAA () {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('department-cbaa', ["currentPage" => 'cbaa'], compact('userData'));
+    }
+
+    public function DeptMAE () {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('department-mae', ["currentPage" => 'mae'], compact('userData'));
+    }
+
+    public function DeptMBA () {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        return view('department-mba', ["currentPage" => 'mba'], compact('userData'));
+    }
 }
