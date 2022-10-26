@@ -72,9 +72,7 @@
           @php
             $departmentData = App\Models\Department::all();
             foreach($departmentData as $department) {
-              $departmentInit = preg_split('~[a-z]~', $department->dept_name);
-              $splittedDept = implode('', $departmentInit);
-              $finalDepartment = strtolower(str_replace(' ', '', $splittedDept));
+              $finalDepartment = strtolower($department->dept_name);
             }
           @endphp
           <button @click="dropdownOpenDept = !dropdownOpenDept" class="{{ $currentPage=='department' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Department <i class="fa-solid fa-chevron-down mx-2"></i></button>
@@ -90,7 +88,7 @@
             href="{{ route('department' . '.' . $finalDepartment) }}"
             class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
           >
-          {{ $department->name }}
+          {{ $department->dept_description }}
           </a>
         @endforeach
         </div>

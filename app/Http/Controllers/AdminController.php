@@ -100,11 +100,11 @@ class AdminController extends Controller
 
     }
 
-    public function UserList() {
-        return view('admin.admin-user-list', [
-            'users' => User::paginate(5),
-        ]);
-    }
+    // public function UserList() {
+    //     return view('admin.admin-user-list', [
+    //         'users' => User::paginate(5),
+    //     ]);
+    // }
 
     public function RegisterUser(Request $request) {
         $validatedInputs = $request->validate([

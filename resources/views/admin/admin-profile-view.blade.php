@@ -38,7 +38,7 @@
                 <hr class="border-gray-600 ml-4">
 
                 <div class="flex mx-auto mt-6">
-                <a href="{{ route('admin.edit.profile') }}" class="text-white text-center bg-green-600 py-4 px-6 rounded-md hover:bg-green-500 duration-200">Edit Profile</a>
+                <a href="{{ route('admin.edit.profile') }}" class="w-full md:w-auto flex justify-center items-center py-4 px-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg bg-green-700 shadow-cyan-100 hover:bg-opacity-90 hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Edit Profile</a>
                 </div>
 
             </div>

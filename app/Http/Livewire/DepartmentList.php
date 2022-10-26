@@ -143,7 +143,11 @@ class DepartmentList extends Component
         sleep(1);
 
         return view('livewire.department-list', [
-            'departments' => Department::search(['id', 'name', 'description', 'status'], $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            'departments' => Department::where('id', 'like', '%'  . $this->search . '%')
+            ->where('dept_name', 'like', '%'  . $this->search . '%')
+            ->where('dept_status', 'like', '%'  . $this->search . '%')
+            ->where('dept_description', 'like', '%'  . $this->search . '%')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
         ]);
     }
 }
