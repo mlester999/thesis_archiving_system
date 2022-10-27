@@ -15,7 +15,7 @@ if (count($errors) > 0) {
 </div>
 <div class="border-t border-gray-200">
 <dl>
-<form action="{{ route('store.profile') }}" method="post">
+<form action="{{ route('store.thesis') }}" method="post" enctype="multipart/form-data">
 @csrf
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
         <div class="relative px-8">

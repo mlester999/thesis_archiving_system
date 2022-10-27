@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -33,6 +35,47 @@ class UserController extends Controller
         $userData = User::find($id);
         return view('submit-thesis', ["currentPage" => 'submit'], compact('userData'));
 
+    }
+
+    public function StoreThesis(Request $request) {
+        $id = Auth::user()->id;
+        $storeThesis = User::find($id);
+
+        $fileName = $request->document_path;
+        $fileContent = $request->file('document_path');
+        // $filePath = storage_path($fileName);
+        // $fileData = File::get($filePath);
+
+        
+        // Storage::disk('google')->put($fileName, $fileContent);
+        dd($request->file('document_path')->store($storeThesis->student_id, "google"));
+        // dd($fileContent);
+
+
+        // Storage::disk('google')->put($fileName);
+        // dd($fileName);
+
+        // $validatedInputs = $request->validate([
+        //     'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+        //     'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+        //     'student_id' => 'required|integer',
+        //     'email' => ['required', 'email'],
+        // ]);
+
+        // $storeThesis->first_name = $validatedInputs['first_name'];
+        
+        // $storeThesis->last_name = $validatedInputs['last_name'];
+
+        // $storeThesis->student_id = $validatedInputs['student_id'];
+
+        // $storeThesis->email = $validatedInputs['email'];
+
+        // $storeThesis->save();
+
+        // Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
+        // return redirect()->route('profile');
+        
     }
 
     public function About() {

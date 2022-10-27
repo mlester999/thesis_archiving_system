@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 
@@ -15,6 +16,11 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+Route::get('test', function() {
+    Storage::disk('google')->put('testingkalaks.txt', 'Hello World');
+    dd('done');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,6 +30,8 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'destroy')->name('logout');
     Route::get('/projects', 'Projects')->name('projects');
     Route::get('/submit', 'SubmitThesis')->name('submit');
+    Route::post('/store/thesis', 'StoreThesis')->name('store.thesis');
+
     Route::get('/about', 'About')->name('about');
     Route::get('/profile', 'Profile')->name('profile');
     Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
