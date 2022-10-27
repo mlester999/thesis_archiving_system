@@ -8,7 +8,7 @@ $curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
 
 @endphp
 
-<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-5xl mx-auto mt-16 relative">
+<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-auto mt-8 relative">
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Student Information</h3>
       <a href="{{ route('edit.profile') }}"><i class="fa-solid fa-pen-to-square fa-2xl text-green-500 hover:text-green-600 duration-200 absolute right-6 top-8"></i></a>
@@ -16,29 +16,28 @@ $curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
     </div>
     <div class="border-t border-gray-200">
       <dl>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">First Name</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->first_name }}</dd>
-        </div>
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Last Name</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->last_name }}</dd>
-        </div>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Department</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ $departmentData->name }}</dd>
-        </div>
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Curriculum</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ $curriculumData->name }}</dd>
-        </div>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Student Id</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->student_id }}</dd>
-        </div>
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Email Address</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->email }}</dd>
+        <div class="bg-gray-50 px-4 py-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div class="px-4 col-start-1">
+            <img src="{{ asset('/images/pnc1.jpg') }}" class="max-w-xs object-cover object-center h-80 rounded-md">     
+           </div>
+
+           <div class="p-8 ml-8">
+            <dt class="text-lg font-medium text-gray-500 col-start-2">First Name</dt>
+            <dd class="mt-1 mb-8 text-md text-gray-900 sm:col-span-1 sm:mt-0">{{ $userData->first_name }}</dd>
+            <dt class="text-lg font-medium text-gray-500 col-start-2">Last Name</dt>
+            <dd class="mt-1 mb-8 text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->last_name }}</dd>
+            <dt class="text-lg font-medium text-gray-500 col-start-2">Student Id</dt>
+            <dd class="mt-1 mb-8 text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->student_id }}</dd>
+          </div>
+
+          <div class="py-8">
+            <dt class="text-lg font-medium text-gray-500 col-start-2">Department</dt>
+            <dd class="mt-1 mb-8 text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $departmentData->dept_description }}</dd>
+            <dt class="text-lg font-medium text-gray-500 col-start-2">Curriculum</dt>
+            <dd class="mt-1 mb-8 text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $curriculumData->curr_description }}</dd>
+            <dt class="text-lg font-medium text-gray-500 col-start-2">Email Address</dt>
+            <dd class="mt-1 mb-8 text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->email }}</dd>
+          </div>
         </div>
       </dl>
     </div>

@@ -170,7 +170,7 @@
 				  <div class="px-4">
 					<h1 class="text-lg font-semibold text-left">Department ID:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $departmentId }}</p>
-					<h1 class="text-lg mt-2 font-semibold text-left">Department Name:</h1> 
+					<h1 class="text-lg mt-2 font-semibold text-left">College Name:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $dept_description }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Acronym:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $dept_name }}</p>
