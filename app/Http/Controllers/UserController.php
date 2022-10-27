@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\User;
+use App\Models\Archive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -39,42 +41,39 @@ class UserController extends Controller
 
     public function StoreThesis(Request $request) {
         $id = Auth::user()->id;
-        $storeThesis = User::find($id);
+        $userUploaded = User::find($id);
+        $now = new DateTime();
 
-        $fileName = $request->document_path;
         $fileContent = $request->file('document_path');
-        // $filePath = storage_path($fileName);
-        // $fileData = File::get($filePath);
+        $fileContentName = $request->file('document_path')->getClientOriginalName();
 
-        
-        // Storage::disk('google')->put($fileName, $fileContent);
-        dd($request->file('document_path')->store($storeThesis->student_id, "google"));
-        // dd($fileContent);
+        $fileSystem = Storage::disk('google');
 
+        $fileSystem->putFileAs($userUploaded->student_id, $fileContent, $fileContentName);
 
-        // Storage::disk('google')->put($fileName);
-        // dd($fileName);
+        $validatedInputs = $request->validate([
+            'year' => 'required|integer',
+            'title' => 'required',
+            'abstract' => 'required',
+            'members' => 'required',
+            'banner_path' => 'required',
+            'document_path' => 'required',
+        ]);
 
-        // $validatedInputs = $request->validate([
-        //     'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        //     'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        //     'student_id' => 'required|integer',
-        //     'email' => ['required', 'email'],
-        // ]);
+        $archiveFiles = Archive::create([
+            'archive_code' => $now->format("Ym").'0001',
+            'curriculum_id' => $userUploaded->curriculum_id,
+            'department_id' => $userUploaded->department_id,
+            'year' => $request->year,
+            'title' => $request->title,
+            'abstract' => $request->abstract,
+            'members' => $request->members,
+            'banner_path' => $request->banner_path,
+            'document_path',
+            'user_id' => $userUploaded->user_id,
+        ]);
 
-        // $storeThesis->first_name = $validatedInputs['first_name'];
-        
-        // $storeThesis->last_name = $validatedInputs['last_name'];
-
-        // $storeThesis->student_id = $validatedInputs['student_id'];
-
-        // $storeThesis->email = $validatedInputs['email'];
-
-        // $storeThesis->save();
-
-        // Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
-
-        // return redirect()->route('profile');
+        return redirect()->route('projects');
         
     }
 
