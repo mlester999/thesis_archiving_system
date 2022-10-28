@@ -72,7 +72,7 @@ class UserController extends Controller
             'user_id' => $userUploaded->id,
         ]);
 
-        return redirect()->route('projects');
+        return redirect()->route('archives');
         
     }
 
@@ -96,6 +96,30 @@ class UserController extends Controller
 
         return view('profile-edit', ["currentPage" => 'edit-profile'], compact('editUserData'));
     }
+
+    public function ArchivesList() {
+        
+        $id = Auth::user()->id;
+        $archiveData = Archive::all()->where('user_id', $id);
+
+        return view('archives-list', ["currentPage" => 'archives-list'], compact('archiveData'));
+    }
+
+    public function ViewArchives($id) {
+        
+        $viewArchiveData = Archive::findOrFail($id);
+
+        return view('view-archives', ["currentPage" => 'view-archives'], compact('viewArchiveData'));
+    }
+
+    public function EditArchives() {
+        
+        $id = Auth::user()->id;
+        $editArchiveData = Archive::all()->where('user_id', $id);
+
+        return view('edit-archives', ["currentPage" => 'edit-archives'], compact('editArchiveData'));
+    }
+    
 
     public function StoreProfile(Request $request) {
         $id = Auth::user()->id;

@@ -37,6 +37,10 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
     Route::post('/store/profile', 'StoreProfile')->name('store.profile');
 
+    Route::get('/archives', 'ArchivesList')->name('archives');
+    Route::get('/view/archives/{id}', 'ViewArchives')->name('view.archives');
+    Route::get('/edit/archives/{id}', 'EditArchives')->name('edit.archives');
+
     Route::get('/change/password', 'ChangePassword')->name('change.password');
     Route::post('/update/password', 'UpdatePassword')->name('update.password');
 
