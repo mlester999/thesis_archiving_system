@@ -33,7 +33,7 @@ if (count($errors) > 0) {
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
         <label for="abstract" class="text-sm font-semibold text-gray-900">Abstract:</label>
-    <input type="text" name="abstract" id="abstractEditor">
+    <textarea name="abstract" id="abstract"> </textarea>
     {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2"/> --}}
     </div>
 </div>
@@ -41,25 +41,22 @@ if (count($errors) > 0) {
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
         <label for="members" class="text-sm font-semibold text-gray-900">Project Members:</label>
-    <input type="text" name="members" id="membersEditor">
+    <textarea name="members" id="members"> </textarea>
     {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2"/> --}}
     </div>
 </div>
 
-{{-- Banner Path --}}
+{{-- Banner Path
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <label for="banner_path" class="text-sm font-semibold text-gray-900 ml-8 -mb-2">Project Image / Banner Image</label>
-    <div class="flex justify-center items-center w-full">
-        <label for="banner_path" class="flex flex-col justify-center items-center w-full h-64 bg-gray-100 mx-8 focus:outline-none rounded-lg border-2 border-gray-400 border-dashed cursor-pointer">
-            <div class="flex flex-col justify-center items-center pt-5 pb-6">
-                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-            </div>
-            <input id="banner_path" name="banner_path" type="file" class="hidden" />
+    <div x-data="{src: 'images/preview.png'}" class="rounded-t-lg w-full px-8">
+        <img :src="src" class="w-full object-cover object-center h-96 rounded-t-lg">     
+        <label for="banner_path" class="w-full py-3 flex flex-col cursor-pointer bg-gray-900 rounded-b-lg text-center">
+          <span class="text-white font-bold">Select Banner Image</span>
+          <input class="hidden" id="banner_path" name="banner_path" type="file" @change="src = URL.createObjectURL($event.target.files[0])">
         </label>
-    </div> 
-</div>
+      </div>
+</div> --}}
 
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
@@ -82,13 +79,13 @@ if (count($errors) > 0) {
 @section('editor')
 <script>
     ClassicEditor
-        .create( document.querySelector( '#abstractEditor' ) )
+        .create( document.querySelector( '#abstract' ) )
         .catch( error => {
             console.error( error );
         } );
 
         ClassicEditor
-        .create( document.querySelector( '#membersEditor' ) )
+        .create( document.querySelector( '#members' ) )
         .catch( error => {
             console.error( error );
         } );

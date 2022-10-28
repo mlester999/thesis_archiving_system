@@ -30,7 +30,7 @@
 
     <title>PNC Library</title>
   </head>
-  <body class="bg-slate-100">
+  <body class="bg-slate-50">
 
     <style>
     .ck-editor__editable[role="textbox"] {

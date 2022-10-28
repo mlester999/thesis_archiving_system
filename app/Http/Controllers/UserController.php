@@ -27,7 +27,8 @@ class UserController extends Controller
 
     public function Projects() {
         $id = Auth::user()->id;
-        $userData = User::find($id);
+        $userData = Archive::all()->where('user_id', $id);
+
         return view('projects', ["currentPage" => 'projects'], compact('userData'));
 
     }
@@ -44,33 +45,31 @@ class UserController extends Controller
         $userUploaded = User::find($id);
         $now = new DateTime();
 
-        $fileContent = $request->file('document_path');
-        $fileContentName = $request->file('document_path')->getClientOriginalName();
-
-        $fileSystem = Storage::disk('google');
-
-        $fileSystem->putFileAs($userUploaded->student_id, $fileContent, $fileContentName);
-
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
             'title' => 'required',
             'abstract' => 'required',
             'members' => 'required',
-            'banner_path' => 'required',
             'document_path' => 'required',
         ]);
 
+        $fileContent = $request->file('document_path');
+        $fileContentName = $request->file('document_path')->getClientOriginalName();
+
+        $fileSystem = Storage::disk('google');
+
+        $fileUploaded = $fileSystem->putFileAs($userUploaded->student_id, $fileContent, $fileContentName);
+
         $archiveFiles = Archive::create([
-            'archive_code' => $now->format("Ym").'0001',
+            'archive_code' => $now->format("Ym") . str_pad(Archive::count() + 1, 4, '0', STR_PAD_LEFT),
             'curriculum_id' => $userUploaded->curriculum_id,
             'department_id' => $userUploaded->department_id,
             'year' => $request->year,
             'title' => $request->title,
             'abstract' => $request->abstract,
             'members' => $request->members,
-            'banner_path' => $request->banner_path,
-            'document_path',
-            'user_id' => $userUploaded->user_id,
+            'document_path' => $fileSystem->url($fileUploaded),
+            'user_id' => $userUploaded->id,
         ]);
 
         return redirect()->route('projects');
