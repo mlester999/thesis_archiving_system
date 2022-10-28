@@ -69,6 +69,7 @@ class UserController extends Controller
             'abstract' => $request->abstract,
             'members' => $request->members,
             'document_path' => $fileSystem->url($fileUploaded),
+            'document_name' => $fileContentName,
             'user_id' => $userUploaded->id,
         ]);
 
@@ -112,12 +113,48 @@ class UserController extends Controller
         return view('view-archives', ["currentPage" => 'view-archives'], compact('viewArchiveData'));
     }
 
-    public function EditArchives() {
+    public function EditArchives($id) {
         
-        $id = Auth::user()->id;
-        $editArchiveData = Archive::all()->where('user_id', $id);
+        $editArchiveData = Archive::findOrFail($id);
 
         return view('edit-archives', ["currentPage" => 'edit-archives'], compact('editArchiveData'));
+    }
+
+    public function UpdateArchives(Request $request, $id) {
+
+        $storeArchiveData = Archive::findOrFail($id);
+
+        $userData = User::find($storeArchiveData->user_id);
+
+        $validatedInputs = $request->validate([
+            'year' => 'required|integer',
+            'title' => 'required',
+            'abstract' => 'required',
+            'members' => 'required',
+            'document_path' => 'required',
+        ]);
+
+        $fileContent = $request->file('document_path');
+        $fileContentName = $request->file('document_path')->getClientOriginalName();
+
+        $fileSystem = Storage::disk('google');
+
+        $fileSystem->delete($userData->student_id, $storeArchiveData->document_name);
+
+        $fileUploaded = $fileSystem->putFileAs($userData->student_id, $fileContent, $fileContentName);
+
+        $storeArchiveData->year = $request->year;
+        $storeArchiveData->title = $request->title;
+        $storeArchiveData->abstract = $request->abstract;
+        $storeArchiveData->members = $request->members;
+        $storeArchiveData->document_path = $fileSystem->url($fileUploaded);
+        $storeArchiveData->document_name = $fileContentName;
+
+        $storeArchiveData->save();
+
+        Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
+        return redirect()->route('view.archives', $storeArchiveData->id);
     }
     
 

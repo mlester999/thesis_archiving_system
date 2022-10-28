@@ -46,18 +46,6 @@ if (count($errors) > 0) {
     </div>
 </div>
 
-{{-- Banner Path
-<div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-    <label for="banner_path" class="text-sm font-semibold text-gray-900 ml-8 -mb-2">Project Image / Banner Image</label>
-    <div x-data="{src: 'images/preview.png'}" class="rounded-t-lg w-full px-8">
-        <img :src="src" class="w-full object-cover object-center h-96 rounded-t-lg">     
-        <label for="banner_path" class="w-full py-3 flex flex-col cursor-pointer bg-gray-900 rounded-b-lg text-center">
-          <span class="text-white font-bold">Select Banner Image</span>
-          <input class="hidden" id="banner_path" name="banner_path" type="file" @change="src = URL.createObjectURL($event.target.files[0])">
-        </label>
-      </div>
-</div> --}}
-
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
     <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (PDF File only)</label>

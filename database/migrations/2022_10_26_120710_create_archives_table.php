@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('members');
             $table->text('banner_path');
             $table->text('document_path');
+            $table->text('document_name');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

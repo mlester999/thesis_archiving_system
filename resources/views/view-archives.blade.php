@@ -7,7 +7,7 @@
 
 <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-auto mt-8 relative">
     <div class="px-4 pt-5 sm:px-6">
-        <p class="py-2 font-medium">Archive Code: {{ $viewArchiveData->archive_code }}</p>
+        <p class="py-2 text-lg font-medium">Archive Code: {{ $viewArchiveData->archive_code }}</p>
         <div class="py-10 border-t border-gray-300 space-y-4">
             <h3 class="text-2xl max-w-3xl font-bold leading-6 text-gray-900 inline-block">{{ $viewArchiveData->title }}</h3>
             <p class="text-sm">Submitted by
@@ -15,7 +15,7 @@
                 <span> on {{ $viewArchiveData->created_at->format('M d, Y H:i A') }}</span>
             </p>
             <div class="space-x-2 pt-2">
-            <a href="{{ route('edit.archives', $viewArchiveData->id) }}" class="py-3 px-4 bg-green-500 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
+            <a href="{{ route('edit.archives', $viewArchiveData->id) }}" class="py-3 px-4 bg-blue-500 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
             <a href="{{ route('edit.archives', $viewArchiveData->id) }}" class="py-3 px-4 bg-red-500 text-white"><i class="fa-solid fa-trash mr-1"></i> Delete</a>
             </div>
         </div>
