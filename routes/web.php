@@ -27,30 +27,30 @@ Route::get('/', function () {
 
 // User Routes
 Route::controller(UserController::class)->group(function () {
-    Route::get('/logout', 'destroy')->name('logout');
-    Route::get('/projects', 'Projects')->name('projects');
-    Route::get('/submit', 'SubmitThesis')->name('submit');
-    Route::post('/store/thesis', 'StoreThesis')->name('store.thesis');
+    Route::get('/logout', 'destroy')->middleware(['auth', 'verified'])->name('logout');
+    Route::get('/projects', 'Projects')->middleware(['auth', 'verified'])->name('projects');
+    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified'])->name('submit');
+    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified'])->name('store.thesis');
 
-    Route::get('/about', 'About')->name('about');
-    Route::get('/profile', 'Profile')->name('profile');
-    Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
-    Route::post('/store/profile', 'StoreProfile')->name('store.profile');
+    Route::get('/about', 'About')->middleware(['auth', 'verified'])->name('about');
+    Route::get('/profile', 'Profile')->middleware(['auth', 'verified'])->name('profile');
+    Route::get('/edit/profile', 'EditProfile')->middleware(['auth', 'verified'])->name('edit.profile');
+    Route::post('/store/profile', 'StoreProfile')->middleware(['auth', 'verified'])->name('store.profile');
 
-    Route::get('/archives', 'ArchivesList')->name('archives');
-    Route::get('/view/archives/{id}', 'ViewArchives')->name('view.archives');
-    Route::get('/edit/archives/{id}', 'EditArchives')->name('edit.archives');
-    Route::post('/update/archives/{id}', 'UpdateArchives')->name('update.archives');
+    Route::get('/archives', 'ArchivesList')->middleware(['auth', 'verified'])->name('archives');
+    Route::get('/view/archives/{id}', 'ViewArchives')->middleware(['auth', 'verified'])->name('view.archives');
+    Route::get('/edit/archives/{id}', 'EditArchives')->middleware(['auth', 'verified'])->name('edit.archives');
+    Route::post('/update/archives/{id}', 'UpdateArchives')->middleware(['auth', 'verified'])->name('update.archives');
 
-    Route::get('/change/password', 'ChangePassword')->name('change.password');
-    Route::post('/update/password', 'UpdatePassword')->name('update.password');
+    Route::get('/change/password', 'ChangePassword')->middleware(['auth', 'verified'])->name('change.password');
+    Route::post('/update/password', 'UpdatePassword')->middleware(['auth', 'verified'])->name('update.password');
 
-    Route::get('/department/cce', 'DeptCCE')->name('department.cce');
-    Route::get('/department/chas', 'DeptCHAS')->name('department.chas');
-    Route::get('/department/ceas', 'DeptCEAS')->name('department.ceas');
-    Route::get('/department/cbaa', 'DeptCBAA')->name('department.cbaa');
-    Route::get('/department/mae', 'DeptMAE')->name('department.mae');
-    Route::get('/department/mba', 'DeptMBA')->name('department.mba');
+    Route::get('/department/cce', 'DeptCCE')->middleware(['auth', 'verified'])->name('department.cce');
+    Route::get('/department/chas', 'DeptCHAS')->middleware(['auth', 'verified'])->name('department.chas');
+    Route::get('/department/ceas', 'DeptCEAS')->middleware(['auth', 'verified'])->name('department.ceas');
+    Route::get('/department/cbaa', 'DeptCBAA')->middleware(['auth', 'verified'])->name('department.cbaa');
+    Route::get('/department/mae', 'DeptMAE')->middleware(['auth', 'verified'])->name('department.mae');
+    Route::get('/department/mba', 'DeptMBA')->middleware(['auth', 'verified'])->name('department.mba');
 });
 
 Route::get('/dashboard', function () {
@@ -61,16 +61,16 @@ require __DIR__.'/auth.php';
 
 // Admin Routes
 Route::controller(AdminController::class)->group(function () {
-    Route::get('/admin/logout', 'destroy')->name('admin.logout');
-    Route::get('/admin/profile', 'Profile')->name('admin.profile');
-    Route::get('/admin/edit/profile', 'EditProfile')->name('admin.edit.profile');
-    Route::post('/admin/store/profile', 'StoreProfile')->name('admin.store.profile');
+    Route::get('/admin/logout', 'destroy')->middleware(['auth:admin', 'custom_verify'])->name('admin.logout');
+    Route::get('/admin/profile', 'Profile')->middleware(['auth:admin', 'custom_verify'])->name('admin.profile');
+    Route::get('/admin/edit/profile', 'EditProfile')->middleware(['auth:admin', 'custom_verify'])->name('admin.edit.profile');
+    Route::post('/admin/store/profile', 'StoreProfile')->middleware(['auth:admin', 'custom_verify'])->name('admin.store.profile');
 
-    Route::get('/admin/change/password', 'ChangePassword')->name('admin.change.password');
-    Route::post('/admin/update/password', 'UpdatePassword')->name('admin.update.password');
+    Route::get('/admin/change/password', 'ChangePassword')->middleware(['auth:admin', 'custom_verify'])->name('admin.change.password');
+    Route::post('/admin/update/password', 'UpdatePassword')->middleware(['auth:admin', 'custom_verify'])->name('admin.update.password');
 
-    Route::get('/admin/user/list', 'UserList')->name('admin.user.list');
-    Route::post('/admin/user/register', 'RegisterUser')->name('admin.user.register');
+    Route::get('/admin/user/list', 'UserList')->middleware(['auth:admin', 'custom_verify'])->name('admin.user.list');
+    Route::post('/admin/user/register', 'RegisterUser')->middleware(['auth:admin', 'custom_verify'])->name('admin.user.register');
 });
 
 Route::get('/admin/dashboard', function () {
