@@ -1,6 +1,10 @@
 @extends('master')
 @section('user')
 
+  @php
+      $showEmptyMessage = 0;
+  @endphp
+
 <div class="bg-white shadow-xl sm:rounded-lg max-w-7xl mx-auto my-8 relative">
     <div class="border-t border-gray-200">
         <div class="mb-10">
@@ -32,7 +36,12 @@
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white">
-                        @forelse($userData as $user)
+                        @foreach($userData as $user)
+
+                        @if($user->status == 1)
+                          @php
+                              $showEmptyMessage = 1;
+                          @endphp
                         <tr>
                           <td
                             class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-4 text-sm"
@@ -101,10 +110,14 @@
                             {{ $curriculumInfo->curr_name }}
                           </td>
                         </tr>
-                        @empty
-                        <tr class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
+                        @endif
+                        
+                        @endforeach
+
+                        @if($showEmptyMessage == 0)
+                        <tr class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                             >
-                            <td colspan="3" class="cursor-pointer">
+                            <td colspan="3">
                                 <div class="flex items-center justify-center">
                                 <div>
                                     <p class="text-xl py-8 font-medium leading-none text-gray-400">No projects found...</p>
@@ -112,7 +125,7 @@
                                 </div>
                             </td>
                             </tr>
-                        @endforelse
+                        @endif
                       </tbody>
                     </table>
                   </div>

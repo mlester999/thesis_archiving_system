@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Archive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -100,11 +101,12 @@ class AdminController extends Controller
 
     }
 
-    // public function UserList() {
-    //     return view('admin.admin-user-list', [
-    //         'users' => User::paginate(5),
-    //     ]);
-    // }
+    public function ViewArchives($id) {
+        
+        $viewArchiveData = Archive::findOrFail($id);
+
+        return view('admin.admin-view-archives', compact('viewArchiveData'));
+    }
 
     public function RegisterUser(Request $request) {
         $validatedInputs = $request->validate([

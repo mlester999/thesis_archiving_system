@@ -39,19 +39,19 @@
         >
           <a
             href="{{ route('profile') }}"
-            class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
+            class="block p-4 text-sm capitalize duration-150 text-gray-800 hover:bg-green-500 hover:text-white"
           >
           <i class="fas fa-user fa-lg px-2"></i> Profile
           </a>
           <a
             href="{{ route('change.password') }}"
-            class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
+            class="block p-4 text-sm capitalize duration-150 text-gray-800 hover:bg-green-500 hover:text-white"
           >
           <i class="fa-solid fa-lg fa-lock px-2"></i> Change Password
           </a>
           <form action="{{ route('logout') }}" method="POST">
             @csrf
-          <button class="block w-full p-4 text-sm text-left capitalize text-red-600 hover:bg-green-500 hover:text-white">
+          <button class="block w-full p-4 duration-150 text-sm text-left capitalize text-red-600 hover:bg-green-500 hover:text-white">
             <i class="fas fa-lg fa-sign-out-alt px-2"></i> Logout</button>
           </form>
         </div>
@@ -62,10 +62,10 @@
   <div x-cloak x-data="{ dropdownOpenDept: false }" class="relative container mx-auto p-2 bg-white shadow-lg max-w-full">
     <ul class="flex flex-wrap -mb-px mx-40">
       <li class="mx-8">
-          <a href="{{ route('home') }}" class="{{ $currentPage=='home' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Home</a>
+          <a href="{{ route('home') }}" class="{{ $currentPage=='home' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">Home</a>
       </li>
       <li class="px-8">
-          <a href="{{ route('projects') }}" class="{{ $currentPage=='projects' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Projects</a>
+          <a href="{{ route('projects') }}" class="{{ $currentPage=='projects' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">Projects</a>
       </li>
       <li class="px-8">
         <div class="relative">
@@ -75,7 +75,7 @@
               $finalDepartment = strtolower($department->dept_name);
             }
           @endphp
-          <button @click="dropdownOpenDept = !dropdownOpenDept" class="{{ $currentPage=='department' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Department <i class="fa-solid fa-chevron-down mx-2"></i></button>
+          <button @click="dropdownOpenDept = !dropdownOpenDept" class="{{ $currentPage=='department' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">Department <i class="fa-solid fa-chevron-down mx-2"></i></button>
           
           <div
           x-show="dropdownOpenDept"
@@ -86,7 +86,7 @@
         @foreach($departmentData as $department)
           <a
             href="{{ route('department' . '.' . $finalDepartment) }}"
-            class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 hover:text-white"
+            class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 duration-150 hover:text-white"
           >
           {{ $department->dept_description }}
           </a>
@@ -95,10 +95,10 @@
       </div>
       </li>
       <li class="px-8">
-          <a href="{{ route('submit') }}" class="{{ $currentPage=='submit' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">Submit Thesis / Capstone</a>
+          <a href="{{ route('submit') }}" class="{{ $currentPage=='submit' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">Submit Thesis / Capstone</a>
       </li>
       <li class="px-8">
-        <a href="{{ route('about') }}" class="{{ $currentPage=='about' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }}">About</a>
+        <a href="{{ route('about') }}" class="{{ $currentPage=='about' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">About</a>
     </li>
   </ul>
   </div>

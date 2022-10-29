@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\UserList;
+use App\Http\Livewire\ArchiveList;
 use App\Http\Livewire\StudentList;
 use App\Http\Livewire\CurriculumList;
 use App\Http\Livewire\DepartmentList;
@@ -67,4 +68,6 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('curriculum-list', CurriculumList::class)->name('curriculum-list');
 
     Route::get('department-list', DepartmentList::class)->name('department-list');
+
+    Route::get('archive-list', ArchiveList::class)->name('archive-list');
 });

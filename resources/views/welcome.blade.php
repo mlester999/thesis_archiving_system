@@ -6,7 +6,7 @@
 
         <title>PNC Library</title>
 
-        <link rel="shortcut icon" href="{{ asset('library_icon.ico') }}">
+        <link rel="shortcut icon" href="{{ asset('images/library_pnc.ico') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">

@@ -13,7 +13,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Department List</li>
-                        <li class="font-extrabold text-slate-800 text-xl">12</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Department::count() }}</li>
                     </ul>
 
                 </div>
@@ -29,7 +29,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Curriculum List</li>
-                        <li class="font-extrabold text-slate-800 text-xl">12</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Curriculum::count() }}</li>
                     </ul>
 
                 </div>
@@ -45,7 +45,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Verified Students</li>
-                        <li class="font-extrabold text-slate-800 text-xl">1698</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\User::where('status', 1)->count() }}</li>
                     </ul>
 
                 </div>
@@ -61,7 +61,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Not Verified Students</li>
-                        <li class="font-extrabold text-slate-800 text-xl">521</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\User::where('status', 0)->count() }}</li>
                     </ul>
 
                 </div>
@@ -77,7 +77,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Approved Archives</li>
-                        <li class="font-extrabold text-slate-800 text-xl">22</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Archive::where('status', 1)->count() }}</li>
                     </ul>
 
                 </div>
@@ -93,7 +93,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Pending Archives</li>
-                        <li class="font-extrabold text-slate-800 text-xl">16</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Archive::where('status', 0)->count() }}</li>
                     </ul>
 
                 </div>

@@ -14,7 +14,7 @@
       href="images/favicon-32x32.png"
     />
 
-    <link rel="shortcut icon" href="{{ asset('library_icon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/library_pnc.ico') }}">
 
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 

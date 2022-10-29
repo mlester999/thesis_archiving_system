@@ -152,7 +152,7 @@ class UserController extends Controller
 
         $storeArchiveData->save();
 
-        Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+        Alert::success('Archive Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
         return redirect()->route('view.archives', $storeArchiveData->id);
     }

@@ -21,7 +21,7 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
     <div class="flex flex-col p-4 text-gray-500 text-md space-y-3 font-medium">
             <p class="uppercase text-gray-400 tracking-wider">Menu</p>
             <a href="{{ route('admin.dashboard') }}" class="{{ Route::is('admin.dashboard') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}"> <x-ri-dashboard-line class="w-5 mr-3" /> Dashboard</a>
-            <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-inbox-archive-fill class="w-5 mr-3" /> Archives List</a>
+            <a href="{{ route('admin.archive-list') }}" class="{{ Route::is('admin.archive-list') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}" /> <x-ri-inbox-archive-fill class="w-5 mr-3" /> Archives List</a>
             <a href="" class="bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md"> <x-ri-mac-line class="w-5 mr-3" /> Access List</a>
             <a href="{{ route('admin.student-list') }}" class="{{ Route::is('admin.student-list') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}"> <x-ri-account-circle-line class="w-5 mr-3" /> Student List</a>
             

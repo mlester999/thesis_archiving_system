@@ -76,8 +76,8 @@
                             Published
                         </span>
                         @else
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
-                            Unpublished
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-gray-800">
+                            Publishing...
                         </span>
                         @endif
                       </td>

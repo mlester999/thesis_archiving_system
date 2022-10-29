@@ -69,6 +69,8 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin/change/password', 'ChangePassword')->middleware(['auth:admin', 'custom_verify'])->name('admin.change.password');
     Route::post('/admin/update/password', 'UpdatePassword')->middleware(['auth:admin', 'custom_verify'])->name('admin.update.password');
 
+    Route::get('/admin/view/archive-list/{id}', 'ViewArchives')->middleware(['auth:admin', 'verified'])->name('admin.view.archive-list');
+
     Route::get('/admin/user/list', 'UserList')->middleware(['auth:admin', 'custom_verify'])->name('admin.user.list');
     Route::post('/admin/user/register', 'RegisterUser')->middleware(['auth:admin', 'custom_verify'])->name('admin.user.register');
 });
