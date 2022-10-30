@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
 use App\Models\Archive;
 use Livewire\Component;
 use App\Models\Curriculum;
@@ -21,55 +20,53 @@ class ArchiveList extends Component
 
     public $sortField = 'id';
 
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
 
-    public $deleteArchive;
+    public $showPublishModal = false;
 
-    public $viewArchive;
+    public $archiveTitle;
 
-    // Viewing User Info
-    public $archiveId;
-    public $archiveCode;
-    public $department_id;
-    public $curriculum_id;
-    public $title;
-    public $abstract;
-    public $year;
-    public $members;
-    public $document_path;
-    public $document_name;
-    public $status;
-    public $user_id;
+    // Editing Table
+    public Archive $publishing;
 
-    // Modals
-    public $showDeleteModal = false;
+    protected $rules = [
+        'publishing.status' => 'required',
+        'publishing.admin_comment' => 'nullable',
+    ];
 
-    public function view($archive) {
-        $this->viewArchive = Archive::find($archive);
+    public function mount() {
+        $this->publishing = $this->makeBlankUser();
+    }
 
-        $this->archiveId = $this->viewArchive->id;
+    public function closeModal() {
 
-        $this->archiveCode = $this->viewArchive->archiveCode;
+        $this->showEditModal = false;
 
-        $this->department_id = $this->viewArchive->department_id;
+    }
 
-        $this->curriculum_id = $this->viewArchive->curriculum_id;
+    public function makeBlankUser() {
+        return Archive::make();
+    }
 
-        $this->title = $this->viewArchive->title;
+    public function edit(Archive $archive) {
 
-        $this->abstract = $this->viewArchive->abstract;
+        $this->resetErrorBag();
 
-        $this->year = $this->viewArchive->year;
+        if($this->publishing->isNot($archive)) $this->publishing = $archive;
 
-        $this->members = $this->viewArchive->members;
-        
-        $this->document_path = $this->viewArchive->document_path;
+        $this->showPublishModal = true;
 
-        $this->document_name = $this->viewArchive->document_name;
+        $this->archiveTitle = "Publish Archive";
+    }
 
-        $this->status = $this->viewArchive->status;
+    public function save() {
+        $this->validate();
 
-        $this->user_id = $this->viewArchive->user_id;
+        $this->publishing->save();
+
+        $this->showPublishModal = false;
+
+        $this->alert('success', $this->archiveTitle . ' ' . 'Successfully!');
     }
 
     public function sortBy($field) {
@@ -80,22 +77,6 @@ class ArchiveList extends Component
         }
 
         $this->sortField = $field;
-    }
-
-    public function delete($user) {
-        $this->deleteUser = User::find($user);
-
-        $this->showDeleteModal = true;
-    }
-
-    public function deleteUser() {
-        $this->deleteUser->delete();
-
-        $this->editing = $this->makeBlankUser();
-
-        $this->showDeleteModal = false;
-
-        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function render()
@@ -113,8 +94,6 @@ class ArchiveList extends Component
             ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.status', 'archives.department_id', 'archives.curriculum_id', 'archives.user_id', 'archives.created_at', 'departments.dept_name', 'curricula.curr_name')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(5),
-            'departments' => Department::all(),
-            'curricula' => Curriculum::all(),
         ]);
     }
 }

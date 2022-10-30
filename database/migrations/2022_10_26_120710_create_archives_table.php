@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('document_path');
             $table->text('document_name');
             $table->boolean('status')->default(0);
+            $table->string('admin_comment');
             $table->timestamps();
         });
     }

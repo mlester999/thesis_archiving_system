@@ -81,7 +81,7 @@
                                     <button type="button">
                                       <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-black tracking-[-0.4px]"
-                                        >Unpublished</span
+                                        >General</span
                                       >
                                     </button>
                                   </div>

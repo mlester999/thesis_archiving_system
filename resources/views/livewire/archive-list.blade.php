@@ -7,7 +7,7 @@
 		  <h2
 			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
 		  >
-			Archives List
+			Archive List
 		  </h2>
 		</div>
 		<div class="mt-4 flex md:mt-0 md:ml-4 z-0">
@@ -22,17 +22,7 @@
 	  </div>
 	</div>
 
-	<div
-	  x-data="{ 
-		open: false,
-		toggle() {
-			this.open = this.open ? this.close() : true
-		},
-		close() {
-			this.open = false
-		}
-	}"
-	  class="overflow-hidden sm:rounded-lg space-y-8"
+	<div class="overflow-hidden sm:rounded-lg space-y-8"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
@@ -45,12 +35,12 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Archive Code
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Archive Code
 				<span wire:click="sortBy('archive_code')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'archive_code' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Project Title
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Project Title
 				<span wire:click="sortBy('title')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'title' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -60,23 +50,23 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th> --}}
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Curriculum
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Curriculum
 				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Created at 
 				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status </th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Status </th>
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -92,22 +82,22 @@
 				</div>
 			  </div>
 			</td>
-			<td class="pl-12">
+			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $archive->archive_code }}</p>
 			</td>
-			<td class="pl-8">
+			<td class="pl-6">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($archive->title, 20, '...') }}</p>
 			</td>
-			<td class="pl-8">
+			<td class="pl-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->dept_name ?? 'Department Not Found' }}</p>
 			  </td>
-			  <td class="pl-8">
+			  <td class="pl-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->curr_name ?? 'Curriculum Not Found' }}</p>
 			  </td>
-			<td class="pl-8">
+			<td class="pl-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->created_at->format('M d, Y') }}</p>
 			  </td>
-			  <td class="pl-8">
+			  <td class="pl-6">
 				@if($archive->status == 1)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Published
@@ -122,9 +112,9 @@
                 </span>
 				@endif
 			  </td>
-			<td class="pl-8">
-				<a href="{{ route('admin.view.archive-list', $archive->id) }}" class="mr-2"> <i class="fa-solid fa-eye fa-xl"></i> </a>
-				<a href="{{ route('admin.view.archive-list', $archive->id) }}" class="mx-2"> <i class="fa-solid text-red-500 fa-trash fa-xl"></i> </a>  
+			<td class="pl-6">
+				<a href="{{ route('admin.view.archive-list', $archive->id) }}" class="mr-2"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
+				<a wire:click="edit({{ $archive->id }})" class="mx-2 "> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>  
 			  </td>
 		  </tr>
 		  @empty
@@ -148,24 +138,44 @@
 		>	
 		{{ $archives->links() }}
 	  </div>
-	
-	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteUser">
+			
+	  {{-- Show Edit Modal --}}
+	  <form wire:submit.prevent="save">
 
-		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title">Delete Archives</x-slot>
+		<x-dialog-modal wire:model.defer="showPublishModal">
+		  <x-slot name="title">{{ $archiveTitle }}</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this project?</h1> 
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
+			  <!--Body-->
+  
+				  <!-- Status -->
+				  <div class="py-3">
+				  <x-input-label class="pt-3" for="status" :value="__('Status')" />
+				  <select wire:model.defer="publishing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+				  <option value="" hidden>~ Select the Status ~</option>
+				  <option value="1" selected>Published</option> 
+				  <option value="2">Unpublished</option>
+				  </select>
+	  
+				  <x-input-error :messages="$errors->get('publishing.status')" />
+			  	  </div>
+
+				<!-- Comments -->
+				<div class="py-3">
+					<x-input-label for="admin_comment" :value="__('Comments')" />
+	
+					<textarea wire:model.defer="publishing.admin_comment" id="admin_comment" class="block mt-1 w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="text" name="admin_comment" placeholder="Leave empty if no comments..."> </textarea>
+	
+					<x-input-error :messages="$errors->get('publishing.admin_comment')" />
+				</div>
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button class="mx-2">Delete</x-delete-button>
+				  <x-secondary-button wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
+				  <x-primary-button class="mx-2">Save</x-primary-button>
 			  </x-slot>
-			  </x-confirmation-modal>
-		  </form>			
+			  </x-dialog-modal>
+		  </form>		
 	</div>
 	@include('admin.body.footer')
 </div>
