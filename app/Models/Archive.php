@@ -22,9 +22,9 @@ class Archive extends Model
         'title',
         'abstract',
         'members',
-        'banner_path',
         'document_path',
-        'status',
+        'document_name',
+        'archive_status',
         'user_id',
     ];
 }

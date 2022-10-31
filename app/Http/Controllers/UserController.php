@@ -58,9 +58,9 @@ class UserController extends Controller
 
         $fileSystem = Storage::disk('google');
 
-        $fileUploaded = $fileSystem->putFileAs($userUploaded->student_id, $fileContent, $fileContentName);
+        $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $fileContent, $fileContentName);
 
-        $archiveFiles = Archive::create([
+        Archive::create([
             'archive_code' => $now->format("Ym") . str_pad(Archive::count() + 1, 4, '0', STR_PAD_LEFT),
             'curriculum_id' => $userUploaded->curriculum_id,
             'department_id' => $userUploaded->department_id,
@@ -139,7 +139,7 @@ class UserController extends Controller
 
         $fileSystem = Storage::disk('google');
 
-        $fileSystem->delete($userData->student_id, $storeArchiveData->document_name);
+        $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->document_name);
 
         $fileUploaded = $fileSystem->putFileAs($userData->student_id, $fileContent, $fileContentName);
 

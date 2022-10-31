@@ -16,8 +16,8 @@ class Curriculum extends Model
      */
     protected $fillable = [
         'department_id',
-        'name',
-        'description',
-        'status',
+        'curr_name',
+        'curr_description',
+        'curr_status',
     ];
 }

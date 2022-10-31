@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use App\Models\Archive;
 use Livewire\Component;
-use App\Models\Curriculum;
-use App\Models\Department;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Hash;
@@ -24,13 +24,23 @@ class ArchiveList extends Component
 
     public $showPublishModal = false;
 
+    public $studentId;
+
+    public $documentPath;
+
+    public $documentName;
+
     public $archiveTitle;
 
-    // Editing Table
+    public $viewUser;
+
+    public $viewArchive;
+
+    // Publishing Table
     public Archive $publishing;
 
     protected $rules = [
-        'publishing.status' => 'required',
+        'publishing.archive_status' => 'required',
         'publishing.admin_comment' => 'nullable',
     ];
 
@@ -50,17 +60,41 @@ class ArchiveList extends Component
 
     public function edit(Archive $archive) {
 
+        $this->viewArchive = Archive::find($archive->id);
+
+        $this->viewUser = User::find($this->viewArchive->user_id);
+
         $this->resetErrorBag();
 
         if($this->publishing->isNot($archive)) $this->publishing = $archive;
 
         $this->showPublishModal = true;
 
+        $this->studentId = $this->viewUser->student_id;
+
+        $this->documentPath = $this->viewArchive->document_path;
+
+        $this->documentName = $this->viewArchive->document_name;
+
         $this->archiveTitle = "Publish Archive";
     }
 
     public function save() {
         $this->validate();
+
+        if($this->publishing->archive_status == 1) {
+            $fileSystem = Storage::disk('google');
+
+            $fileUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->documentName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
+            // $fileSystem->url($fileUploaded);
+            if(!$fileSystem->files('For Approval' . '/' . $this->studentId)) {
+                $fileSystem->delete('For Approval' . '/' . $this->studentId);
+            }
+        } 
+        
+        if($this->publishing->archive_status == 2) {
+            $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->documentName);
+        }
 
         $this->publishing->save();
 
@@ -91,7 +125,7 @@ class ArchiveList extends Component
             ->orWhere('year', 'like', '%'  . $this->search . '%')
             ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
             ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
-            ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.status', 'archives.department_id', 'archives.curriculum_id', 'archives.user_id', 'archives.created_at', 'departments.dept_name', 'curricula.curr_name')
+            ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.user_id', 'archives.created_at', 'departments.dept_name', 'curricula.curr_name')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(5),
         ]);

@@ -98,11 +98,11 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->created_at->format('M d, Y') }}</p>
 			  </td>
 			  <td class="pl-6">
-				@if($archive->status == 1)
+				@if($archive->archive_status == 1)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Published
                 </span>
-				@elseif($archive->status == 2)
+				@elseif($archive->archive_status == 2)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                     Unpublished
                 </span>
@@ -125,7 +125,7 @@
 		  <td colspan="8" class="pl-8 cursor-pointer">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-xl py-8 font-medium leading-none text-gray-400">No students found...</p>
+				<p class="text-xl py-8 font-medium leading-none text-gray-400">No archives found...</p>
 			  </div>
 			</div>
 		  </td>
@@ -150,14 +150,14 @@
   
 				  <!-- Status -->
 				  <div class="py-3">
-				  <x-input-label class="pt-3" for="status" :value="__('Status')" />
-				  <select wire:model.defer="publishing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-				  <option value="" hidden>~ Select the Status ~</option>
-				  <option value="1" selected>Published</option> 
+				  <x-input-label class="pt-3" for="archive_status" :value="__('Status')" />
+				  <select wire:model.defer="publishing.archive_status" id="archive_status" name="archive_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+				  <option value="0" selected>Publishing...</option>
+				  <option value="1">Published</option> 
 				  <option value="2">Unpublished</option>
 				  </select>
 	  
-				  <x-input-error :messages="$errors->get('publishing.status')" />
+				  <x-input-error :messages="$errors->get('publishing.archive_status')" />
 			  	  </div>
 
 				<!-- Comments -->
