@@ -36,16 +36,26 @@ class UserController extends Controller
 
     public function ViewProject($id) {
         
-        $viewProjectData = Archive::all()->where('archive_code', $id)->first();
+        $userId = Auth::user()->id;
+        $viewProjectData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
 
+        if($viewProjectData) {
         return view('view-project', ["currentPage" => 'view-project'], compact('viewProjectData'));
+        } else {
+            return redirect()->route('projects');
+        }
     }
 
     public function EditProject($id) {
         
-        $editProjectData = Archive::findOrFail($id);
+        $userId = Auth::user()->id;
+        $editProjectData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
 
+        if($editProjectData) {
         return view('edit-project', ["currentPage" => 'edit-project'], compact('editProjectData'));
+        } else {
+            return redirect()->route('projects');
+        }
     }
 
     public function UpdateProject(Request $request, $id) {
@@ -162,17 +172,25 @@ class UserController extends Controller
     }
 
     public function ViewArchives($id) {
-        
-        $viewArchiveData = Archive::all()->where('archive_code', $id)->first();
-
+        $userId = Auth::user()->id;
+        $viewArchiveData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
+        if($viewArchiveData) {
         return view('view-archives', ["currentPage" => 'view-archives'], compact('viewArchiveData'));
+        } else {
+            return redirect()->route('archives');
+        }
     }
 
     public function EditArchives($id) {
         
-        $editArchiveData = Archive::findOrFail($id);
+        $userId = Auth::user()->id;
+        $editArchiveData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
 
+        if($editArchiveData) {
         return view('edit-archives', ["currentPage" => 'edit-archives'], compact('editArchiveData'));
+        } else {
+            return redirect()->route('archives');
+        }
     }
 
     public function UpdateArchives(Request $request, $id) {

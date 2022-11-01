@@ -51,7 +51,7 @@
                 </div>
                 
                 <div class="bg-white px-4 mx-32 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
-                <a href="{{ route('view.archives', $editProjectData->id) }}" class="cursor-pointer w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
+                <a href="{{ route('view.project', $editProjectData->archive_code) }}" class="cursor-pointer w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
                 <x-primary-button class="mx-2 py-3">Update Thesis</x-primary-button>
                 </div>
                 </form>
