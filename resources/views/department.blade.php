@@ -36,9 +36,9 @@
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white">
-                        @foreach($userData as $user)
+                        @foreach($archiveData as $archive)
 
-                        @if($user->archive_status == 1)
+                        @if($archive->archive_status == 1)
                           @php
                               $showEmptyMessage = 1;
                           @endphp
@@ -46,12 +46,15 @@
                           <td
                             class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-4 text-sm"
                           >
+                          @php
+                                $departmentData = App\Models\Department::find($archive->department_id);
+                          @endphp
                             <div class="flex items-center">
                               <div>
-                                <a href="{{ route('view.project',$user->id) }}"
+                                <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->id]) }}"
                                   class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-slate-800 mb-2 tracking-[-0.4px]"
                                 >
-                                  {{ \Illuminate\Support\Str::limit($user->title, 60, '...') }}
+                                  {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
                                 </a>
                                 <div
                                   class="flex flex-wrap flex-col md:flex-row gap-2 md:gap-4"
@@ -60,7 +63,7 @@
 
 
                                     @php 
-                                        $userInfo = App\Models\User::find($user->user_id);
+                                        $userInfo = App\Models\User::find($archive->user_id);
                                     @endphp
 
                                     <div
@@ -71,7 +74,7 @@
                                     <div
                                       class="text-sm text-slate-500 tracking-[-0.4px]"
                                     >
-                                      {{ $user->year }}
+                                      {{ $archive->year }}
                                     </div>
                                   </div>
                                   <div
@@ -90,7 +93,7 @@
                           </td>
 
                           @php 
-                            $departmentInfo = App\Models\Department::find($user->department_id);
+                            $departmentInfo = App\Models\Department::find($archive->department_id);
                           @endphp
 
                           <td
@@ -100,7 +103,7 @@
                           </td>
 
                           @php 
-                            $curriculumInfo = App\Models\Curriculum::find($user->curriculum_id);
+                            $curriculumInfo = App\Models\Curriculum::find($archive->curriculum_id);
                           @endphp
 
                           <td

@@ -29,6 +29,10 @@ Route::get('/', function () {
 Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'destroy')->middleware(['auth', 'verified'])->name('logout');
     Route::get('/projects', 'Projects')->middleware(['auth', 'verified'])->name('projects');
+    Route::get('/view/project/{id}', 'ViewProject')->middleware(['auth', 'verified'])->name('view.project');
+    Route::get('/edit/project/{id}', 'EditProject')->middleware(['auth', 'verified'])->name('edit.project');
+    Route::post('/update/project/{id}', 'UpdateProject')->middleware(['auth', 'verified'])->name('update.project');
+
     Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified'])->name('submit');
     Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified'])->name('store.thesis');
 
@@ -45,12 +49,9 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/change/password', 'ChangePassword')->middleware(['auth', 'verified'])->name('change.password');
     Route::post('/update/password', 'UpdatePassword')->middleware(['auth', 'verified'])->name('update.password');
 
-    Route::get('/department/cce', 'DeptCCE')->middleware(['auth', 'verified'])->name('department.cce');
-    Route::get('/department/chas', 'DeptCHAS')->middleware(['auth', 'verified'])->name('department.chas');
-    Route::get('/department/ceas', 'DeptCEAS')->middleware(['auth', 'verified'])->name('department.ceas');
-    Route::get('/department/cbaa', 'DeptCBAA')->middleware(['auth', 'verified'])->name('department.cbaa');
-    Route::get('/department/mae', 'DeptMAE')->middleware(['auth', 'verified'])->name('department.mae');
-    Route::get('/department/mba', 'DeptMBA')->middleware(['auth', 'verified'])->name('department.mba');
+    Route::get('/department/{dept}', 'CollegeDepartments')->middleware(['auth', 'verified'])->name('department');
+    Route::get('/view/department/{dept}/{id}', 'ViewCollegeDepartments')->middleware(['auth', 'verified'])->name('view.department');
+
 });
 
 Route::get('/dashboard', function () {

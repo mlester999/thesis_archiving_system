@@ -71,9 +71,6 @@
         <div class="relative">
           @php
             $departmentData = App\Models\Department::all();
-            foreach($departmentData as $department) {
-              $finalDepartment = strtolower($department->dept_name);
-            }
           @endphp
           <button @click="dropdownOpenDept = !dropdownOpenDept" class="{{ $currentPage=='department' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">Department <i class="fa-solid fa-chevron-down mx-2"></i></button>
           
@@ -85,7 +82,7 @@
         >
         @foreach($departmentData as $department)
           <a
-            href="{{ route('department' . '.' . $finalDepartment) }}"
+            href="{{ route('department', strtolower($department->dept_name)) }}"
             class="block p-4 text-sm capitalize text-gray-800 hover:bg-green-500 duration-150 hover:text-white"
           >
           {{ $department->dept_description }}

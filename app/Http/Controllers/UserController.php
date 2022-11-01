@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\User;
+use App\Models\Department;
 use App\Models\Archive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,58 @@ class UserController extends Controller
         return view('projects', ["currentPage" => 'projects'], compact('userData'));
 
     }
+
+    public function ViewProject($id) {
+        
+        $viewProjectData = Archive::findOrFail($id);
+
+        return view('view-project', ["currentPage" => 'view-project'], compact('viewProjectData'));
+    }
+
+    public function EditProject($id) {
+        
+        $editProjectData = Archive::findOrFail($id);
+
+        return view('edit-project', ["currentPage" => 'edit-project'], compact('editProjectData'));
+    }
+
+    public function UpdateProject(Request $request, $id) {
+
+        $storeProjectData = Archive::findOrFail($id);
+
+        $userData = User::find($storeProjectData->user_id);
+
+        $validatedInputs = $request->validate([
+            'year' => 'required|integer',
+            'title' => 'required',
+            'abstract' => 'required',
+            'members' => 'required',
+            'document_path' => 'required',
+        ]);
+
+        $fileContent = $request->file('document_path');
+        $fileContentName = $request->file('document_path')->getClientOriginalName();
+
+        $fileSystem = Storage::disk('google');
+
+        $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->document_name);
+
+        $fileUploaded = $fileSystem->putFileAs($userData->student_id, $fileContent, $fileContentName);
+
+        $storeProjectData->year = $request->year;
+        $storeProjectData->title = $request->title;
+        $storeProjectData->abstract = $request->abstract;
+        $storeProjectData->members = $request->members;
+        $storeProjectData->document_path = $fileSystem->url($fileUploaded);
+        $storeProjectData->document_name = $fileContentName;
+
+        $storeProjectData->save();
+
+        Alert::success('Archive Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
+        return redirect()->route('view.project', $storeProjectData->id);
+    }
+    
 
     public function SubmitThesis() {
         $id = Auth::user()->id;
@@ -221,39 +274,47 @@ class UserController extends Controller
         }
     }
 
-    public function DeptCCE () {
-        $id = Auth::user()->id;
-        $userData = User::find($id);
-        return view('department-cce', ["currentPage" => 'cce'], compact('userData'));
+    public function CollegeDepartments($dept) {
+
+        $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
+        $archiveData = Archive::all()->where('department_id', $deptData->id)->where('archive_status', 1);
+        return view('department', ["currentPage" => $dept], compact('archiveData'));
     }
 
-    public function DeptCHAS () {
-        $id = Auth::user()->id;
-        $userData = User::find($id);
-        return view('department-chas', ["currentPage" => 'chas'], compact('userData'));
+    public function ViewCollegeDepartments($dept, $id) {
+        
+        $viewDepartmentData = Archive::findOrFail($id);
+
+        return view('view-department', ["currentPage" => 'view-archives'], compact('viewDepartmentData'));
     }
 
-    public function DeptCEAS () {
-        $id = Auth::user()->id;
-        $userData = User::find($id);
-        return view('department-ceas', ["currentPage" => 'ceas'], compact('userData'));
-    }
+    // public function DeptCHAS () {
+    //     $userData = Archive::all();
+    //     return view('department-chas', ["currentPage" => 'chas'], compact('userData'));
+    // }
 
-    public function DeptCBAA () {
-        $id = Auth::user()->id;
-        $userData = User::find($id);
-        return view('department-cbaa', ["currentPage" => 'cbaa'], compact('userData'));
-    }
+    // public function DeptCEAS ($id) {
+    //     $storeArchiveData = Archive::findOrFail($id);
+    //     $id = Auth::user()->id;
+    //     $userData = User::find($id);
+    //     return view('department-ceas', ["currentPage" => 'ceas'], compact('userData'));
+    // }
 
-    public function DeptMAE () {
-        $id = Auth::user()->id;
-        $userData = User::find($id);
-        return view('department-mae', ["currentPage" => 'mae'], compact('userData'));
-    }
+    // public function DeptCBAA () {
+    //     $id = Auth::user()->id;
+    //     $userData = User::find($id);
+    //     return view('department-cbaa', ["currentPage" => 'cbaa'], compact('userData'));
+    // }
 
-    public function DeptMBA () {
-        $id = Auth::user()->id;
-        $userData = User::find($id);
-        return view('department-mba', ["currentPage" => 'mba'], compact('userData'));
-    }
+    // public function DeptMAE () {
+    //     $id = Auth::user()->id;
+    //     $userData = User::find($id);
+    //     return view('department-mae', ["currentPage" => 'mae'], compact('userData'));
+    // }
+
+    // public function DeptMBA () {
+    //     $id = Auth::user()->id;
+    //     $userData = User::find($id);
+    //     return view('department-mba', ["currentPage" => 'mba'], compact('userData'));
+    // }
 }
