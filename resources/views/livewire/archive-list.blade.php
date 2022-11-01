@@ -152,8 +152,8 @@
 				  <div class="py-3">
 				  <x-input-label class="pt-3" for="archive_status" :value="__('Status')" />
 				  <select wire:model.defer="publishing.archive_status" id="archive_status" name="archive_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-				  <option value="0" selected>Publishing...</option>
-				  <option value="1">Published</option> 
+				  <option value="" hidden>~ Select the Status ~</option>
+				  <option value="1" selected>Published</option> 
 				  <option value="2">Unpublished</option>
 				  </select>
 	  

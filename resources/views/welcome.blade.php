@@ -60,9 +60,9 @@
                             @if (Route::has('admin.login'))
 
                                 @auth('admin')
-                                    <a href="{{ url('admin/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Dashboard</a>
+                                    <a href="{{ url('admin/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
-                                    <a href="{{ route('admin.login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Login</a>
+                                    <a href="{{ route('admin.login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
             
                                     {{-- @if (Route::has('register'))
                                         <a href="{{ route('admin.register') }}" class="ml-6 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Register</a>
@@ -81,9 +81,9 @@
                             @if (Route::has('login'))
 
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Dashboard</a>
+                                    <a href="{{ url('/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-green-700 transition-all duration-500">Login</a>
+                                    <a href="{{ route('login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
             
                                     {{-- @if (Route::has('register'))
                                         <a href="{{ route('register') }}" class="ml-6 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Register</a>

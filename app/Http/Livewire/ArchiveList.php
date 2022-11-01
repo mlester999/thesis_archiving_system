@@ -40,7 +40,7 @@ class ArchiveList extends Component
     public Archive $publishing;
 
     protected $rules = [
-        'publishing.archive_status' => 'required',
+        'publishing.archive_status' => 'required|gt:0',
         'publishing.admin_comment' => 'nullable',
     ];
 
@@ -86,15 +86,15 @@ class ArchiveList extends Component
             $fileSystem = Storage::disk('google');
 
             $fileUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->documentName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
-            // $fileSystem->url($fileUploaded);
+            $this->publishing->document_path = $fileSystem->url('Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
             if(!$fileSystem->files('For Approval' . '/' . $this->studentId)) {
                 $fileSystem->delete('For Approval' . '/' . $this->studentId);
             }
         } 
         
-        if($this->publishing->archive_status == 2) {
-            $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->documentName);
-        }
+        // if($this->publishing->archive_status == 2) {
+        //     $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->documentName);
+        // }
 
         $this->publishing->save();
 

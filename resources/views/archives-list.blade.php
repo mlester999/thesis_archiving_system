@@ -71,7 +71,7 @@
                         <p class="text-md font-medium leading-none text-gray-800">{{ $curriculumInfo->curr_name }}</p>
                       </td>
                       <td class="pl-12">
-                        @if($user->status)
+                        @if($user->archive_status)
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                             Published
                         </span>
@@ -82,8 +82,8 @@
                         @endif
                       </td>
                     <td class="pl-12">
-                      <a href="{{ route('view.archives', $user->id) }}" class="mr-2"> <i class="fa-solid fa-eye fa-xl"></i> </a>
-                      <a href="{{ route('view.archives', $user->id) }}" class="mx-2"> <i class="fa-solid text-red-500 fa-trash fa-xl"></i> </a>  
+                      <a href="{{ route('view.archives', $user->id) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
+                      <a href="{{ route('view.archives', $user->id) }}" class="mx-2"> <i class="fa-solid text-red-500 hover:text-opacity-80 duration-150 fa-trash fa-xl"></i> </a>  
                       </td>
                   </tr>
                   @empty

@@ -17,19 +17,19 @@
                         <tr>
                           <th
                             scope="col"
-                            class="p-4 text-left text-md font-medium text-slate-800"
+                            class="p-4 text-left text-lg font-medium text-slate-800"
                           >
                             Projects
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-md font-medium text-slate-800"
+                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
                           >
                             Department
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-md font-medium text-slate-800"
+                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
                           >
                             Curriculum
                           </th>
@@ -38,7 +38,7 @@
                       <tbody class="divide-y divide-gray-200 bg-white">
                         @foreach($userData as $user)
 
-                        @if($user->status == 1)
+                        @if($user->archive_status == 1)
                           @php
                               $showEmptyMessage = 1;
                           @endphp
@@ -48,12 +48,11 @@
                           >
                             <div class="flex items-center">
                               <div>
-                                <button
-                                  type="button"
-                                  class="text-lg text-left font-semibold text-slate-800 mb-2 tracking-[-0.4px]"
+                                <a href=""
+                                  class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-slate-800 mb-2 tracking-[-0.4px]"
                                 >
                                   {{ \Illuminate\Support\Str::limit($user->title, 60, '...') }}
-                                </button>
+                                </a>
                                 <div
                                   class="flex flex-wrap flex-col md:flex-row gap-2 md:gap-4"
                                 >

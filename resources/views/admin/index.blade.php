@@ -77,7 +77,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Approved Archives</li>
-                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Archive::where('status', 1)->count() }}</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Archive::where('archive_status', 1)->count() }}</li>
                     </ul>
 
                 </div>
@@ -93,7 +93,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Pending Archives</li>
-                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Archive::where('status', 0)->count() }}</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Archive::where('archive_status', 0)->count() }}</li>
                     </ul>
 
                 </div>
