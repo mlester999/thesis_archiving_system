@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function ViewProject($id) {
         
-        $viewProjectData = Archive::findOrFail($id);
+        $viewProjectData = Archive::all()->where('archive_code', $id)->first();
 
         return view('view-project', ["currentPage" => 'view-project'], compact('viewProjectData'));
     }
@@ -126,6 +126,8 @@ class UserController extends Controller
             'user_id' => $userUploaded->id,
         ]);
 
+        Alert::success('Thesis Submit Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
         return redirect()->route('archives');
         
     }
@@ -161,7 +163,7 @@ class UserController extends Controller
 
     public function ViewArchives($id) {
         
-        $viewArchiveData = Archive::findOrFail($id);
+        $viewArchiveData = Archive::all()->where('archive_code', $id)->first();
 
         return view('view-archives', ["currentPage" => 'view-archives'], compact('viewArchiveData'));
     }
@@ -205,7 +207,7 @@ class UserController extends Controller
 
         $storeArchiveData->save();
 
-        Alert::success('Archive Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+        Alert::success('Thesis Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
         return redirect()->route('view.archives', $storeArchiveData->id);
     }
@@ -277,13 +279,13 @@ class UserController extends Controller
     public function CollegeDepartments($dept) {
 
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
-        $archiveData = Archive::all()->where('department_id', $deptData->id)->where('archive_status', 1);
+        $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
         return view('department', ["currentPage" => $dept], compact('archiveData'));
     }
 
     public function ViewCollegeDepartments($dept, $id) {
         
-        $viewDepartmentData = Archive::findOrFail($id);
+        $viewDepartmentData = Archive::all()->where('archive_code', $id)->first();
 
         return view('view-department', ["currentPage" => 'view-archives'], compact('viewDepartmentData'));
     }

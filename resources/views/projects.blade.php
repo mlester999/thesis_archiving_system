@@ -48,7 +48,7 @@
                           >
                             <div class="flex items-center">
                               <div>
-                                <a href="{{ route('view.project',$user->id) }}"
+                                <a href="{{ route('view.project',$user->archive_code) }}"
                                   class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-slate-800 mb-2 tracking-[-0.4px]"
                                 >
                                   {{ \Illuminate\Support\Str::limit($user->title, 60, '...') }}

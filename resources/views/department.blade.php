@@ -33,6 +33,12 @@
                           >
                             Curriculum
                           </th>
+                          <th
+                            scope="col"
+                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
+                          >
+                            Published at
+                          </th>
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white">
@@ -44,14 +50,14 @@
                           @endphp
                         <tr>
                           <td
-                            class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-4 text-sm"
+                            class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-8 text-sm"
                           >
                           @php
                                 $departmentData = App\Models\Department::find($archive->department_id);
                           @endphp
                             <div class="flex items-center">
                               <div>
-                                <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->id]) }}"
+                                <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->archive_code]) }}"
                                   class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-slate-800 mb-2 tracking-[-0.4px]"
                                 >
                                   {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
@@ -111,6 +117,12 @@
                           >
                             {{ $curriculumInfo->curr_name }}
                           </td>
+
+                          <td
+                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-[-0.4px] text-slate-800"
+                          >
+                            {{ $archive->created_at->format('M d, Y') }}
+                          </td>
                         </tr>
                         @endif
                         
@@ -135,6 +147,11 @@
               </div>
             </div>
           </div>
-    </div>
-</div>
+        </div>
+      </div>
+      <div
+      class="flex flex-col xs:flex-row xs:justify-between px-32 pb-8"
+      >	
+      {{ $archiveData->links() }}
+      </div>
 @endsection

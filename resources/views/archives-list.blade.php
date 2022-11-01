@@ -19,8 +19,6 @@
                     tabindex="0"
                     class="focus:outline-none h-16 w-full text-sm leading-none text-gray-800"
                   >
-                    <th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
-                    </th>
                     <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Archive Code
                     </th>
                     <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Topic
@@ -39,13 +37,6 @@
                     tabindex="{{ $user->id }}"
                     class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                   >
-                    <td class="pl-8 cursor-pointer">
-                      <div class="flex items-center">
-                        <div>
-                          <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
-                        </div>
-                      </div>
-                    </td>
                     <td class="pl-12">
                       <p class="text-md font-medium leading-none text-gray-800">
                         {{ $user->archive_code }}
@@ -82,16 +73,16 @@
                         @endif
                       </td>
                     <td class="pl-12">
-                      <a href="{{ route('view.archives', $user->id) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
-                      <a href="{{ route('view.archives', $user->id) }}" class="mx-2"> <i class="fa-solid text-red-500 hover:text-opacity-80 duration-150 fa-trash fa-xl"></i> </a>  
+                      <a href="{{ route('view.archives', $user->archive_code) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
+                      <a href="{{ route('view.archives', $user->archive_code) }}" class="mx-2"> <i class="fa-solid text-red-500 hover:text-opacity-80 duration-150 fa-trash fa-xl"></i> </a>  
                       </td>
                   </tr>
                   @empty
                   <tr
                   wire:loading.class.delay="opacity-50"
-                  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
+                  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                 >
-                  <td colspan="7" class="pl-8 cursor-pointer">
+                  <td colspan="7" class="pl-8">
                     <div class="flex items-center justify-center">
                       <div>
                         <p class="text-xl py-8 font-medium leading-none text-gray-400">No archives found...</p>

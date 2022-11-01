@@ -12,7 +12,8 @@
 
         $id = Auth::user()->id;
         $adminData = App\Models\User::find($id);
-
+        $adminDataDisplay = explode(" ", $adminData->first_name);
+        
       @endphp
 
       <!-- Right Buttons Menu -->
@@ -22,7 +23,7 @@
           class="relative z-10 max-w-lg bg-transparent tracking-wide p-2 text-white rounded-lg text-sm py-3 overflow-hidden focus:outline-none focus:border-white"
         >
         <img src="{{ asset('images/R.png') }}" class="w-10 h-10 rounded-full object-cover inline-block mx-2" src="/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar">
-            <span>{{ $adminData->first_name }}</span>
+            <span>{{ $adminDataDisplay[0] }}</span>
             <span class="mx-2"><i class="fa-solid fa-chevron-down"></i></span>
         </button>
 

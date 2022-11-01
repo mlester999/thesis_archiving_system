@@ -19,7 +19,7 @@ $curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
       <dl>
         <div class="bg-gray-50 px-4 py-12 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <div class="px-4 col-start-1">
-            <img src="{{ asset('/images/pnc1.jpg') }}" class="max-w-xs object-cover object-center h-80 rounded-md">     
+            <img src="{{ asset('/images/library_logo.png') }}" class="max-w-xs object-cover object-center h-80 rounded-md">     
            </div>
 
            <div class="p-8 ml-8">

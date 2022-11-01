@@ -17,31 +17,25 @@
       <dl>
         <form action="{{ route('store.profile') }}" method="post">
             @csrf
-        <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
 
-          <div x-data="{src: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/LeBron_James_-_51959723161_%28cropped%29.jpg'}" class="h-64 w-72 rounded-t-lg mx-auto">
-            <img :src="src" class="w-full object-cover object-center h-64 rounded-t-lg">     
-            <label for="profile_img" class="w-full py-3 flex flex-col cursor-pointer bg-green-500 rounded-b-lg text-center">
-              <span class="text-white font-bold">Change Profile</span>
-              <input class="hidden" id="profile_img" name="profile_img" type="file" @change="src = URL.createObjectURL($event.target.files[0])">
-            </label>
-          </div>
-
-           <div class="p-8 relative">
+           <div class="px-8 pt-8 relative">
             <dt class="text-sm font-medium text-gray-500">First Name</dt>
             <input type="text" name="first_name" id="first_name" class="mb-8 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->first_name }}" autofocus>
             <dt class="text-sm font-medium text-gray-500">Last Name</dt>
             <input type="text" name="last_name" id="last_name" class="mb-16 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->last_name }}">
           </div>
 
-          <div class="p-8 relative">
+          <div class="px-8 pt-8 relative">
             <dt class="text-sm font-medium text-gray-500">Student Id</dt>
             <input type="text" name="student_id" id="student_id" class="mb-8 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->student_id }}">
             <dt class="text-sm font-medium text-gray-500">Email Address</dt>
             <input type="text" name="email" id="email" class="mb-16 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->email }}">
-            <a href="{{ route('profile') }}" class="cursor-pointer w-full md:w-24 mr-8 float-left flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md px-8 p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
-            <x-primary-button class="py-2">Update</x-primary-button>
           </div>
+        </div>
+        <div class="bg-white px-4 pb-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 float-right">
+          <a href="{{ route('profile') }}" class="cursor-pointer w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md px-8 p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
+          <x-primary-button class="mx-2 py-2">Update</x-primary-button>
         </div>
         </form>
       </dl>

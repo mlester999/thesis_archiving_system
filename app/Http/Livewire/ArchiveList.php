@@ -92,9 +92,9 @@ class ArchiveList extends Component
             }
         } 
         
-        // if($this->publishing->archive_status == 2) {
-        //     $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->documentName);
-        // }
+        if($this->publishing->archive_status == 2) {
+            $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->documentName);
+        }
 
         $this->publishing->save();
 
