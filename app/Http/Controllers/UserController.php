@@ -214,7 +214,7 @@ class UserController extends Controller
 
         $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->document_name);
 
-        $fileUploaded = $fileSystem->putFileAs($userData->student_id, $fileContent, $fileContentName);
+        $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userData->student_id, $fileContent, $fileContentName);
 
         $storeArchiveData->year = $request->year;
         $storeArchiveData->title = $request->title;
@@ -307,8 +307,10 @@ class UserController extends Controller
     }
 
     public function ViewCollegeDepartments($dept, $id) {
+
+        $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
         
-        $viewDepartmentData = Archive::all()->where('archive_code', $id)->first();
+        $viewDepartmentData = Archive::all()->where('department_id', $deptData->id)->where('archive_code', $id)->first();
 
         if($viewDepartmentData) {
         return view('view-department', ["currentPage" => 'view-archives'], compact('viewDepartmentData'));

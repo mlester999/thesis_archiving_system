@@ -18,8 +18,11 @@
                 <span> on {{ $viewArchiveData->created_at->format('M d, Y H:i A') }}</span>
             </p>
             <div class="space-x-2 pt-2">
+            @if($viewArchiveData->archive_status > 0)
+            <a href="{{ route('edit.archives', $viewArchiveData->archive_code) }}" class="py-3 px-4 bg-red-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-trash mr-1"></i> Delete</a>
+            @else
             <a href="{{ route('edit.archives', $viewArchiveData->archive_code) }}" class="py-3 px-4 bg-blue-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
-            {{-- <a href="{{ route('edit.archives', $viewArchiveData->id) }}" class="py-3 px-4 bg-red-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-trash mr-1"></i> Delete</a> --}}
+            @endif
             </div>
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
@@ -30,7 +33,10 @@
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
             <p>{!! $viewArchiveData->members !!}</p>
             <div class="space-x-2 py-6 relative">
+                @if($viewArchiveData->archive_status < 2)
                 <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download File</a>
+                @endif
+                
                 @if($viewArchiveData->admin_comment)
                 <div class="inline-flex absolute right-10 top-0 flex-col px-5 py-1.5 rounded-full bg-gray-200 text-black tracking-[-0.4px]">
                     <p class="font-bold text-md">Admin Comment:</p>

@@ -103,7 +103,7 @@
                     Published
                 </span>
 				@elseif($archive->archive_status == 2)
-				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
+				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
                     Unpublished
                 </span>
 				@else
@@ -113,7 +113,7 @@
 				@endif
 			  </td>
 			<td class="pl-6">
-				<a href="{{ route('admin.view.archive-list', $archive->id) }}" class="mr-2"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
+				<a href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mr-2"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
 				<a wire:click="edit({{ $archive->id }})" class="mx-2 "> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>  
 			  </td>
 		  </tr>

@@ -103,9 +103,13 @@ class AdminController extends Controller
 
     public function ViewArchives($id) {
         
-        $viewArchiveData = Archive::findOrFail($id);
+        $viewArchiveData = Archive::all()->where('archive_code', $id)->first();
 
+        if($viewArchiveData) {
         return view('admin.admin-view-archives', compact('viewArchiveData'));
+        } else {
+            return redirect()->route('admin.archive-list');
+        }
     }
 
     public function RegisterUser(Request $request) {

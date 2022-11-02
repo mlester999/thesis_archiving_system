@@ -81,9 +81,9 @@ class ArchiveList extends Component
 
     public function save() {
         $this->validate();
+        $fileSystem = Storage::disk('google');
 
         if($this->publishing->archive_status == 1) {
-            $fileSystem = Storage::disk('google');
 
             $fileUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->documentName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
             $this->publishing->document_path = $fileSystem->url('Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);

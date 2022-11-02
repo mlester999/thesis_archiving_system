@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-file-list-3-fill class="bg-gray-300 rounded-lg p-2 w-12" />
+                    <x-ri-file-list-3-fill class="bg-blue-400 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-list-check-2 class="bg-gray-300 rounded-lg p-2 w-12" />
+                    <x-ri-list-check-2 class="bg-blue-400 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-user-follow-fill class="bg-gray-300 rounded-lg p-2 w-12" />
+                    <x-ri-user-follow-fill class="bg-green-400 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-user-unfollow-fill class="bg-gray-300 rounded-lg p-2 w-12" />
+                    <x-ri-user-unfollow-fill class="bg-red-400 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-inbox-archive-fill class="bg-gray-300 rounded-lg p-2 w-12" />
+                    <x-ri-inbox-archive-fill class="bg-green-400 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-inbox-unarchive-fill class="bg-gray-300 rounded-lg p-2 w-12" />
+                    <x-ri-inbox-unarchive-fill class="bg-yellow-400 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -107,7 +107,7 @@
                 <div class="overflow-x-auto relative sm:rounded-lg">
                     <table class="w-screen text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                            <h5 class="p-4 font-bold">Latest Thesis File Uploaded</h5>
+                            <h5 class="p-4 font-bold text-gray-400">Latest Thesis File Uploaded</h5>
                             <tr>
                                 <th class="py-3 px-6">Uploader's Name</th>
                                 <th class="py-3 px-6">Title Name</th>
