@@ -10,7 +10,7 @@
 
 <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-5xl mx-auto mt-8 relative">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Change Student Password</h3>
+      <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Change Password</h3>
       {{-- <a href="#"><i class="fa-solid fa-pen-to-square fa-2xl text-green-500 hover:text-green-600 duration-200 absolute right-6 top-8"></i></a> --}}
     </div>
     <div class="border-t border-gray-200">

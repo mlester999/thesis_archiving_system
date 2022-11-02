@@ -131,7 +131,7 @@
                         @if($showEmptyMessage == 0)
                         <tr class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                             >
-                            <td colspan="3">
+                            <td colspan="4">
                                 <div class="flex items-center justify-center">
                                 <div>
                                     <p class="text-xl py-8 font-medium leading-none text-gray-400">No projects found...</p>

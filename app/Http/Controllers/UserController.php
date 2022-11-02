@@ -37,7 +37,7 @@ class UserController extends Controller
     public function ViewProject($id) {
         
         $userId = Auth::user()->id;
-        $viewProjectData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
+        $viewProjectData = Archive::all()->where('archive_code', $id)->where('archive_status', 1)->where('user_id', $userId)->first();
 
         if($viewProjectData) {
         return view('view-project', ["currentPage" => 'view-project'], compact('viewProjectData'));
@@ -49,7 +49,7 @@ class UserController extends Controller
     public function EditProject($id) {
         
         $userId = Auth::user()->id;
-        $editProjectData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
+        $editProjectData = Archive::all()->where('archive_code', $id)->where('archive_status', 1)->where('user_id', $userId)->first();
 
         if($editProjectData) {
         return view('edit-project', ["currentPage" => 'edit-project'], compact('editProjectData'));
@@ -297,15 +297,24 @@ class UserController extends Controller
     public function CollegeDepartments($dept) {
 
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
+        
+        if($deptData) {
         $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
         return view('department', ["currentPage" => $dept], compact('archiveData'));
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function ViewCollegeDepartments($dept, $id) {
         
         $viewDepartmentData = Archive::all()->where('archive_code', $id)->first();
 
+        if($viewDepartmentData) {
         return view('view-department', ["currentPage" => 'view-archives'], compact('viewDepartmentData'));
+        } else {
+            return redirect()->route('department', $dept);
+        }
     }
 
     // public function DeptCHAS () {
