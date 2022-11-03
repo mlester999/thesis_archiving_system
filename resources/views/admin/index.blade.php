@@ -105,86 +105,58 @@
 
             <div class="rounded-lg shadow-md bg-white md:col-span-2 lg:col-span-3">
                 <div class="overflow-x-auto relative sm:rounded-lg">
-                    <table class="w-screen text-sm text-left text-gray-500">
+                    <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                             <h5 class="p-4 font-bold text-gray-400">Latest Thesis File Uploaded</h5>
                             <tr>
-                                <th class="py-3 px-6">Uploader's Name</th>
-                                <th class="py-3 px-6">Title Name</th>
-                                <th class="py-3 px-6">Status</th>
-                                <th class="py-3 px-6">Curriculum</th>
-                                <th class="py-3 px-6">Upload Date</th>
+                                <th class="py-3 pl-6">Uploader's Name</th>
+                                <th class="py-3">Title Name</th>
+                                <th class="py-3">Department</th>
+                                <th class="py-3">Curriculum</th>
+                                <th class="py-3">Status</th>
+                                <th class="py-3">Upload Date</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($uploadedArchive as $archive)
                             <tr class="bg-white border-b">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    Marc Rommel Briones
+                                @php
+                                    $archiveUser = App\Models\User::find($archive->user_id);
+                                    $archiveDept = App\Models\Department::find($archive->department_id);
+                                    $archiveCurr = App\Models\Curriculum::find($archive->curriculum_id);
+                                @endphp
+                                <th scope="row" class="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $archiveUser->last_name . ", " . $archiveUser->first_name }}
                                 </th>
-                                <td class="py-4 px-6">
-                                    Web-Based Inventory Management System With Data Analytics and Visualization For Lola Wheng Transfi Online Store
+                                <td class="py-4">
+                                    {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
                                 </td>
-                                <td class="py-4 px-6">
-                                    Active
+                                <td class="py-4">
+                                    {{ $archiveDept->dept_name }}
                                 </td>
-                                <td class="py-4 px-6">
-                                    BSIT
+                                <td class="py-4">
+                                    {{ $archiveCurr->curr_name }}
                                 </td>
-                                <td class="py-4 px-6">
+                                <td class="py-4">
+                                    @if($archive->archive_status == 1)
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
+                                        Published
+                                    </span>
+                                    @elseif($archive->archive_status == 2)
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
+                                        Unpublished
+                                    </span>
+                                    @else
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-gray-800">
+                                        Publishing...
+                                    </span>
+                                    @endif
+                                </td>
+                                <td class="py-4">
                                     14/10/2022
                                 </td>
                             </tr>
-                            <tr class="bg-white border-b">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    Marc Rommel Briones
-                                </th>
-                                <td class="py-4 px-6">
-                                    Web-Based Inventory Management System With Data Analytics and Visualization For Lola Wheng Transfi Online Store
-                                </td>
-                                <td class="py-4 px-6">
-                                    Active
-                                </td>
-                                <td class="py-4 px-6">
-                                    BSIT
-                                </td>
-                                <td class="py-4 px-6">
-                                    14/10/2022
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    Marc Rommel Briones
-                                </th>
-                                <td class="py-4 px-6">
-                                    Web-Based Inventory Management System With Data Analytics and Visualization For Lola Wheng Transfi Online Store
-                                </td>
-                                <td class="py-4 px-6">
-                                    Active
-                                </td>
-                                <td class="py-4 px-6">
-                                    BSIT
-                                </td>
-                                <td class="py-4 px-6">
-                                    14/10/2022
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    Marc Rommel Briones
-                                </th>
-                                <td class="py-4 px-6">
-                                    Web-Based Inventory Management System With Data Analytics and Visualization For Lola Wheng Transfi Online Store
-                                </td>
-                                <td class="py-4 px-6">
-                                    Active
-                                </td>
-                                <td class="py-4 px-6">
-                                    BSIT
-                                </td>
-                                <td class="py-4 px-6">
-                                    14/10/2022
-                                </td>
-                            </tr>
+                                @endforeach
                         </tbody>
                     </table>
                 </div>

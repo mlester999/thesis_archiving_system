@@ -24,7 +24,6 @@ return new class extends Migration
             $table->integer('student_id')->unique();
             $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('curriculum_id')->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('profile_img')->default();
             $table->string('password')->default(Hash::make('00000000'));
             $table->rememberToken();
             $table->timestamps();

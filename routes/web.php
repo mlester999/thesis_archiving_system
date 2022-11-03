@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Models\Archive;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +78,9 @@ Route::controller(AdminController::class)->group(function () {
 });
 
 Route::get('/admin/dashboard', function () {
-    return view('admin.index');
+    $uploadedArchive = Archive::orderBy('created_at', 'desc')->paginate(5);
+
+    return view('admin.index',compact('uploadedArchive'));
 })->middleware(['auth:admin', 'custom_verify'])->name('admin.dashboard');
 
 require __DIR__.'/adminauth.php';
