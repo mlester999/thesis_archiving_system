@@ -294,13 +294,17 @@ class UserController extends Controller
         }
     }
 
-    public function CollegeDepartments($dept) {
-
+    public function CollegeDepartments(Request $request, $dept) {
+    
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
-        
+
         if($deptData) {
-        $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
-        return view('department', ["currentPage" => $dept], compact('archiveData'));
+            if($request->search) {
+                $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
+            } else {
+            $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+            }
+            return view('department', ["currentPage" => $dept], compact('archiveData'));
         } else {
             return redirect()->route('home');
         }

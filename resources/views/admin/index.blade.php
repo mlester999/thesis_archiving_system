@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-file-list-3-fill class="bg-blue-400 rounded-lg p-2 w-12" />
+                    <x-ri-file-list-3-fill class="bg-gradient-to-r from-cyan-400 to-blue-600 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-list-check-2 class="bg-blue-400 rounded-lg p-2 w-12" />
+                    <x-ri-list-check-2 class="bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-user-follow-fill class="bg-green-400 rounded-lg p-2 w-12" />
+                    <x-ri-user-follow-fill class="bg-gradient-to-r from-green-400 to-green-600 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-user-unfollow-fill class="bg-red-400 rounded-lg p-2 w-12" />
+                    <x-ri-user-unfollow-fill class="bg-gradient-to-r from-rose-400 to-red-600 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-inbox-archive-fill class="bg-green-400 rounded-lg p-2 w-12" />
+                    <x-ri-inbox-archive-fill class="bg-gradient-to-r from-lime-400 to-lime-600 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="w-2/5 flex justify-end">
-                    <x-ri-inbox-unarchive-fill class="bg-yellow-400 rounded-lg p-2 w-12" />
+                    <x-ri-inbox-unarchive-fill class="bg-gradient-to-r from-amber-400 to-amber-600 rounded-lg p-2 w-12" />
                 </div>
             </div>
 
@@ -139,15 +139,15 @@
                                 </td>
                                 <td class="py-4 px-8">
                                     @if($archive->archive_status == 1)
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                                         Published
                                     </span>
                                     @elseif($archive->archive_status == 2)
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
                                         Unpublished
                                     </span>
                                     @else
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-300 text-gray-800">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800">
                                         Publishing...
                                     </span>
                                     @endif

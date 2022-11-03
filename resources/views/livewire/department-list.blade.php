@@ -52,7 +52,7 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department Name
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">College Name
 				<span wire:click="sortBy('dept_description')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -101,11 +101,11 @@
 			  </td>
 			<td class="pl-8">
                 @if($department->dept_status)
-				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
+				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Active
                 </span>
 				@else
-				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
+				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
                     Inactive
                 </span>
 				@endif

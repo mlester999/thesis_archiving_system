@@ -6,15 +6,16 @@
   @endphp
 
 <div class="sm:rounded-lg max-w-7xl mx-auto my-8 relative">
-  <div class="my-4 flex md:mt-0 z-0 flex-row-reverse">
-    <label class="relative block">
-      <span class="sr-only">Search</span>
-      <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-        <i class="fa-solid fa-magnifying-glass ml-1"></i>
-      </span>
-      <input class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
-      </label>
-  </div>
+  <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
+    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+    <div class="relative mb-4 max-w-md ml-auto">
+        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        <input type="search" id="search" name="search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Search for Topics..." required>
+        <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+    </div>
+</form>
     <div class="border-t border-gray-200 shadow-xl rounded-lg">
         <div class="mb-10">
             <div class="flex flex-col">
@@ -91,12 +92,12 @@
                                     </div>
                                   </div>
                                   <div
-                                    class="flex flex-wrap items-center gap-2 md:gap-4 text-gray-500 ml-10 md:ml-0"
+                                    x-data="{mark: false}" class="flex flex-wrap items-center gap-2 md:gap-4 text-gray-500 ml-10 md:ml-0"
                                   >
-                                    <button type="button">
+                                    <button type="button" x-on:click="mark = !mark">
                                       <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-black tracking-[-0.4px]"
-                                        >{{ $curriculumData->curr_name }}</span
+                                        class="inline-flex items-center py-4 rounded-full text-xs font-medium text-black tracking-[-0.4px]"
+                                        ><i :class="mark ? 'fa-solid' : 'fa-regular' " class="fa-bookmark fa-xl hover:text-gray-500 duration-150"></i></span
                                       >
                                     </button>
                                   </div>
@@ -128,7 +129,7 @@
                           <td
                             class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-[-0.4px] text-slate-800"
                           >
-                            {{ $archive->created_at->format('M d, Y') }}
+                            {{ $archive->created_at->format('m/d/Y') }}
                           </td>
                         </tr>
                         @endif

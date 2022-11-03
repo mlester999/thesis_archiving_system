@@ -17,19 +17,19 @@
                         <tr>
                           <th
                             scope="col"
-                            class="p-4 text-left text-lg font-medium text-slate-800"
+                            class="py-4 px-8 text-left tracking-widest text-sm font-medium text-slate-800"
                           >
                             Projects
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
+                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Department
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
+                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Curriculum
                           </th>
@@ -44,7 +44,7 @@
                           @endphp
                         <tr>
                           <td
-                            class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-4 text-sm"
+                            class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-8 text-sm"
                           >
                             <div class="flex items-center">
                               <div>

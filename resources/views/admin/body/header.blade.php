@@ -6,7 +6,7 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
 @endphp
 
 <!-- Header -->
-<nav class="bg-green-600 shadow-md">
+<nav class="bg-gradient-to-r from-green-500 to-green-600 shadow-md">
     <div class="mx-auto">
         <div class="flex justify-between py-2 px-12">
             <div class="flex items-center space-x-2 font-bold text-gray-400">

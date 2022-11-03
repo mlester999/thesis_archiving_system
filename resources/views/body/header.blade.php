@@ -1,5 +1,5 @@
 <!-- Nav Container -->
-<nav class="relative container mx-auto p-2 bg-green-600 border-yellow-300 max-w-full border-b-8">
+<nav class="relative container mx-auto p-2 bg-gradient-to-r from-green-500 to-green-600 border-yellow-300 max-w-full border-b-8">
     <!-- Flex Container For All Items -->
     <div class="flex items-center justify-between mx-12">
       <!-- Flex Container For Logo/Menu -->
