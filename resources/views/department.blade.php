@@ -5,8 +5,17 @@
       $showEmptyMessage = 0;
   @endphp
 
-<div class="bg-white shadow-xl sm:rounded-lg max-w-7xl mx-auto my-8 relative">
-    <div class="border-t border-gray-200">
+<div class="sm:rounded-lg max-w-7xl mx-auto my-8 relative">
+  <div class="my-4 flex md:mt-0 z-0 flex-row-reverse">
+    <label class="relative block">
+      <span class="sr-only">Search</span>
+      <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+        <i class="fa-solid fa-magnifying-glass ml-1"></i>
+      </span>
+      <input class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+      </label>
+  </div>
+    <div class="border-t border-gray-200 shadow-xl rounded-lg">
         <div class="mb-10">
             <div class="flex flex-col">
               <div class="overflow-x-auto">
@@ -17,25 +26,25 @@
                         <tr>
                           <th
                             scope="col"
-                            class="p-4 text-left text-lg font-medium text-slate-800"
+                            class="py-4 px-8 tracking-widest text-left text-sm font-medium text-slate-800"
                           >
                             Projects
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
+                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Department
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
+                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Curriculum
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell p-4 text-lg font-medium text-slate-800"
+                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Published at
                           </th>
@@ -54,6 +63,7 @@
                           >
                           @php
                                 $departmentData = App\Models\Department::find($archive->department_id);
+                                $curriculumData = App\Models\Curriculum::find($archive->curriculum_id);
                           @endphp
                             <div class="flex items-center">
                               <div>
@@ -66,12 +76,9 @@
                                   class="flex flex-wrap flex-col md:flex-row gap-2 md:gap-4"
                                 >
                                   <div class="flex items-center gap-4">
-
-
                                     @php 
                                         $userInfo = App\Models\User::find($archive->user_id);
                                     @endphp
-
                                     <div
                                       class="text-sm text-slate-800 tracking-[-0.4px]"
                                     >
@@ -89,7 +96,7 @@
                                     <button type="button">
                                       <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-black tracking-[-0.4px]"
-                                        >General</span
+                                        >{{ $curriculumData->curr_name }}</span
                                       >
                                     </button>
                                   </div>

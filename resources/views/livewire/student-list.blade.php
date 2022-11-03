@@ -112,7 +112,7 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->curr_name ?? 'Curriculum Not Found' }}</p>
 			  </td>
 			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('M d, Y') }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('m/d/Y') }}</p>
 			  </td>
 			  <td class="pl-8">
 				@if($user->status)

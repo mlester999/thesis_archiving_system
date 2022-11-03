@@ -95,7 +95,7 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->curr_name ?? 'Curriculum Not Found' }}</p>
 			  </td>
 			<td class="pl-6">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->created_at->format('M d, Y') }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->created_at->format('m/d/Y') }}</p>
 			  </td>
 			  <td class="pl-6">
 				@if($archive->archive_status == 1)

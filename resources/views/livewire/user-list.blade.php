@@ -98,7 +98,7 @@
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
 			</td>
 			<td class="pl-12">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('M d, Y') }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('m/d/Y') }}</p>
 			  </td>
 			  <td class="pl-12">
 				@if($user->email_verified_at)

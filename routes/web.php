@@ -80,7 +80,7 @@ Route::controller(AdminController::class)->group(function () {
 Route::get('/admin/dashboard', function () {
     $uploadedArchive = Archive::orderBy('created_at', 'desc')->paginate(5);
 
-    return view('admin.index',compact('uploadedArchive'));
+    return view('admin.index')->with('archives', $uploadedArchive);
 })->middleware(['auth:admin', 'custom_verify'])->name('admin.dashboard');
 
 require __DIR__.'/adminauth.php';

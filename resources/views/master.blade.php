@@ -24,6 +24,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <title>PNC Library</title>
+    @livewireStyles
   </head>
   <body class="bg-slate-50">
 
@@ -51,5 +52,6 @@
 
     @yield('editor')
 
+    @livewireScripts
 </body>
 </html>

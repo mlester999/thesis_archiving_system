@@ -109,35 +109,35 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                             <h5 class="p-4 font-bold text-gray-400">Latest Thesis File Uploaded</h5>
                             <tr>
-                                <th class="py-3 pl-6">Uploader's Name</th>
-                                <th class="py-3">Title Name</th>
-                                <th class="py-3">Department</th>
-                                <th class="py-3">Curriculum</th>
-                                <th class="py-3">Status</th>
-                                <th class="py-3">Upload Date</th>
+                                <th class="py-3 px-8">Uploader's Name</th>
+                                <th class="py-3 px-8">Title Name</th>
+                                <th class="py-3 px-8">Department</th>
+                                <th class="py-3 px-8">Curriculum</th>
+                                <th class="py-3 px-8">Status</th>
+                                <th class="py-3 px-8">Upload Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($uploadedArchive as $archive)
+                            @forelse($archives as $archive)
                             <tr class="bg-white border-b">
                                 @php
                                     $archiveUser = App\Models\User::find($archive->user_id);
                                     $archiveDept = App\Models\Department::find($archive->department_id);
                                     $archiveCurr = App\Models\Curriculum::find($archive->curriculum_id);
                                 @endphp
-                                <th scope="row" class="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap">
+                                <th scope="row" class="py-4 px-8 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $archiveUser->last_name . ", " . $archiveUser->first_name }}
                                 </th>
-                                <td class="py-4">
-                                    {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
+                                <td class="py-4 px-8">
+                                    <a href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="text-blue-500 hover:text-blue-700"> {{ \Illuminate\Support\Str::limit($archive->title, 90, '...') }} </a>
                                 </td>
-                                <td class="py-4">
+                                <td class="py-4 px-8">
                                     {{ $archiveDept->dept_name }}
                                 </td>
-                                <td class="py-4">
+                                <td class="py-4 px-8">
                                     {{ $archiveCurr->curr_name }}
                                 </td>
-                                <td class="py-4">
+                                <td class="py-4 px-8">
                                     @if($archive->archive_status == 1)
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
                                         Published
@@ -152,17 +152,34 @@
                                     </span>
                                     @endif
                                 </td>
-                                <td class="py-4">
-                                    14/10/2022
+                                <td class="py-4 px-8">
+                                    {{ $archive->created_at->format('m/d/Y') }}
                                 </td>
                             </tr>
-                                @endforeach
+                            @empty
+                                <tr
+                                wire:loading.class.delay="opacity-50"
+                                class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
+                            >
+                                <td colspan="8" class="pl-8 cursor-pointer">
+                                <div class="flex items-center justify-center">
+                                    <div>
+                                    <p class="text-xl py-8 font-medium leading-none text-gray-400">No archives found...</p>
+                                    </div>
+                                </div>
+                                </td>
+                            </tr>
+                                @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        @include('admin.body.footer')
+        <div
+            class="flex flex-col xs:flex-row xs:justify-between py-8"
+            >	
+            {{ $archives->links() }}
+        </div>
     </div>
 </div>
 

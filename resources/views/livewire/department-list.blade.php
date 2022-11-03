@@ -111,7 +111,7 @@
 				@endif
 			</td>
 			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $department->created_at->format('M d, Y') }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $department->created_at->format('m/d/Y') }}</p>
 			  </td>
 			<td class="pl-8">
 				<button @click="toggle()" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
