@@ -341,41 +341,11 @@ class UserController extends Controller
 
     public function BookmarksList() {
 
-        $departmentData = Archive::whereHasBookmark(
+        $archiveData = Archive::whereHasBookmark(
             auth()->user()
-        )->get(); 
+        )->paginate(5);
 
-        dd($departmentData);
+        return view('bookmarks', ["currentPage" => 'bookmarks'], compact('archiveData'));
 
     }
-
-    // public function DeptCHAS () {
-    //     $userData = Archive::all();
-    //     return view('department-chas', ["currentPage" => 'chas'], compact('userData'));
-    // }
-
-    // public function DeptCEAS ($id) {
-    //     $storeArchiveData = Archive::findOrFail($id);
-    //     $id = Auth::user()->id;
-    //     $userData = User::find($id);
-    //     return view('department-ceas', ["currentPage" => 'ceas'], compact('userData'));
-    // }
-
-    // public function DeptCBAA () {
-    //     $id = Auth::user()->id;
-    //     $userData = User::find($id);
-    //     return view('department-cbaa', ["currentPage" => 'cbaa'], compact('userData'));
-    // }
-
-    // public function DeptMAE () {
-    //     $id = Auth::user()->id;
-    //     $userData = User::find($id);
-    //     return view('department-mae', ["currentPage" => 'mae'], compact('userData'));
-    // }
-
-    // public function DeptMBA () {
-    //     $id = Auth::user()->id;
-    //     $userData = User::find($id);
-    //     return view('department-mba', ["currentPage" => 'mba'], compact('userData'));
-    // }
 }

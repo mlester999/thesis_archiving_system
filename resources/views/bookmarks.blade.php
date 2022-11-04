@@ -6,7 +6,7 @@
   @endphp
 
 <div class="sm:rounded-lg max-w-7xl mx-auto my-8 relative">
-  <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
+  <form action="{{ url('bookmarks') }}" method="get">   
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="relative mb-4 max-w-md ml-auto">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

@@ -132,9 +132,9 @@
 		  @empty
 		  <tr
 		  wire:loading.class.delay="opacity-50"
-		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
+		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
-		  <td colspan="7" class="pl-8 cursor-pointer">
+		  <td colspan="7" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
 				<p class="text-xl py-8 font-medium leading-none text-gray-400">No departments found...</p>
