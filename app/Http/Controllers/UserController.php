@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Archive;
+use Maize\Markable\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -297,12 +298,12 @@ class UserController extends Controller
     public function CollegeDepartments(Request $request, $dept) {
     
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
-
+        
         if($deptData) {
             if($request->search) {
                 $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
             } else {
-            $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+                $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
             return view('department', ["currentPage" => $dept], compact('archiveData'));
         } else {
@@ -312,15 +313,40 @@ class UserController extends Controller
 
     public function ViewCollegeDepartments($dept, $id) {
 
+        $user = auth()->user();
+
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
         
         $viewDepartmentData = Archive::all()->where('department_id', $deptData->id)->where('archive_code', $id)->first();
 
+        $archives = Bookmark::has($viewDepartmentData, $user);
+        
         if($viewDepartmentData) {
-        return view('view-department', ["currentPage" => 'view-archives'], compact('viewDepartmentData'));
+        return view('view-department', ["currentPage" => 'view-archives', 'hasBookmark' => $archives], compact('viewDepartmentData'));
         } else {
             return redirect()->route('department', $dept);
         }
+    }
+
+    public function BookmarkDepartment($id) {
+
+        $user = auth()->user();
+
+        $viewDepartmentData = Archive::find($id);
+
+        Bookmark::toggle($viewDepartmentData, $user);
+
+        return redirect()->back();
+    }
+
+    public function BookmarksList() {
+
+        $departmentData = Archive::whereHasBookmark(
+            auth()->user()
+        )->get(); 
+
+        dd($departmentData);
+
     }
 
     // public function DeptCHAS () {

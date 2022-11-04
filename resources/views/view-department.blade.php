@@ -12,12 +12,20 @@
             Archive Code: {{ $viewDepartmentData->archive_code }}
             <span><a href="{{ route('department', strtolower($departmentData->dept_name)) }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
         </p>
-        <div class="py-10 border-t border-gray-300 space-y-4">
+        <div x-data="{
+            bookmark: {{ $hasBookmark }}, 
+            }" class="py-8 border-t border-gray-300 space-y-4">
             <h3 class="text-2xl max-w-3xl font-bold leading-6 text-gray-900 inline-block">{{ $viewDepartmentData->title }}</h3>
             <p class="text-sm">Submitted by
                 <span class="font-bold">{{ $userInfo->first_name . " " . $userInfo->last_name }}</span>
                 <span> on {{ $viewDepartmentData->created_at->format('M d, Y H:i A') }}</span>
             </p>
+            <form action="{{ route('bookmark.department', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <button x-cloak :class="bookmark ? 'bg-slate-300' : 'bg-white'" class="px-14 py-3 hover:bg-slate-200 rounded-lg border border-1 border-black duration-150">
+                <i :class="bookmark ? 'fa-solid' : 'fa-regular'" class="fa-regular fa-bookmark fa-xl pr-2"></i> 
+                {{ $hasBookmark ? 'Bookmarked' : 'Bookmark' }}
+            </button>
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Project Year:</h3>

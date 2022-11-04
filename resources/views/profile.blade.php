@@ -11,7 +11,7 @@ $curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
 <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-auto mt-8 relative">
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Student Information</h3>
-      <a href="{{ route('archives') }}" class="px-4 py-3 bg-yellow-500 hover:bg-opacity-80 duration-150 text-white absolute right-96 top-4"><i class="fa-solid fa-bookmark fa-lg text-white duration-200 mr-1"></i> My Bookmarks</a>
+      <a href="{{ route('bookmarks.list') }}" class="px-4 py-3 bg-yellow-500 hover:bg-opacity-80 duration-150 text-white absolute right-96 top-4"><i class="fa-solid fa-bookmark fa-lg text-white duration-200 mr-1"></i> My Bookmarks</a>
       <a href="{{ route('archives') }}" class="px-4 py-3 bg-gray-500 hover:bg-opacity-80 duration-150 text-white absolute right-52 top-4"><i class="fa-solid fa-box-archive fa-lg text-white duration-200 mr-1"></i> My Archives</a>
       <a href="{{ route('edit.profile') }}" class="px-4 py-3 bg-green-500 hover:bg-opacity-80 duration-150 text-white absolute right-11 top-4"><i class="fa-solid fa-pen-to-square fa-lg text-white duration-200 mr-1"></i> Edit Profile</a>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details.</p>

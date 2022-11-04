@@ -52,6 +52,9 @@ Route::controller(UserController::class)->group(function () {
 
     Route::get('/department/{dept}', 'CollegeDepartments')->middleware(['auth', 'verified'])->name('department');
     Route::get('/view/department/{dept}/{id}', 'ViewCollegeDepartments')->middleware(['auth', 'verified'])->name('view.department');
+    Route::post('/bookmark/department/{id}', 'BookmarkDepartment')->middleware(['auth', 'verified'])->name('bookmark.department');
+
+    Route::get('/bookmarks', 'BookmarksList')->middleware(['auth', 'verified'])->name('bookmarks.list');
 
 });
 
