@@ -8,11 +8,11 @@
 <div class="sm:rounded-lg max-w-7xl mx-auto my-8 relative">
   <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-    <div class="relative mb-4 max-w-md ml-auto">
+    <div class="relative mb-8 max-w-md ml-auto">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
-        <input type="search" id="search" name="search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Search for Topics..." required>
+        <input type="text" id="search" name="search" class="block p-4 pl-10 pr-24 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Search for Topics..." required>
         <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
     </div>
 </form>
@@ -69,7 +69,7 @@
                             <div class="flex items-center">
                               <div>
                                 <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->archive_code]) }}"
-                                  class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-slate-800 mb-2 tracking-[-0.4px]"
+                                  class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-blue-500 mb-2 tracking-normal"
                                 >
                                   {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
                                 </a>
@@ -111,7 +111,7 @@
                           @endphp
 
                           <td
-                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-[-0.4px] text-slate-800"
+                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
                             {{ $departmentInfo->dept_name }}
                           </td>
@@ -121,13 +121,13 @@
                           @endphp
 
                           <td
-                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-[-0.4px] text-slate-800"
+                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
                             {{ $curriculumInfo->curr_name }}
                           </td>
 
                           <td
-                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-[-0.4px] text-slate-800"
+                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
                             {{ $archive->created_at->format('m/d/Y') }}
                           </td>

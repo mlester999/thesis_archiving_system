@@ -114,8 +114,12 @@
 			  </td>
 			<td class="pl-6">
 				<a href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mr-2"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
-				<a wire:click="edit({{ $archive->id }})" class="mx-2 "> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>  
-			  </td>
+				@if($archive->archive_status > 0)
+				<a class="cursor-not-allowed mx-2" style="{pointer-events: none;}"> <i class="text-slate-900 fa-solid fa-pen-to-square fa-xl opacity-40"></i> </a>  
+				@else
+				<a wire:click="edit({{ $archive->id }})" class="mx-2"> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>
+				@endif
+			</td>
 		  </tr>
 		  @empty
 		  <tr

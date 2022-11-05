@@ -27,37 +27,33 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    public function Projects() {
-        $id = Auth::user()->id;
-        $userData = Archive::all()->where('user_id', $id);
-
-        return view('projects', ["currentPage" => 'projects'], compact('userData'));
-
-    }
-
-    public function ViewProject($id) {
+    public function Projects(Request $request) {
+        $deptData = Department::all();
         
-        $userId = Auth::user()->id;
-        $viewProjectData = Archive::all()->where('archive_code', $id)->where('archive_status', 1)->where('user_id', $userId)->first();
-
-        if($viewProjectData) {
-        return view('view-project', ["currentPage" => 'view-project'], compact('viewProjectData'));
+        if($deptData) {
+            if($request->search) {
+                $archiveData = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
+            } else {
+                $archiveData = Archive::where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+            }
+            return view('projects', ["currentPage" => "projects"], compact('archiveData'));
         } else {
-            return redirect()->route('projects');
+            return redirect()->route('home');
         }
+
     }
 
-    public function EditProject($id) {
+    // public function EditProject($id) {
         
-        $userId = Auth::user()->id;
-        $editProjectData = Archive::all()->where('archive_code', $id)->where('archive_status', 1)->where('user_id', $userId)->first();
+    //     $userId = Auth::user()->id;
+    //     $editProjectData = Archive::all()->where('archive_code', $id)->where('archive_status', 1)->where('user_id', $userId)->first();
 
-        if($editProjectData) {
-        return view('edit-project', ["currentPage" => 'edit-project'], compact('editProjectData'));
-        } else {
-            return redirect()->route('projects');
-        }
-    }
+    //     if($editProjectData) {
+    //     return view('edit-project', ["currentPage" => 'edit-project'], compact('editProjectData'));
+    //     } else {
+    //         return redirect()->route('projects');
+    //     }
+    // }
 
     public function UpdateProject(Request $request, $id) {
 
