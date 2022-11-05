@@ -10,11 +10,9 @@
             x-on:keydown="searchTab = true"
             x-on:keydown.escape="searchTab = false"
             x-on:keydown.tab="searchTab = false"
-            wire:keydown.ArrowUp="decrementHighlight"
-            wire:keydown.ArrowDown="incrementHighlight"
             id="search" 
             name="search" 
-            class="block p-4 pl-10 pr-24 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Search for Topics..."
+            class="block p-4 pl-10 pr-24 w-180 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Search for Projects..."
             wire:model="query"
             autocomplete="off"
         />
@@ -28,10 +26,10 @@
                         @php
                             $departmentData = App\Models\Department::find($title['department_id']);
                         @endphp
-                        <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $title['archive_code']]) }}" class="py-4 px-8 hover:bg-slate-200 hover:text-opacity-70 duration-150 text-sm text-left font-semibold text-blue-500 tracking-normal flex {{ $highlightIndex == $i ? 'bg-slate-100' : '' }}"> {{ $title['title'] }} </a>
+                        <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $title['archive_code']]) }}" class="py-4 px-8 hover:bg-slate-200 hover:text-opacity-70 duration-150 text-sm text-left font-semibold text-blue-500 tracking-normal flex"> {{ $title['title'] }} </a>
                     @endforeach
             @else
-            <div class="py-4 px-8 text-sm text-left font-semibold text-black tracking-normal flex">No Topics Found...</div>
+            <div class="py-4 px-8 text-sm text-left font-semibold text-black tracking-normal flex">No Projects Found...</div>
             @endif
         </div>
     @endif  
