@@ -31,12 +31,15 @@ class StudentList extends Component
     // Viewing User Info
     public $userId;
     public $firstName;
+    public $middleName;
     public $lastName;
+    public $gender;
     public $studentId;
     public $departmentId;
     public $curriculumId;
     public $email;
-    public $status;
+    public $emailStatus;
+    public $accStatus;
 
     public $curriculaOption;
 
@@ -50,16 +53,24 @@ class StudentList extends Component
 
     protected $rules = [
         'editing.first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+        'editing.middle_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+        'editing.gender' => 'required',
         'editing.student_id' => 'required|numeric',
         'editing.department_id' => 'required',
         'editing.curriculum_id' => 'required',
         'editing.email' => 'required|email',
+        'editing.acc_status' => 'required|numeric|min:0',
     ];
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
 
+        $this->curriculaOption = [];
+
+    }
+
+    public function displayCurriculumOption() {
         if($this->editing->department_id != '') {
             $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->get();
         } else {
@@ -80,7 +91,6 @@ class StudentList extends Component
     }
 
     public function create() {
-
         $this->resetErrorBag();
 
         if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
@@ -88,6 +98,8 @@ class StudentList extends Component
         $this->showEditModal = true;
 
         $this->userTitle = "Add Student";
+
+        $this->displayCurriculumOption();
 
     }
 
@@ -98,7 +110,11 @@ class StudentList extends Component
 
         $this->firstName = $this->viewUser->first_name;
 
+        $this->middleName = $this->viewUser->middle_name;
+
         $this->lastName = $this->viewUser->last_name;
+
+        $this->gender = $this->viewUser->gender;
 
         $this->studentId = $this->viewUser->student_id;
 
@@ -108,7 +124,9 @@ class StudentList extends Component
 
         $this->email = $this->viewUser->email;
 
-        $this->status = $this->viewUser->status;
+        $this->emailStatus = $this->viewUser->email_status;
+
+        $this->accStatus = $this->viewUser->acc_status;
 
         $this->showViewModal = true;
 
@@ -130,14 +148,15 @@ class StudentList extends Component
     }
 
     public function edit(User $user) {
-
         $this->resetErrorBag();
-
+        
         if($this->editing->isNot($user)) $this->editing = $user;
-
+        
         $this->showEditModal = true;
-
+        
         $this->userTitle = "Edit Student";
+
+        $this->displayCurriculumOption();
     }
 
     public function save() {
@@ -180,7 +199,7 @@ class StudentList extends Component
             ->orWhere('first_name', 'like', '%'  . $this->search . '%')
             ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
             ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
-            ->select('users.id', 'users.first_name', 'users.last_name', 'users.status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')
+            ->select('users.id', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.gender', 'users.email_status', 'users.acc_status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(5),
             'departments' => Department::all(),

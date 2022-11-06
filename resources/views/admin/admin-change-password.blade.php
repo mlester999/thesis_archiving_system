@@ -7,7 +7,7 @@
             }
         @endphp
 
-<div class="bg-slate-200 h-screen w-full overflow-y-auto">
+<div class="bg-slate-50 h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">
         <h5 class="pb-6 pt-3 font-bold uppercase">Admin Change Password</h5>
 

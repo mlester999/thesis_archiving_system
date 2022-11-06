@@ -21,7 +21,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New User
 		  </button>
@@ -55,8 +55,8 @@
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Admin Name 
-				<span wire:click="sortBy('last_name')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'last_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
@@ -92,7 +92,7 @@
 			  </p>
 			</td>
 			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . $user->first_name }}</p>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->name }}</p>
 			</td>
 			<td class="pl-12">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
@@ -129,7 +129,7 @@
 		  </tr>
 		  @empty
 		  <tr
-		  wire:loading.class.delay="opacity-50"
+		  {{-- wire:loading.class.delay="opacity-50" --}}
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
 		>
 		  <td colspan="7" class="pl-8 cursor-pointer">
@@ -152,7 +152,7 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title">{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -166,10 +166,8 @@
 	  
 				  <!-- Last Name -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">First Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $firstName }}</p>
-					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
+					<h1 class="text-lg font-semibold text-left">Name:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $name }}</p>
 					<h1 class="text-lg font-semibold text-left">Username:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $username }}</p>
 					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
@@ -188,7 +186,7 @@
 	  <form wire:submit.prevent="deleteUser">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title">Delete User</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this user?</h1> 
@@ -207,7 +205,7 @@
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title">{{ $userTitle }} User</x-slot>
+		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->

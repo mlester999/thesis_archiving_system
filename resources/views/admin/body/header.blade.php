@@ -1,8 +1,6 @@
 @php
 $id = Auth::guard('admin')->user()->id;
 $adminData = App\Models\Admin::find($id);
-$adminDataDisplay = explode(" ", $adminData->first_name);
-
 @endphp
 
 <!-- Header -->
@@ -20,7 +18,7 @@ $adminDataDisplay = explode(" ", $adminData->first_name);
                     class="drop-button text-white py-2 px-2"
                   >
                     <span class="pr-2"><i class="fa-solid fa-user"></i></span>
-                    Hello, {{ $adminDataDisplay[0] }}
+                    Hello, {{ $adminData->name }}
                     <svg
                       class="h-3 fill-current inline"
                       xmlns="http://www.w3.org/2000/svg"

@@ -21,7 +21,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New Department
 		  </button>
@@ -131,7 +131,7 @@
 		  </tr>
 		  @empty
 		  <tr
-		  wire:loading.class.delay="opacity-50"
+		  {{-- wire:loading.class.delay="opacity-50" --}}
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
 		  <td colspan="7" class="pl-8">
@@ -154,7 +154,7 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title">{{ $departmentTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $departmentTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -199,7 +199,7 @@
 	  <form wire:submit.prevent="deleteDepartment">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title">{{ $departmentTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $departmentTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete department?</h1> 
@@ -218,7 +218,7 @@
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title">{{ $departmentTitle }}</x-slot>
+		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $departmentTitle }}</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->
@@ -234,7 +234,7 @@
 	
 				<!-- Department Acronym -->
 				<div class="py-3">
-					<x-input-label for="dept_name" :value="__('Department Acronym')" />
+					<x-input-label class="pt-1" for="dept_name" :value="__('Department Acronym')" />
 	
 					<x-text-input wire:model.defer="editing.dept_name" id="dept_name" class="block mt-1 w-full" type="text" name="dept_name" placeholder="Department Acronym" :value="old('dept_name')" autofocus />
 	
@@ -243,7 +243,7 @@
 	
 				<!-- Status -->
 				<div class="py-3">
-				<x-input-label class="pt-3" for="dept_status" :value="__('Status')" />
+				<x-input-label class="pt-1" for="dept_status" :value="__('Status')" />
                 <select wire:model.defer="editing.dept_status" id="dept_status" name="dept_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select the Status ~</option>
                 <option value="0" selected >Inactive</option>

@@ -17,10 +17,10 @@ use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    // Route::get('register', [RegisteredUserController::class, 'create'])
+    //             ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store'])->name('store');
+    // Route::post('register', [RegisteredUserController::class, 'store'])->name('store');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

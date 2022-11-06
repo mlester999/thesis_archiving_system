@@ -27,8 +27,7 @@ class UserList extends Component
     public $viewUser;
 
     // Viewing User Info
-    public $firstName;
-    public $lastName;
+    public $name;
     public $username;
     public $email;
 
@@ -41,10 +40,9 @@ class UserList extends Component
     public Admin $editing;
 
     protected $rules = [
-        'editing.first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.username' => 'required',
-        'editing.email' => 'required|email',
+        'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+        'editing.username' => 'required|unique',
+        'editing.email' => 'required|email|unique',
     ];
 
     public function mount() {
@@ -65,15 +63,13 @@ class UserList extends Component
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add";
+        $this->userTitle = "Add User";
     }
 
     public function view($user) {
         $this->viewUser = Admin::find($user);
 
-        $this->firstName = $this->viewUser->first_name;
-
-        $this->lastName = $this->viewUser->last_name;
+        $this->name = $this->viewUser->name;
 
         $this->username = $this->viewUser->username;
 
@@ -106,7 +102,7 @@ class UserList extends Component
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Edit";
+        $this->userTitle = "Edit User";
     }
 
     public function save() {
@@ -116,13 +112,15 @@ class UserList extends Component
 
         $this->showEditModal = false;
 
-        $this->alert('success', 'User' . ' ' . $this->userTitle . ' ' . 'Successfully!');
+        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function delete($user) {
         $this->deleteUser = Admin::find($user);
 
         $this->showDeleteModal = true;
+
+        $this->userTitle = "Delete User";
     }
 
     public function deleteUser() {
@@ -132,7 +130,7 @@ class UserList extends Component
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', 'User Delete Successfully!');
+        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
 
@@ -141,8 +139,7 @@ class UserList extends Component
         sleep(1);
 
         return view('livewire.user-list', [
-            'users' => Admin::where('last_name', 'like', '%'  . $this->search . '%')
-                    ->orWhere('first_name', 'like', '%'  . $this->search . '%')
+            'users' => Admin::where('name', 'like', '%'  . $this->search . '%')
                     ->orWhere('username', 'like', '%'  . $this->search . '%')
                     ->orWhere('email', 'like', '%'  . $this->search . '%')
                     ->orderBy($this->sortField, $this->sortDirection)->paginate(5),

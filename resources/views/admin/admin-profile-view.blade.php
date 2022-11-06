@@ -10,17 +10,9 @@
             <div class="w-3/5 flex flex-col justify-start">
 
                 <ul class="py-4 px-4">
-                    <li class="font-medium text-gray-600">First Name:</li>
-                    <li class="font-base text-slate-800 text-xl">{{ $adminData->first_name }}</li>
+                    <li class="font-medium text-gray-600">Name:</li>
+                    <li class="font-base text-slate-800 text-xl">{{ $adminData->name }}</li>
                 </ul>
-                <hr class="border-gray-600 ml-4">
-
-
-                <ul class="py-4 px-4">
-                    <li class="font-medium text-gray-600">Last Name:</li>
-                    <li class="font-base text-slate-800 text-xl">{{ $adminData->last_name }}</li>
-                </ul>
-
                 <hr class="border-gray-600 ml-4">
 
                 <ul class="py-4 px-4">
@@ -38,7 +30,7 @@
                 <hr class="border-gray-600 ml-4">
 
                 <div class="flex mx-auto mt-6">
-                <a href="{{ route('admin.edit.profile') }}" class="w-full md:w-auto flex justify-center items-center py-4 px-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg bg-green-700 shadow-cyan-100 hover:bg-opacity-90 hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Edit Profile</a>
+                <a href="{{ route('admin.edit.profile') }}" class="w-full md:w-auto flex justify-center items-center py-4 px-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg bg-gradient-to-r from-green-500 to-green-600 shadow-cyan-100 hover:bg-opacity-90 hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Edit Profile</a>
                 </div>
 
             </div>

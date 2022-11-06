@@ -42,15 +42,12 @@ class AdminController extends Controller
         $storeAdminData = Admin::find($id);
 
         $validatedInputs = $request->validate([
-            'first_name' => 'required|regex:/^[\pL\s]+$/u|min:3',
-            'last_name' => 'required|regex:/^[\pL\s]+$/u|min:3',
-            'username' => 'required',
-            'email' => ['required', 'email'],
+            'name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+            'username' => 'required|unique:admins,username,' . $id,
+            'email' => 'required|email|unique:admins,email,' . $id,
         ]);
 
-        $storeAdminData->first_name = $validatedInputs['first_name'];
-        
-        $storeAdminData->last_name = $validatedInputs['last_name'];
+        $storeAdminData->name = $validatedInputs['name'];
 
         $storeAdminData->username = $validatedInputs['username'];
 

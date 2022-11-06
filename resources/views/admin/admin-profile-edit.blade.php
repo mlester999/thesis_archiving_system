@@ -18,26 +18,20 @@
                     @csrf
 
                 <ul class="py-4 px-4">
-                    <label id="first_name" class="font-medium text-gray-600">First Name:</label>
-                    <input type="text" name="first_name" id="first_name" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none" value="{{ $editAdminData->first_name }}" autofocus>
+                    <label id="name" class="font-medium text-gray-600">Name:</label>
+                    <input type="text" name="name" id="name" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="{{ $editAdminData->name }}" autofocus>
                     {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="last_name" class="font-medium text-gray-600">Last Name:</label>
-                    <input type="text" name="last_name" id="last_name" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none" value="{{ $editAdminData->last_name }}">
-                    {{-- <x-input-error :messages="$errors->get('last_name')" class="mt-2" /> --}}
-                </ul>
-
-                <ul class="py-4 px-4">
                     <label id="username" class="font-medium text-gray-600">Username:</lab>
-                    <input type="text" name="username" id="username" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none" value="{{ $editAdminData->username }}">
+                    <input type="text" name="username" id="username" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="{{ $editAdminData->username }}">
                     {{-- <x-input-error :messages="$errors->get('username')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="email" class="font-medium text-gray-600">Email:</label>
-                    <input type="text" name="email" id="email" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none" value="{{ $editAdminData->email }}">
+                    <input type="text" name="email" id="email" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="{{ $editAdminData->email }}">
                     {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
                 </ul>
 

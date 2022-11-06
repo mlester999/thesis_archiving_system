@@ -28,6 +28,6 @@ class MarkUserActive
      */
     public function handle(Verified $event)
     {
-       $event->user->update(['status' => 1]);
+       $event->user->update(['email_status' => 1]);
     }
 }

@@ -45,7 +45,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Verified Students</li>
-                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\User::where('status', 1)->count() }}</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\User::where('email_status', 1)->count() }}</li>
                     </ul>
 
                 </div>
@@ -61,7 +61,7 @@
 
                     <ul>
                         <li class="font-bold text-gray-400">Not Verified Students</li>
-                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\User::where('status', 0)->count() }}</li>
+                        <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\User::where('email_status', 0)->count() }}</li>
                     </ul>
 
                 </div>
@@ -113,7 +113,7 @@
                                 <th class="py-3 px-8">Title Name</th>
                                 <th class="py-3 px-8">Department</th>
                                 <th class="py-3 px-8">Curriculum</th>
-                                <th class="py-3 px-8">Status</th>
+                                <th class="py-3 px-8">Email Status</th>
                                 <th class="py-3 px-8">Upload Date</th>
                             </tr>
                         </thead>
