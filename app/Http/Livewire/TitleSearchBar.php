@@ -51,7 +51,7 @@ class TitleSearchBar extends Component
         sleep(1);
 
         if($this->currentPage == 'projects') {
-            $this->titles = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->get()->toArray(); 
+            $this->titles = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
         } else {
             $deptData = Department::all()->where('dept_name', strtoupper($this->currentPage))->first();
     

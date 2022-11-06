@@ -60,7 +60,7 @@
     </div>
   </nav>
 
-  <div x-cloak x-data="{ dropdownOpenDept: false }" class="relative container mx-auto p-2 bg-white shadow-lg max-w-full">
+  <div x-cloak x-data="{ dropdownOpenDept: false }" class="relative container mx-auto pt-1 px-2 pb-2 bg-white shadow-lg max-w-full">
     <ul class="flex flex-wrap -mb-px mx-40">
       <li class="mx-8">
           <a href="{{ route('home') }}" class="{{ $currentPage=='home' ? 'font-bold inline-block p-4 text-green-600 rounded-t-lg border-b-2 border-green-600 active dark:text-green-500 dark:border-green-500' : 'font-bold inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-400 hover:border-gray-300 duration-150' }}">Home</a>

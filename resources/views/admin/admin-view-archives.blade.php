@@ -9,7 +9,7 @@ $userInfo = App\Models\User::find($viewArchiveData->user_id);
 <div class="px-4 pt-5 sm:px-8">
 <p class="py-2 text-lg font-medium flex justify-between">
     Archive Code: {{ $viewArchiveData->archive_code }}
-    <span><a href="{{ route('admin.archive-list') }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
+    <span><a href="{{ url()->previous() }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
 </p>
 
 <div class="py-10 border-t border-gray-300 space-y-4">
