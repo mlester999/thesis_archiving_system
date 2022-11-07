@@ -135,7 +135,7 @@
 						<ul class="text-left border rounded">
 							<li wire:click="view({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
 							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li wire:click="disable({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid {{ $accStatus ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} mr-2"></i>{{ $accStatus ? 'Disable' : 'Enable' }}</li>
+							<li wire:click="disable({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} mr-2"></i>{{ $user->acc_status ? 'Disable' : 'Enable' }}</li>
 						</ul>
 					</div>
 				</button>
