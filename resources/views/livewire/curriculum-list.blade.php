@@ -160,7 +160,7 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $curriculumTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $curriculumTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->

@@ -152,26 +152,32 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
 	  
 				  <div class="grid grid-cols-2 py-6">
-  
-				  <!-- First Name -->
-				  <div class="px-4">
-					 <img src="{{ asset('/images/R.png') }}" class="w-80">
-				  </div>
 	  
-				  <!-- Last Name -->
+				  <!-- First Col -->
 				  <div class="px-4">
 					<h1 class="text-lg font-semibold text-left">Name:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $name }}</p>
 					<h1 class="text-lg font-semibold text-left">Username:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $username }}</p>
+				  </div>
+
+				  <!-- Second COl -->
+				  <div class="px-4">
 					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
 					<p class="text-left mt-2 mb-2">{{ $email }}</p>
+					<h1 class="text-lg font-semibold text-left">Email Status:</h1> 
+					@if($email_verified_at)
+					<p class="text-left mt-2 mb-2">Verified</p>
+					@else
+					<p class="text-left mt-2 mb-2">Not Verified</p>
+					@endif
+
 				  </div>
 			  </div>
 		  </x-slot>
@@ -213,21 +219,12 @@
 				<div class="grid grid-cols-2 py-6">
 
 				<!-- First Name -->
-				<div class="px-4">
-					<x-input-label for="first_name" :value="__('First Name')" />
+				<div class="px-4 col-span-2">
+					<x-input-label for="name" :value="__('Full Name')" />
 	
-					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
+					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Full Name" :value="old('name')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2" />
-				</div>
-	
-				<!-- Last Name -->
-				<div class="px-4">
-					<x-input-label for="last_name" :value="__('Last Name')" />
-	
-					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
-	
-					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.name')" class="mt-2" />
 				</div>
 	
 				<!-- Username -->

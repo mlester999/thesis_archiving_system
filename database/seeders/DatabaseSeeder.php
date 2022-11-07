@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'username' => 'admin',
             'password' => bcrypt('00000000'),
+            'acc_status' => '1',
+            'role_id' => '1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

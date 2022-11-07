@@ -30,6 +30,7 @@ class UserList extends Component
     public $name;
     public $username;
     public $email;
+    public $email_verified_at;
 
     // Modals
     public $showDeleteModal = false;
@@ -41,8 +42,8 @@ class UserList extends Component
 
     protected $rules = [
         'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.username' => 'required|unique',
-        'editing.email' => 'required|email|unique',
+        'editing.username' => 'required',
+        'editing.email' => 'required|email',
     ];
 
     public function mount() {
@@ -74,6 +75,8 @@ class UserList extends Component
         $this->username = $this->viewUser->username;
 
         $this->email = $this->viewUser->email;
+
+        $this->email_verified_at = $this->viewUser->email_verified_at;
 
         $this->showViewModal = true;
 
