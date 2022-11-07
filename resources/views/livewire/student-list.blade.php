@@ -135,7 +135,7 @@
 						<ul class="text-left border rounded">
 							<li wire:click="view({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
 							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li wire:click="delete({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-user-slash mr-2 text-red-600"></i> Disable</li>
+							<li wire:click="disable({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid {{ $accStatus ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} mr-2"></i>{{ $accStatus ? 'Disable' : 'Enable' }}</li>
 						</ul>
 					</div>
 				</button>
@@ -240,19 +240,34 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteUser">
+	  <form wire:submit.prevent="disableUser">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title">
+			@if($accStatus)
+			<i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>
+			@else
+			<i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-green-500"></i>
+			@endif
+			{{ $userTitle }}
+			</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this student?</h1> 
+			@if($accStatus)
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to disable this student?</h1> 
+			@else
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to enable this student?</h1> 
+			@endif
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  
 			  <x-slot name="footer">
 				  <x-secondary-button wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button class="mx-2">Delete</x-delete-button>
+				  @if($accStatus)
+				  <x-delete-button class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Disable</x-delete-button>
+				  @else
+				  <x-delete-button class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Enable</x-delete-button>
+				  @endif
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		
@@ -328,6 +343,21 @@
 					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
 				</div>
 
+				<!-- Year Level -->
+				<div class="my-6 px-4">
+					<x-input-label for="year_level" :value="__('Year Level')" />
+	
+					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+						<option value="0" hidden>~ Select Year Level ~</option>
+						<option value="1" selected>1</option>
+						<option value="2">2</option>
+						<option value="2">3</option>
+						<option value="2">4</option>
+						</select>
+	
+					<x-input-error :messages="$errors->get('editing.year_level')" class="mt-2" />
+				</div>
+
 				<!-- Department -->
 				<div x-data class="my-6 px-4">
 					<x-input-label for="department_id" :value="__('Department')" />
@@ -354,19 +384,6 @@
 						</select>
 	
 					<x-input-error :messages="$errors->get('editing.curriculum_id')" class="mt-2" />
-				</div>
-
-				<!-- Account Status -->
-				<div class="my-6 px-4">
-					<x-input-label for="acc_status" :value="__('Account Status')" />
-	
-					<select name="acc_status" wire:model="editing.acc_status" id="acc_status" name="acc_status" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-						<option value="" hidden>~ Select Status ~</option>
-						<option value="1" selected>Activated</option>
-						<option value="0" selected>Deactivated</option>
-						</select>
-	
-					<x-input-error :messages="$errors->get('editing.acc_status')" class="mt-2" />
 				</div>
 
 			</div>

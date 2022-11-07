@@ -24,7 +24,7 @@ class StudentList extends Component
 
     public $userTitle;
 
-    public $deleteUser;
+    public $disableUser;
 
     public $viewUser;
 
@@ -57,10 +57,10 @@ class StudentList extends Component
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.gender' => 'required',
         'editing.student_id' => 'required|numeric',
+        'editing.year_level' => 'required|numeric',
         'editing.department_id' => 'required',
         'editing.curriculum_id' => 'required',
         'editing.email' => 'required|email',
-        'editing.acc_status' => 'required|numeric|min:0',
     ];
 
     public function mount() {
@@ -169,16 +169,30 @@ class StudentList extends Component
         $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
-    public function delete($user) {
-        $this->deleteUser = User::find($user);
+    public function disable($user) {
+        $this->disableUser = User::find($user);
 
         $this->showDeleteModal = true;
 
-        $this->userTitle = "Delete Student";
+        $this->accStatus = $this->disableUser->acc_status;
+
+        if($this->disableUser->acc_status) {
+            $this->userTitle = "Disable Student";
+        } else {
+            $this->userTitle = "Enable Student";
+        }
+
     }
 
-    public function deleteUser() {
-        $this->deleteUser->delete();
+    public function disableUser() {
+
+        if($this->disableUser->acc_status) {
+            $this->disableUser->acc_status = '0';
+        } else {
+            $this->disableUser->acc_status = '1';
+        }
+
+        $this->disableUser->save();
 
         $this->editing = $this->makeBlankUser();
 
