@@ -177,9 +177,9 @@ class StudentList extends Component
         $this->accStatus = $this->disableUser->acc_status;
 
         if($this->disableUser->acc_status) {
-            $this->userTitle = "Disable Student";
+            $this->userTitle = "Deactivate Student";
         } else {
-            $this->userTitle = "Enable Student";
+            $this->userTitle = "Activate Student";
         }
 
     }

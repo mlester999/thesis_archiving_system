@@ -135,7 +135,7 @@
 						<ul class="text-left border rounded">
 							<li wire:click="view({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
 							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li wire:click="disable({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} mr-2"></i>{{ $user->acc_status ? 'Disable' : 'Enable' }}</li>
+							<li wire:click="disable({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} mr-2"></i>{{ $user->acc_status ? 'Deactivate' : 'Activate' }}</li>
 						</ul>
 					</div>
 				</button>
@@ -254,9 +254,9 @@
 	  
 		  <x-slot name="content">
 			@if($accStatus)
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to disable this student?</h1> 
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this student?</h1> 
 			@else
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to enable this student?</h1> 
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to activate this student?</h1> 
 			@endif
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
@@ -264,9 +264,9 @@
 			  <x-slot name="footer">
 				  <x-secondary-button wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
 				  @if($accStatus)
-				  <x-delete-button class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Disable</x-delete-button>
+				  <x-delete-button class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Deactivate</x-delete-button>
 				  @else
-				  <x-delete-button class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Enable</x-delete-button>
+				  <x-delete-button class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Activate</x-delete-button>
 				  @endif
 			  </x-slot>
 			  </x-confirmation-modal>
