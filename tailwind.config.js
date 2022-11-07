@@ -10,6 +10,9 @@ module.exports = {
 
     theme: {
         extend: {
+            fontSize: {
+                xxs: ".60rem",
+            },
             colors: {
                 cyan: "hsl(180, 66%, 49%)",
                 cyanLight: "hsl(180, 66%, 69%)",

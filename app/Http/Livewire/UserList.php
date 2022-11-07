@@ -142,9 +142,10 @@ class UserList extends Component
         sleep(1);
 
         return view('livewire.user-list', [
-            'users' => Admin::where('name', 'like', '%'  . $this->search . '%')
-                    ->orWhere('username', 'like', '%'  . $this->search . '%')
-                    ->orWhere('email', 'like', '%'  . $this->search . '%')
+            'users' => Admin::where('role_id', '0')
+                    ->where('name', 'like', '%'  . $this->search . '%')
+                    ->where('username', 'like', '%'  . $this->search . '%')
+                    ->where('email', 'like', '%'  . $this->search . '%')
                     ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
         ]);
     }

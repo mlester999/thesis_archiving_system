@@ -82,26 +82,42 @@ $adminData = App\Models\Admin::find($id);
         <!-- Mobile Menu -->
         <div
         id="menu"
-        class="absolute md:hidden hidden p-6 rounded-lg bg-darkViolet left-6 right-6 top-20 z-100"
+        class="absolute z-50 md:hidden hidden p-6 ring-2 ring-gray-900 rounded-lg bg-slate-50 shadow-2xl left-6 right-6 top-20 z-100"
         >
         <div
             class="flex flex-col items-center justify-center w-full space-y-6 font-bold text-white rounded-sm"
         >
-        <a href="#" class="w-full text-center">Features</a>
-        <a href="#" class="w-full text-center">Pricing</a>
-        <a href="#" class="w-full text-center">Resources</a>
-        <a href="#" class="w-full pt-6 border-t border-gray-400 text-center"
-        >Login</a
+        <a href="{{ route('admin.profile') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-user-gear mr-1"></i> View Profile</a>
+        <a href="{{ route('admin.change.password') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-lock mr-1"></i> Change Password</a>
+        <a href="#" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa fa-cog fa-fw mr-1"></i> Settings</a>
+        <a href="{{ route('admin.logout') }}" class="w-full text-center text-red-500 hover:text-opacity-50 duration-150"><i class="fas fa-sign-out-alt fa-fw mr-1"></i> Logout</a>
+        <a href="{{ route('admin.dashboard') }}" class="w-full text-gray-900 pt-6 border-t border-gray-400 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-dashboard-line class="w-5 mr-2" /> Dashboard</span></a
         >
-        <a href="#" class="w-full py-3 text-center rounded-full bg-cyan"
-        >Sign Up</a
+        <a href="{{ route('admin.archive-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-inbox-archive-fill class="w-5 mr-2" /> Archive List</span></a
+        >
+        <a href="#" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-mac-line class="w-5 mr-2" /> Access List</span></a
+        >
+        <a href="{{ route('admin.student-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-account-circle-line class="w-5 mr-2" /> Student List</span></a
+        >
+        <a href="{{ route('admin.department-list') }}" class="w-full pt-6 border-t text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-list-check-2 class="w-5 mr-2" /> Department List</span></a
+        >
+        <a href="{{ route('admin.curriculum-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-file-list-3-line class="w-5 mr-2" /> Curriculum List</span></a
+        >
+        <a href="{{ route('admin.user-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-profile-line class="w-5 mr-2" /> User List</span></a
         >
         </div>
     </div>
         </div>
     </div>
 </nav>
-
+{{-- 
 <div class="hidden mobile-menu">
     <ul class="font-bold text-slate-600 items-center">
         <li class="block text-md px-2 py-4 hover:bg-green-500 transition duration-300">Features</li>
@@ -110,4 +126,4 @@ $adminData = App\Models\Admin::find($id);
         <li class="block text-md px-2 py-4 text-slate-400">or</li>
         <li class="block text-md px-2 py-4 hover:bg-green-500 transition duration-300">Sign Up</li>
     </ul>
-</div>
+</div> --}}

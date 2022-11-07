@@ -1,4 +1,4 @@
-<div class="w-full sm:px-6 sm:pb-6 h-screen overflow-y-auto">
+<div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
 	  class="px-4 md:px-2 py-4 md:py-7"
 	>
@@ -39,7 +39,7 @@
 			this.open = false
 		}
 	}"
-	  class="overflow-hidden sm:rounded-lg space-y-8 "
+	  class="overflow-x-auto sm:rounded-lg space-y-8 "
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">

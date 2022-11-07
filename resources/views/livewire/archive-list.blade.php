@@ -1,8 +1,8 @@
-<div class="w-full sm:px-6 sm:pb-6 h-screen overflow-y-auto">
+<div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
 	  class="px-4 md:px-2 py-4 md:py-7"
 	>
-	  <div class="md:flex md:items-center md:justify-between">
+	  <div class="lg:flex lg:items-center lg:justify-between">
 		<div class="flex-1 min-w-0">
 		  <h2
 			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
@@ -10,7 +10,7 @@
 			Archive List
 		  </h2>
 		</div>
-		<div class="mt-4 flex md:mt-0 md:ml-4 z-0">
+		<div class="mt-4 flex lg:mt-0 lg:ml-4 z-0">
 			<label class="relative block">
 				<span class="sr-only">Search</span>
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -22,7 +22,8 @@
 	  </div>
 	</div>
 
-	<div class="overflow-hidden sm:rounded-lg space-y-8"
+	
+	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">

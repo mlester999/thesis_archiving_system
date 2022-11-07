@@ -22,10 +22,11 @@ class Admin extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'username',
+        'name',
         'email',
+        'status',
+        'role_id',
+        'username',
         'password',
     ];
 
