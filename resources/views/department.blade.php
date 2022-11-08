@@ -10,7 +10,7 @@
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>
-        <h1 class="inline-block text-2xl md:text-3xl xl:text-4xl font-bold mb-8">{{ strtoupper($currentPage) }} Projects / Thesis / Capstone </h1> 
+        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-8">{{ strtoupper($currentPage) }} Projects / Thesis / Capstone </h1> 
       </div>
     <div class="relative mb-8 max-w-xl ml-auto">
         @livewire('title-search-bar', ['currentPage' => $currentPage])
@@ -70,7 +70,7 @@
                             <div class="flex items-center">
                               <div>
                                 <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->archive_code]) }}"
-                                  class="hover:text-opacity-70 duration-150 text-sm md:text-lg text-left font-semibold text-blue-500 mb-2 tracking-normal"
+                                  class="hover:text-opacity-70 duration-150 text-sm md:text-md lg:text-lg text-left font-semibold text-blue-500 mb-2 tracking-normal"
                                 >
                                   {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
                                 </a>

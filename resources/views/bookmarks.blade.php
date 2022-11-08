@@ -10,7 +10,7 @@
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>
-        <h1 class="inline-block text-2xl md:text-3xl xl:text-4xl font-bold">My Bookmarks</h1>
+        <h1 class="inline-block text-2xl md:text-3xl font-bold">My Bookmarks</h1>
         {{-- <p class="mt-2 mb-6 max-w-3xl text-sm text-gray-500">Bookmark details.</p> --}}
       </div>
     <div class="relative mb-8 max-w-xl ml-auto">
@@ -62,7 +62,7 @@
                           @endphp
                         <tr>
                           <td
-                            class="whitespace-normal md:whitespace-nowrap py-4 lg:py-7 px-8 text-sm"
+                            class="whitespace-nowrap py-4 lg:py-7 px-8 text-sm"
                           >
                           @php
                                 $departmentData = App\Models\Department::find($archive->department_id);
@@ -71,12 +71,12 @@
                             <div class="flex items-center">
                               <div>
                                 <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->archive_code]) }}"
-                                  class="hover:text-opacity-70 duration-150 text-lg text-left font-semibold text-blue-500 mb-2 tracking-[-0.4px]"
+                                  class="hover:text-opacity-70 duration-150 text-sm md:text-md lg:text-lg text-left font-semibold text-blue-500 mb-2 tracking-[-0.4px]"
                                 >
                                   {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
                                 </a>
                                 <div
-                                  class="flex flex-wrap flex-col md:flex-row gap-2 md:gap-4"
+                                  class="flex flex-wrap md:flex-row md:gap-4"
                                 >
                                   <div class="flex items-center gap-4">
                                     @php 
@@ -113,7 +113,7 @@
                           @endphp
 
                           <td
-                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+                            class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
                             {{ $departmentInfo->dept_name }}
                           </td>
@@ -123,13 +123,13 @@
                           @endphp
 
                           <td
-                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+                            class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
                             {{ $curriculumInfo->curr_name }}
                           </td>
 
                           <td
-                            class="hidden md:table-cell whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+                            class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
                             {{ $archive->created_at->format('m/d/Y') }}
                           </td>

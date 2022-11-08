@@ -1,10 +1,6 @@
 @extends('master')
 @section('user')
 
-  @php
-      $showEmptyMessage = 0;
-  @endphp
-
 <div class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
   <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
@@ -36,7 +32,7 @@
                         <tr>
                           <th
                             scope="col"
-                            class="py-4 px-8 tracking-widest text-left sm:text-sm font-medium text-slate-800"
+                            class="p-4 tracking-widest sm:text-sm font-medium text-slate-800"
                           >
                             Archive Code
                           </th>
@@ -73,12 +69,7 @@
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white" id="main-table-body">
-                        @foreach($archiveData as $archive)
-
-                        @if($archive->archive_status == 1)
-                          @php
-                              $showEmptyMessage = 1;
-                          @endphp
+                        @forelse($archiveData as $archive)
                         <tr>
                           <td
                             class="whitespace-nowrap px-3 py-12 text-center text-sm font-medium tracking-wider text-slate-800"
@@ -116,17 +107,16 @@
                           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                             Published
                            </span>
-                           @elseif ($archive->archive_status == 2)
-                           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
-                            Unpublished
-                            </span>
-                            @else
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800">
-                            Publishing...
-                            </span>
-                            @endif
+                          @elseif ($archive->archive_status == 2)
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
+                          Unpublished
+                          </span>
+                          @else
+                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800">
+                          Publishing...
+                          </span>
+                          @endif
                           </td>
-
                           <td
                             class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
@@ -134,14 +124,10 @@
                             <a href="{{ route('view.archives', $archive->archive_code) }}" class="mx-2"> <i class="fa-solid text-red-500 hover:text-opacity-80 duration-150 fa-trash fa-xl"></i> </a>  
                           </td>
                         </tr>
-                        @endif
-                        
-                        @endforeach
-
-                        @if($showEmptyMessage == 0)
+                        @empty
                         <tr class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                             >
-                            <td colspan="4">
+                            <td colspan="6">
                                 <div class="flex items-center justify-center">
                                 <div>
                                     <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No archives found...</p>
@@ -149,7 +135,7 @@
                                 </div>
                             </td>
                             </tr>
-                        @endif
+                        @endforelse
                       </tbody>
                     </table>
                   </div>

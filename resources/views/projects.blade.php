@@ -10,7 +10,7 @@
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>
-        <h1 class="inline-block text-2xl md:text-3xl xl:text-4xl font-bold mb-8">List of Projects / Thesis / Capstone</h1> 
+        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-8">List of Projects / Thesis / Capstone</h1> 
       </div>
     <div class="relative mb-8 max-w-xl ml-auto">
       @livewire('title-search-bar', ['currentPage' => $currentPage])

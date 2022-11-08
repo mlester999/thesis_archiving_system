@@ -113,7 +113,7 @@
                                 <th class="py-3 px-8">Title Name</th>
                                 <th class="py-3 px-8">Department</th>
                                 <th class="py-3 px-8">Curriculum</th>
-                                <th class="py-3 px-8">Email Status</th>
+                                <th class="py-3 px-8">Status</th>
                                 <th class="py-3 px-8">Upload Date</th>
                             </tr>
                         </thead>
