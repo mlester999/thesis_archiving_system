@@ -103,7 +103,7 @@ class StudentList extends Component
 
         $this->showEditModal = true;
 
-        $this->userTitle = "Add Student";
+        $this->userTitle = "Add Student Account";
 
         $this->displayCurriculumOption();
 
@@ -138,7 +138,7 @@ class StudentList extends Component
 
         $this->showViewModal = true;
 
-        $this->userTitle = "Student Info";
+        $this->userTitle = "Student Account Info";
     }
 
     public function makeBlankUser() {
@@ -164,7 +164,7 @@ class StudentList extends Component
         
         $this->showEditModal = true;
         
-        $this->userTitle = "Edit Student";
+        $this->userTitle = "Edit Student Account";
 
         $this->displayCurriculumOption();
     }
@@ -189,9 +189,9 @@ class StudentList extends Component
         $this->accStatus = $this->disableUser->acc_status;
 
         if($this->disableUser->acc_status) {
-            $this->userTitle = "Deactivate Student";
+            $this->userTitle = "Deactivate Student Account";
         } else {
-            $this->userTitle = "Activate Student";
+            $this->userTitle = "Activate Student Account";
         }
 
     }

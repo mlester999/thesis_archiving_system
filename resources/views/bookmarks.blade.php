@@ -5,19 +5,16 @@
       $showEmptyMessage = 0;
   @endphp
 
-<div class="sm:rounded-lg max-w-7xl mx-auto my-8 relative">
+<div class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
   <form action="{{ url('bookmarks') }}" method="get">  
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>
-        <h1 class="inline-block text-4xl font-bold">My Bookmarks</h1> 
+        <h1 class="inline-block text-2xl md:text-3xl xl:text-4xl font-bold">My Bookmarks</h1>
+        {{-- <p class="mt-2 mb-6 max-w-3xl text-sm text-gray-500">Bookmark details.</p> --}}
       </div>
-    <div class="relative mb-8">
-      <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-        <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </div>
-        <input type="text" id="search" name="search" class="block p-4 pl-10 pr-24 w-80 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Search for Topics..." required>
-        <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+    <div class="relative mb-8 max-w-xl ml-auto">
+      @livewire('title-search-bar', ['currentPage' => $currentPage])
     </div>
   </div>
 </form>
@@ -32,25 +29,25 @@
                         <tr>
                           <th
                             scope="col"
-                            class="py-4 px-8 tracking-widest text-left text-sm font-medium text-slate-800"
+                            class="py-4 px-8 tracking-widest text-left text-xs sm:text-sm font-medium text-slate-800"
                           >
                             Projects
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                           >
                             Department
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                           >
                             Curriculum
                           </th>
                           <th
                             scope="col"
-                            class="hidden md:table-cell tracking-widest p-4 text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                           >
                             Published at
                           </th>
@@ -147,7 +144,7 @@
                             <td colspan="4">
                                 <div class="flex items-center justify-center">
                                 <div>
-                                    <p class="text-xl py-8 font-medium leading-none text-gray-400">No bookmarks found...</p>
+                                    <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No bookmarks found...</p>
                                 </div>
                                 </div>
                             </td>

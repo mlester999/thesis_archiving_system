@@ -266,10 +266,11 @@
 		  <x-slot name="content">
 			@if($accStatus)
 			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this student?</h1> 
+			<p class="text-center mt-4 mb-16">This account will be deactivated immediately.</p> 
 			@else
 			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to activate this student?</h1> 
+			<p class="text-center mt-4 mb-16">This account will be activated immediately.</p> 
 			@endif
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  
 			  <x-slot name="footer">

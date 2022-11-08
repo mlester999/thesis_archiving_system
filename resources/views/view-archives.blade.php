@@ -5,8 +5,8 @@
         $userInfo = App\Models\User::find($viewArchiveData->user_id);
     @endphp
 
-<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-auto my-8 relative">
-    <div class="px-4 pt-5 sm:px-8">
+<div class="overflow-hidden bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
+    <div class="px-8 pt-5 sm:px-8">
         <p class="py-2 text-lg font-medium flex justify-between">
             Archive Code: {{ $viewArchiveData->archive_code }}
             <span><a href="{{ route('archives') }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
