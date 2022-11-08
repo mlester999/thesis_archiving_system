@@ -160,7 +160,7 @@ class CurriculumList extends Component
             ->orWhere('dept_description', 'like', '%'  . $this->search . '%')
             ->select('curricula.id', 'curricula.curr_name', 'curricula.curr_description', 'curricula.curr_status', 'curricula.created_at', 'departments.dept_name', 'departments.dept_description')
             ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
-            'departments' => Department::all(),
+            'departments' => Department::all()->where('dept_status', '1'),
         ]);
     }
 }

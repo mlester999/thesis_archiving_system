@@ -108,11 +108,11 @@
 			<td class="pl-8">
                 @if($curriculum->curr_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
-                    Active
+                    Activated
                 </span>
 				@else
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
-                    Inactive
+                    Deactivated
                 </span>
 				@endif
 			</td>
@@ -185,12 +185,12 @@
 					<p class="text-left mt-2 mb-2">{{ $curr_description }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
                     @if($curr_status)
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
-                        Active
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
+                        Activated
                     </span>
                     @else
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
-                        Inactive
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
+                        Deactivated
                     </span>
                     @endif
 					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
@@ -269,8 +269,8 @@
 				<x-input-label class="pt-1" for="curr_status" :value="__('Status')" />
                 <select wire:model.defer="editing.curr_status" id="curr_status" name="curr_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option hidden selected>~ Select the Status ~</option>
-                <option value="0">Inactive</option>
-                <option value="1">Active</option> 
+                <option value="0">Deactivate</option>
+                <option value="1">Activate</option> 
                 </select>
 	
 				<x-input-error :messages="$errors->get('editing.curr_status')" />

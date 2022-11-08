@@ -171,7 +171,7 @@
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-3 py-6">
+				  <div class="grid grid-cols-4 py-6">
   
 				  {{-- <div class="px-4">
 					 <img src="{{ asset('/images/sample.jpg') }}" class="w-96 rounded-md">
@@ -192,11 +192,9 @@
 					<h1 class="text-lg font-semibold text-left mt-6">Gender:</h1> 
 					<p class="text-left my-2">{{ $gender }}</p>
 
-					<h1 class="text-lg font-semibold text-left mt-6">Department:</h1> 
-					@php
-					$departmentInfo = App\Models\Department::find($departmentId);
-					@endphp
-					<p class="text-md text-left mr-2 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
+					<h1 class="text-lg font-semibold text-left mt-6">Year Level:</h1> 
+					<p class="text-left my-2">{{ $yearLevel . $yearLevelTitle[intval($yearLevel)] }}</p>
+
 				  </div>
 
 				  <!-- Second Row -->
@@ -207,6 +205,21 @@
 					<h1 class="text-lg font-semibold text-left mt-6">Student ID:</h1> 
 					<p class="text-left my-2">{{ $studentId }}</p>
 
+					<h1 class="text-lg font-semibold text-left mt-6">Department:</h1> 
+					@php
+					$departmentInfo = App\Models\Department::find($departmentId);
+					@endphp
+					<p class="text-md text-left mr-2 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
+				  </div>
+
+				  <!-- Third Row -->
+				  <div class="pl-4">
+					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
+
+					<h1 class="text-lg font-semibold text-left mt-6">Email Address:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $email }}</p>
+
 					<h1 class="text-lg font-semibold text-left mt-6">Curriculum:</h1> 
 					@php
 					$curriculumInfo = App\Models\Curriculum::find($curriculumId);
@@ -214,23 +227,21 @@
 					<p class="text-md text-left mt-2 mb-2">{{ $curriculumInfo->curr_description ?? 'Curriculum Not Found' }}</p>
 				  </div>
 
-				  <!-- Third Row -->
-				  <div class="pr-4">
-					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
-
-					<h1 class="text-lg font-semibold text-left mt-6">Email Address:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $email }}</p>
-					
-					<h1 class="text-lg font-semibold text-left mt-6">Account Status:</h1> 
+				  <div class="pl-4">
+					<h1 class="text-lg font-semibold text-left">Account Status:</h1> 
 					@if($accStatus)
-					<p class="text-left mt-2 mb-2">Activated</p>
+					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
 					@else
-					<p class="text-left mt-2 mb-2">Deactivated</p>
+					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
 					@endif
-
-				  </div>
-			  </div>
+					<h1 class="text-lg font-semibold text-left mt-6">Email Status:</h1> 
+					@if($emailStatus)
+					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Verified</p>
+					@else
+					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Not Verified</p>
+					@endif
+				</div>
+			</div>
 		  </x-slot>
 		  
 			  <x-slot name="footer">
@@ -291,7 +302,7 @@
 	
 					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Middle Name -->
@@ -300,7 +311,7 @@
 	
 					<x-text-input wire:model.defer="editing.middle_name" id="middle_name" class="block mt-1 w-full" type="text" name="middle_name" placeholder="Middle Name" :value="old('middle_name')"/>
 	
-					<x-input-error :messages="$errors->get('editing.middle_name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.middle_name')" class="mt-2 text-xs" />
 				</div>
 	
 				<!-- Last Name -->
@@ -309,7 +320,7 @@
 	
 					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
 	
-					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Gender -->
@@ -322,7 +333,7 @@
 						<option value="Female" selected>Female</option>
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.gender')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.gender')" class="mt-2 text-xs" />
 				</div>
 	
 				<!-- Student ID -->
@@ -331,7 +342,7 @@
 	
 				<x-text-input wire:model.defer="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
 	
-				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2" />
+				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2 text-xs" />
 			</div>
 	
 				<!-- Email Address -->
@@ -340,7 +351,7 @@
 	
 					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
-					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.email')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Year Level -->
@@ -349,13 +360,13 @@
 	
 					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="0" hidden>~ Select Year Level ~</option>
-						<option value="1" selected>1</option>
-						<option value="2">2</option>
-						<option value="2">3</option>
-						<option value="2">4</option>
+						<option value="1" selected>1st Year</option>
+						<option value="2">2nd Year</option>
+						<option value="3">3rd Year</option>
+						<option value="4">4th Year</option>
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.year_level')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.year_level')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Department -->
@@ -369,7 +380,7 @@
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.department_id')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.department_id')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Curriculum -->
@@ -383,7 +394,7 @@
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.curriculum_id')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.curriculum_id')" class="mt-2 text-xs" />
 				</div>
 
 			</div>

@@ -28,6 +28,8 @@ class StudentList extends Component
 
     public $viewUser;
 
+    public $editUser;
+
     // Viewing User Info
     public $userId;
     public $firstName;
@@ -40,6 +42,8 @@ class StudentList extends Component
     public $email;
     public $emailStatus;
     public $accStatus;
+    public $yearLevel;
+    public $yearLevelTitle = ['', 'st Year', 'nd Year', 'rd Year', 'th Year'];
 
     public $curriculaOption;
 
@@ -51,17 +55,19 @@ class StudentList extends Component
     // Editing Table
     public User $editing;
 
-    protected $rules = [
+    protected function rules() { 
+        return [
         'editing.first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.middle_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.gender' => 'required',
-        'editing.student_id' => 'required|numeric',
+        'editing.student_id' => 'required|numeric|unique:users,student_id,' . $this->userId,
         'editing.year_level' => 'required|numeric',
         'editing.department_id' => 'required',
         'editing.curriculum_id' => 'required',
-        'editing.email' => 'required|email',
-    ];
+        'editing.email' => 'required|email|unique:users,email,' . $this->userId,
+        ];
+}
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
@@ -72,7 +78,7 @@ class StudentList extends Component
 
     public function displayCurriculumOption() {
         if($this->editing->department_id != '') {
-            $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->get();
+            $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->where('curr_status', '1')->get();
         } else {
             $this->curriculaOption = [];
         }
@@ -80,7 +86,7 @@ class StudentList extends Component
 
     public function updatedEditingDepartmentId() {
         if($this->editing->department_id != '') {
-            $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->get();
+            $this->curriculaOption = Curriculum::where('department_id', $this->editing->department_id)->where('curr_status', '1')->get();
         }
     }
 
@@ -128,6 +134,8 @@ class StudentList extends Component
 
         $this->accStatus = $this->viewUser->acc_status;
 
+        $this->yearLevel = $this->viewUser->year_level;
+
         $this->showViewModal = true;
 
         $this->userTitle = "Student Info";
@@ -149,6 +157,8 @@ class StudentList extends Component
 
     public function edit(User $user) {
         $this->resetErrorBag();
+
+        // $this->editUser = User::find($user);
         
         if($this->editing->isNot($user)) $this->editing = $user;
         
@@ -160,6 +170,8 @@ class StudentList extends Component
     }
 
     public function save() {
+        $this->userId = $this->editing->id;
+
         $this->validate();
 
         $this->editing->save();
@@ -213,10 +225,10 @@ class StudentList extends Component
             ->orWhere('first_name', 'like', '%'  . $this->search . '%')
             ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
             ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
-            ->select('users.id', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.gender', 'users.email_status', 'users.acc_status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')
+            ->select('users.id', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.gender', 'users.email_status', 'users.acc_status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.year_level', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(5),
-            'departments' => Department::all(),
+            'departments' => Department::all()->where('dept_status', '1'),
             'curricula' => Curriculum::all(),
         ]);
     }

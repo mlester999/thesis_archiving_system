@@ -102,11 +102,11 @@
 			<td class="pl-8">
                 @if($department->dept_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
-                    Active
+                    Activated
                 </span>
 				@else
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
-                    Inactive
+                    Deactivated
                 </span>
 				@endif
 			</td>
@@ -176,12 +176,12 @@
 					<p class="text-left mt-2 mb-2">{{ $dept_name }}</p>
 					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
                     @if($dept_status)
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-800">
-                        Active
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
+                        Activated
                     </span>
                     @else
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-300 text-red-800">
-                        Inactive
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
+                        Deactivated
                     </span>
                     @endif
 					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
@@ -246,8 +246,8 @@
 				<x-input-label class="pt-1" for="dept_status" :value="__('Status')" />
                 <select wire:model.defer="editing.dept_status" id="dept_status" name="dept_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select the Status ~</option>
-                <option value="0" selected >Inactive</option>
-                <option value="1">Active</option> 
+                <option value="0" selected >Deactivated</option>
+                <option value="1">Activated</option> 
                 </select>
 	
 				<x-input-error :messages="$errors->get('editing.dept_status')" />
