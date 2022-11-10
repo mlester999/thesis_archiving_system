@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Models\Archive;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +62,14 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::get('/dashboard', function () {
+    // $id = Auth::user()->id;
+    // $userData = User::find($id);
+
+    // if($userData->year_level == 4) {
+    //     $role = Role::create(['name' => 'graduating_student']);
+    //     $permission = Permission::create(['name' => 'submit_thesis']);
+    // }
+
     return view('home', ["currentPage" => 'home']);
 })->middleware(['auth', 'verified'])->name('home');
 

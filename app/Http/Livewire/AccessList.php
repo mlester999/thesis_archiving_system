@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Admin;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
@@ -20,11 +22,11 @@ class AccessList extends Component
 
     public $sortDirection = 'asc';
 
-    public $userTitle;
+    public $featuresTitle;
 
-    public $deleteUser;
+    public $deleteFeatures;
 
-    public $viewUser;
+    public $viewFeatures;
 
     // Viewing User Info
     public $name;
@@ -38,7 +40,8 @@ class AccessList extends Component
     public $showViewModal = false;
 
     // Editing Table
-    public Admin $editing;
+    public Role $role;
+    public Permission $permission;
 
     protected $rules = [
         'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',

@@ -7,7 +7,7 @@
 		  <h2
 			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
 		  >
-			Admin User List
+			Access List
 		  </h2>
 		</div>
 		<div class="mt-4 flex md:mt-0 md:ml-4 z-0">
@@ -49,19 +49,14 @@
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Username 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Features
 				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Admin Name 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Access 
 				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
-				</span>
-			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
-				<span wire:click="sortBy('email')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Created at 
@@ -218,32 +213,42 @@
 	
 				<div class="grid grid-cols-2 py-6">
 
-				<!-- First Name -->
-				<div class="px-4 col-span-2">
-					<x-input-label for="name" :value="__('Full Name')" />
+				<!-- Student -->
+                <div class="py-3">
+                    <x-input-label for="student" :value="__('Student')" />
+                    <select wire:model.defer="access.student" id="student" name="archive_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                    <option value="" hidden>~ Select Student ~</option>
+                    <option value="0">Regular Student</option>
+                    <option value="1">Graduating Student</option> 
+                    </select>
+        
+                    <x-input-error :messages="$errors->get('access.student')" />
+                </div>
+
+            <!-- Features -->
+            <div class="py-3">
+                <x-input-label for="features" :value="__('Features')" />
+                <select wire:model.defer="access.features" id="features" name="features" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <option value="" hidden>~ Select Access Features ~</option>
+                <option value="view thesis">View Thesis</option> 
+                <option value="submit thesis">Submit Thesis</option>
+                </select>
+    
+                <x-input-error :messages="$errors->get('access.features')" />
+            </div>
+
+            <!-- Status -->
+            <div class="py-3">
+            <x-input-label for="features_status" :value="__('Status')" />
+            <select wire:model.defer="access.features_status" id="features_status" name="features_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+            <option value="" hidden>~ Select Status ~</option>
+            <option value="0">Inactive</option>
+            <option value="1">Active</option> 
+            </select>
+
+            <x-input-error :messages="$errors->get('access.features_status')" />
+                </div>
 	
-					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Full Name" :value="old('name')" autofocus />
-	
-					<x-input-error :messages="$errors->get('editing.name')" class="mt-2" />
-				</div>
-	
-				<!-- Username -->
-				<div class="mt-10 mb-6 px-4">
-				<x-input-label for="username" :value="__('Username')" />
-	
-				<x-text-input wire:model.defer="editing.username" id="username" class="block mt-1 w-full" type="text" name="username" placeholder="Username" :value="old('username')" />
-	
-				<x-input-error :messages="$errors->get('editing.username')" class="mt-2" />
-			</div>
-	
-				<!-- Email Address -->
-				<div class="mt-10 mb-6 px-4">
-					<x-input-label for="email" :value="__('Email Address')" />
-	
-					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
-	
-					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
-				</div>
 			</div>
 		</x-slot>
 		
