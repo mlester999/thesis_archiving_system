@@ -49,14 +49,19 @@
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Features
-				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Roles
+				<span wire:click="sortBy('roles')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'roles' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Access 
-				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Features 
+				<span wire:click="sortBy('features')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'features' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
+            <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Description 
+				<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Created at 
@@ -69,40 +74,40 @@
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
-			@forelse($users as $key => $user)
+			@forelse($accesses as $key => $access)
 		  <tr
-			tabindex="{{ $user->id }}"
+			tabindex="{{ $access->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
 			<td class="pl-8 cursor-pointer">
 			  <div class="flex items-center">
 				<div>
-				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
+				  <p class="text-md font-medium leading-none text-gray-800">{{ $access->id }}</p>
 				</div>
 			  </div>
 			</td>
 			<td class="pl-12">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $user->username }}
+				{{ $access->role_name }}
 			  </p>
 			</td>
 			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->name }}</p>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $access->permission_name }}</p>
 			</td>
 			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($access->description, 30, '...') }}</p>
 			</td>
 			<td class="pl-12">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('m/d/Y') }}</p>
+				<p class="text-md font-medium leading-none text-gray-800">{{ $access->created_at->format('m/d/Y') }}</p>
 			  </td>
 			  <td class="pl-12">
-				@if($user->email_verified_at)
+				@if($access->status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
-                    Verified
+                    Active
                 </span>
 				@else
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
-                    Not Verified
+                    Inactive
                 </span>
 				@endif
 			  </td>
@@ -114,9 +119,9 @@
 					</span>
 					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
 						<ul class="text-left border rounded">
-							<li wire:click="view({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
-							<li wire:click="edit({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li wire:click="delete({{ $user->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
+							<li wire:click="view({{ $access->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
+							<li wire:click="edit({{ $access->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
+							<li wire:click="delete({{ $access->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
 						</ul>
 					</div>
 				</button>
@@ -141,13 +146,13 @@
 	  <div
 		class="flex flex-col xs:flex-row xs:justify-between py-8"
 		>	
-		{{ $users->links() }}
+		{{ $accesses->links() }}
 	  </div>
 
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $accessTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -156,18 +161,20 @@
 	  
 				  <!-- First Col -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $name }}</p>
-					<h1 class="text-lg font-semibold text-left">Username:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $username }}</p>
+					<h1 class="text-lg font-semibold text-left">Id:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $accessId }}</p>
+					<h1 class="text-lg font-semibold text-left">Role:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $roleId }}</p>
+                    <h1 class="text-lg font-semibold text-left">Features:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $permissionId }}</p>
 				  </div>
 
 				  <!-- Second COl -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $email }}</p>
-					<h1 class="text-lg font-semibold text-left">Email Status:</h1> 
-					@if($email_verified_at)
+                    <h1 class="text-lg font-semibold text-left">Description:</h1> 
+					<p class="text-left mt-2 mb-2">{{ $description }}</p>
+					<h1 class="text-lg font-semibold text-left">Status:</h1> 
+					@if($status)
 					<p class="text-left mt-2 mb-2">Verified</p>
 					@else
 					<p class="text-left mt-2 mb-2">Not Verified</p>
@@ -184,13 +191,13 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteUser">
+	  <form wire:submit.prevent="deleteAccess">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $accessTitle }}</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this user?</h1> 
+			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete this access?</h1> 
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  
@@ -206,50 +213,57 @@
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $accessTitle }}</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-2 py-6">
-
-				<!-- Student -->
-                <div class="py-3">
-                    <x-input-label for="student" :value="__('Student')" />
-                    <select wire:model.defer="access.student" id="student" name="archive_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                    <option value="" hidden>~ Select Student ~</option>
-                    <option value="0">Regular Student</option>
-                    <option value="1">Graduating Student</option> 
-                    </select>
-        
-                    <x-input-error :messages="$errors->get('access.student')" />
-                </div>
+            <!-- Student -->
+            <div class="py-3">
+                <x-input-label for="role_id" :value="__('Student Role')" />
+                <select wire:model.defer="editing.role_id" id="role_id" name="role_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <option value="" hidden>~ Select Student Role ~</option>
+                @foreach($roles as $role)
+                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+                </select>
+    
+                <x-input-error :messages="$errors->get('editing.role_id')" />
+            </div>
 
             <!-- Features -->
             <div class="py-3">
-                <x-input-label for="features" :value="__('Features')" />
-                <select wire:model.defer="access.features" id="features" name="features" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <x-input-label for="permission_id" :value="__('Features')" />
+                <select wire:model.defer="editing.permission_id" id="permission_id" name="permission_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select Access Features ~</option>
-                <option value="view thesis">View Thesis</option> 
-                <option value="submit thesis">Submit Thesis</option>
+                @foreach($permissions as $permission)
+                <option value="{{ $permission->id }}">{{ $permission->name }}</option> 
+                @endforeach
                 </select>
     
-                <x-input-error :messages="$errors->get('access.features')" />
+                <x-input-error :messages="$errors->get('editing.permission_id')" />
+            </div>
+
+            <!-- Description -->
+            <div class="py-3">
+                <x-input-label for="description" :value="__('Description')" />
+                <textarea wire:model.defer="editing.description" id="description" name="description" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
+            
+                <x-input-error :messages="$errors->get('editing.description')" />
             </div>
 
             <!-- Status -->
             <div class="py-3">
-            <x-input-label for="features_status" :value="__('Status')" />
-            <select wire:model.defer="access.features_status" id="features_status" name="features_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+            <x-input-label for="status" :value="__('Status')" />
+            <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
             <option value="" hidden>~ Select Status ~</option>
             <option value="0">Inactive</option>
             <option value="1">Active</option> 
             </select>
 
-            <x-input-error :messages="$errors->get('access.features_status')" />
+            <x-input-error :messages="$errors->get('editing.status')" />
                 </div>
 	
-			</div>
 		</x-slot>
 		
 			<x-slot name="footer">
