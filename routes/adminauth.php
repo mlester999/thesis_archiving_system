@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\UserList;
 use App\Http\Livewire\ArchiveList;
+use App\Http\Livewire\AccessList;
 use App\Http\Livewire\StudentList;
 use App\Http\Livewire\CurriculumList;
 use App\Http\Livewire\DepartmentList;
@@ -16,11 +17,6 @@ use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
 use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
-
-    // Route::get('register', [RegisteredUserController::class, 'create'])
-    //             ->name('register');
-
-    // Route::post('register', [RegisteredUserController::class, 'store'])->name('store');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -70,4 +66,6 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('department-list', DepartmentList::class)->name('department-list');
 
     Route::get('archive-list', ArchiveList::class)->name('archive-list');
+
+    Route::get('access-list', AccessList::class)->name('access-list');
 });

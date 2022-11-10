@@ -97,7 +97,7 @@ $adminData = App\Models\Admin::find($id);
         <a href="{{ route('admin.archive-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-inbox-archive-fill class="w-5 mr-2" /> Archive List</span></a
         >
-        <a href="#" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        <a href="{{ route('admin.access-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-mac-line class="w-5 mr-2" /> Access List</span></a
         >
         <a href="{{ route('admin.student-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"

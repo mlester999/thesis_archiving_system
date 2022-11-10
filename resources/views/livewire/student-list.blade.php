@@ -1,11 +1,11 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
-	  class="px-4 md:px-2 py-4 md:py-7"
+	  class="md:px-2 py-4 md:py-7"
 	>
 	  <div class="md:flex md:items-center md:justify-between">
 		<div class="flex-1 min-w-0">
 		  <h2
-			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
+			class="text-2xl font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
 		  >
 			Student List
 		  </h2>

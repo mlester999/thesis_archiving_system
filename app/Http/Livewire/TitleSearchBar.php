@@ -52,10 +52,15 @@ class TitleSearchBar extends Component
 
         if($this->currentPage == 'projects') {
             $this->titles = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
-        } else {
+        } elseif($this->currentPage == 'bookmarks') {
+            $this->titles = Archive::whereHasBookmark(
+                auth()->user()
+            )->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
+        }
+        else {
             $deptData = Department::all()->where('dept_name', strtoupper($this->currentPage))->first();
     
-            $this->titles = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->get()->toArray(); 
+            $this->titles = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
         }
 
     }

@@ -10,7 +10,7 @@
     <div class="px-8 pt-5 sm:px-8">
         <p class="py-2 text-lg font-medium flex justify-between">
             Archive Code: {{ $viewDepartmentData->archive_code }}
-            <span><a href="{{ url()->previous() }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
+            <span><a href="{{ route('department', strtolower($departmentData->dept_name)) }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
         </p>
         <div x-data="{
             bookmark: {{ $hasBookmark }}, 

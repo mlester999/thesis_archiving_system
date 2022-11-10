@@ -175,11 +175,6 @@
                 </div>
             </div>
         </div>
-        <div
-            class="flex flex-col xs:flex-row xs:justify-between py-8"
-            >	
-            {{ $archives->links() }}
-        </div>
     </div>
 </div>
 

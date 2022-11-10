@@ -23,7 +23,7 @@
 			type="button"
 			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
-			New User
+			New Access
 		  </button>
 		</div>
 	  </div>
@@ -135,7 +135,7 @@
 		  <td colspan="7" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-xl py-8 font-medium leading-none text-gray-400">No users found...</p>
+				<p class="text-xl py-8 font-medium leading-none text-gray-400">No access found...</p>
 			  </div>
 			</div>
 		  </td>

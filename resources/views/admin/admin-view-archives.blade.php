@@ -5,11 +5,11 @@
 $userInfo = App\Models\User::find($viewArchiveData->user_id);
 @endphp
 
-<div class="overflow-y-auto h-screen bg-white shadow-xl w-full mx-16 relative">
-<div class="px-4 pt-5 sm:px-8">
+<div class="overflow-y-auto h-screen bg-white shadow-xl w-full mx-4 md:mx-16 relative">
+<div class="px-8 pt-5 sm:px-8">
 <p class="py-2 text-lg font-medium flex justify-between">
     Archive Code: {{ $viewArchiveData->archive_code }}
-    <span><a href="{{ url()->previous() }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
+    <span><a href="{{ url('admin/archive-list') }}" class="text-blue-500 hover:text-blue-400 duration-150">Back </a></span>
 </p>
 
 <div class="py-10 border-t border-gray-300 space-y-4">

@@ -108,23 +108,4 @@ class AdminController extends Controller
             return redirect()->route('admin.archive-list');
         }
     }
-
-    public function RegisterUser(Request $request) {
-        $validatedInputs = $request->validate([
-            'first_name' => 'required|regex:/^[\pL\s]+$/u|min:3',
-            'last_name' => 'required|regex:/^[\pL\s]+$/u|min:3',
-            'student_id' => 'required|numeric',
-            'email' => 'required|email',
-            'password' => 'required',
-            'password_confirmation' => 'required|same:password',
-        ]);
-
-        $user = User::create(request(['first_name', 'last_name', 'student_id', 'email', 'password']));
-        
-        auth()->login($user);
-
-        session()->flash('message', 'User Added Successfully');
-
-        return redirect()->back();
-    }
 }

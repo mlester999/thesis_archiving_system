@@ -1,11 +1,11 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
-	  class="px-4 md:px-2 py-4 md:py-7"
+	  class="py-4 md:py-7"
 	>
 	  <div class="lg:flex lg:items-center lg:justify-between">
 		<div class="flex-1 min-w-0">
 		  <h2
-			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
+			class="font-bold leading-7 text-gray-900 text-2xl sm:truncate uppercase"
 		  >
 			Archive List
 		  </h2>
@@ -46,11 +46,6 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'title' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			{{-- <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
-				<span wire:click="sortBy('email')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
-				</span>
-			</th> --}}
 			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
@@ -59,6 +54,11 @@
 			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Curriculum
 				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Year
+				<span wire:click="sortBy('year')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'year' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Created at 
@@ -90,11 +90,14 @@
 			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($archive->title, 20, '...') }}</p>
 			</td>
 			<td class="pl-6">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->dept_name ?? 'Department Not Found' }}</p>
-			  </td>
-			  <td class="pl-6">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->curr_name ?? 'Curriculum Not Found' }}</p>
-			  </td>
+			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->dept_name ?? 'Department Not Found' }}</p>
+			</td>
+			<td class="pl-6">
+			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->curr_name ?? 'Curriculum Not Found' }}</p>
+			</td>
+			<td class="pl-6">
+			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->year }}</p>
+			</td>
 			<td class="pl-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->created_at->format('m/d/Y') }}</p>
 			  </td>
