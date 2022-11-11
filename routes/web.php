@@ -20,11 +20,6 @@ use Spatie\Permission\Models\Permission;
 |
 */
 
-Route::get('test', function() {
-    Storage::disk('google')->put('testingkalaks.txt', 'Hello World');
-    dd('done');
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -37,8 +32,8 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/edit/project/{id}', 'EditProject')->middleware(['auth', 'verified'])->name('edit.project');
     Route::post('/update/project/{id}', 'UpdateProject')->middleware(['auth', 'verified'])->name('update.project');
 
-    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified'])->name('submit');
-    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified'])->name('store.thesis');
+    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Graduating Student', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
+    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Graduating Student', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');
 
     Route::get('/about', 'About')->middleware(['auth', 'verified'])->name('about');
     Route::get('/profile', 'Profile')->middleware(['auth', 'verified'])->name('profile');

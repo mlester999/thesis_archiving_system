@@ -18,8 +18,11 @@ class PermissionSeeder extends Seeder
     {
 
         $users = [
-            'Graduating Student',
-            'Regular Student',
+            'Freshmen',
+            'Sophomores',
+            'Juniors',
+            'Seniors (Pending Thesis)',
+            'Seniors (Approved Thesis)',
         ];
 
         foreach ($users as $user)   {
@@ -28,8 +31,12 @@ class PermissionSeeder extends Seeder
 
         $userPermissions = [
             'View Thesis',
+            'Bookmark Thesis',
+            'View Submission of Thesis',
+            'Edit Submitted Thesis',
+            'Delete Submitted Thesis',
             'Submit Thesis',
-            'Submitted Thesis',
+            'Approved Submitted Thesis',
         ];
 
         foreach ($userPermissions as $permission)   {

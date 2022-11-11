@@ -16,7 +16,7 @@
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
 				</span>
-				<input wire:model.lazy="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+				<input wire:model.lazy="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		  <button
 			wire:click="create"
@@ -62,11 +62,11 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'last_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			{{-- <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Address 
-				<span wire:click="sortBy('email')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'email' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Year Level
+				<span wire:click="sortBy('year_level')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'year_level' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
-			</th> --}}
+			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
@@ -75,11 +75,6 @@
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Curriculum
 				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
-				</span>
-			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
-				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status </th>
@@ -106,13 +101,13 @@
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . \Illuminate\Support\Str::limit($user->first_name . ' ' . $user->middle_name[0] . '.', 15, '...') }}</p>
 			</td>
 			<td class="pl-8">
+				<p class="text-md font-medium leading-none text-gray-800">{{ $user->year_level }}</p>
+			  </td>
+			<td class="pl-8">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->dept_name ?? 'Department Not Found' }}</p>
 			  </td>
 			  <td class="pl-8">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->curr_name ?? 'Curriculum Not Found' }}</p>
-			  </td>
-			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('m/d/Y') }}</p>
 			  </td>
 			  <td class="pl-8">
 				@if($user->acc_status)
@@ -126,7 +121,7 @@
 				@endif
 			  </td>
 			<td class="pl-8">
-				<button @click="toggle()" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
+				<button @click="toggle()" class="relative flex mr-4 justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
 					<span class="border-1 p-2 hover:bg-gray-100">
 						<i class="fa-solid fa-caret-down"></i>	
@@ -166,79 +161,68 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:modelseel.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-lg lg:fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-4 py-6">
-  
-				  {{-- <div class="px-4">
-					 <img src="{{ asset('/images/sample.jpg') }}" class="w-96 rounded-md">
-					 <h1 class="text-lg font-semibold text-center mt-4">Account Status:</h1> 
-					 @if($emailStatus)
-					 <p class="text-center my-2 items-center text-sm leading-5 font-semibold rounded-full bg-green-300 text-green-800">Verified</p>
-                     @else
-                     <p class="text-center my-2 items-center text-sm leading-5 font-semibold rounded-full bg-red-300 text-red-800">Not Verified</p>
-                     @endif
-					 
-				  </div> --}}
-	  
+				  <div class="grid md:grid-cols-4 grid-cols-2 py-6">
+  	  
 				  <!-- First Row -->
-				  <div class="pl-4">
-					<h1 class="text-lg font-semibold text-left">First Name:</h1> 
-					<p class="text-left my-2">{{ $firstName }}</p>
+				  <div class="pl-4 break-all">
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">First Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $firstName }}</p>
 					
-					<h1 class="text-lg font-semibold text-left mt-6">Gender:</h1> 
-					<p class="text-left my-2">{{ $gender }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Gender:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $gender }}</p>
 
-					<h1 class="text-lg font-semibold text-left mt-6">Year Level:</h1> 
-					<p class="text-left my-2">{{ $yearLevel . $yearLevelTitle[intval($yearLevel)] }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Email Address:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $email }}</p>
 
 				  </div>
 
 				  <!-- Second Row -->
 				  <div class="pl-4">
-					<h1 class="text-lg font-semibold text-left">Middle Name:</h1> 
-					<p class="text-left my-2">{{ $middleName }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Middle Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $middleName }}</p>
 					
-					<h1 class="text-lg font-semibold text-left mt-6">Student ID:</h1> 
-					<p class="text-left my-2">{{ $studentId }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Student ID:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $studentId }}</p>
 
-					<h1 class="text-lg font-semibold text-left mt-6">Department:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Department:</h1> 
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
-					<p class="text-md text-left mr-2 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
+					<p class="text-xs md:text-sm lg:text-base text-left mr-2 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
 				  </div>
 
 				  <!-- Third Row -->
 				  <div class="pl-4">
-					<h1 class="text-lg font-semibold text-left">Last Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $lastName }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Last Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $lastName }}</p>
 
-					<h1 class="text-lg font-semibold text-left mt-6">Email Address:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $email }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Year Level:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $yearLevel }}</p>
 
-					<h1 class="text-lg font-semibold text-left mt-6">Curriculum:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Curriculum:</h1> 
 					@php
 					$curriculumInfo = App\Models\Curriculum::find($curriculumId);
 					@endphp
-					<p class="text-md text-left mt-2 mb-2">{{ $curriculumInfo->curr_description ?? 'Curriculum Not Found' }}</p>
+					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $curriculumInfo->curr_description ?? 'Curriculum Not Found' }}</p>
 				  </div>
 
 				  <div class="pl-4">
-					<h1 class="text-lg font-semibold text-left">Account Status:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Account Status:</h1> 
 					@if($accStatus)
-					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
+					<p class="text-xxs md:text-xs mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
 					@else
-					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
+					<p class="text-xxs md:text-xs text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
 					@endif
-					<h1 class="text-lg font-semibold text-left mt-6">Email Status:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Email Status:</h1> 
 					@if($emailStatus)
-					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Verified</p>
+					<p class="text-xxs md:text-xs text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Verified</p>
 					@else
-					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Not Verified</p>
+					<p class="text-xxs md:text-xs text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Not Verified</p>
 					@endif
 				</div>
 			</div>
@@ -361,10 +345,10 @@
 	
 					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 						<option value="0" hidden>~ Select Year Level ~</option>
-						<option value="1" selected>1st Year</option>
-						<option value="2">2nd Year</option>
-						<option value="3">3rd Year</option>
-						<option value="4">4th Year</option>
+						<option value="1st Year" selected>1st Year</option>
+						<option value="2nd Year">2nd Year</option>
+						<option value="3rd Year">3rd Year</option>
+						<option value="4th Year">4th Year</option>
 						</select>
 	
 					<x-input-error :messages="$errors->get('editing.year_level')" class="mt-2 text-xs" />

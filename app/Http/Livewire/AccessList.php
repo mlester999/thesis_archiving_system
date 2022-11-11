@@ -35,6 +35,9 @@ class AccessList extends Component
     public $description;
     public $status;
 
+    public $role;
+    public $permission;
+
     // Modals
     public $showDeleteModal = false;
     public $showEditModal = false;
@@ -117,6 +120,20 @@ class AccessList extends Component
     public function save() {
         $this->validate();
 
+        $this->role = Role::find($this->editing->role_id);
+
+        $this->permission = Permission::find($this->editing->permission_id);
+
+        if($this->editing->status) {
+
+            $this->role->givePermissionTo($this->permission);
+
+        } else {
+
+            $this->role->revokePermissionTo($this->permission);
+
+        }
+
         $this->editing->save();
 
         $this->showEditModal = false;
@@ -151,11 +168,12 @@ class AccessList extends Component
             'accesses' => Access::join('roles', 'accesses.role_id', '=', 'roles.id')
                     ->join('permissions', 'accesses.permission_id', '=', 'permissions.id')
                     ->where('roles.name', 'like', '%'  . $this->search . '%')
-                    ->where('permissions.name', 'like', '%'  . $this->search . '%')
-                    ->where('description', 'like', '%'  . $this->search . '%')
-                    ->where('status', 'like', '%'  . $this->search . '%')
+                    ->orWhere('permissions.name', 'like', '%'  . $this->search . '%')
+                    ->orWhere('description', 'like', '%'  . $this->search . '%')
+                    ->orWhere('status', 'like', '%'  . $this->search . '%')
                     ->select('accesses.id', 'accesses.description', 'accesses.status', 'accesses.created_at', 'roles.name as role_name', 'permissions.name as permission_name')
-                    ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+                    ->orderBy($this->sortField, $this->sortDirection)
+                    ->paginate(5),
             'roles' => Role::all(),
             'permissions' => Permission::all(),
         ]);

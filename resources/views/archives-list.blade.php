@@ -113,7 +113,7 @@
                           </span>
                           @else
                           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800">
-                          Publishing...
+                          Pending
                           </span>
                           @endif
                           </td>

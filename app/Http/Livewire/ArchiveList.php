@@ -34,6 +34,8 @@ class ArchiveList extends Component
 
     public $viewUser;
 
+    public $currentUser;
+
     public $viewArchive;
 
     // Publishing Table
@@ -80,11 +82,21 @@ class ArchiveList extends Component
     }
 
     public function save() {
+        // Validation of the inputs
         $this->validate();
+
+        // Storing the pending thesis to google drive
         $fileSystem = Storage::disk('google');
 
+        // If the thesis uploaded by the student was approved
         if($this->publishing->archive_status == 1) {
 
+            $this->currentUser = User::find($this->publishing->id);
+
+            $this->currentUser->removeRole('Seniors (Pending Thesis)');
+            $this->currentUser->assignRole('Seniors (Approved Thesis)');
+
+            // Moving the uploaded thesis from "For Approval" to "Approved Thesis"
             $fileUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->documentName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
             $this->publishing->document_path = $fileSystem->url('Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
             if(!$fileSystem->files('For Approval' . '/' . $this->studentId)) {

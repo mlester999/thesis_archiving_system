@@ -30,6 +30,8 @@ class StudentList extends Component
 
     public $editUser;
 
+    public $currentUser;
+
     // Viewing User Info
     public $userId;
     public $firstName;
@@ -170,11 +172,31 @@ class StudentList extends Component
     }
 
     public function save() {
-        $this->userId = $this->editing->id;
-
+        
         $this->validate();
-
+        
+        $this->userId = $this->editing->id;
+        
         $this->editing->save();
+
+        $this->currentUser = User::find($this->editing->id);
+
+        if($this->currentUser->year_level == '1st Year') {
+            $this->currentUser->assignRole('Freshmen');
+        }
+
+        if($this->currentUser->year_level == '2nd Year') {
+            $this->currentUser->assignRole('Sophomores');
+        }
+
+        if($this->currentUser->year_level == '3rd Year') {
+            $this->currentUser->assignRole('Juniors');
+        }
+
+        if($this->currentUser->year_level == '4th Year') {
+            $this->currentUser->assignRole('Seniors (Pending Thesis)');
+        }
+        
 
         $this->showEditModal = false;
 
@@ -223,6 +245,7 @@ class StudentList extends Component
             ->where('student_id', 'like', '%'  . $this->search . '%')
             ->orWhere('last_name', 'like', '%'  . $this->search . '%')
             ->orWhere('first_name', 'like', '%'  . $this->search . '%')
+            ->orWhere('year_level', 'like', '%'  . $this->search . '%')
             ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
             ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
             ->select('users.id', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.gender', 'users.email_status', 'users.acc_status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.year_level', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')

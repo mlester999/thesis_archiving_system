@@ -16,7 +16,7 @@
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
 				</span>
-				<input wire:model="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+				<input wire:model="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		  <button
 			wire:click="create"
@@ -103,11 +103,11 @@
 			  <td class="pl-12">
 				@if($access->status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
-                    Active
+                    Activated
                 </span>
 				@else
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
-                    Inactive
+                    Deactivated
                 </span>
 				@endif
 			  </td>
@@ -257,8 +257,8 @@
             <x-input-label for="status" :value="__('Status')" />
             <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
             <option value="" hidden>~ Select Status ~</option>
-            <option value="0">Inactive</option>
-            <option value="1">Active</option> 
+            <option value="0">Deactivate</option>
+            <option value="1">Activate</option> 
             </select>
 
             <x-input-error :messages="$errors->get('editing.status')" />
