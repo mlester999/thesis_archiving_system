@@ -91,7 +91,7 @@ class ArchiveList extends Component
         // If the thesis uploaded by the student was approved
         if($this->publishing->archive_status == 1) {
 
-            $this->currentUser = User::find($this->publishing->id);
+            $this->currentUser = User::find($this->publishing->user_id);
 
             $this->currentUser->removeRole('Seniors (Pending Thesis)');
             $this->currentUser->assignRole('Seniors (Approved Thesis)');

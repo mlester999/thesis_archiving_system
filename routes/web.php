@@ -32,8 +32,8 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/edit/project/{id}', 'EditProject')->middleware(['auth', 'verified'])->name('edit.project');
     Route::post('/update/project/{id}', 'UpdateProject')->middleware(['auth', 'verified'])->name('update.project');
 
-    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Graduating Student', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
-    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Graduating Student', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');
+    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
+    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');
 
     Route::get('/about', 'About')->middleware(['auth', 'verified'])->name('about');
     Route::get('/profile', 'Profile')->middleware(['auth', 'verified'])->name('profile');
