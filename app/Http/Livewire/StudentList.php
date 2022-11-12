@@ -45,7 +45,7 @@ class StudentList extends Component
     public $emailStatus;
     public $accStatus;
     public $yearLevel;
-    public $yearLevelTitle = ['', 'st Year', 'nd Year', 'rd Year', 'th Year'];
+    public $createdAt;
 
     public $curriculaOption;
 
@@ -137,6 +137,8 @@ class StudentList extends Component
         $this->accStatus = $this->viewUser->acc_status;
 
         $this->yearLevel = $this->viewUser->year_level;
+
+        $this->createdAt = $this->viewUser->created_at;
 
         $this->showViewModal = true;
 

@@ -1,27 +1,27 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
-	  class="px-4 md:px-2 py-4 md:py-7"
+	  class="lg:px-2 py-4 lg:py-7"
 	>
 	  <div class="lg:flex lg:items-center lg:justify-between">
-		<div class="flex-1 min-w-0">
+		<div class="flex-1 min-w-0 py-2">
 		  <h2
-			class="text-lg font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
+			class="font-bold leading-7 text-gray-900 text-2xl sm:truncate uppercase"
 		  >
 			Department List
 		  </h2>
 		</div>
-		<div class="mt-4 flex lg:mt-0 lg:ml-4 z-0">
+		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
 			<label class="relative block">
 				<span class="sr-only">Search</span>
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
 				</span>
-				<input wire:model="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+				<input wire:model="search" class="text-sm lg:text-base placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		  <button
 			wire:click="create"
 			type="button"
-			class="ml-3 inline-flex items-center px-3 sm:px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="text-xs lg:text-base ml-3 inline-flex items-center px-3 sm:px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New Department
 		  </button>
@@ -39,7 +39,7 @@
 			this.open = false
 		}
 	}"
-	  class="overflow-x-auto sm:rounded-lg space-y-8 "
+	  class="overflow-x-auto sm:rounded-lg space-y-8 pb-24"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
@@ -114,7 +114,7 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $department->created_at->format('m/d/Y') }}</p>
 			  </td>
 			<td class="pl-8">
-				<button @click="toggle()" class="relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
+				<button @click="toggle()" class="mr-4 relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
 					<span class="border-1 p-2 hover:bg-gray-100">
 						<i class="fa-solid fa-caret-down"></i>	
@@ -145,6 +145,7 @@
 		  @endforelse
 		</tbody>
 	  </table>
+	</div>
 	  <div
 		class="flex flex-col xs:flex-row xs:justify-between py-8"
 		>	
@@ -202,7 +203,7 @@
 		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $departmentTitle }}</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to delete department?</h1> 
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete department?</h1> 
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  

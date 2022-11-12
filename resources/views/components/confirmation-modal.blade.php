@@ -9,8 +9,8 @@
                 </svg>
             </div> --}}
 
-            <div class="mt-5 text-center sm:mt-0 sm:text-left grow">
-                <h3 class="text-2xl font-semibold mt-1 border-b-2 border-gray-900 pb-4">
+            <div class="mt-5 mt-0 text-left grow">
+                <h3 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold mt-1 border-b-2 border-gray-900 pb-4">
                     {{ $title }}
                 </h3>
 

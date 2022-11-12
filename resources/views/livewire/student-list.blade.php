@@ -1,27 +1,27 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
-	  class="md:px-2 py-4 md:py-7"
+	  class="lg:px-2 py-4 lg:py-7"
 	>
-	  <div class="md:flex md:items-center md:justify-between">
-		<div class="flex-1 min-w-0">
+	  <div class="lg:flex lg:items-center lg:justify-between">
+		<div class="flex-1 min-w-0 py-2">
 		  <h2
-			class="text-2xl font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate uppercase"
+			class="text-2xl font-bold leading-7 text-gray-900 lg:truncate uppercase"
 		  >
 			Student List
 		  </h2>
 		</div>
-		<div class="mt-4 flex md:mt-0 md:ml-4 z-0">
+		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
 			<label class="relative block">
 				<span class="sr-only">Search</span>
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
 				</span>
-				<input wire:model.lazy="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+				<input wire:model.lazy="search" class="text-sm lg:text-base placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		  <button
 			wire:click="create"
 			type="button"
-			class="ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="text-xs lg:text-base ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New Student
 		  </button>
@@ -39,7 +39,7 @@
 			this.open = false
 		}
 	}"
-	  class="overflow-x-auto sm:rounded-lg space-y-8"
+	  class="overflow-x-auto sm:rounded-lg space-y-8 pb-24"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
@@ -152,6 +152,7 @@
 		  @endforelse
 		</tbody>
 	  </table>
+	</div>
 	  <div
 		class="flex flex-col xs:flex-row xs:justify-between py-8"
 		>	
@@ -169,61 +170,64 @@
 				  <div class="grid md:grid-cols-4 grid-cols-2 py-6">
   	  
 				  <!-- First Row -->
-				  <div class="pl-4 break-all">
+				  <div class="pl-4">
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">First Name:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $firstName }}</p>
 					
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Gender:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $gender }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Middle Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $middleName }}</p>
 
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Email Address:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $email }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Last Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $lastName }}</p>
 
 				  </div>
 
 				  <!-- Second Row -->
-				  <div class="pl-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Middle Name:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $middleName }}</p>
+				  <div class="pl-4 break-all">
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Gender:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $gender }}</p>
 					
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Student ID:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Student ID:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $studentId }}</p>
 
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Department:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Email Address:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $email }}</p>
+				  </div>
+
+				  <!-- Third Row -->
+				  <div class="pl-4">
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Year Level:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $yearLevel }}</p>
+
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Created At:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $createdAt }}</p>
+
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Department:</h1> 
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
 					<p class="text-xs md:text-sm lg:text-base text-left mr-2 my-2">{{ $departmentInfo->dept_description ?? 'Department Not Found' }}</p>
 				  </div>
 
-				  <!-- Third Row -->
+				  <!-- Fourth Row -->
 				  <div class="pl-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Last Name:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $lastName }}</p>
-
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Year Level:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $yearLevel }}</p>
-
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Curriculum:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Account Status:</h1> 
+					@if($accStatus)
+					<p class="text-xxs md:text-xs px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
+					@else
+					<p class="text-xxs md:text-xs text-left px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
+					@endif
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-8">Email Status:</h1> 
+					@if($emailStatus)
+					<p class="text-xxs md:text-xs text-left px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Verified</p>
+					@else
+					<p class="text-xxs md:text-xs text-left px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Not Verified</p>
+					@endif
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-8">Curriculum:</h1> 
 					@php
 					$curriculumInfo = App\Models\Curriculum::find($curriculumId);
 					@endphp
 					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $curriculumInfo->curr_description ?? 'Curriculum Not Found' }}</p>
-				  </div>
-
-				  <div class="pl-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Account Status:</h1> 
-					@if($accStatus)
-					<p class="text-xxs md:text-xs mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
-					@else
-					<p class="text-xxs md:text-xs text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
-					@endif
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-6">Email Status:</h1> 
-					@if($emailStatus)
-					<p class="text-xxs md:text-xs text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Verified</p>
-					@else
-					<p class="text-xxs md:text-xs text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Not Verified</p>
-					@endif
 				</div>
 			</div>
 		  </x-slot>
@@ -249,10 +253,10 @@
 	  
 		  <x-slot name="content">
 			@if($accStatus)
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this student?</h1> 
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this student?</h1> 
 			<p class="text-center mt-4 mb-16">This account will be deactivated immediately.</p> 
 			@else
-			<h1 class="text-2xl font-semibold text-center mt-16">Are you sure you want to activate this student?</h1> 
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to activate this student?</h1> 
 			<p class="text-center mt-4 mb-16">This account will be activated immediately.</p> 
 			@endif
 		  </x-slot>
@@ -279,40 +283,40 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-3 py-6">
+				<div class="grid grid-cols-2 md:grid-cols-3 py-3">
 
 				<!-- First Name -->
-				<div class="px-4">
-					<x-input-label for="first_name" :value="__('First Name')" />
+				<div class="px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="first_name" :value="__('First Name')" />
 	
-					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
+					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Middle Name -->
-				<div class="px-4">
-					<x-input-label for="middle_name" :value="__('Middle Name')" />
+				<div class="px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="middle_name" :value="__('Middle Name')" />
 	
-					<x-text-input wire:model.defer="editing.middle_name" id="middle_name" class="block mt-1 w-full" type="text" name="middle_name" placeholder="Middle Name" :value="old('middle_name')"/>
+					<x-text-input wire:model.defer="editing.middle_name" id="middle_name" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="middle_name" placeholder="Middle Name" :value="old('middle_name')"/>
 	
 					<x-input-error :messages="$errors->get('editing.middle_name')" class="mt-2 text-xs" />
 				</div>
 	
 				<!-- Last Name -->
-				<div class="px-4">
-					<x-input-label for="last_name" :value="__('Last Name')" />
+				<div class="px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="last_name" :value="__('Last Name')" />
 	
-					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
+					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
 	
 					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Gender -->
-				<div class="mt-10 mb-6 px-4">
-					<x-input-label for="gender" :value="__('Gender')" />
+				<div class="md:mt-10 md:mb-6 px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="gender" :value="__('Gender')" />
 	
-					<select name="gender" wire:model.defer="editing.gender" id="gender" name="gender" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select name="gender" wire:model.defer="editing.gender" id="gender" name="gender" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Gender ~</option>
 						<option value="Male" selected>Male</option>
 						<option value="Female" selected>Female</option>
@@ -322,28 +326,28 @@
 				</div>
 	
 				<!-- Student ID -->
-				<div class="mt-10 mb-6 px-4">
+				<div class="md:mt-10 md:mb-6 px-4 pb-4 md:pb-0">
 				<x-input-label for="student_id" :value="__('Student ID')" />
 	
-				<x-text-input wire:model.defer="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
+				<x-text-input wire:model.defer="editing.student_id" id="student_id" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
 	
 				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2 text-xs" />
 			</div>
 	
 				<!-- Email Address -->
-				<div class="mt-10 mb-6 px-4">
-					<x-input-label for="email" :value="__('Email Address')" />
+				<div class="md:mt-10 md:mb-6 px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="email" :value="__('Email Address')" />
 	
-					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
+					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
 					<x-input-error :messages="$errors->get('editing.email')" class="mt-2 text-xs" />
 				</div>
 
 				<!-- Year Level -->
-				<div class="my-6 px-4">
-					<x-input-label for="year_level" :value="__('Year Level')" />
+				<div class="md:my-6 px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="year_level" :value="__('Year Level')" />
 	
-					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Year Level ~</option>
 						<option value="1st Year" selected>1st Year</option>
 						<option value="2nd Year">2nd Year</option>
@@ -355,10 +359,10 @@
 				</div>
 
 				<!-- Department -->
-				<div x-data class="my-6 px-4">
-					<x-input-label for="department_id" :value="__('Department')" />
+				<div x-data class="md:my-6 px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="department_id" :value="__('Department')" />
 	
-					<select name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Department ~</option>
 						@foreach($departments as $department)
 						<option value="{{ $department->id }}" selected>{{ $department->dept_name }}</option>
@@ -369,10 +373,10 @@
 				</div>
 
 				<!-- Curriculum -->
-				<div x-data class="my-6 px-4">
-					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
+				<div x-data class="md:my-6 px-4 pb-4 md:pb-0">
+					<x-input-label class="text-sm md:text-md xl:text-lg" for="curriculum_id" :value="__('Curriculum')" />
 	
-					<select {{!count($curriculaOption) ? 'disabled' : ''}} wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 border-gray-300 p-2.5 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+					<select {{!count($curriculaOption) ? 'disabled' : ''}} wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Curriculum ~</option> 
 						@foreach($curriculaOption as $curriculums)
 						<option value="{{ $curriculums->id }}" selected>{{ $curriculums->curr_name }}</option>

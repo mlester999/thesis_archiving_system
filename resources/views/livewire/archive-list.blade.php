@@ -1,29 +1,29 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
-	  class="py-4 md:py-7"
+	  class="py-4 lg:py-7 lg:px-2"
 	>
 	  <div class="lg:flex lg:items-center lg:justify-between">
-		<div class="flex-1 min-w-0">
+		<div class="flex-1 min-w-0 py-2">
 		  <h2
-			class="font-bold leading-7 text-gray-900 text-2xl sm:truncate uppercase"
+			class="font-bold leading-7 text-gray-900 text-2xl lg:truncate uppercase"
 		  >
 			Archive List
 		  </h2>
 		</div>
-		<div class="mt-4 flex lg:mt-0 lg:ml-4 z-0">
+		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
 			<label class="relative block">
 				<span class="sr-only">Search</span>
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
 				</span>
-				<input wire:model.lazy="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+				<input wire:model.lazy="search" class="text-sm lg:text-base placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		</div>
 	  </div>
 	</div>
 
 	
-	<div class="overflow-x-auto sm:rounded-lg space-y-8"
+	<div class="overflow-x-auto sm:rounded-lg space-y-8 pb-24"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
@@ -121,7 +121,7 @@
 				@if($archive->archive_status > 0)
 				<a class="cursor-not-allowed mx-2" style="{pointer-events: none;}"> <i class="text-slate-900 fa-solid fa-pen-to-square fa-xl opacity-40"></i> </a>  
 				@else
-				<a wire:click="edit({{ $archive->id }})" class="mx-2"> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>
+				<a wire:click="edit({{ $archive->id }})" class="ml-2 mr-4"> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>
 				@endif
 			</td>
 		  </tr>
@@ -141,6 +141,7 @@
 		  @endforelse
 		</tbody>
 	  </table>
+	</div>
 	  <div
 		class="flex flex-col xs:flex-row xs:justify-between py-8"
 		>	

@@ -32,37 +32,37 @@
                         <tr>
                           <th
                             scope="col"
-                            class="p-4 tracking-widest sm:text-sm font-medium text-slate-800"
+                            class="p-4 tracking-widest text-sm font-medium text-slate-800"
                           >
                             Archive Code
                           </th>
                           <th
                             scope="col"
-                            class="tracking-widest p-4 sm:text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Project Title
                           </th>
                           <th
                             scope="col"
-                            class="tracking-widest p-4 sm:text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Department
                           </th>
                           <th
                             scope="col"
-                            class="tracking-widest p-4 sm:text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Curriculum
                           </th>
                           <th
                             scope="col"
-                            class="tracking-widest p-4 sm:text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Status
                           </th>
                           <th
                             scope="col"
-                            class="tracking-widest p-4 sm:text-sm font-medium text-slate-800"
+                            class="tracking-widest p-4 text-sm font-medium text-slate-800"
                           >
                             Action
                           </th>
