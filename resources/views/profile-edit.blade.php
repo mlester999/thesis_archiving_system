@@ -10,7 +10,6 @@
 <div class="overflow-hidden bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
     <div class="px-4 py-8 sm:px-6">
       <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Edit Student Information</h3>
-      {{-- <a href="#"><i class="fa-solid fa-pen-to-square fa-2xl text-green-500 hover:text-green-600 duration-200 absolute right-6 top-8"></i></a> --}}
     </div>
     <div class="border-t border-gray-200">
       <dl>

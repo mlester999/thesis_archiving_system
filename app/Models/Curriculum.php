@@ -20,4 +20,12 @@ class Curriculum extends Model
         'curr_description',
         'curr_status',
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
+
+    public function department() {
+        return $this->belongsTo(Department::class);
+    }
 }

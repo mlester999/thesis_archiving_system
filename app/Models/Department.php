@@ -20,4 +20,8 @@ class Department extends Model
         'dept_description',
         'dept_status',
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
 }

@@ -69,7 +69,7 @@
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white" id="main-table-body">
-                        @forelse($archiveData as $archive)
+                        @forelse($archives as $archive)
                         <tr>
                           <td
                             class="whitespace-nowrap px-3 py-12 text-center text-sm font-medium tracking-wider text-slate-800"
@@ -83,21 +83,16 @@
                             {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
                           </td>
 
-                          @php 
-                            $curriculumInfo = App\Models\Curriculum::find($archive->curriculum_id);
-                            $departmentInfo = App\Models\Department::find($archive->department_id);
-                          @endphp
-
                           <td
                             class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
-                            {{ $departmentInfo->dept_name }}
+                            {{ $archive->department->dept_name }}
                           </td>
 
                           <td
                             class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
-                            {{ $curriculumInfo->curr_name }}
+                            {{ $archive->curriculum->curr_name }}
                           </td>
 
                           <td

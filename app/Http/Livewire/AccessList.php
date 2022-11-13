@@ -34,6 +34,7 @@ class AccessList extends Component
     public $permissionId;
     public $description;
     public $status;
+    public $createdAt;
 
     public $role;
     public $permission;
@@ -86,6 +87,8 @@ class AccessList extends Component
         $this->description = $this->viewAccess->description;
 
         $this->status = $this->viewAccess->status;
+
+        $this->createdAt = $this->viewAccess->created_at;
 
         $this->showViewModal = true;
 

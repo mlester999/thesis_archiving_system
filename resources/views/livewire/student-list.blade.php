@@ -21,7 +21,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="text-xs lg:text-base ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="text-sm mx-auto ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New Student
 		  </button>
@@ -123,7 +123,7 @@
 			<td class="pl-8">
 				<button @click="toggle()" class="relative flex mr-4 justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
-					<span class="border-1 p-2 hover:bg-gray-100">
+					<span class="border-1 p-2 hover:bg-gray-100 duration-150">
 						<i class="fa-solid fa-caret-down"></i>	
 					</span>
 					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
@@ -167,7 +167,7 @@
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid md:grid-cols-4 grid-cols-2 py-6">
+				  <div class="grid md:grid-cols-4 grid-cols-2 py-2">
   	  
 				  <!-- First Row -->
 				  <div class="pl-4">
@@ -283,71 +283,71 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-2 md:grid-cols-3 py-3">
+				<div class="grid grid-cols-2 md:grid-cols-3 py-1 sm:py-2 md:py-4">
 
 				<!-- First Name -->
 				<div class="px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="first_name" :value="__('First Name')" />
+					<x-input-label for="first_name" :value="__('First Name')" />
+					
+					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
 	
-					<x-text-input wire:model.defer="editing.first_name" id="first_name" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="first_name" placeholder="First Name" :value="old('first_name')" autofocus />
-	
-					<x-input-error :messages="$errors->get('editing.first_name')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.first_name')" />
 				</div>
 
 				<!-- Middle Name -->
 				<div class="px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="middle_name" :value="__('Middle Name')" />
+					<x-input-label for="middle_name" :value="__('Middle Name')" />
 	
-					<x-text-input wire:model.defer="editing.middle_name" id="middle_name" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="middle_name" placeholder="Middle Name" :value="old('middle_name')"/>
+					<x-text-input wire:model.defer="editing.middle_name" id="middle_name" class="block mt-1 w-full" type="text" name="middle_name" placeholder="Middle Name" :value="old('middle_name')"/>
 	
-					<x-input-error :messages="$errors->get('editing.middle_name')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.middle_name')" />
 				</div>
 	
 				<!-- Last Name -->
 				<div class="px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="last_name" :value="__('Last Name')" />
+					<x-input-label for="last_name" :value="__('Last Name')" />
 	
-					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
+					<x-text-input wire:model.defer="editing.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" placeholder="Last Name" :value="old('last_name')"/>
 	
-					<x-input-error :messages="$errors->get('editing.last_name')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.last_name')" />
 				</div>
 
 				<!-- Gender -->
 				<div class="md:mt-10 md:mb-6 px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="gender" :value="__('Gender')" />
+					<x-input-label for="gender" :value="__('Gender')" />
 	
-					<select name="gender" wire:model.defer="editing.gender" id="gender" name="gender" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
+					<select name="gender" wire:model.defer="editing.gender" id="gender" name="gender" class="border mt-1 px-3 border-gray-300 text-gray-900  text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Gender ~</option>
 						<option value="Male" selected>Male</option>
 						<option value="Female" selected>Female</option>
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.gender')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.gender')" />
 				</div>
 	
 				<!-- Student ID -->
 				<div class="md:mt-10 md:mb-6 px-4 pb-4 md:pb-0">
 				<x-input-label for="student_id" :value="__('Student ID')" />
 	
-				<x-text-input wire:model.defer="editing.student_id" id="student_id" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
+				<x-text-input wire:model.defer="editing.student_id" id="student_id" class="block mt-1 w-full" type="text" name="student_id" placeholder="7-digits Number" :value="old('student_id')" />
 	
-				<x-input-error :messages="$errors->get('editing.student_id')" class="mt-2 text-xs" />
+				<x-input-error :messages="$errors->get('editing.student_id')" />
 			</div>
 	
 				<!-- Email Address -->
 				<div class="md:mt-10 md:mb-6 px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="email" :value="__('Email Address')" />
+					<x-input-label for="email" :value="__('Email Address')" />
 	
-					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full text-xs md:text-sm xl:text-base" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
+					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
-					<x-input-error :messages="$errors->get('editing.email')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.email')" />
 				</div>
 
 				<!-- Year Level -->
 				<div class="md:my-6 px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="year_level" :value="__('Year Level')" />
+					<x-input-label for="year_level" :value="__('Year Level')" />
 	
-					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
+					<select name="year_level" wire:model.defer="editing.year_level" id="year_level" name="year_level" class="border mt-1 px-3 border-gray-300 text-gray-900 text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Year Level ~</option>
 						<option value="1st Year" selected>1st Year</option>
 						<option value="2nd Year">2nd Year</option>
@@ -355,35 +355,35 @@
 						<option value="4th Year">4th Year</option>
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.year_level')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.year_level')" />
 				</div>
 
 				<!-- Department -->
 				<div x-data class="md:my-6 px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="department_id" :value="__('Department')" />
+					<x-input-label for="department_id" :value="__('Department')" />
 	
-					<select name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
+					<select name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Department ~</option>
 						@foreach($departments as $department)
 						<option value="{{ $department->id }}" selected>{{ $department->dept_name }}</option>
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.department_id')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.department_id')" />
 				</div>
 
 				<!-- Curriculum -->
 				<div x-data class="md:my-6 px-4 pb-4 md:pb-0">
-					<x-input-label class="text-sm md:text-md xl:text-lg" for="curriculum_id" :value="__('Curriculum')" />
+					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
 	
-					<select {{!count($curriculaOption) ? 'disabled' : ''}} wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
+					<select {{!count($curriculaOption) ? 'disabled' : ''}} wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Curriculum ~</option> 
 						@foreach($curriculaOption as $curriculums)
 						<option value="{{ $curriculums->id }}" selected>{{ $curriculums->curr_name }}</option>
 						@endforeach()
 						</select>
 	
-					<x-input-error :messages="$errors->get('editing.curriculum_id')" class="mt-2 text-xs" />
+					<x-input-error :messages="$errors->get('editing.curriculum_id')" />
 				</div>
 
 			</div>

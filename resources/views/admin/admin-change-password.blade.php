@@ -1,11 +1,11 @@
 @extends('admin.admin-master')
 @section('admin')
 
-        @php
-            if (count($errors) > 0) {
-                RealRashid\SweetAlert\Facades\Alert::warning("Fields is Required", "You need to fill in the input fields.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
-            }
-        @endphp
+    @php
+        if (count($errors) > 0) {
+            RealRashid\SweetAlert\Facades\Alert::warning("Fields is Required", "You need to fill in the input fields.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+        }
+    @endphp
 
 <div class="bg-slate-50 h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">

@@ -7,7 +7,7 @@
 		  <h2
 			class="font-bold leading-7 text-gray-900 text-2xl lg:truncate uppercase"
 		  >
-			Admin User List
+			User List
 		  </h2>
 		</div>
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
@@ -21,7 +21,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="text-xs lg:text-base ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="text-sm mx-auto ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New User
 		  </button>
@@ -79,7 +79,7 @@
 			tabindex="{{ $user->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8 cursor-pointer">
+			<td class="pl-8">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
@@ -114,7 +114,7 @@
 			<td class="pl-12">
 				<button @click="toggle()" class="relative mr-4 flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
-					<span class="border-1 p-2 hover:bg-gray-100">
+					<span class="border-1 p-2 hover:bg-gray-100 duration-150">
 						<i class="fa-solid fa-caret-down"></i>	
 					</span>
 					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
@@ -158,27 +158,34 @@
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-2 py-6">
+				  <div class="grid grid-cols-1 md:grid-cols-3 py-2">
+
+					<!-- First Col -->
+					<div class="px-4">
+						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Id:</h1> 
+						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $userId }}</p>
+						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Name:</h1> 
+						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $name }}</p>
+					</div>
 	  
 				  <!-- First Col -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $name }}</p>
-					<h1 class="text-lg font-semibold text-left">Username:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $username }}</p>
+						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Username:</h1> 
+						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $username }}</p>
+						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Email Address:</h1> 
+						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $email }}</p>
 				  </div>
 
 				  <!-- Second COl -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">Email Address:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $email }}</p>
-					<h1 class="text-lg font-semibold text-left">Email Status:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $createdAt }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Email Status:</h1> 
 					@if($email_verified_at)
-					<p class="text-left mt-2 mb-2">Verified</p>
+					<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800"">Verified</p>
 					@else
-					<p class="text-left mt-2 mb-2">Not Verified</p>
+					<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800"">Not Verified</p>
 					@endif
-
 				  </div>
 			  </div>
 		  </x-slot>
@@ -217,7 +224,7 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-				<div class="grid grid-cols-2 py-6">
+				<div class="grid grid-cols-2 py-2">
 
 				<!-- First Name -->
 				<div class="px-4 col-span-2">
@@ -225,25 +232,25 @@
 	
 					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Full Name" :value="old('name')" autofocus />
 	
-					<x-input-error :messages="$errors->get('editing.name')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.name')" />
 				</div>
 	
 				<!-- Username -->
-				<div class="mt-10 mb-6 px-4">
+				<div class="mt-8 mb-4 px-4">
 				<x-input-label for="username" :value="__('Username')" />
 	
 				<x-text-input wire:model.defer="editing.username" id="username" class="block mt-1 w-full" type="text" name="username" placeholder="Username" :value="old('username')" />
 	
-				<x-input-error :messages="$errors->get('editing.username')" class="mt-2" />
+				<x-input-error :messages="$errors->get('editing.username')" />
 			</div>
 	
 				<!-- Email Address -->
-				<div class="mt-10 mb-6 px-4">
+				<div class="mt-8 mb-4 px-4">
 					<x-input-label for="email" :value="__('Email Address')" />
 	
 					<x-text-input wire:model.defer="editing.email" id="email" class="block mt-1 w-full" type="email" name="email" placeholder="someone@example.com" :value="old('email')"/>
 	
-					<x-input-error :messages="$errors->get('editing.email')" class="mt-2" />
+					<x-input-error :messages="$errors->get('editing.email')" />
 				</div>
 			</div>
 		</x-slot>

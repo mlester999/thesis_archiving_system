@@ -33,4 +33,16 @@ class Archive extends Model
     protected static $marks = [
         Bookmark::class,
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function department() {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function curriculum() {
+        return $this->belongsTo(Curriculum::class);
+    }
 }

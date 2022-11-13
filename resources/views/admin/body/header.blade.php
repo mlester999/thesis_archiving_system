@@ -6,9 +6,9 @@ $adminData = App\Models\Admin::find($id);
 <!-- Header -->
 <nav class="bg-gradient-to-r from-green-500 to-green-600 shadow-md">
     <div class="mx-auto">
-        <div class="flex justify-between py-2 px-12">
+        <div class="flex justify-between py-2 px-6">
             <div class="flex items-center space-x-2 font-bold text-gray-400">
-                <img class="max-w-xs" src="/images/Logo.png" alt="">
+                <a href="{{ route('admin.dashboard') }}"> <img class="w-56 md:w-64 lg:w-72 xl:w-80 cursor-pointer" src="/images/Logo.png" alt=""> </a>
             </div>
 
             <li class="flex-1 hidden md:flex md:flex-none md:mt-2 space-x-4 list-none">
@@ -37,24 +37,24 @@ $adminData = App\Models\Admin::find($id);
 
                     <a
                       href="{{ route('admin.profile') }}"
-                      class="p-2 hover:bg-slate-300 text-black text-sm no-underline hover:no-underline block"
+                      class="p-2 hover:bg-gray-100 duration-150 text-black text-sm no-underline hover:no-underline block"
                       ><i class="fa-solid fa-fw fa-user-gear ml-4 mt-2"></i> View Profile</a
                     >
                     <a
                       href="{{ route('admin.change.password') }}"
-                      class="p-2 hover:bg-slate-300 text-black text-sm no-underline hover:no-underline block"
+                      class="p-2 hover:bg-gray-100 duration-150 text-black text-sm no-underline hover:no-underline block"
                       ><i class="fa-solid fa-fw fa-lock ml-4 mt-2"></i> Change Password</a
                     >
                     <a
                       href="#"
-                      class="p-2 hover:bg-slate-300 text-black text-sm no-underline hover:no-underline block"
+                      class="p-2 hover:bg-gray-100 duration-150 text-black text-sm no-underline hover:no-underline block"
                       ><i class="fa fa-cog fa-fw ml-4 mt-2"></i> Settings</a
                     >
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                     <button
                       href="#"
-                      class="p-2 w-full text-left hover:bg-slate-300 text-red-500 text-sm no-underline hover:no-underline block"
+                      class="p-2 w-full text-left hover:bg-gray-100 duration-150 text-red-500 text-sm no-underline hover:no-underline block"
                       ><i class="fas fa-sign-out-alt fa-fw ml-4 my-2"></i> Log Out</
                     >
                     </form>
@@ -70,7 +70,7 @@ $adminData = App\Models\Admin::find($id);
              <!-- Hamburger Button -->
         <button
         id="menu-btn"
-        class="block hamburger md:hidden focus:outline-none mt-5"
+        class="block hamburger md:hidden focus:outline-none mt-3"
         type="button"
       >
         <span class="hamburger-top"></span>

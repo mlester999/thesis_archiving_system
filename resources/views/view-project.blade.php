@@ -1,10 +1,6 @@
 @extends('master')
 @section('user')
 
-    @php 
-        $userInfo = App\Models\User::find($viewProjectData->user_id);
-    @endphp
-
 <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-auto my-8 relative">
     <div class="px-4 pt-5 sm:px-8">
         <p class="py-2 text-lg font-medium flex justify-between">
@@ -14,7 +10,7 @@
         <div class="py-10 border-t border-gray-300 space-y-4">
             <h3 class="text-2xl max-w-3xl font-bold leading-6 text-gray-900 inline-block">{{ $viewProjectData->title }}</h3>
             <p class="text-sm">Submitted by
-                <span class="font-bold">{{ $userInfo->first_name . " " . $userInfo->last_name }}</span>
+                <span class="font-bold">{{ $viewProjectData->user->first_name . " " . $viewProjectData->user->last_name }}</span>
                 <span> on {{ $viewProjectData->created_at->format('M d, Y H:i A') }}</span>
             </p>
             <div class="space-x-2 pt-2">

@@ -163,9 +163,9 @@ class UserController extends Controller
     public function ArchivesList() {
         
         $id = Auth::user()->id;
-        $archiveData = Archive::all()->where('user_id', $id);
+        $archives = Archive::all()->where('user_id', $id);
 
-        return view('archives-list', ["currentPage" => 'archives-list'], compact('archiveData'));
+        return view('archives-list', ["currentPage" => 'archives-list'], compact('archives'));
     }
 
     public function ViewArchives($id) {
@@ -297,11 +297,11 @@ class UserController extends Controller
         
         if($deptData) {
             if($request->search) {
-                $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
+                $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
             } else {
-                $archiveData = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+                $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
-            return view('department', ["currentPage" => $dept], compact('archiveData'));
+            return view('department', ["currentPage" => $dept], compact('archives'));
         } else {
             return redirect()->route('home');
         }
@@ -318,7 +318,7 @@ class UserController extends Controller
         $archives = Bookmark::has($viewDepartmentData, $user);
         
         if($viewDepartmentData) {
-        return view('view-department', ["currentPage" => 'view-archives', 'hasBookmark' => $archives], compact('viewDepartmentData'));
+        return view('view-department', ["currentPage" => 'view-archives', 'hasBookmark' => $archives], compact(['viewDepartmentData', 'user']));
         } else {
             return redirect()->route('department', $dept);
         }
@@ -337,11 +337,11 @@ class UserController extends Controller
 
     public function BookmarksList() {
 
-        $archiveData = Archive::whereHasBookmark(
+        $archives = Archive::whereHasBookmark(
             auth()->user()
         )->paginate(5);
 
-        return view('bookmarks', ["currentPage" => 'bookmarks'], compact('archiveData'));
+        return view('bookmarks', ["currentPage" => 'bookmarks'], compact('archives'));
 
     }
 }

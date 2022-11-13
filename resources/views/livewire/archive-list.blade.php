@@ -152,7 +152,7 @@
 	  <form wire:submit.prevent="save">
 
 		<x-dialog-modal wire:model.defer="showPublishModal">
-		  <x-slot name="title">{{ $archiveTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-upload fa-xl pr-4 text-gray-500"></i>{{ $archiveTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->

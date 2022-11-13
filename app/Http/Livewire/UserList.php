@@ -27,10 +27,12 @@ class UserList extends Component
     public $viewUser;
 
     // Viewing User Info
+    public $userId;
     public $name;
     public $username;
     public $email;
     public $email_verified_at;
+    public $createdAt;
 
     // Modals
     public $showDeleteModal = false;
@@ -70,6 +72,8 @@ class UserList extends Component
     public function view($user) {
         $this->viewUser = Admin::find($user);
 
+        $this->userId = $this->viewUser->id;
+
         $this->name = $this->viewUser->name;
 
         $this->username = $this->viewUser->username;
@@ -77,6 +81,8 @@ class UserList extends Component
         $this->email = $this->viewUser->email;
 
         $this->email_verified_at = $this->viewUser->email_verified_at;
+
+        $this->createdAt = $this->viewUser->created_at;
 
         $this->showViewModal = true;
 

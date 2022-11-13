@@ -1,10 +1,6 @@
 @extends('admin.admin-master')
 @section('admin')
 
-@php 
-$userInfo = App\Models\User::find($viewArchiveData->user_id);
-@endphp
-
 <div class="overflow-y-auto h-screen bg-white shadow-xl w-full mx-4 md:mx-16 relative">
 <div class="px-8 pt-5 sm:px-8">
 <p class="py-2 text-lg font-medium flex justify-between">
@@ -15,7 +11,7 @@ $userInfo = App\Models\User::find($viewArchiveData->user_id);
 <div class="py-10 border-t border-gray-300 space-y-4">
     <h3 class="text-2xl max-w-3xl font-bold leading-6 text-gray-900 inline-block">{{ $viewArchiveData->title }}</h3>
     <p class="text-sm">Submitted by
-        <span class="font-bold">{{ $userInfo->first_name . " " . $userInfo->last_name }}</span>
+        <span class="font-bold">{{ $viewArchiveData->user->first_name . " " . $viewArchiveData->user->last_name }}</span>
         <span> on {{ $viewArchiveData->created_at->format('M d, Y H:i A') }}</span>
     </p>
 </div>

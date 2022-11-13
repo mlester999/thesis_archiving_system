@@ -21,7 +21,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="text-xs lg:text-base ml-3 inline-flex items-center px-3 sm:px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="text-sm mx-auto ml-3 inline-flex items-center px-3 sm:px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New Department
 		  </button>
@@ -116,7 +116,7 @@
 			<td class="pl-8">
 				<button @click="toggle()" class="mr-4 relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
-					<span class="border-1 p-2 hover:bg-gray-100">
+					<span class="border-1 p-2 hover:bg-gray-100 duration-150">
 						<i class="fa-solid fa-caret-down"></i>	
 					</span>
 					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
@@ -160,22 +160,22 @@
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-2 py-6">
-  
-				  <!-- First Name -->
-				  <div class="px-4">
-					 <img src="{{ asset('/images/pncLogo.png') }}" class="w-80">
-				  </div>
+				  <div class="grid grid-cols-1 md:grid-cols-3 py-2">
 	  
-				  <!-- Last Name -->
+				  <!-- First Col -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">Department ID:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $departmentId }}</p>
-					<h1 class="text-lg mt-2 font-semibold text-left">College Name:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $dept_description }}</p>
-					<h1 class="text-lg mt-2 font-semibold text-left">Acronym:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $dept_name }}</p>
-					<h1 class="text-lg mt-2 font-semibold text-left">Status:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Id:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $departmentId }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">College Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $dept_description }}</p>
+					
+				  </div>
+
+				  <!-- Second Col -->
+				  <div class="px-4">
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Acronym:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $dept_name }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Status:</h1> 
                     @if($dept_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                         Activated
@@ -185,7 +185,11 @@
                         Deactivated
                     </span>
                     @endif
-					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
+				  </div>
+
+				  <div class="px-4">
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $createdAt }}</p>
 				  </div>
 			  </div>
 		  </x-slot>
@@ -235,7 +239,7 @@
 	
 				<!-- Department Acronym -->
 				<div class="py-3">
-					<x-input-label class="pt-1" for="dept_name" :value="__('Department Acronym')" />
+					<x-input-label for="dept_name" :value="__('Department Acronym')" />
 	
 					<x-text-input wire:model.defer="editing.dept_name" id="dept_name" class="block mt-1 w-full" type="text" name="dept_name" placeholder="Department Acronym" :value="old('dept_name')" autofocus />
 	
@@ -244,8 +248,8 @@
 	
 				<!-- Status -->
 				<div class="py-3">
-				<x-input-label class="pt-1" for="dept_status" :value="__('Status')" />
-                <select wire:model.defer="editing.dept_status" id="dept_status" name="dept_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+				<x-input-label for="dept_status" :value="__('Status')" />
+                <select wire:model.defer="editing.dept_status" id="dept_status" name="dept_status" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select the Status ~</option>
                 <option value="0" selected >Deactivated</option>
                 <option value="1">Activated</option> 

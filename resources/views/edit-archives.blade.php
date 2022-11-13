@@ -15,23 +15,20 @@
                 <form action="{{ route('update.archives', $editArchiveData->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="bg-gray px-4 py-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
-                        <div class="relative px-8">
-                            <label for="title" class="text-sm font-semibold text-gray-900">Project Title:</label>
-                        <input type="text" name="title" id="title" placeholder="Project Title" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editArchiveData->title }}" autofocus>
-                        {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2"/> --}}
-                        </div>
-                        <div class="relative px-8 pt-8 sm:pt-0">
-                            <label for="year" class="text-sm font-semibold text-gray-900">Year:</label>
-                        <input type="text" name="year" id="year" placeholder="Project Year" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editArchiveData->year }}">
-                        {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2"/> --}}
-                        </div>
+                    <div class="relative px-8">
+                        <label for="title" class="text-sm font-semibold text-gray-900">Project Title:</label>
+                    <input type="text" name="title" id="title" placeholder="Project Title" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editArchiveData->title }}" autofocus>
+                    </div>
+                    <div class="relative px-8 pt-8 sm:pt-0">
+                        <label for="year" class="text-sm font-semibold text-gray-900">Year:</label>
+                    <input type="text" name="year" id="year" placeholder="Project Year" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editArchiveData->year }}">
+                    </div>
                 </div>
                 
                 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                     <div class="relative px-8 space-y-2">
                         <label for="abstract" class="text-sm font-semibold text-gray-900">Abstract:</label>
                     <textarea name="abstract" id="abstract">{{ $editArchiveData->abstract }}</textarea>
-                    {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2"/> --}}
                     </div>
                 </div>
                 
@@ -39,7 +36,6 @@
                     <div class="relative px-8 space-y-2">
                         <label for="members" class="text-sm font-semibold text-gray-900">Project Members:</label>
                     <textarea name="members" id="members">{{ $editArchiveData->members }}</textarea>
-                    {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2"/> --}}
                     </div>
                 </div>
                 

@@ -63,13 +63,9 @@
                           <td
                             class="whitespace-nowrap p-3 text-center text-lg font-medium tracking-wider text-slate-800"
                           >
-                          @php
-                                $departmentData = App\Models\Department::find($archive->department_id);
-                                $curriculumData = App\Models\Curriculum::find($archive->curriculum_id);
-                          @endphp
                             <div class="flex items-center">
                               <div>
-                                <a href="{{ route('view.department', [strtolower($departmentData->dept_name),  $archive->archive_code]) }}"
+                                <a href="{{ route('view.department', [strtolower($archive->department->dept_name),  $archive->archive_code]) }}"
                                   class="hover:text-opacity-70 duration-150 text-sm md:text-md lg:text-lg text-left font-semibold text-blue-500 mb-2 tracking-normal"
                                 >
                                   {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
@@ -78,13 +74,10 @@
                                   class="flex flex-wrap md:flex-row md:gap-4"
                                 >
                                   <div class="flex items-center gap-4">
-                                    @php 
-                                        $userInfo = App\Models\User::find($archive->user_id);
-                                    @endphp
                                     <div
                                       class="text-sm text-slate-800 tracking-[-0.4px]"
                                     >
-                                      By: {{ $userInfo->first_name . " " . $userInfo->last_name }}
+                                      By: {{ $archive->user->first_name . " " . $archive->user->last_name }}
                                     </div>
                                     <div
                                       class="text-sm text-slate-500 tracking-[-0.4px]"
@@ -107,24 +100,16 @@
                             </div>
                           </td>
 
-                          @php 
-                            $departmentInfo = App\Models\Department::find($archive->department_id);
-                          @endphp
-
                           <td
                             class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
-                            {{ $departmentInfo->dept_name }}
+                            {{ $archive->department->dept_name }}
                           </td>
 
-                          @php 
-                            $curriculumInfo = App\Models\Curriculum::find($archive->curriculum_id);
-                          @endphp
-
                           <td
                             class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
                           >
-                            {{ $curriculumInfo->curr_name }}
+                            {{ $archive->curriculum->curr_name }}
                           </td>
 
                           <td

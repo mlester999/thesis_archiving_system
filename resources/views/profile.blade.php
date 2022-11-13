@@ -1,17 +1,10 @@
 @extends('master')
 @section('user')
 
-@php
-
-$departmentData = App\Models\Department::find($userData->department_id);
-$curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
-
-@endphp
-
 <div class="bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto my-8 relative">
     <div class="px-4 py-5 sm:px-6 flex flex-col md:flex-row justify-between">
       <div>
-        <h3 class="text-3xl md:text-2xl lg:text-3xl font-bold md:leading-6 text-gray-900 inline-block">Student Information</h3>
+        <h3 class="text-xl md:text-2xl lg:text-3xl font-bold md:leading-6 text-gray-900 inline-block">Student Information</h3>
         <p class="mt-2 mb-6 max-w-3xl text-sm text-gray-500">Personal details.</p>
       </div>
       <div class="flex flex-col md:flex-row md:items-center">
@@ -22,35 +15,32 @@ $curriculumData = App\Models\Curriculum::find($userData->curriculum_id);
     </div>
     <div class="border-t border-gray-200">
       <dl>
-        <div class="bg-gray-50 px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-4 px-6">
+        <div class="bg-gray-50 px-4 py-12 grid grid-cols-1 md:grid-cols-3 md:gap-4 px-6">
           <div class="md:p-8 md:ml-8 text-center md:text-left col-start-1">
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">First Name</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-1 sm:mt-0">{{ $userData->first_name }}</dd>
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Middle Name</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-1 sm:mt-0">{{ $userData->middle_name }}</dd>
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Last Name</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->last_name }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">First Name:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-1 sm:mt-0">{{ $userData->first_name }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Middle Name:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-1 sm:mt-0">{{ $userData->middle_name }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Last Name:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->last_name }}</dd>
            </div>
 
            <div class="md:p-8 md:ml-8 text-center md:text-left">
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Gender</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->gender }}</dd>
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Student Id</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->student_id }}</dd>
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Email Address</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->email }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Gender:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->gender }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Student Id:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->student_id }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Email Address:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->email }}</dd>
           </div>
 
           <div class="md:py-8 text-center md:text-left">
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Year Level</dt>
-            @php
-              $yearLevelTitle = ['', 'st Year', 'nd Year', 'rd Year', 'th Year'];
-            @endphp
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->year_level . $yearLevelTitle[intval($userData->year_level)]}}</dd>
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Department</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $departmentData->dept_description }}</dd>
-            <dt class="text-lg md:text-md xl:text-lg font-semibold text-black col-start-2">Curriculum</dt>
-            <dd class="mt-1 mb-8 text-md md:text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $curriculumData->curr_description }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Year Level:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->year_level}}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Department:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->department->dept_description }}</dd>
+            <dt class="text-md xl:text-lg font-semibold text-black col-start-2">Curriculum:</dt>
+            <dd class="mt-1 mb-8 text-sm xl:text-md text-gray-900 sm:col-span-2 sm:mt-0">{{ $userData->curriculum->curr_description }}</dd>
           </div>
         </div>
       </dl>

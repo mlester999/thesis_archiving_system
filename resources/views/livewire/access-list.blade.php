@@ -21,7 +21,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="text-xs lg:text-base ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="text-sm mx-auto ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New Access
 		  </button>
@@ -114,7 +114,7 @@
 			<td class="pl-12">
 				<button @click="toggle()" class="relative mr-4 flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
-					<span class="border-1 p-2 hover:bg-gray-100">
+					<span class="border-1 p-2 hover:bg-gray-100 duration-150">
 						<i class="fa-solid fa-caret-down"></i>	
 					</span>
 					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
@@ -158,27 +158,37 @@
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-2 py-6">
+				  <div class="grid grid-cols-1 md:grid-cols-3 py-2">
+
+					<!-- First Col -->
+					<div class="px-4">
+					@php
+					$roleInfo = Spatie\Permission\Models\Role::find($roleId);
+					$permissionInfo = Spatie\Permission\Models\Permission::find($permissionId);
+					@endphp
+					<h1 class="text-sm lg:text-base font-semibold text-left">Id:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $accessId }}</p>
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Role:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $roleInfo->name ?? 'Role Not Found' }}</p>
+					</div>
 	  
 				  <!-- First Col -->
 				  <div class="px-4">
-					<h1 class="text-lg font-semibold text-left">Id:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $accessId }}</p>
-					<h1 class="text-lg font-semibold text-left">Role:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $roleId }}</p>
-                    <h1 class="text-lg font-semibold text-left">Features:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $permissionId }}</p>
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Features:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $permissionInfo->name ?? 'Permission Not Found' }}</p>
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Description:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $description }}</p>
 				  </div>
 
 				  <!-- Second COl -->
 				  <div class="px-4">
-                    <h1 class="text-lg font-semibold text-left">Description:</h1> 
-					<p class="text-left mt-2 mb-2">{{ $description }}</p>
-					<h1 class="text-lg font-semibold text-left">Status:</h1> 
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Created At:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $createdAt }}</p>
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Status:</h1> 
 					@if($status)
-					<p class="text-left mt-2 mb-2">Verified</p>
+					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
 					@else
-					<p class="text-left mt-2 mb-2">Not Verified</p>
+					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
 					@endif
 
 				  </div>
@@ -220,9 +230,9 @@
 			<!--Body-->
 	
             <!-- Student -->
-            <div class="py-3">
+            <div class="py-2">
                 <x-input-label for="role_id" :value="__('Student Role')" />
-                <select wire:model.defer="editing.role_id" id="role_id" name="role_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <select wire:model.defer="editing.role_id" id="role_id" name="role_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select Student Role ~</option>
                 @foreach($roles as $role)
                 <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -233,9 +243,9 @@
             </div>
 
             <!-- Features -->
-            <div class="py-3">
+            <div class="py-2">
                 <x-input-label for="permission_id" :value="__('Features')" />
-                <select wire:model.defer="editing.permission_id" id="permission_id" name="permission_id" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <select wire:model.defer="editing.permission_id" id="permission_id" name="permission_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="" hidden>~ Select Access Features ~</option>
                 @foreach($permissions as $permission)
                 <option value="{{ $permission->id }}">{{ $permission->name }}</option> 
@@ -246,17 +256,17 @@
             </div>
 
             <!-- Description -->
-            <div class="py-3">
+            <div class="py-2">
                 <x-input-label for="description" :value="__('Description')" />
-                <textarea wire:model.defer="editing.description" id="description" name="description" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
+                <textarea wire:model.defer="editing.description" id="description" name="description" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
             
                 <x-input-error :messages="$errors->get('editing.description')" />
             </div>
 
             <!-- Status -->
-            <div class="py-3">
+            <div class="py-2">
             <x-input-label for="status" :value="__('Status')" />
-            <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+            <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
             <option value="" hidden>~ Select Status ~</option>
             <option value="0">Deactivate</option>
             <option value="1">Activate</option> 

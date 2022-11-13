@@ -32,6 +32,7 @@ class DepartmentList extends Component
     public $dept_name;
     public $dept_description;
     public $dept_status;
+    public $createdAt;
 
     // Modals
     public $showDeleteModal = false;
@@ -78,6 +79,8 @@ class DepartmentList extends Component
         $this->dept_description = $this->viewDepartment->dept_description;
 
         $this->dept_status = $this->viewDepartment->dept_status;
+
+        $this->createdAt = $this->viewDepartment->created_at;
 
         $this->showViewModal = true;
 

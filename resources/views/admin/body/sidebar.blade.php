@@ -1,22 +1,10 @@
 @php
 $id = Auth::guard('admin')->user()->id;
 $adminData = App\Models\Admin::find($id);
-$adminDataDisplay = explode(" ", $adminData->first_name);
-
 @endphp
  
  <!-- Sidebar -->
     <div class="relative flex-shrink-0 h-screen hidden w-64 overflow-y-auto bg-white shadow-2xl md:block">
-        {{-- <div class="bg-slate-900 h-20 w-64 py-3 px-5 grid grid-cols-2">
-            <div class="flex space-x-4 bg-green-400 p-1 rounded-md h-12 w-12">
-            <img src="/images/R.png" class="flex rounded-md" alt="Admin Photo">
-
-            <div class="flex flex-col">
-                <h3 class="text-white font-bold text-base">ADMIN</h3>
-                <h3 class="text-white font-base text-base">{{ $adminDataDisplay[0] }}</h3>
-            </div>
-        </div>
-    </div> --}}
 
     <div class="flex flex-col p-4 text-gray-500 text-md space-y-3 font-medium">
             <p class="uppercase text-gray-400 tracking-wider">Menu</p>

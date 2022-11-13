@@ -120,22 +120,17 @@
                         <tbody>
                             @forelse($archives as $archive)
                             <tr class="bg-white border-b">
-                                @php
-                                    $archiveUser = App\Models\User::find($archive->user_id);
-                                    $archiveDept = App\Models\Department::find($archive->department_id);
-                                    $archiveCurr = App\Models\Curriculum::find($archive->curriculum_id);
-                                @endphp
                                 <th scope="row" class="py-4 px-8 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $archiveUser->last_name . ", " . $archiveUser->first_name }}
+                                    {{ $archive->user->last_name . ", " . $archive->user->first_name . " " . $archive->user->middle_name[0] . "." }}
                                 </th>
                                 <td class="py-4 px-8">
-                                    <a href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="text-blue-500 hover:text-blue-700"> {{ \Illuminate\Support\Str::limit($archive->title, 90, '...') }} </a>
+                                    <a href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="text-blue-500 hover:text-blue-700 duration-150"> {{ \Illuminate\Support\Str::limit($archive->title, 90, '...') }} </a>
                                 </td>
                                 <td class="py-4 px-8">
-                                    {{ $archiveDept->dept_name }}
+                                    {{ $archive->department->dept_name }}
                                 </td>
                                 <td class="py-4 px-8">
-                                    {{ $archiveCurr->curr_name }}
+                                    {{ $archive->curriculum->curr_name }}
                                 </td>
                                 <td class="py-4 px-8">
                                     @if($archive->archive_status == 1)

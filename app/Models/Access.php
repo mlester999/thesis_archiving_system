@@ -15,4 +15,12 @@ class Access extends Model
         'description',
         'status',
     ];
+
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function permission() {
+        return $this->belongsTo(Permission::class);
+    }
 }

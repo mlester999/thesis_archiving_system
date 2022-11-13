@@ -53,4 +53,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function archive() {
+        return $this->hasOne(Archive::class);
+    }
+
+    public function department() {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function curriculum() {
+        return $this->belongsTo(Curriculum::class);
+    }
 }

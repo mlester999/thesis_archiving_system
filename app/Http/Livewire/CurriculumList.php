@@ -36,6 +36,7 @@ class CurriculumList extends Component
     public $curr_status;
     public $dept_name;
     public $dept_description;
+    public $createdAt;
 
     // Modals
     public $showDeleteModal = false;
@@ -89,6 +90,8 @@ class CurriculumList extends Component
         $this->dept_name = $this->viewCurriculum->dept_name;
 
         $this->dept_description = $this->viewCurriculum->dept_description;
+
+        $this->createdAt = $this->viewCurriculum->created_at;
 
         $this->showViewModal = true;
 
