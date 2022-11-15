@@ -48,7 +48,6 @@ class TitleSearchBar extends Component
     // }
 
     public function updatedQuery() {
-        sleep(1);
 
         if($this->currentPage == 'projects') {
             $this->titles = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 

@@ -154,7 +154,6 @@ class CurriculumList extends Component
 
     public function render()
     {
-        sleep(1);
 
         return view('livewire.curriculum-list', [
             'curricula' => Curriculum::join('departments', 'curricula.department_id', '=', 'departments.id')

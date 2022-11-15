@@ -143,7 +143,6 @@ class DepartmentList extends Component
 
     public function render()
     {
-        sleep(1);
 
         return view('livewire.department-list', [
             'departments' => Department::where('id', 'like', '%'  . $this->search . '%')

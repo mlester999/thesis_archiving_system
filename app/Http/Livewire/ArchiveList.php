@@ -127,7 +127,6 @@ class ArchiveList extends Component
 
     public function render()
     {
-        sleep(1);
 
         return view('livewire.archive-list', [
             'archives' => Archive::join('departments', 'archives.department_id', '=', 'departments.id')

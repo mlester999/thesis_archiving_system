@@ -6,9 +6,7 @@ use App\Models\Access;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Livewire\Component;
-use Illuminate\Http\Request;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class AccessList extends Component
@@ -165,8 +163,6 @@ class AccessList extends Component
 
     public function render()
     {
-        sleep(1);
-
         return view('livewire.access-list', [
             'accesses' => Access::join('roles', 'accesses.role_id', '=', 'roles.id')
                     ->join('permissions', 'accesses.permission_id', '=', 'permissions.id')

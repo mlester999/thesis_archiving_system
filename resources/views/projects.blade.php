@@ -6,7 +6,7 @@
   @endphp
 
 <div class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
-  <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
+  <form action="{{ url('projects') }}" method="get">   
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>

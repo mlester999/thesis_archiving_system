@@ -33,6 +33,7 @@ class UserController extends Controller
         if($deptData) {
             if($request->search) {
                 $archiveData = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
+                activity('Search Title')->by($request->user)->log($request->search)->subject($request->search);
             } else {
                 $archiveData = Archive::where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }

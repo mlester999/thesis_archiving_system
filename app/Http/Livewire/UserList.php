@@ -145,7 +145,6 @@ class UserList extends Component
 
     public function render()
     {
-        sleep(1);
 
         return view('livewire.user-list', [
             'users' => Admin::where('role_id', '0')

@@ -20,27 +20,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="body-bg h-screen bg-slate-600 overflow-hidden antialiased">
-        {{-- <nav class="bg-green-600 h-24 w-full border-b-8 border-yellow-500">
-            <a href="/"><img src="{{ asset('images/Logo.png') }}" alt="Library Logo" class="inline-block w-80 px-4 py-6 md:w-96 md:p-4"></a> 
-       </nav> --}}
-            {{-- @if (Route::has('login'))
-                <div class="hidden absolute top-0 right-0 p-8 sm:block">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="my-8 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="my-8 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Log in</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-6 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif --}}
             <img src="./images/background.jpg" alt="" class="h-screen brightness-50 absolute z-0">
-            
-            {{-- <div class="flex justify-center">
-                <h1 class="mt-16 text-green-500 z-50 absolute p-8 text-8xl text-center font-black tracking-wider leading-normal" style="font-family: 'Lato', sans-serif; text-shadow: 5px 5px #000;">Theses and Capstone Projects Archiving System</h1>
-            </div> --}}
 
             <div class="w-full min-h-screen p-6 absolute z-20">
                 
@@ -63,10 +44,6 @@
                                     <a href="{{ url('admin/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
                                     <a href="{{ route('admin.login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
-            
-                                    {{-- @if (Route::has('register'))
-                                        <a href="{{ route('admin.register') }}" class="ml-6 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Register</a>
-                                    @endif --}}
                                 @endauth
                             @endif
             
@@ -84,10 +61,6 @@
                                     <a href="{{ url('/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
                                     <a href="{{ route('login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
-            
-                                    {{-- @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="ml-6 text-xl text-gray-700 dark:text-slate-100 hover:text-slate-300">Register</a>
-                                    @endif --}}
                                 @endauth
                             @endif
 

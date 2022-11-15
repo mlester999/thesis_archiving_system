@@ -64,7 +64,7 @@ class StudentList extends Component
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.gender' => 'required',
         'editing.student_id' => 'required|numeric|unique:users,student_id,' . $this->userId,
-        'editing.year_level' => 'required|numeric',
+        'editing.year_level' => 'required',
         'editing.department_id' => 'required',
         'editing.curriculum_id' => 'required',
         'editing.email' => 'required|email|unique:users,email,' . $this->userId,
@@ -239,7 +239,6 @@ class StudentList extends Component
 
     public function render()
     {
-        sleep(1);
 
         return view('livewire.student-list', [
             'users' => User::join('departments', 'users.department_id', '=', 'departments.id')
