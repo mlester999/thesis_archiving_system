@@ -28,9 +28,6 @@ Route::get('/', function () {
 Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'destroy')->middleware(['auth', 'verified'])->name('logout');
     Route::get('/projects', 'Projects')->middleware(['auth', 'verified'])->name('projects');
-    Route::get('/view/project/{id}', 'ViewProject')->middleware(['auth', 'verified'])->name('view.project');
-    Route::get('/edit/project/{id}', 'EditProject')->middleware(['auth', 'verified'])->name('edit.project');
-    Route::post('/update/project/{id}', 'UpdateProject')->middleware(['auth', 'verified'])->name('update.project');
 
     Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
     Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');

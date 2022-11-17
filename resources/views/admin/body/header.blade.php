@@ -18,7 +18,7 @@ $adminData = App\Models\Admin::find($id);
                     class="drop-button text-white py-2 px-2"
                   >
                     <span class="pr-2"><i class="fa-solid fa-user"></i></span>
-                    Hello, {{ $adminData->name }}
+                    {{ $adminData->name }}
                     <svg
                       class="h-3 fill-current inline"
                       xmlns="http://www.w3.org/2000/svg"
@@ -85,13 +85,13 @@ $adminData = App\Models\Admin::find($id);
         class="absolute z-50 md:hidden hidden p-6 ring-2 ring-gray-900 rounded-lg bg-slate-50 shadow-2xl left-6 right-6 top-20 z-100"
         >
         <div
-            class="flex flex-col items-center justify-center w-full space-y-6 font-bold text-white rounded-sm"
+            class="flex flex-col items-center justify-center w-full space-y-3 font-semibold text-sm text-white rounded-sm"
         >
         <a href="{{ route('admin.profile') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-user-gear mr-1"></i> View Profile</a>
         <a href="{{ route('admin.change.password') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-lock mr-1"></i> Change Password</a>
         <a href="#" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa fa-cog fa-fw mr-1"></i> Settings</a>
         <a href="{{ route('admin.logout') }}" class="w-full text-center text-red-500 hover:text-opacity-50 duration-150"><i class="fas fa-sign-out-alt fa-fw mr-1"></i> Logout</a>
-        <a href="{{ route('admin.dashboard') }}" class="w-full text-gray-900 pt-6 border-t border-gray-400 hover:text-opacity-50 duration-150"
+        <a href="{{ route('admin.dashboard') }}" class="w-full text-gray-900 pt-3 border-t border-gray-400 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-dashboard-line class="w-5 mr-2" /> Dashboard</span></a
         >
         <a href="{{ route('admin.archive-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
@@ -103,7 +103,7 @@ $adminData = App\Models\Admin::find($id);
         <a href="{{ route('admin.student-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-account-circle-line class="w-5 mr-2" /> Student List</span></a
         >
-        <a href="{{ route('admin.department-list') }}" class="w-full pt-6 border-t text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
+        <a href="{{ route('admin.department-list') }}" class="w-full pt-3 border-t text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-list-check-2 class="w-5 mr-2" /> Department List</span></a
         >
         <a href="{{ route('admin.curriculum-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
@@ -111,6 +111,15 @@ $adminData = App\Models\Admin::find($id);
         >
         <a href="{{ route('admin.user-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-profile-line class="w-5 mr-2" /> User List</span></a
+        >
+        <a href="{{ route('admin.activity-logs') }}" class="w-full text-gray-900 pt-3 border-t border-gray-400 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-radix-activity-log class="w-5 mr-2" /> Activity Logs</span></a
+        >
+        <a href="{{ route('admin.report-logs') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-search-eye-line class="w-5 mr-2" /> Report Logs</span></a
+        >
+        <a href="{{ route('admin.download-logs') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-file-download-line class="w-5 mr-2" /> Download Logs</span></a
         >
         </div>
     </div>

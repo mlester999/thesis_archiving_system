@@ -15,6 +15,9 @@ use App\Http\Controllers\AdminAuth\ConfirmablePasswordController;
 use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
 use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
+use App\Http\Livewire\ActivityLogs;
+use App\Http\Livewire\DownloadLogs;
+use App\Http\Livewire\ReportLogs;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
@@ -68,4 +71,10 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('archive-list', ArchiveList::class)->name('archive-list');
 
     Route::get('access-list', AccessList::class)->name('access-list');
+
+    Route::get('activity-logs', ActivityLogs::class)->name('activity-logs');
+
+    Route::get('report-logs', ReportLogs::class)->name('report-logs');
+
+    Route::get('download-logs', DownloadLogs::class)->name('download-logs');
 });

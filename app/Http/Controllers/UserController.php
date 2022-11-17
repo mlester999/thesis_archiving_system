@@ -33,7 +33,7 @@ class UserController extends Controller
         if($deptData) {
             if($request->search) {
                 $archiveData = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
-                activity('Search Title')->by($request->user)->log($request->search)->subject($request->search);
+                activity('Search Title')->by($request->user)->event('search')->log($request->search)->subject($request->search);
             } else {
                 $archiveData = Archive::where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
@@ -43,56 +43,6 @@ class UserController extends Controller
         }
 
     }
-
-    // public function EditProject($id) {
-        
-    //     $userId = Auth::user()->id;
-    //     $editProjectData = Archive::all()->where('archive_code', $id)->where('archive_status', 1)->where('user_id', $userId)->first();
-
-    //     if($editProjectData) {
-    //     return view('edit-project', ["currentPage" => 'edit-project'], compact('editProjectData'));
-    //     } else {
-    //         return redirect()->route('projects');
-    //     }
-    // }
-
-    public function UpdateProject(Request $request, $id) {
-
-        $storeProjectData = Archive::findOrFail($id);
-
-        $userData = User::find($storeProjectData->user_id);
-
-        $validatedInputs = $request->validate([
-            'year' => 'required|integer',
-            'title' => 'required',
-            'abstract' => 'required',
-            'members' => 'required',
-            'document_path' => 'required',
-        ]);
-
-        $fileContent = $request->file('document_path');
-        $fileContentName = $request->file('document_path')->getClientOriginalName();
-
-        $fileSystem = Storage::disk('google');
-
-        $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->document_name);
-
-        $fileUploaded = $fileSystem->putFileAs($userData->student_id, $fileContent, $fileContentName);
-
-        $storeProjectData->year = $request->year;
-        $storeProjectData->title = $request->title;
-        $storeProjectData->abstract = $request->abstract;
-        $storeProjectData->members = $request->members;
-        $storeProjectData->document_path = $fileSystem->url($fileUploaded);
-        $storeProjectData->document_name = $fileContentName;
-
-        $storeProjectData->save();
-
-        Alert::success('Archive Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
-
-        return redirect()->route('view.project', $storeProjectData->id);
-    }
-    
 
     public function SubmitThesis() {
         $id = Auth::user()->id;
@@ -135,6 +85,8 @@ class UserController extends Controller
         ]);
 
         Alert::success('Thesis Submit Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
+        activity('Submit Thesis')->by($request->user)->event('submit thesis')->log('Submit Thesis Successful');
 
         return redirect()->route('archives');
         
@@ -225,6 +177,8 @@ class UserController extends Controller
 
         Alert::success('Thesis Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
+        activity('Update Archive')->by($request->user)->event('update archive')->log('Update Archive Successful');
+
         return redirect()->route('view.archives', $storeArchiveData->id);
     }
     
@@ -251,6 +205,9 @@ class UserController extends Controller
         $storeUserData->save();
 
         Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+
+
+        activity('Update Profile')->by($request->user)->event('update profile')->log('Update Profile Successful');
 
         return redirect()->route('profile');
     }
@@ -281,6 +238,8 @@ class UserController extends Controller
 
             Alert::success('Password Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
+            activity('Update Password')->by($request->user)->event('update password')->log('Update Password Successful');
+
             return redirect()->route('home');
 
         } else {
@@ -299,6 +258,7 @@ class UserController extends Controller
         if($deptData) {
             if($request->search) {
                 $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
+                activity('Search Title')->by($request->user)->event('search')->log($request->search)->subject($request->search);
             } else {
                 $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
@@ -325,13 +285,15 @@ class UserController extends Controller
         }
     }
 
-    public function BookmarkDepartment($id) {
+    public function BookmarkDepartment(Request $request, $id) {
 
         $user = auth()->user();
 
         $viewDepartmentData = Archive::find($id);
 
         Bookmark::toggle($viewDepartmentData, $user);
+
+        activity('Bookmark')->by($request->user)->event('bookmark')->log('Bookmark Successful');
 
         return redirect()->back();
     }

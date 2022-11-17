@@ -69,6 +69,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Curriculum::class);
     }
 
+    public function activity() {
+        return $this->hasOne(Activity::class, 'causer_id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
