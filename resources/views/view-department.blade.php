@@ -22,6 +22,7 @@
                 <i :class="bookmark ? 'fa-solid' : 'fa-regular'" class="fa-regular fa-bookmark fa-xl pr-2"></i> 
                 {{ $hasBookmark ? 'Bookmarked' : 'Bookmark' }}
             </button>
+            </form>
         @endif
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
@@ -32,7 +33,10 @@
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
             <p>{!! $viewDepartmentData->members !!}</p>
             <div class="space-x-2 py-6 relative">
-                <a href="{{ $viewDepartmentData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download File</a>
+                <form action="{{ route('download.thesis', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <button class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download File</button>
+                </form>
             </div>
         </div>
     </div>

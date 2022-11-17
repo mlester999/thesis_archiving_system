@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,13 +30,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+
+        $loggedUser = User::all()->where('student_id', $request->student_id)->first();
+
+        if($loggedUser->acc_status) {
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        activity('Login')->by($request->user)->event('login')->log('Login Successful');
+        activity('Login')->by($request->user)->event('login')->withProperties(['ip_address' => $request->ip()])->log('Login Successful');
 
         return redirect()->intended(RouteServiceProvider::HOME);
+
+        } else {
+            Alert::error('Account Deactivated', "Your account was deactivated. Please contact the administrator.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            
+            return redirect()->back();
+        }
     }
 
     /**
@@ -45,7 +58,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        activity('Logout')->by($request->user)->event('logout')->log('Logout Successful');
+        activity('Logout')->by($request->user)->event('logout')->withProperties(['ip_address' => $request->ip()])->log('Logout Successful');
         
         Auth::guard('web')->logout();
 

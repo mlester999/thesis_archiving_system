@@ -149,10 +149,17 @@ class ReportLogs extends Component
             'activities' => Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
                     ->whereNot(function ($query) {
                         $query->where('event', 'login')
-                        ->orWhere('event', 'logout');
+                        ->orWhere('event', 'logout')
+                        ->orWhere('event', 'bookmark')
+                        ->orWhere('event', 'update profile')
+                        ->orWhere('event', 'update password')
+                        ->orWhere('event', 'update thesis')
+                        ->orWhere('event', 'verify email')
+                        ->orWhere('event', 'submit thesis')
+                        ->orWhere('event', 'download thesis');
                     })
                     ->where('student_id', 'like', '%'  . $this->search . '%')
-                    ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'users.student_id')
+                    ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id')
                     ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
         ]);
     }

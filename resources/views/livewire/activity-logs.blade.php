@@ -56,6 +56,7 @@
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student ID </th>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">IP Address </th>
 			<th class="font-semibold text-left pl-12 pr-4 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
@@ -81,6 +82,9 @@
             <p class="text-md font-medium leading-none text-gray-800">{{ $activity->student_id }}</p>
             </td>
 			<td class="pl-12">
+				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
+				</td>
+			<td class="pl-12">
 				<button @click="toggle()" class="relative mr-4 flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
 					<p class="px-4">Action</p>
 					<span class="border-1 p-2 hover:bg-gray-100 duration-150">
@@ -105,7 +109,7 @@
 		  <td colspan="7" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-xl py-8 font-medium leading-none text-gray-400">No users found...</p>
+				<p class="text-xl py-8 font-medium leading-none text-gray-400">No activity logs found...</p>
 			  </div>
 			</div>
 		  </td>

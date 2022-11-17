@@ -33,7 +33,7 @@ class UserController extends Controller
         if($deptData) {
             if($request->search) {
                 $archiveData = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
-                activity('Search Title')->by($request->user)->event('search')->log($request->search)->subject($request->search);
+                activity('Search Title')->by($request->user)->event('search')->withProperties(['ip_address' => $request->ip()])->log($request->search)->subject($request->search);
             } else {
                 $archiveData = Archive::where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
@@ -86,7 +86,7 @@ class UserController extends Controller
 
         Alert::success('Thesis Submit Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
-        activity('Submit Thesis')->by($request->user)->event('submit thesis')->log('Submit Thesis Successful');
+        activity('Submit Thesis')->by($request->user)->event('submit thesis')->withProperties(['ip_address' => $request->ip()])->log('Submit Thesis Successful');
 
         return redirect()->route('archives');
         
@@ -177,7 +177,7 @@ class UserController extends Controller
 
         Alert::success('Thesis Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
-        activity('Update Archive')->by($request->user)->event('update archive')->log('Update Archive Successful');
+        activity('Update Archive')->by($request->user)->event('update archive')->withProperties(['ip_address' => $request->ip()])->log('Update Archive Successful');
 
         return redirect()->route('view.archives', $storeArchiveData->id);
     }
@@ -207,7 +207,7 @@ class UserController extends Controller
         Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
 
-        activity('Update Profile')->by($request->user)->event('update profile')->log('Update Profile Successful');
+        activity('Update Profile')->by($request->user)->event('update profile')->withProperties(['ip_address' => $request->ip()])->log('Update Profile Successful');
 
         return redirect()->route('profile');
     }
@@ -238,7 +238,7 @@ class UserController extends Controller
 
             Alert::success('Password Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
 
-            activity('Update Password')->by($request->user)->event('update password')->log('Update Password Successful');
+            activity('Update Password')->by($request->user)->event('update password')->withProperties(['ip_address' => $request->ip()])->log('Update Password Successful');
 
             return redirect()->route('home');
 
@@ -258,7 +258,7 @@ class UserController extends Controller
         if($deptData) {
             if($request->search) {
                 $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
-                activity('Search Title')->by($request->user)->event('search')->log($request->search)->subject($request->search);
+                activity('Search Title')->by($request->user)->event('search')->withProperties(['ip_address' => $request->ip()])->log($request->search)->subject($request->search);
             } else {
                 $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
@@ -293,7 +293,7 @@ class UserController extends Controller
 
         Bookmark::toggle($viewDepartmentData, $user);
 
-        activity('Bookmark')->by($request->user)->event('bookmark')->log('Bookmark Successful');
+        activity('Bookmark')->by($request->user)->event('bookmark')->withProperties(['ip_address' => $request->ip()])->log('Bookmark Successful');
 
         return redirect()->back();
     }
@@ -306,5 +306,13 @@ class UserController extends Controller
 
         return view('bookmarks', ["currentPage" => 'bookmarks'], compact('archives'));
 
+    }
+
+    public function DownloadThesis(Request $request, $id) {
+        $viewDepartmentData = Archive::find($id);
+
+        activity('Download Thesis')->by($request->user)->event('download thesis')->withProperties(['ip_address' => $request->ip()])->log('Download Thesis Successful');
+
+        return redirect()->away($viewDepartmentData->document_path);
     }
 }
