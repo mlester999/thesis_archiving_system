@@ -20,7 +20,9 @@ class StudentList extends Component
 
     public $sortField = 'id';
 
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
+
+    public $showResults = '5';
 
     public $userTitle;
 
@@ -251,7 +253,7 @@ class StudentList extends Component
             ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
             ->select('users.id', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.gender', 'users.email_status', 'users.acc_status', 'users.student_id', 'users.department_id', 'users.curriculum_id', 'users.year_level', 'users.created_at', 'departments.dept_name', 'curricula.curr_name')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(5),
+            ->paginate($this->showResults),
             'departments' => Department::all()->where('dept_status', '1'),
             'curricula' => Curriculum::all(),
         ]);

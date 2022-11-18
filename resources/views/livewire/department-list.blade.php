@@ -39,7 +39,7 @@
 			this.open = false
 		}
 	}"
-	  class="overflow-x-auto sm:rounded-lg space-y-8 pb-24"
+	  class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
@@ -72,8 +72,7 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			{{-- <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status </th> --}}
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -114,19 +113,9 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $department->created_at->format('m/d/Y') }}</p>
 			  </td>
 			<td class="pl-8">
-				<button @click="toggle()" class="mr-4 relative flex justify-center items-center bg-white border focus:outline-none shadow text-gray-600 rounded focus:ring ring-gray-200 group">
-					<p class="px-4">Action</p>
-					<span class="border-1 p-2 hover:bg-gray-100 duration-150">
-						<i class="fa-solid fa-caret-down"></i>	
-					</span>
-					<div x-show="open" x-transition class="absolute group-focus:block hidden z-50 top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
-						<ul class="text-left border rounded">
-							<li wire:click="view({{ $department->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-eye mr-1"></i> View</li>
-							<li wire:click="edit({{ $department->id }})" class="px-4 py-2.5 hover:bg-gray-100 border-b"><i class="fa-solid fa-pen-to-square mr-2 text-blue-600"></i> Edit</li>
-							<li wire:click="delete({{ $department->id }})" class="px-4 py-2.5 hover:bg-gray-100"><i class="fa-solid fa-trash mr-2 text-red-600"></i> Delete</li>
-						</ul>
-					</div>
-				</button>
+				<span wire:click="view({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></span>
+					<span wire:click="edit({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></span>
+					<span wire:click="delete({{ $department->id }})" class="cursor-pointer pl-1 pr-4 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></span>
 			  </td>
 		  </tr>
 		  @empty

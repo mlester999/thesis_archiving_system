@@ -148,7 +148,8 @@ class ActivityLogs extends Component
         return view('livewire.activity-logs', [
             'activities' => Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
                     ->whereNot(function ($query) {
-                        $query->where('event', 'search');
+                        $query->where('event', 'search')
+                            ->orWhere('event', 'download thesis');
                     })
                     ->where('student_id', 'like', '%'  . $this->search . '%')
                     ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id')

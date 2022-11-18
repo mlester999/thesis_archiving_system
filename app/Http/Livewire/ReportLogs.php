@@ -17,7 +17,7 @@ class ReportLogs extends Component
 
     public $sortField = 'id';
 
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
 
     public $userTitle;
 

@@ -23,7 +23,7 @@
 	</div>
 
 	
-	<div class="overflow-x-auto sm:rounded-lg space-y-8 pb-24"
+	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
 	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
