@@ -84,7 +84,7 @@ class UserController extends Controller
             'user_id' => $userUploaded->id,
         ]);
 
-        Alert::success('Thesis Submit Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+        Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
 
         activity('Submit Thesis')->by($request->user)->event('submit thesis')->withProperties(['ip_address' => $request->ip()])->log('Submit Thesis Successful');
 
@@ -175,7 +175,7 @@ class UserController extends Controller
 
         $storeArchiveData->save();
 
-        Alert::success('Thesis Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+        Alert::success('Thesis Updated Successfully')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
 
         activity('Update Archive')->by($request->user)->event('update archive')->withProperties(['ip_address' => $request->ip()])->log('Update Archive Successful');
 
@@ -204,8 +204,7 @@ class UserController extends Controller
 
         $storeUserData->save();
 
-        Alert::success('Profile Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
-
+        Alert::success('Profile Updated Successfully')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
 
         activity('Update Profile')->by($request->user)->event('update profile')->withProperties(['ip_address' => $request->ip()])->log('Update Profile Successful');
 
@@ -236,7 +235,7 @@ class UserController extends Controller
 
             $user->save();
 
-            Alert::success('Password Updated Successfully')->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            Alert::success('Password Updated Successfully')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
 
             activity('Update Password')->by($request->user)->event('update password')->withProperties(['ip_address' => $request->ip()])->log('Update Password Successful');
 
@@ -244,7 +243,7 @@ class UserController extends Controller
 
         } else {
 
-            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(6000);
 
             return redirect()->back();
 

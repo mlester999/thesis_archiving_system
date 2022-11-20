@@ -13,7 +13,7 @@ if (count($errors) > 0) {
 </div>
 <div class="border-t border-gray-200">
 <dl>
-<form action="{{ route('store.thesis') }}" method="post" enctype="multipart/form-data">
+<form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('store.thesis') }}" method="post" enctype="multipart/form-data">
 @csrf
 <div class="bg-gray px-4 py-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
         <div class="relative px-8">
@@ -49,7 +49,7 @@ if (count($errors) > 0) {
 
 <div class="bg-white px-4 mx-6 xl:mx-32 py-6 grid grid-cols-2 gap-4 sm:px-6">
 <a href="{{ route('home') }}" class="cursor-pointer text-xs sm:text-sm md:text-base w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
-<x-primary-button class="mx-2 py-3 text-xs sm:text-sm md:text-base">Submit Thesis</x-primary-button>
+<x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="mx-2 py-3 text-xs sm:text-sm md:text-base">Submit Thesis</x-primary-button>
 </div>
 </form>
 </dl>
