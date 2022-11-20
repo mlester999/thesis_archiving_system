@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use DateTime;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Bookmark;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Archive extends Model
 {
@@ -44,5 +45,14 @@ class Archive extends Model
 
     public function curriculum() {
         return $this->belongsTo(Curriculum::class);
+    }
+    
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function($model) {
+            $now = new DateTime();
+            $model->archive_code = $now->format("Ym") . str_pad(Archive::count() + 1, 4, '0', STR_PAD_LEFT);
+        });
     }
 }

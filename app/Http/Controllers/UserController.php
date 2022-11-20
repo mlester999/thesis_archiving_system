@@ -54,7 +54,6 @@ class UserController extends Controller
     public function StoreThesis(Request $request) {
         $id = Auth::user()->id;
         $userUploaded = User::find($id);
-        $now = new DateTime();
 
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
@@ -72,7 +71,6 @@ class UserController extends Controller
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $fileContent, $fileContentName);
 
         Archive::create([
-            'archive_code' => $now->format("Ym") . str_pad(Archive::count() + 1, 4, '0', STR_PAD_LEFT),
             'curriculum_id' => $userUploaded->curriculum_id,
             'department_id' => $userUploaded->department_id,
             'year' => $request->year,
@@ -192,8 +190,8 @@ class UserController extends Controller
             'middle_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
             'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
             'gender' => 'required',
-            'student_id' => 'required|integer',
-            'email' => 'required|email',
+            'student_id' => 'required|integer|unique:users,student_id,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
         $storeUserData->first_name = $validatedInputs['first_name'];
