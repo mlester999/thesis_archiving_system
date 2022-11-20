@@ -98,7 +98,7 @@
         <td
           class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
         >
-          <a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" href="{{ route('view.archives', $archive->archive_code) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
+          <a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed pointer-events-none" href="{{ route('view.archives', $archive->archive_code) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
           @if($archive->archive_status != 1)
           <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="deleteConfirmation({{ $archive->id }})" class="mx-2 cursor-pointer"> <i class="fa-solid text-red-500 hover:text-opacity-80 duration-150 fa-trash fa-xl"></i> </button>
           @endif

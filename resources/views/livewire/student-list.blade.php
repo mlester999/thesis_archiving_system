@@ -314,7 +314,7 @@
 					<select name="gender" wire:model.defer="editing.gender" id="gender" name="gender" class="border mt-1 px-3 border-gray-300 text-gray-900  text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
 						<option value="0" hidden>~ Select Gender ~</option>
 						<option value="Male" selected>Male</option>
-						<option value="Female" selected>Female</option>
+						<option value="Female">Female</option>
 						</select>
 	
 					<x-input-error :messages="$errors->get('editing.gender')" />

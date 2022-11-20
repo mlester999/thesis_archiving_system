@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
 
         } else {
-            Alert::error('Account Deactivated', "Your account was deactivated. Please contact the administrator.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+            Alert::error('Account Deactivated', "Your account was deactivated. Please contact the administrator.")->showConfirmButton('OK', '#2678c5')->autoClose(6000);
             
             return redirect()->back();
         }

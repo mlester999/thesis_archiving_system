@@ -84,7 +84,7 @@ class UserController extends Controller
             'user_id' => $userUploaded->id,
         ]);
 
-        Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
+        Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
         activity('Submit Thesis')->by($request->user)->event('submit thesis')->withProperties(['ip_address' => $request->ip()])->log('Submit Thesis Successful');
 
@@ -175,7 +175,7 @@ class UserController extends Controller
 
         $storeArchiveData->save();
 
-        Alert::success('Thesis Updated Successfully')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
+        Alert::success('Updated Successfully', 'Your archive has been updated.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
         activity('Update Archive')->by($request->user)->event('update archive')->withProperties(['ip_address' => $request->ip()])->log('Update Archive Successful');
 
@@ -189,14 +189,20 @@ class UserController extends Controller
 
         $validatedInputs = $request->validate([
             'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+            'middle_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
             'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+            'gender' => 'required',
             'student_id' => 'required|integer',
-            'email' => ['required', 'email'],
+            'email' => 'required|email',
         ]);
 
         $storeUserData->first_name = $validatedInputs['first_name'];
+
+        $storeUserData->middle_name = $validatedInputs['middle_name'];
         
         $storeUserData->last_name = $validatedInputs['last_name'];
+
+        $storeUserData->gender = $validatedInputs['gender'];
 
         $storeUserData->student_id = $validatedInputs['student_id'];
 
@@ -204,7 +210,7 @@ class UserController extends Controller
 
         $storeUserData->save();
 
-        Alert::success('Profile Updated Successfully')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
+        Alert::success('Updated Successfully', 'Your profile has been updated.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
         activity('Update Profile')->by($request->user)->event('update profile')->withProperties(['ip_address' => $request->ip()])->log('Update Profile Successful');
 
@@ -235,7 +241,7 @@ class UserController extends Controller
 
             $user->save();
 
-            Alert::success('Password Updated Successfully')->showConfirmButton('OK', '#2678c5')->autoClose(6000);
+            Alert::success('Updated Successfully', 'Your password has been updated.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
             activity('Update Password')->by($request->user)->event('update password')->withProperties(['ip_address' => $request->ip()])->log('Update Password Successful');
 
@@ -243,7 +249,7 @@ class UserController extends Controller
 
         } else {
 
-            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(6000);
+            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
             return redirect()->back();
 
