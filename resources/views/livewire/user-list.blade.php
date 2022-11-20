@@ -11,7 +11,12 @@
 		  </h2>
 		</div>
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
-			<label class="relative block">
+			<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm xl:text-base">
+				<option value="5" selected>Show 5 Results</option>
+				<option value="25">Show 25 Results</option>
+				<option value="50">Show 50 Results</option>
+				</select>
+			<label class="relative block ml-3">
 				<span class="sr-only">Search</span>
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
@@ -21,7 +26,7 @@
 		  <button
 			wire:click="create"
 			type="button"
-			class="text-sm mx-auto ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
+			class="mx-auto ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
 			New User
 		  </button>
@@ -48,6 +53,9 @@
 			class="focus:outline-none h-16 w-full text-sm leading-none text-gray-800"
 		  >
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
+				<span wire:click="sortBy('id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Username 
 				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">

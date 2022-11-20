@@ -27,6 +27,8 @@ class DepartmentList extends Component
 
     public $viewDepartment;
 
+    public $showResults = '5';
+
     // Viewing User Info
     public $departmentId;
     public $dept_name;
@@ -146,10 +148,11 @@ class DepartmentList extends Component
 
         return view('livewire.department-list', [
             'departments' => Department::where('id', 'like', '%'  . $this->search . '%')
-            ->where('dept_name', 'like', '%'  . $this->search . '%')
-            ->where('dept_status', 'like', '%'  . $this->search . '%')
-            ->where('dept_description', 'like', '%'  . $this->search . '%')
-            ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
+            ->orWhere('dept_status', 'like', '%'  . $this->search . '%')
+            ->orWhere('dept_description', 'like', '%'  . $this->search . '%')
+            ->select('departments.id', 'departments.dept_name', 'departments.dept_status', 'departments.dept_description', 'departments.created_at')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
         ]);
     }
 }

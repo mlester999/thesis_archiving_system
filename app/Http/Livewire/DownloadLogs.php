@@ -25,6 +25,8 @@ class DownloadLogs extends Component
 
     public $viewUser;
 
+    public $showResults = '5';
+
     // Viewing User Info
     public $userId;
     public $name;
@@ -160,7 +162,7 @@ class DownloadLogs extends Component
                     })
                     ->where('student_id', 'like', '%'  . $this->search . '%')
                     ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id')
-                    ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+                    ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
         ]);
     }
 }

@@ -28,6 +28,8 @@ class CurriculumList extends Component
 
     public $viewCurriculum;
 
+    public $showResults = '5';
+
     // Viewing User Info
     public $curriculumId;
     public $departmentId;
@@ -161,7 +163,7 @@ class CurriculumList extends Component
             ->orWhere('curr_description', 'like', '%'  . $this->search . '%')
             ->orWhere('dept_description', 'like', '%'  . $this->search . '%')
             ->select('curricula.id', 'curricula.curr_name', 'curricula.curr_description', 'curricula.curr_status', 'curricula.created_at', 'departments.dept_name', 'departments.dept_description')
-            ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+            ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
             'departments' => Department::all()->where('dept_status', '1'),
         ]);
     }

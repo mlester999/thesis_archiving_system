@@ -24,6 +24,8 @@ class ArchiveList extends Component
 
     public $showPublishModal = false;
 
+    public $showResults = '5';
+
     public $studentId;
 
     public $documentPath;
@@ -138,7 +140,7 @@ class ArchiveList extends Component
             ->orWhere('curr_name', 'like', '%'  . $this->search . '%')
             ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.user_id', 'archives.created_at', 'departments.dept_name', 'curricula.curr_name')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(5),
+            ->paginate($this->showResults),
         ]);
     }
 }

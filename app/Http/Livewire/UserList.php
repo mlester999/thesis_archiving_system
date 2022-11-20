@@ -24,6 +24,8 @@ class UserList extends Component
 
     public $viewUser;
 
+    public $showResults = '5';
+
     // Viewing User Info
     public $userId;
     public $name;
@@ -148,7 +150,7 @@ class UserList extends Component
             'users' => Admin::where('name', 'like', '%'  . $this->search . '%')
                     ->orWhere('username', 'like', '%'  . $this->search . '%')
                     ->orWhere('email', 'like', '%'  . $this->search . '%')
-                    ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+                    ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
         ]);
     }
 }

@@ -11,7 +11,7 @@
 		  </h2>
 		</div>
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
-			<select name="year_level" wire:model="showResults" id="year_level" name="year_level" class="inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm xl:text-base">
+			<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm xl:text-base">
 				<option value="5" selected>Show 5 Results</option>
 				<option value="25">Show 25 Results</option>
 				<option value="50">Show 50 Results</option>

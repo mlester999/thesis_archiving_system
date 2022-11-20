@@ -25,6 +25,8 @@ class ReportLogs extends Component
 
     public $viewUser;
 
+    public $showResults = '5';
+
     // Viewing User Info
     public $userId;
     public $name;
@@ -38,17 +40,36 @@ class ReportLogs extends Component
     public $showEditModal = false;
     public $showViewModal = false;
 
-    // Editing Table
-    public Admin $editing;
+    public $activityLogs;
+    public $searches;
+    public $searchCount;
+    public $sortedArr;
+    public $sortedArrKeys;
 
-    protected $rules = [
-        'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.username' => 'required',
-        'editing.email' => 'required|email',
-    ];
+    // Editing Table
+    public Activity $editing;
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
+
+        $this->searches = [];
+    }
+
+    public function view() {
+
+        $this->activityLogs = Activity::where('event', 'search')->get();
+        
+        $this->searches = $this->activityLogs->unique('description')->take(5);
+
+        $this->searchCount = array_count_values($this->activityLogs->pluck('description')->toArray());
+
+        $this->sortedArr = collect($this->searchCount)->sortKeys()->sortDesc();
+
+        $this->sortedArrKeys = $this->sortedArr->keys();
+
+        $this->showViewModal = true;
+
+        $this->userTitle = "Most Searched Thesis";
     }
 
     public function closeModal() {
@@ -57,39 +78,8 @@ class ReportLogs extends Component
 
     }
 
-    public function create() {
-
-        $this->resetErrorBag();
-
-        if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
-
-        $this->showEditModal = true;
-
-        $this->userTitle = "Add User";
-    }
-
-    public function view($user) {
-        $this->viewUser = Admin::find($user);
-
-        $this->userId = $this->viewUser->id;
-
-        $this->name = $this->viewUser->name;
-
-        $this->username = $this->viewUser->username;
-
-        $this->email = $this->viewUser->email;
-
-        $this->email_verified_at = $this->viewUser->email_verified_at;
-
-        $this->createdAt = $this->viewUser->created_at;
-
-        $this->showViewModal = true;
-
-        $this->userTitle = "User Info";
-    }
-
     public function makeBlankUser() {
-        return Admin::make();
+        return Activity::make();
     }
 
     public function sortBy($field) {
@@ -100,27 +90,6 @@ class ReportLogs extends Component
         }
 
         $this->sortField = $field;
-    }
-
-    public function edit(Admin $user) {
-
-        $this->resetErrorBag();
-
-        if($this->editing->isNot($user)) $this->editing = $user;
-
-        $this->showEditModal = true;
-
-        $this->userTitle = "Edit User";
-    }
-
-    public function save() {
-        $this->validate();
-
-        $this->editing->save();
-
-        $this->showEditModal = false;
-
-        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
     public function delete($user) {
@@ -160,7 +129,7 @@ class ReportLogs extends Component
                     })
                     ->where('student_id', 'like', '%'  . $this->search . '%')
                     ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id')
-                    ->orderBy($this->sortField, $this->sortDirection)->paginate(5),
+                    ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
         ]);
     }
 }

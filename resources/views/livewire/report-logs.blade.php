@@ -11,7 +11,15 @@
 		  </h2>
 		</div>
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
-			<label class="relative block">
+			<button wire:click="view()" class="inline-flex bg-white px-4 py-2 items-center border border-gray-300 text-gray-900 rounded-md active:ring-1 active:ring-green-500 active:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm xl:text-base">
+				Most Searched Thesis
+			</button>
+			<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex ml-3 items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm xl:text-base">
+				<option value="5" selected>Show 5 Results</option>
+				<option value="25">Show 25 Results</option>
+				<option value="50">Show 50 Results</option>
+				</select>
+			<label class="relative block ml-3">
 				<span class="sr-only">Search</span>
 				<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 					<i class="fa-solid fa-magnifying-glass ml-1"></i>
@@ -34,7 +42,7 @@
 	}"
 	  class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
+	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2">
 		<thead class="bg-gray-50">
 		  <tr
 			tabindex="0"
@@ -115,41 +123,63 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-magnifying-glass fa-lg pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
 	  
-				  <div class="grid grid-cols-1 md:grid-cols-3 py-2">
-
-					<!-- First Col -->
-					<div class="px-4">
-						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Id:</h1> 
-						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $userId }}</p>
-						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Name:</h1> 
-						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $name }}</p>
+			  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
+				<thead class="bg-gray-50">
+				  <tr
+					tabindex="0"
+					class="focus:outline-none h-16 w-full text-sm leading-none text-gray-800"
+				  >
+				  <th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
+					</th>
+					<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Top Search
+					</th>
+					<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Total Searches
+					</th>
+				  </tr>
+				</thead>
+				<tbody class="w-full" id="main-table-body">
+					@forelse($searches as $key => $search)
+		
+				  <tr
+					tabindex="{{ $search->id }}"
+					class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+				  >
+				  <td class="pl-8">
+					<div class="flex items-center">
+					  <div>
+						<p class="text-md font-medium leading-none text-gray-800">{{ $key + 1 }}</p>
+					  </div>
 					</div>
-	  
-				  <!-- First Col -->
-				  <div class="px-4">
-						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Username:</h1> 
-						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $username }}</p>
-						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Email Address:</h1> 
-						<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $email }}</p>
-				  </div>
-
-				  <!-- Second COl -->
-				  <div class="px-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $createdAt }}</p>
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Email Status:</h1> 
-					@if($email_verified_at)
-					<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800"">Verified</p>
-					@else
-					<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800"">Not Verified</p>
-					@endif
-				  </div>
-			  </div>
+				  </td>
+					<td class="pl-12">
+					  <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArrKeys[$key] }}</p>
+					</td>
+					<td class="pl-12">
+						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] . ' total searches.' }}</p>
+					  </td>
+				  </tr>
+		
+				  @empty
+				  <tr
+				  {{-- wire:loading.class.delay="opacity-50" --}}
+				  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+				>
+				  <td colspan="7" class="pl-8">
+					<div class="flex items-center justify-center">
+					  <div>
+						<p class="text-xl py-8 font-medium leading-none text-gray-400">No report logs found...</p>
+					  </div>
+					</div>
+				  </td>
+				</tr>
+				  @endforelse
+				</tbody>
+			  </table>
 		  </x-slot>
 		  
 			  <x-slot name="footer">

@@ -26,6 +26,8 @@ class AccessList extends Component
 
     public $viewAccess;
 
+    public $showResults = '5';
+
     // Viewing Access Info
     public $accessId;
     public $roleId;
@@ -172,7 +174,7 @@ class AccessList extends Component
                     ->orWhere('status', 'like', '%'  . $this->search . '%')
                     ->select('accesses.id', 'accesses.description', 'accesses.status', 'accesses.created_at', 'roles.name as role_name', 'permissions.name as permission_name')
                     ->orderBy($this->sortField, $this->sortDirection)
-                    ->paginate(5),
+                    ->paginate($this->showResults),
             'roles' => Role::all(),
             'permissions' => Permission::all(),
         ]);
