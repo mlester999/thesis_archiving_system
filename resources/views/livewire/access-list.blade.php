@@ -24,6 +24,8 @@
 				<input wire:model.lazy="search" class="text-sm lg:text-base placeholder:italic placeholder:text-slate-700 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
 			  </label>
 		  <button
+		  	wire:loading.attr="disabled"
+			wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0"
 			wire:click="create"
 			type="button"
 			class="mx-auto ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
@@ -84,6 +86,7 @@
 		<tbody class="w-full" id="main-table-body">
 			@forelse($accesses as $key => $access)
 		  <tr
+		  	wire:loading.class="opacity-50"
 			tabindex="{{ $access->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
@@ -120,14 +123,14 @@
 				@endif
 			  </td>
 			<td class="pl-12">
-					<span wire:click="view({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></span>
-					<span wire:click="edit({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></span>
-					<span wire:click="delete({{ $access->id }})" class="cursor-pointer pl-1 pr-4 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></span>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></butt>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $access->id }})" class="cursor-pointer pl-1 pr-4 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></butt>
 			  </td>
 		  </tr>
 		  @empty
 		  <tr
-		  {{-- wire:loading.class.delay="opacity-50" --}}
+		  wire:loading.class="opacity-50"
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
 		  <td colspan="7" class="pl-8">
@@ -194,7 +197,7 @@
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:click="$set('showViewModal', false)" class="mx-2">Cancel</x-secondary-button>
+				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showViewModal', false)" class="mx-2">Cancel</x-secondary-button>
 			  </x-slot>
 			  </x-dialog-modal>	
 	  
@@ -211,8 +214,8 @@
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button class="mx-2">Delete</x-delete-button>
+				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Delete</x-delete-button>
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		
@@ -276,8 +279,8 @@
 		</x-slot>
 		
 			<x-slot name="footer">
-				<x-secondary-button wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
-				<x-primary-button class="mx-2">Save</x-primary-button>
+				<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
+				<x-primary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Save</x-primary-button>
 			</x-slot>
 			</x-dialog-modal>
 		</form>		

@@ -14,11 +14,7 @@
                 <span> on {{ $viewArchiveData->created_at->format('M d, Y H:i A') }}</span>
             </p>
             <div class="space-x-2 pt-2">
-            @if($viewArchiveData->archive_status > 0)
-            <a href="{{ route('edit.archives', $viewArchiveData->archive_code) }}" class="py-3 px-4 bg-red-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-trash mr-1"></i> Delete</a>
-            @else
             <a href="{{ route('edit.archives', $viewArchiveData->archive_code) }}" class="py-3 px-4 bg-blue-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
-            @endif
             </div>
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">

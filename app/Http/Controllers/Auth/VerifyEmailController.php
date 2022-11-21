@@ -23,7 +23,7 @@ class VerifyEmailController extends Controller
         
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
-            activity('Verify Email')->by($request->user)->event('verify email')->log('Verify Email Successful');
+            activity('Verify Email')->by($request->user)->event('verify email')->withProperties(['ip_address' => $request->ip()])->log('Verify Email Successful');
         }
         
 

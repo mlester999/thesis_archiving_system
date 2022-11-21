@@ -24,6 +24,11 @@
           </div>
         </div>
       </div>
+      <div
+      class="flex flex-col xs:flex-row xs:justify-between px-32 pb-8"
+      >	
+      {{ $archives->links() }}
+      </div>
       {{-- <div
       class="flex flex-col xs:flex-row xs:justify-between px-32 pb-8"
       >	

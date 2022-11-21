@@ -103,6 +103,8 @@ class StudentList extends Component
     public function create() {
         $this->resetErrorBag();
 
+        $this->userId = '';
+
         if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
 
         $this->showEditModal = true;
@@ -163,6 +165,8 @@ class StudentList extends Component
 
     public function edit(User $user) {
         $this->resetErrorBag();
+
+        $this->userId = $user->id;
 
         // $this->editUser = User::find($user);
         

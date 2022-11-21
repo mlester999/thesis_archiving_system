@@ -32,7 +32,7 @@ class DeleteRecord extends Component
     public function render()
     {
         return view('livewire.delete-record', [
-            'archives' => Archive::all()->where('user_id', $this->user_id),
+            'archives' => Archive::where('user_id', $this->user_id)->orderBy('created_at', 'desc')->paginate(5),
         ]);
     }
 }

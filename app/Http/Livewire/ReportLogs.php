@@ -19,25 +19,16 @@ class ReportLogs extends Component
 
     public $sortDirection = 'desc';
 
-    public $userTitle;
+    public $logTitle;
 
-    public $deleteUser;
+    public $deleteLog;
 
-    public $viewUser;
+    public $viewLog;
 
     public $showResults = '5';
 
-    // Viewing User Info
-    public $userId;
-    public $name;
-    public $username;
-    public $email;
-    public $email_verified_at;
-    public $createdAt;
-
     // Modals
     public $showDeleteModal = false;
-    public $showEditModal = false;
     public $showViewModal = false;
 
     public $activityLogs;
@@ -45,13 +36,10 @@ class ReportLogs extends Component
     public $searchCount;
     public $sortedArr;
     public $sortedArrKeys;
-
-    // Editing Table
-    public Activity $editing;
+    
+    public $showTopics;
 
     public function mount() {
-        $this->editing = $this->makeBlankUser();
-
         $this->searches = [];
     }
 
@@ -69,17 +57,7 @@ class ReportLogs extends Component
 
         $this->showViewModal = true;
 
-        $this->userTitle = "Most Searched Thesis";
-    }
-
-    public function closeModal() {
-
-        $this->showEditModal = false;
-
-    }
-
-    public function makeBlankUser() {
-        return Activity::make();
+        $this->logTitle = "Most Searched Thesis";
     }
 
     public function sortBy($field) {
@@ -92,22 +70,20 @@ class ReportLogs extends Component
         $this->sortField = $field;
     }
 
-    public function delete($user) {
-        $this->deleteUser = Admin::find($user);
+    public function delete($log) {
+        $this->deleteLog = Activity::find($log);
 
         $this->showDeleteModal = true;
 
-        $this->userTitle = "Delete User";
+        $this->logTitle = "Delete Report Log";
     }
 
-    public function deleteUser() {
-        $this->deleteUser->delete();
-
-        $this->editing = $this->makeBlankUser();
+    public function deleteLog() {
+        $this->deleteLog->delete();
 
         $this->showDeleteModal = false;
 
-        $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
+        $this->alert('success', $this->logTitle . ' ' . 'Successfully!');
     }
 
 
@@ -116,6 +92,15 @@ class ReportLogs extends Component
 
         return view('livewire.report-logs', [
             'activities' => Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
+                    ->when($this->showTopics, function($query) {
+                        $query->when($this->showTopics == 'Avail
+                        -able Topics', function ($available) {
+                            $available->where('event', 'login');
+                        })
+                        ->when($this->showTopics == 'Not Available Topics', function ($notAvailable) {
+                            $notAvailable->where('event', 'search');
+                        });
+                    })
                     ->whereNot(function ($query) {
                         $query->where('event', 'login')
                         ->orWhere('event', 'logout')

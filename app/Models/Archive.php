@@ -6,6 +6,7 @@ use DateTime;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Bookmark;
 use Illuminate\Database\Eloquent\Model;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Archive extends Model
@@ -49,10 +50,9 @@ class Archive extends Model
     
     public static function boot() {
         parent::boot();
-
-        static::creating(function($model) {
-            $now = new DateTime();
-            $model->archive_code = $now->format("Ym") . str_pad(Archive::count() + 1, 4, '0', STR_PAD_LEFT);
+        self::creating(function ($model) {
+            $archiveCode = IdGenerator::generate(['table' => $model->table, 'field' => 'archive_code', 'length' => 10, 'prefix' => date('Ym'), 'reset_on_prefix_change' => true]);
+            $model->archive_code = $archiveCode;
         });
     }
 }

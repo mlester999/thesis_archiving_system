@@ -111,10 +111,9 @@ class UserController extends Controller
         return view('profile-edit', ["currentPage" => 'edit-profile'], compact('editUserData'));
     }
 
-    public function ArchivesList() {
-        
+    public function ArchivesList() {        
         $id = Auth::user()->id;
-        $archives = Archive::all()->where('user_id', $id);
+        $archives = Archive::where('user_id', $id)->orderBy('created_at', 'desc')->paginate(5);
 
         return view('archives-list', ["currentPage" => 'archives-list'], compact('archives'));
     }

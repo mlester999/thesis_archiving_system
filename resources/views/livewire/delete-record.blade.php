@@ -1,4 +1,4 @@
-<table wire:loading.class="opacity-50" class="min-w-full divide-y divide-gray-300">
+<table class="min-w-full divide-y divide-gray-300">
     <thead class="bg-slate-100">
       <tr>
         <th
@@ -47,7 +47,7 @@
     </thead>
     <tbody class="divide-y divide-gray-200 bg-white" id="main-table-body">
       @forelse($archives as $archive)
-      <tr>
+      <tr wire:loading.class="opacity-50">
         <td
           class="whitespace-nowrap px-3 py-12 text-center text-sm font-medium tracking-wider text-slate-800"
         >
@@ -105,7 +105,7 @@
         </td>
       </tr>
       @empty
-      <tr class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+      <tr wire:loading.class="opacity-50" class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
           >
           <td colspan="7">
               <div class="flex items-center justify-center">

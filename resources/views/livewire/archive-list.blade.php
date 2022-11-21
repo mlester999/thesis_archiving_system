@@ -78,6 +78,7 @@
 		<tbody class="w-full" id="main-table-body">
 			@forelse($archives as $key => $archive)
 		  <tr
+		  	wire:loading.class="opacity-50"
 			tabindex="{{ $archive->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-20 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
@@ -122,17 +123,15 @@
 				@endif
 			  </td>
 			<td class="pl-6">
-				<a href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mr-2"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
-				@if($archive->archive_status > 0)
-				<a class="cursor-not-allowed mx-2" style="{pointer-events: none;}"> <i class="text-slate-900 fa-solid fa-pen-to-square fa-xl opacity-40"></i> </a>  
-				@else
-				<a wire:click="edit({{ $archive->id }})" class="ml-2 mr-4"> <i class="cursor-pointer hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </a>
+				<a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mx-auto"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
+				@if($archive->archive_status == 0)
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $archive->id }})" class="ml-2 mr-4"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </button>
 				@endif
 			</td>
 		  </tr>
 		  @empty
 		  <tr
-		  wire:loading.class.delay="opacity-50"
+		  wire:loading.class="opacity-50"
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
 		  <td colspan="9" class="pl-8">
@@ -157,7 +156,7 @@
 	  <form wire:submit.prevent="save">
 
 		<x-dialog-modal wire:model.defer="showPublishModal">
-		  <x-slot name="title"><i class="fa-solid fa-upload fa-xl pr-4 text-gray-500"></i>{{ $archiveTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-upload fa-md pr-4 text-gray-500"></i>{{ $archiveTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -176,7 +175,7 @@
 
 				<!-- Comments -->
 				<div class="py-3">
-					<x-input-label for="admin_comment" :value="__('Comments')" />
+					<x-input-label for="admin_comment" :value="__('Comments (Optional)')" />
 	
 					<textarea wire:model.defer="publishing.admin_comment" id="admin_comment" class="block mt-1 w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="text" name="admin_comment" placeholder="Leave empty if no comments..."> </textarea>
 	
@@ -185,8 +184,8 @@
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
-				  <x-primary-button class="mx-2">Save</x-primary-button>
+				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
+				  <x-primary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Save</x-primary-button>
 			  </x-slot>
 			  </x-dialog-modal>
 		  </form>		

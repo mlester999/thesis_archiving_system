@@ -42,11 +42,13 @@ class UserList extends Component
     // Editing Table
     public Admin $editing;
 
-    protected $rules = [
-        'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',
-        'editing.username' => 'required',
-        'editing.email' => 'required|email',
-    ];
+    protected function rules() {
+        return [
+            'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+            'editing.username' => 'required|unique:admins,username,' . $this->userId,
+            'editing.email' => 'required|email|unique:admins,email,' . $this->userId,
+        ];
+    }
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
@@ -61,6 +63,8 @@ class UserList extends Component
     public function create() {
 
         $this->resetErrorBag();
+
+        $this->userId = '';
 
         if ($this->editing->getKey()) $this->editing = $this->makeBlankUser();
 
@@ -106,6 +110,8 @@ class UserList extends Component
     public function edit(Admin $user) {
 
         $this->resetErrorBag();
+
+        $this->userId = $user->id;
 
         if($this->editing->isNot($user)) $this->editing = $user;
 
