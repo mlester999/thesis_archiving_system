@@ -110,7 +110,7 @@ $adminData = App\Models\Admin::find($id);
         ><span class="flex flex-row justify-center"><x-ri-file-list-3-line class="w-5 mr-2" /> Curriculum List</span></a
         >
         <a href="{{ route('admin.user-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
-        ><span class="flex flex-row justify-center"><x-ri-profile-line class="w-5 mr-2" /> User List</span></a
+        ><span class="flex flex-row justify-center"><x-ri-profile-line class="w-5 mr-2" /> Admin Users List</span></a
         >
         <a href="{{ route('admin.activity-logs') }}" class="w-full text-gray-900 pt-3 border-t border-gray-400 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-radix-activity-log class="w-5 mr-2" /> Activity Logs</span></a

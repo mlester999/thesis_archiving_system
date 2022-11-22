@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Admin;
+use App\Models\Archive;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Activitylog\Models\Activity;
@@ -36,11 +37,18 @@ class ReportLogs extends Component
     public $searchCount;
     public $sortedArr;
     public $sortedArrKeys;
+    public $topicsAvailability;
     
     public $showTopics;
+    public $activityTopics;
+    public $topics;
 
     public function mount() {
         $this->searches = [];
+
+        $this->activityTopics = Activity::where('event', 'search')->get();
+
+        $this->topics = $this->activityTopics->unique('description')->pluck('description')->toArray();
     }
 
     public function view() {
@@ -54,6 +62,16 @@ class ReportLogs extends Component
         $this->sortedArr = collect($this->searchCount)->sortKeys()->sortDesc();
 
         $this->sortedArrKeys = $this->sortedArr->keys();
+
+        foreach($this->sortedArrKeys as $key => $sorted) {
+            $allTopics[] = $sorted;
+            $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
+        
+            if($availableArchive[$key]) {
+                $availableTopics[] = $allTopics[$key];
+            }
+        }
+        $this->topicsAvailability = collect($availableTopics);
 
         $this->showViewModal = true;
 
@@ -93,12 +111,27 @@ class ReportLogs extends Component
         return view('livewire.report-logs', [
             'activities' => Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
                     ->when($this->showTopics, function($query) {
-                        $query->when($this->showTopics == 'Avail
-                        -able Topics', function ($available) {
-                            $available->where('event', 'login');
+                        $query->when($this->showTopics == 'Available Topics', function ($available) {
+                            foreach($this->topics as $key => $topic) {
+                                $allTopics[] = $topic;
+                                $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
+                            
+                                if($availableArchive[$key]) {
+                                    $availableTopics[] = $allTopics[$key];
+                                }
+                            }
+                            $available->whereIn('description', $availableTopics);
                         })
                         ->when($this->showTopics == 'Not Available Topics', function ($notAvailable) {
-                            $notAvailable->where('event', 'search');
+                            foreach($this->topics as $key => $topic) {
+                                $allTopics[] = $topic;
+                                $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
+                            
+                                if(!$availableArchive[$key]) {
+                                    $notAvailableTopics[] = $allTopics[$key];
+                                }
+                            }
+                            $notAvailable->whereIn('description', $notAvailableTopics);
                         });
                     })
                     ->whereNot(function ($query) {
