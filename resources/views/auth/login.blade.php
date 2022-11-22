@@ -21,8 +21,6 @@
         <p class="max-w-sm font-sans font-light text-gray-600">
           Please log in your student account.
         </p>
-        <!-- Session Status -->
-        <x-auth-session-status :status="session('status')" />
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

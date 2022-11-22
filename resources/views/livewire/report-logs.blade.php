@@ -174,15 +174,15 @@
 					  <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArrKeys[$key] }}</p>
 					</td>
 					<td class="pl-12">
-						<p class="mr-6 lg:mr-0 text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] }} {{$sortedArr[$sortedArrKeys[$key]] == 1 ? ' search for this.' : ' searches for this.'}}</p>
+						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] }} {{$sortedArr[$sortedArrKeys[$key]] == 1 ? ' search for this.' : ' searches for this.'}}</p>
 					  </td>
 					<td class="pl-12">
 						@if($topicsAvailability->contains($sortedArrKeys[$key]))
-						<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
+						<span class="px-2 mr-6 lg:mr-0 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
 							Available
 						</span>
 						@else
-						<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
+						<span class="px-2 mr-6 lg:mr-0 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
 							Not Available
 						</span>
 						@endif

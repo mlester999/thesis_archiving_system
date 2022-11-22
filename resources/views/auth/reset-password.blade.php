@@ -8,7 +8,18 @@
 
         @php
             if (count($errors) > 0) {
-                RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "Password do not match. Please try again.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+                $tokenError = collect($errors->default)->sortBy('key');
+                $tokenKeys = $tokenError->keys();
+
+                if(array_key_exists("email", $tokenError->toArray())) {
+                    if($tokenError['email'][0] == "This password reset token is invalid.") {
+                    RealRashid\SweetAlert\Facades\Alert::error("Reset Token Invalid", "Please go back to the login page and try to it reset again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                    } else {
+                        RealRashid\SweetAlert\Facades\Alert::error("Password Reset Failed", "Password does not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                    }
+                }  else {
+                    RealRashid\SweetAlert\Facades\Alert::error("Password Reset Failed", "Password does not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
             }
             
         @endphp
@@ -19,6 +30,9 @@
             <div class="p-6 md:p-16">
             <!-- Top Content -->
             <h2 class="font-sans mb-5 text-4xl font-bold mr-48">Reset Password</h2>
+            <p class="max-w-sm font-sans font-light text-gray-600">
+                Please make sure your passwords match.
+            </p>
 
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
@@ -28,11 +42,9 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label class="mt-8" for="email" :value="__('Email')" />
 
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" />
-
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-text-input readonly id="email" class="block mt-1 w-full focus:border-gray-300 bg-blue-50 focus:ring-0" type="email" name="email" :value="old('email', $request->email)" />
             </div>
 
             <!-- Password -->
@@ -40,8 +52,6 @@
                 <x-input-label for="password" :value="__('Password')" />
 
                 <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" />
-
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
             <!-- Confirm Password -->
@@ -51,8 +61,6 @@
                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
                                     type="password"
                                     name="password_confirmation" />
-
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-center mt-4">
