@@ -22,6 +22,7 @@ class Archive extends Model
         'archive_code',
         'department_id',
         'curriculum_id',
+        'research_agenda_id',
         'year',
         'title',
         'abstract',
@@ -46,6 +47,10 @@ class Archive extends Model
 
     public function curriculum() {
         return $this->belongsTo(Curriculum::class);
+    }
+
+    public function research_agenda() {
+        return $this->belongsTo(ResearchAgenda::class);
     }
     
     public static function boot() {

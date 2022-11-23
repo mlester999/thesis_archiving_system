@@ -109,6 +109,9 @@ $adminData = App\Models\Admin::find($id);
         <a href="{{ route('admin.curriculum-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-file-list-3-line class="w-5 mr-2" /> Curriculum List</span></a
         >
+        <a href="{{ route('admin.research-agendas') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        ><span class="flex flex-row justify-center"><x-ri-survey-line class="w-5 mr-2" /> Research Agenda List</span></a
+        >
         <a href="{{ route('admin.user-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-profile-line class="w-5 mr-2" /> Admin Users List</span></a
         >

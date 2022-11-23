@@ -15,7 +15,7 @@ if (count($errors) > 0) {
 <dl>
 <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('store.thesis') }}" method="post" enctype="multipart/form-data">
 @csrf
-<div class="bg-gray px-4 py-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
+<div class="bg-gray px-4 py-8 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <div class="relative px-8">
             <label for="title" class="text-sm font-semibold text-gray-900">Project Title:</label>
         <input type="text" name="title" id="title" placeholder="Project Title" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" autofocus>
@@ -23,6 +23,15 @@ if (count($errors) > 0) {
         <div class="relative px-8 pt-8 sm:pt-0">
             <label for="year" class="text-sm font-semibold text-gray-900">Year:</label>
         <input type="text" name="year" id="year" placeholder="Project Year" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
+        </div>
+        <div class="relative px-8 pt-8 sm:pt-0">
+            <label for="year" class="text-sm font-semibold text-gray-900">Research Agenda:</label>
+            <select name="research_agenda" id="research_agenda" class="border mt-2 mb-8 px-3 border-gray-500 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+                <option value="0" hidden>~ Select Research Agenda ~</option>
+                @foreach ($agendaData as $agenda)
+                <option value="{{ $agenda->agenda_name }}"> {{ $agenda->agenda_name }} </option>
+                @endforeach
+                </select>
         </div>
 </div>
 

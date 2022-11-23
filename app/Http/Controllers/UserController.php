@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\User;
-use App\Models\Department;
 use App\Models\Archive;
-use Maize\Markable\Models\Bookmark;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\ResearchAgenda;
+use Maize\Markable\Models\Bookmark;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Models\Activity;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -29,6 +31,10 @@ class UserController extends Controller
 
     public function Projects(Request $request) {
         $deptData = Department::all();
+
+        $activityLogs = Activity::where('event', 'search')->get();
+        
+        $searches = $activityLogs->unique('description')->take(5);
         
         if($deptData) {
             if($request->search) {
@@ -37,7 +43,7 @@ class UserController extends Controller
             } else {
                 $archiveData = Archive::where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
-            return view('projects', ["currentPage" => "projects"], compact('archiveData'));
+            return view('projects', ["currentPage" => "projects"], compact(['archiveData', 'searches']));
         } else {
             return redirect()->route('home');
         }
@@ -47,17 +53,21 @@ class UserController extends Controller
     public function SubmitThesis() {
         $id = Auth::user()->id;
         $userData = User::find($id);
-        return view('submit-thesis', ["currentPage" => 'submit'], compact('userData'));
+        $agendaData = ResearchAgenda::all();
+
+        return view('submit-thesis', ["currentPage" => 'submit'], compact(['userData', 'agendaData']));
 
     }
 
     public function StoreThesis(Request $request) {
         $id = Auth::user()->id;
         $userUploaded = User::find($id);
+        $agendaData = ResearchAgenda::all()->where('agenda_name', $request->research_agenda)->first();
 
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
             'title' => 'required',
+            'research_agenda' => 'required',
             'abstract' => 'required',
             'members' => 'required',
             'document_path' => 'required',
@@ -73,6 +83,7 @@ class UserController extends Controller
         Archive::create([
             'curriculum_id' => $userUploaded->curriculum_id,
             'department_id' => $userUploaded->department_id,
+            'research_agenda_id' => $agendaData->id,
             'year' => $request->year,
             'title' => $request->title,
             'abstract' => $request->abstract,
@@ -132,9 +143,10 @@ class UserController extends Controller
         
         $userId = Auth::user()->id;
         $editArchiveData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
+        $agendaData = ResearchAgenda::all();
 
         if($editArchiveData) {
-        return view('edit-archives', ["currentPage" => 'edit-archives'], compact('editArchiveData'));
+        return view('edit-archives', ["currentPage" => 'edit-archives'], compact(['editArchiveData', 'agendaData']));
         } else {
             return redirect()->route('archives');
         }
@@ -146,9 +158,12 @@ class UserController extends Controller
 
         $userData = User::find($storeArchiveData->user_id);
 
+        $agendaData = ResearchAgenda::all()->where('agenda_name', $request->research_agenda)->first();
+
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
             'title' => 'required',
+            'research_agenda' => 'required',
             'abstract' => 'required',
             'members' => 'required',
             'document_path' => 'required',
@@ -165,6 +180,7 @@ class UserController extends Controller
 
         $storeArchiveData->year = $request->year;
         $storeArchiveData->title = $request->title;
+        $storeArchiveData->research_agenda_id = $agendaData->id;
         $storeArchiveData->abstract = $request->abstract;
         $storeArchiveData->members = $request->members;
         $storeArchiveData->document_path = $fileSystem->url($fileUploaded);

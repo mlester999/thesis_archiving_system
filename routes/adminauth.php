@@ -1,12 +1,17 @@
 <?php
 
+use App\Models\ResearchAgenda;
 use App\Http\Livewire\UserList;
-use App\Http\Livewire\ArchiveList;
 use App\Http\Livewire\AccessList;
+use App\Http\Livewire\ReportLogs;
+use App\Http\Livewire\ArchiveList;
 use App\Http\Livewire\StudentList;
+use App\Http\Livewire\ActivityLogs;
+use App\Http\Livewire\DownloadLogs;
 use App\Http\Livewire\CurriculumList;
 use App\Http\Livewire\DepartmentList;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\ResearchAgendas;
 use App\Http\Controllers\AdminAuth\NewPasswordController;
 use App\Http\Controllers\AdminAuth\VerifyEmailController;
 use App\Http\Controllers\AdminAuth\RegisteredUserController;
@@ -15,9 +20,6 @@ use App\Http\Controllers\AdminAuth\ConfirmablePasswordController;
 use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
 use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
-use App\Http\Livewire\ActivityLogs;
-use App\Http\Livewire\DownloadLogs;
-use App\Http\Livewire\ReportLogs;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
@@ -71,6 +73,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::get('archive-list', ArchiveList::class)->name('archive-list');
 
     Route::get('access-list', AccessList::class)->name('access-list');
+
+    Route::get('research-agendas', ResearchAgendas::class)->name('research-agendas');
 
     Route::get('activity-logs', ActivityLogs::class)->name('activity-logs');
 

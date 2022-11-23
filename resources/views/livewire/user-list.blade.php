@@ -152,7 +152,7 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-lg pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -199,7 +199,7 @@
 	  <form wire:submit.prevent="deleteUser">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this user?</h1> 
@@ -218,7 +218,7 @@
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-lg pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->

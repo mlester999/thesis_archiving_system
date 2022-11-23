@@ -8,7 +8,7 @@
 
         @php
             if (count($errors) > 0) {
-                RealRashid\SweetAlert\Facades\Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+                RealRashid\SweetAlert\Facades\Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('OK', '#2678c5')->autoClose(6000);
             }
         @endphp
 

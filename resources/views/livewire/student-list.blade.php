@@ -154,7 +154,7 @@
 	   {{-- Show View Modal --}}
 
 		<x-dialog-modal wire:model.defer="showViewModal">
-		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-lg lg:fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		  <x-slot name="title"><i class="fa-solid fa-circle-info fa-lg lg:fa-lg pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	  
 		  <x-slot name="content">
 			  <!--Body-->
@@ -236,9 +236,9 @@
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
 		  <x-slot name="title">
 			@if($accStatus)
-			<i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>
+			<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>
 			@else
-			<i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-green-500"></i>
+			<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-green-500"></i>
 			@endif
 			{{ $userTitle }}
 			</x-slot>
@@ -270,7 +270,7 @@
 	  <form wire:submit.prevent="save">
 
 	  <x-dialog-modal wire:model.defer="showEditModal">
-		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-xl pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
+		<x-slot name="title"><i class="fa-solid fa-circle-plus fa-lg pr-4 text-gray-500"></i>{{ $userTitle }}</x-slot>
 	
 		<x-slot name="content">
 			<!--Body-->

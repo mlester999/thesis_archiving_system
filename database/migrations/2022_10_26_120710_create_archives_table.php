@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('curriculum_id')->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('research_agenda_id')->constrained('research_agendas', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->year('year');
             $table->text('title');
             $table->text('abstract');

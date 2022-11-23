@@ -18,8 +18,8 @@ $adminData = App\Models\Admin::find($id);
             <p class="uppercase text-gray-400 tracking-wider">Maintenance</p>
             <a href="{{ route('admin.department-list') }}" class="{{ Route::is('admin.department-list') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}"> <x-ri-list-check-2 class="w-5 mr-3" /> Department List</a>
             <a href="{{ route('admin.curriculum-list') }}" class="{{ Route::is('admin.curriculum-list') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}"> <x-ri-file-list-3-line class="w-5 mr-3" /> Curriculum List</a>
+            <a href="{{ route('admin.research-agendas') }}" class="{{ Route::is('admin.research-agendas') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}"> <x-ri-survey-line class="w-5 mr-3" /> Research Agenda List</a>
             <a href="{{ route('admin.user-list') }}" class="{{ Route::is('admin.user-list') ? 'bg-revert bg-gray-300 flex text-gray-700 hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' : 'bg-revert bg-white flex hover:text-gray-700 space-x-2 p-2 hover:bg-gray-200 rounded-md' }}"> <x-ri-profile-line class="w-5 mr-3" /> Admin Users List</a>
-
             <hr>
 
             <p class="uppercase text-gray-400 tracking-wider">Logs</p>
