@@ -8,7 +8,19 @@
 
         @php
             if (count($errors) > 0) {
-                RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "We can't find a user with that email address.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+                $forgotPassError = collect($errors->default)->sortBy('key');
+                $forgotPassKeys = $forgotPassError->keys();
+
+                if(array_key_exists("email", $forgotPassError->toArray())) {
+                    if($forgotPassError['email'][0] == "Please wait before retrying.") {
+                        RealRashid\SweetAlert\Facades\Alert::error("Something Went Wrong", "Please wait before trying.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                    } else {
+                        RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "We can't find a user with that email address.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                    }
+                } else {
+                    RealRashid\SweetAlert\Facades\Alert::error("Reset Failed", "We can't find a user with that email address.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
+
             }
         @endphp
 
@@ -34,8 +46,6 @@
                 <x-input-label for="email" :value="__('Email')" />
 
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autofocus />
-
-                {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
             </div>
 
             <div class="flex items-center justify-center mt-4">
