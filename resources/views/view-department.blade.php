@@ -15,19 +15,23 @@
             <span class="font-bold">{{ $viewDepartmentData->user->first_name . " " . $viewDepartmentData->user->last_name }}</span>
             <span> on {{ $viewDepartmentData->created_at->format('M d, Y H:i A') }}</span>
         </p>
-        @if($viewDepartmentData->user_id !== $user->id)
-            <form action="{{ route('bookmark.department', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <button x-cloak :class="bookmark ? 'bg-green-400' : 'bg-white'" class="px-14 py-3 hover:bg-green-300 rounded-lg border border-1 border-black duration-150">
-                <i :class="bookmark ? 'fa-solid' : 'fa-regular'" class="fa-regular fa-bookmark fa-xl pr-2"></i> 
-                {{ $hasBookmark ? 'Bookmarked' : 'Bookmark' }}
-            </button>
-            </form>
-        @endif
+        @can('Bookmark Thesis')
+            @if($viewDepartmentData->user_id !== $user->id)
+                <form action="{{ route('bookmark.department', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <button x-cloak :class="bookmark ? 'bg-green-400' : 'bg-white'" class="px-14 py-3 hover:bg-green-300 rounded-lg border border-1 border-black duration-150">
+                    <i :class="bookmark ? 'fa-solid' : 'fa-regular'" class="fa-regular fa-bookmark fa-xl pr-2"></i> 
+                    {{ $hasBookmark ? 'Bookmarked' : 'Bookmark' }}
+                </button>
+                </form>
+            @endif
+        @endcan
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Project Year:</h3>
             <p>{{ $viewDepartmentData->year }}</p>
+            <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Research Agenda:</h3>
+            <p>{{ $viewDepartmentData->research_agenda->agenda_name }}</p>
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Abstract:</h3>
             <p>{!! $viewDepartmentData->abstract !!}</p>
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>

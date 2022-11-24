@@ -27,7 +27,7 @@ Route::get('/', function () {
 // User Routes
 Route::controller(UserController::class)->group(function () {
     Route::get('/logout', 'destroy')->middleware(['auth', 'verified'])->name('logout');
-    Route::get('/projects', 'Projects')->middleware(['auth', 'verified'])->name('projects');
+    Route::get('/projects', 'Projects')->middleware(['auth', 'verified', 'permission:View Thesis'])->name('projects');
 
     Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
     Route::post('/download/thesis/{id}', 'DownloadThesis')->middleware(['auth', 'verified'])->name('download.thesis');
@@ -40,15 +40,15 @@ Route::controller(UserController::class)->group(function () {
 
     Route::get('/archives', 'ArchivesList')->middleware(['auth', 'verified'])->name('archives');
     Route::get('/view/archives/{id}', 'ViewArchives')->middleware(['auth', 'verified'])->name('view.archives');
-    Route::get('/edit/archives/{id}', 'EditArchives')->middleware(['auth', 'verified'])->name('edit.archives');
+    Route::get('/edit/archives/{id}', 'EditArchives')->middleware(['auth', 'verified', 'permission:Edit Submitted Thesis'])->name('edit.archives');
     Route::post('/update/archives/{id}', 'UpdateArchives')->middleware(['auth', 'verified'])->name('update.archives');
 
     Route::get('/change/password', 'ChangePassword')->middleware(['auth', 'verified'])->name('change.password');
     Route::post('/update/password', 'UpdatePassword')->middleware(['auth', 'verified'])->name('update.password');
 
-    Route::get('/department/{dept}', 'CollegeDepartments')->middleware(['auth', 'verified'])->name('department');
-    Route::get('/view/department/{dept}/{id}', 'ViewCollegeDepartments')->middleware(['auth', 'verified'])->name('view.department');
-    Route::post('/bookmark/department/{id}', 'BookmarkDepartment')->middleware(['auth', 'verified'])->name('bookmark.department');
+    Route::get('/department/{dept}', 'CollegeDepartments')->middleware(['auth', 'verified', 'permission:View Thesis'])->name('department');
+    Route::get('/view/department/{dept}/{id}', 'ViewCollegeDepartments')->middleware(['auth', 'verified', 'permission:View Thesis'])->name('view.department');
+    Route::post('/bookmark/department/{id}', 'BookmarkDepartment')->middleware(['auth', 'verified', 'permission:View Thesis|Bookmark Thesis'])->name('bookmark.department');
 
     Route::get('/bookmarks', 'BookmarksList')->middleware(['auth', 'verified'])->name('bookmarks.list');
 

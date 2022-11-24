@@ -8,7 +8,9 @@
         <p class="mt-2 mb-6 max-w-3xl text-sm text-gray-500">Personal details.</p>
       </div>
       <div class="flex flex-col md:flex-row md:items-center">
+      @can('Bookmark Thesis')
         <a href="{{ route('bookmarks.list') }}" class="px-4 text-center my-2 md:mx-2 py-3 text-sm lg:text-base bg-yellow-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-bookmark fa-md lg:fa-lg text-white duration-200 mr-1"></i> My Bookmarks</a>
+      @endcan
         <a href="{{ route('archives') }}" class="px-4 text-center my-2 md:mx-2 py-3 text-sm lg:text-base bg-gray-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-box-archive fa-md lg:fa-lg text-white duration-200 mr-1"></i> My Archives</a>
         <a href="{{ route('edit.profile') }}" class="px-4 text-center my-2 md:mx-2 py-3 text-sm lg:text-base bg-green-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-pen-to-square fa-md lg:fa-lg text-white duration-200 mr-1"></i> Edit Profile</a>
       </div>

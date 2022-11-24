@@ -13,13 +13,17 @@
                 <span class="font-bold">{{ $viewArchiveData->user->first_name . " " . $viewArchiveData->user->last_name }}</span>
                 <span> on {{ $viewArchiveData->created_at->format('M d, Y H:i A') }}</span>
             </p>
+            @if($viewArchiveData->archive_status == 0)
             <div class="space-x-2 pt-2">
-            <a href="{{ route('edit.archives', $viewArchiveData->archive_code) }}" class="py-3 px-4 bg-blue-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
+                <a href="{{ route('edit.archives', $viewArchiveData->archive_code) }}" class="py-3 px-4 bg-blue-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
             </div>
+            @endif
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Project Year:</h3>
             <p>{{ $viewArchiveData->year }}</p>
+            <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Research Agenda:</h3>
+            <p>{{ $viewArchiveData->research_agenda->agenda_name }}</p>
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Abstract:</h3>
             <p>{!! $viewArchiveData->abstract !!}</p>
             <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
