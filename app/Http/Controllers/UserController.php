@@ -63,6 +63,7 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $userUploaded = User::find($id);
         $agendaData = ResearchAgenda::all()->where('agenda_name', $request->research_agenda)->first();
+        $uploadedData = Archive::all()->where('user_id', $userUploaded->id)->last();
 
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
@@ -80,6 +81,8 @@ class UserController extends Controller
 
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $fileContent, $fileContentName);
 
+        if($uploadedData->archive_status > 1) {
+
         Archive::create([
             'curriculum_id' => $userUploaded->curriculum_id,
             'department_id' => $userUploaded->department_id,
@@ -92,10 +95,14 @@ class UserController extends Controller
             'document_name' => $fileContentName,
             'user_id' => $userUploaded->id,
         ]);
+            Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            
+            activity('Submit Thesis')->by($request->user)->event('submit thesis')->withProperties(['ip_address' => $request->ip()])->log('Submit Thesis Successful');
+        } else {
+            Alert::error('You have a pending thesis already', 'Please wait for the feedback.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+        }
 
-        Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
-        activity('Submit Thesis')->by($request->user)->event('submit thesis')->withProperties(['ip_address' => $request->ip()])->log('Submit Thesis Successful');
 
         return redirect()->route('archives');
         
@@ -273,6 +280,10 @@ class UserController extends Controller
     
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
         
+        $activityLogs = Activity::where('event', 'search')->get();
+        
+        $searches = $activityLogs->unique('description')->take(5);
+
         if($deptData) {
             if($request->search) {
                 $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
@@ -280,7 +291,7 @@ class UserController extends Controller
             } else {
                 $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
-            return view('department', ["currentPage" => $dept], compact('archives'));
+            return view('department', ["currentPage" => $dept], compact(['archives', 'searches']));
         } else {
             return redirect()->route('home');
         }

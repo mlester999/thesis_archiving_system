@@ -76,7 +76,7 @@
                                 <div
                                   class="flex flex-wrap md:flex-row md:gap-4"
                                 >
-                                  <div class="flex items-center gap-4">
+                                  <div class="flex items-center gap-3">
                                     <div
                                       class="text-sm text-slate-800 tracking-[-0.4px]"
                                     >

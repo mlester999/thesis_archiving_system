@@ -74,16 +74,21 @@
                                 <div
                                   class="flex flex-wrap md:flex-row md:gap-4"
                                 >
-                                  <div class="flex items-center gap-4">
+                                  <div class="flex items-center gap-3">
                                     <div
                                       class="text-sm text-slate-800 tracking-[-0.4px]"
                                     >
                                       By: {{ $archive->user->first_name . " " . $archive->user->last_name }}
                                     </div>
                                     <div
-                                      class="text-sm text-slate-500 tracking-[-0.4px]"
+                                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 tracking-[-0.4px]"
                                     >
                                       {{ $archive->year }}
+                                    </div>
+                                    <div
+                                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800 tracking-[-0.4px]"
+                                    >
+                                      {{ $archive->research_agenda->agenda_name }}
                                     </div>
                                   </div>
                                   <div

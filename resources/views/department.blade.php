@@ -6,12 +6,15 @@
   @endphp
 
 <div class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
-  <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
-    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-    <div class="flex justify-between">
-      <div>
-        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-8">{{ strtoupper($currentPage) }} Projects / Thesis / Capstone </h1> 
-      </div>
+  <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+  <div class="flex justify-between">
+    <div>
+      <h1 class="inline-block text-2xl md:text-3xl font-bold mb-4">{{ strtoupper($currentPage) }} Projects / Thesis / Capstone </h1> 
+      @if(count($searches) >= 5)
+        @livewire('suggest-topics')
+      @endif
+    </div>
+    <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
     <div class="relative mb-8 max-w-xl ml-auto">
         @livewire('title-search-bar', ['currentPage' => $currentPage])
       </div>
@@ -80,9 +83,14 @@
                                       By: {{ $archive->user->first_name . " " . $archive->user->last_name }}
                                     </div>
                                     <div
-                                      class="text-sm text-slate-500 tracking-[-0.4px]"
+                                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 tracking-[-0.4px]"
                                     >
                                       {{ $archive->year }}
+                                    </div>
+                                    <div
+                                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800 tracking-[-0.4px]"
+                                    >
+                                      {{ $archive->research_agenda->agenda_name }}
                                     </div>
                                   </div>
                                   <div

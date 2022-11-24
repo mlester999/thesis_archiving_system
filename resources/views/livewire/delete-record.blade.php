@@ -23,6 +23,12 @@
           scope="col"
           class="tracking-widest p-4 text-sm font-medium text-slate-800"
         >
+          Research Agenda
+        </th>
+        <th
+          scope="col"
+          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+        >
           Department
         </th>
         <th
@@ -39,7 +45,7 @@
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-8 text-sm font-medium text-slate-800"
         >
           Action
         </th>
@@ -57,13 +63,19 @@
         <td
           class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
         >
-          {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
+          {{ \Illuminate\Support\Str::limit($archive->title, 45, '...') }}
         </td>
 
         <td
           class="whitespace-nowrap px-3 py-12 text-center text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->year }}
+        </td>
+
+        <td
+          class="whitespace-nowrap px-3 text-center text-sm font-medium tracking-wider text-slate-800"
+        >
+          {{ $archive->research_agenda->agenda_name }}
         </td>
 
         <td
