@@ -30,24 +30,11 @@ class UserController extends Controller
     }
 
     public function Projects(Request $request) {
-        $deptData = Department::all();
 
-        $activityLogs = Activity::where('event', 'search')->get();
-        
-        $searches = $activityLogs->unique('description')->take(5);
-        
-        if($deptData) {
             if($request->search) {
-                $archiveData = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
                 activity('Search Title')->by($request->user)->event('search')->withProperties(['ip_address' => $request->ip()])->log($request->search)->subject($request->search);
-            } else {
-                $archiveData = Archive::where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
-            return view('projects', ["currentPage" => "projects"], compact(['archiveData', 'searches']));
-        } else {
-            return redirect()->route('home');
-        }
-
+            return view('projects', ["currentPage" => "projects", "currentSearch" => $request->search]);
     }
 
     public function SubmitThesis() {

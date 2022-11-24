@@ -5,15 +5,19 @@ namespace App\Http\Livewire;
 use App\Models\Archive;
 use Livewire\Component;
 use App\Models\Department;
+use Livewire\WithPagination;
 use App\Models\ResearchAgenda;
 use Spatie\Activitylog\Models\Activity;
 
 class StudentProjects extends Component
 {
+    use WithPagination;
+    
     // For Title Search Bar
-    public $query;
+    public $search;
     public $titles;
     public $currentPage;
+    public $currentSearch;
 
     // For Top Search Modal
     public $showViewModal = false;
@@ -25,33 +29,47 @@ class StudentProjects extends Component
     public $sortedArrKeys;
     public $topicsAvailability;
 
-    public function mount($currentPage) {
+    // Advanced Search
+    public $filters = [
+        'year' => '',
+        'research_agenda' => null,
+    ];
+
+    public function mount($currentPage, $currentSearch) {
 
         $this->searches = [];
 
+        $this->topicsAvailability = [];
+
         $this->currentPage = $currentPage;
+
+        $this->currentSearch = $currentSearch;
 
         $this->resetSearch();
     }
 
+    public function resetFilters() {
+        $this->reset('filters');
+    }
+
     public function resetSearch() {
-        $this->query = "";
+        $this->search = "";
         $this->titles = [];
     }
 
-    public function updatedQuery() {
+    public function updatedSearch() {
 
         if($this->currentPage == 'projects') {
-            $this->titles = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
+            $this->titles = Archive::where('archive_status', 1)->where('title', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
         } elseif($this->currentPage == 'bookmarks') {
             $this->titles = Archive::whereHasBookmark(
                 auth()->user()
-            )->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
+            )->where('title', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
         }
         else {
             $deptData = Department::all()->where('dept_name', strtoupper($this->currentPage))->first();
     
-            $this->titles = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $this->query . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
+            $this->titles = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'desc')->limit(5)->get()->toArray(); 
         }
     }
 
@@ -75,7 +93,7 @@ class StudentProjects extends Component
                 $availableTopics[] = $allTopics[$key];
             }
         }
-        $this->topicsAvailability = collect($availableTopics);
+        $this->topicsAvailability = collect($availableTopics)->take(5);
 
         $this->logTitle = "Suggested Topics";
 
@@ -85,9 +103,19 @@ class StudentProjects extends Component
     public function render()
     {
         return view('livewire.student-projects', [
-            'archiveData' => Archive::where('archive_status', 1)
-                            ->orderBy('created_at', 'desc')
-                            ->paginate(5),
+            'archiveData' => Archive::query()
+                        ->join('research_agendas', 'archives.research_agenda_id', '=', 'research_agendas.id')
+                        ->when($this->filters['year'], function($query, $year) {
+                            $query->where('year', $year);
+                        })
+                        ->when($this->filters['research_agenda'], function($query, $research_agenda) {
+                            $query->where('agenda_name', $research_agenda);
+                        })
+                        ->where('archive_status', 1)
+                        ->where('title', 'LIKE', '%' . $this->currentSearch . '%')
+                        ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.research_agenda_id', 'archives.user_id', 'archives.created_at', 'research_agendas.id', 'research_agendas.agenda_name', 'research_agendas.agenda_description', 'research_agendas.agenda_status')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(5),
             'agendaData' => ResearchAgenda::all()
         ]);
     }

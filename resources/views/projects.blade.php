@@ -1,10 +1,8 @@
 @extends('master')
 @section('user')
 
-  @php
-      $showEmptyMessage = 0;
-  @endphp
-
-  @livewire('student-projects', ['currentPage' => $currentPage]);
+<form action="{{ url('projects') }}" method="get">  
+  @livewire('student-projects', ['currentPage' => $currentPage, 'currentSearch' => $currentSearch]);
+</form>
 
 @endsection
