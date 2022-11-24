@@ -12,7 +12,6 @@ class TitleSearchBar extends Component
     public $query;
     public $titles;
     public $currentPage;
-    // public $highlightIndex;
 
     public function mount($currentPage) {
 
@@ -24,28 +23,7 @@ class TitleSearchBar extends Component
     public function resetSearch() {
         $this->query = "";
         $this->titles = [];
-        // $this->highlightIndex = 0;
     }
-
-    // public function incrementHighlight() {
-
-    //     if($this->highlightIndex == count($this->titles) - 1) {
-    //         $this->highlightIndex = 0;
-    //         return;
-    //     }
-
-    //     $this->highlightIndex++;
-    // }
-
-    // public function decrementHighlight() {
-
-    //     if($this->highlightIndex == 0) {
-    //         $this->highlightIndex = count($this->titles) - 1;
-    //         return;
-    //     }
-
-    //     $this->highlightIndex--;
-    // }
 
     public function updatedQuery() {
 
