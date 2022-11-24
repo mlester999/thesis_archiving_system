@@ -266,19 +266,12 @@ class UserController extends Controller
     public function CollegeDepartments(Request $request, $dept) {
     
         $deptData = Department::all()->where('dept_name', strtoupper($dept))->first();
-        
-        $activityLogs = Activity::where('event', 'search')->get();
-        
-        $searches = $activityLogs->unique('description')->take(5);
 
         if($deptData) {
             if($request->search) {
-                $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('created_at', 'desc')->paginate(5);
                 activity('Search Title')->by($request->user)->event('search')->withProperties(['ip_address' => $request->ip()])->log($request->search)->subject($request->search);
-            } else {
-                $archives = Archive::where('department_id', $deptData->id)->where('archive_status', 1)->orderBy('created_at', 'desc')->paginate(5);
             }
-            return view('department', ["currentPage" => $dept], compact(['archives', 'searches']));
+            return view('department', ["currentPage" => $dept, "currentDeptId" => $deptData->id, "currentSearch" => $request->search]);
         } else {
             return redirect()->route('home');
         }
