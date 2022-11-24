@@ -178,7 +178,7 @@
 				  <!-- Second COl -->
 				  <div class="px-4">
 					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Created At:</h1> 
-					<p class="text-sm lg:text-base text-left my-1">{{ $createdAt }}</p>
+					<p class="text-sm lg:text-base text-left my-1">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Status:</h1> 
 					@if($status)
 					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>

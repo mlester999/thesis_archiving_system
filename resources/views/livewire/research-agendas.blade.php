@@ -180,7 +180,7 @@
 
 				  <div class="px-4">
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $createdAt }}</p>
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 				  </div>
 			  </div>
 		  </x-slot>

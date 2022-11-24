@@ -81,7 +81,7 @@ class UserController extends Controller
 
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $fileContent, $fileContentName);
 
-        if($uploadedData->archive_status > 1) {
+        if($uploadedData == null || $uploadedData->archive_status > 1) {
 
         Archive::create([
             'curriculum_id' => $userUploaded->curriculum_id,

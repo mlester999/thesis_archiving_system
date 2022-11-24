@@ -192,7 +192,7 @@
 					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $yearLevel }}</p>
 
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Created At:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ $createdAt }}</p>
+					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Department:</h1> 
 					@php

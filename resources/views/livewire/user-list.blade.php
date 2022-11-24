@@ -178,7 +178,7 @@
 				  <!-- Second COl -->
 				  <div class="px-4">
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ $createdAt }}</p>
+					<p class="text-xs md:text-sm lg:text-base text-left my-2">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Email Status:</h1> 
 					@if($email_verified_at)
 					<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800"">Verified</p>

@@ -63,7 +63,7 @@
         <td
           class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
         >
-          {{ \Illuminate\Support\Str::limit($archive->title, 45, '...') }}
+          {{ \Illuminate\Support\Str::limit($archive->title, 40, '...') }}
         </td>
 
         <td

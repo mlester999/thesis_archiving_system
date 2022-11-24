@@ -1,0 +1,122 @@
+<table class="min-w-full divide-y divide-gray-300">
+    <thead class="bg-slate-100">
+      <tr>
+        <th
+          scope="col"
+          class="py-4 px-8 tracking-widest text-left text-xs sm:text-sm font-medium text-slate-800"
+        >
+          Projects
+        </th>
+        <th
+          scope="col"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+        >
+          Department
+        </th>
+        <th
+          scope="col"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+        >
+          Curriculum
+        </th>
+        <th
+          scope="col"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+        >
+          Published at
+        </th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 bg-white">
+      @foreach($archiveData as $archive)
+
+      @if($archive->archive_status == 1)
+        @php
+            $showEmptyMessage = 1;
+        @endphp
+      <tr>
+        <td
+          class="whitespace-nowrap p-3 text-center text-lg font-medium tracking-wider text-slate-800"
+        >
+          <div class="flex items-center">
+            <div>
+              <a href="{{ route('view.department', [strtolower($archive->department->dept_name),  $archive->archive_code]) }}"
+                class="hover:text-opacity-70 duration-150 text-sm md:text-md lg:text-lg text-left block font-semibold text-blue-500 mb-2 tracking-normal"
+              >
+                {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
+              </a>
+              <div
+                class="flex flex-wrap md:flex-row md:gap-4"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="text-sm text-slate-800 tracking-[-0.4px]"
+                  >
+                    By: {{ $archive->user->first_name . " " . $archive->user->last_name }}
+                  </div>
+                  <div
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 tracking-[-0.4px]"
+                  >
+                    {{ $archive->year }}
+                  </div>
+                  @php 
+                    $colors = ['from-slate-300 to-slate-400 text-slate-800', 'from-rose-300 to-rose-400 text-rose-800', 'from-fuchsia-300 to-fuchsia-400 text-fuchsia-800', 'from-violet-300 to-violet-400 text-violet-800', 'from-blue-300 to-blue-400 text-blue-800', 'from-cyan-300 to-cyan-400 text-cyan-800', 'from-teal-300 to-teal-400 text-teal-800', 'from-emerald-300 to-emerald-400 text-emerald-800', 'from-green-300 to-green-400 text-green-800', 'from-lime-300 to-lime-400 text-lime-800', 'from-amber-300 to-amber-400 text-amber-800', 'from-orange-300 to-orange-400 text-orange-800', 'from-red-300 to-red-400 text-red-800', 'from-pink-300 to-pink-400 text-pink-800', 'from-purple-300 to-purple-400 text-purple-800', 'from-indigo-300 to-indigo-400 text-indigo-800', 'from-sky-300 to-sky-400 text-sky-800', 'from-yellow-300 to-yellow-400 text-yellow-800', 'from-stone-300 to-stone-400 text-stone-800', 'from-neutral-300 to-neutral-400 text-neutral-800', 'from-zinc-300 to-zinc-400 text-zinc-800', 'from-gray-300 to-gray-400 text-gray-800'];
+                  @endphp
+                  <div
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r {{ $colors[$archive->research_agenda->id] ? $colors[$archive->research_agenda->id]  : 'from-slate-300 to-slate-400 text-slate-800' }} tracking-[-0.4px]"
+                  >
+
+                    {{ $archive->research_agenda->agenda_name }}
+                  </div>  
+                </div>
+                <div
+                  class="flex flex-wrap items-center gap-2 md:gap-4 text-gray-500 ml-10 md:ml-0"
+                >
+                  <button type="button">
+                    <span
+                      class="inline-flex items-center py-4 rounded-full text-xs font-medium text-black tracking-[-0.4px]"
+                      ></span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+
+        <td
+          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+        >
+          {{ $archive->department->dept_name }}
+        </td>
+
+        <td
+          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+        >
+          {{ $archive->curriculum->curr_name }}
+        </td>
+
+        <td
+          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+        >
+          {{ $archive->created_at->format('m/d/Y') }}
+        </td>
+      </tr>
+      @endif
+      
+      @endforeach
+
+      @if($showEmptyMessage == 0)
+      <tr class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+          >
+          <td colspan="4">
+              <div class="flex items-center justify-center">
+                <div>
+                    <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No projects found...</p>
+                </div>
+              </div>
+          </td>
+          </tr>
+      @endif
+    </tbody>
+  </table>

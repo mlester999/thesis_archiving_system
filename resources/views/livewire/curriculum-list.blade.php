@@ -174,7 +174,13 @@
 				  <div class="px-4">
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Curriculum:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_description }}</p>
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Status:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Acronym:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_name }}</p>
+					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
+				  </div>
+
+				  <div class="px-4">
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Status:</h1> 
                     @if($curr_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                         Activated
@@ -184,12 +190,8 @@
                         Deactivated
                     </span>
                     @endif
-					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
-				  </div>
-
-				  <div class="px-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $createdAt }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Created At:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 				  </div>
 			  </div>
 		  </x-slot>
