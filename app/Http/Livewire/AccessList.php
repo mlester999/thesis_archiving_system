@@ -127,6 +127,8 @@ class AccessList extends Component
 
         $this->permission = Permission::find($this->editing->permission_id);
 
+        dd($this->role->givePermissionTo($this->permission));
+
         if($this->editing->status) {
 
             $this->role->givePermissionTo($this->permission);

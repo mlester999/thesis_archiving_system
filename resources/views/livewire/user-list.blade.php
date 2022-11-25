@@ -73,7 +73,7 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Status
 				<span wire:click="sortBy('acc_status')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'acc_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -123,7 +123,7 @@
 			<td class="pl-12">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $user->id }})" class="cursor-pointer pl-1 pr-8 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $user->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
 			  </td>
 		  </tr>
 		  @empty
@@ -196,20 +196,36 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteUser">
+	  <form wire:submit.prevent="disableUser">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $userTitle }}</x-slot>
+			<x-slot name="title">
+				@if($accStatus)
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>
+				@else
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-green-500"></i>
+				@endif
+				{{ $userTitle }}
+			</x-slot>
 	  
-		  <x-slot name="content">
-			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this user?</h1> 
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
-		  </x-slot>
+			<x-slot name="content">
+				@if($accStatus)
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this user?</h1> 
+				<p class="text-center mt-4 mb-16">This account will be deactivated immediately.</p> 
+				@else
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to activate this user?</h1> 
+				<p class="text-center mt-4 mb-16">This account will be activated immediately.</p> 
+				@endif
+			  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Delete</x-delete-button>
-			  </x-slot>
+				<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				@if($accStatus)
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Deactivate</x-delete-button>
+				@else
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Activate</x-delete-button>
+				@endif
+			</x-slot>
 			  </x-confirmation-modal>
 		  </form>		
 
@@ -225,7 +241,7 @@
 	
 				<div class="grid grid-cols-2 py-2">
 
-				<!-- First Name -->
+				<!-- Full Name -->
 				<div class="px-4 col-span-2">
 					<x-input-label for="name" :value="__('Full Name')" />
 	

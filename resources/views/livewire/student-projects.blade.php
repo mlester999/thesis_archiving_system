@@ -217,7 +217,7 @@
                                       <div
                                         class="text-sm text-slate-800 tracking-[-0.4px]"
                                       >
-                                        By: {{ $archive->user->first_name . " " . $archive->user->last_name }}
+                                        By: {{ $archive->user->first_name . " " . $archive->user->middle_name[0] . ". " . $archive->user->last_name }}
                                       </div>
                                       <div
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 tracking-[-0.4px]"

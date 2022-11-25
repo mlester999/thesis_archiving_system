@@ -9,9 +9,9 @@
         <h1 class="inline-block text-2xl md:text-3xl font-bold mb-4">{{ strtoupper($currentPage) }} Projects / Thesis / Capstone</h1> 
 
         <div class="flex flex-row">
-            <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-3 mb-3 ml-2 text-sm">Suggested Topics</button>
+            <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-2 md:px-3 mb-3 md:ml-2 text-xs md:text-sm">Suggested Topics</button>
 
-            <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 ml-4 text-md mr-auto">
+            <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 ml-2 text-xs md:text-sm lg:text-md mr-auto">
                 <template x-if="show">
                 <span>Hide </span>
                 </template>
@@ -217,7 +217,7 @@
                                       <div
                                         class="text-sm text-slate-800 tracking-[-0.4px]"
                                       >
-                                        By: {{ $archive->user->first_name . " " . $archive->user->last_name }}
+                                        By: {{ $archive->user->first_name . " " . $archive->user->middle_name[0] . ". " . $archive->user->last_name }}
                                       </div>
                                       <div
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 tracking-[-0.4px]"

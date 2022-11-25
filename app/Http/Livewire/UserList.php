@@ -20,7 +20,7 @@ class UserList extends Component
 
     public $userTitle;
 
-    public $deleteUser;
+    public $disableUser;
 
     public $viewUser;
 
@@ -33,6 +33,9 @@ class UserList extends Component
     public $email;
     public $email_verified_at;
     public $createdAt;
+    public $accStatus;
+
+    public $adminAuth;
 
     // Modals
     public $showDeleteModal = false;
@@ -44,7 +47,7 @@ class UserList extends Component
 
     protected function rules() {
         return [
-            'editing.name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+            'editing.name' => 'required|min:2',
             'editing.username' => 'required|unique:admins,username,' . $this->userId,
             'editing.email' => 'required|email|unique:admins,email,' . $this->userId,
         ];
@@ -52,6 +55,8 @@ class UserList extends Component
 
     public function mount() {
         $this->editing = $this->makeBlankUser();
+
+        $this->adminAuth = auth()->id();
     }
 
     public function closeModal() {
@@ -130,16 +135,29 @@ class UserList extends Component
         $this->alert('success', $this->userTitle . ' ' . 'Successfully!');
     }
 
-    public function delete($user) {
-        $this->deleteUser = Admin::find($user);
+    public function disable($user) {
+        $this->disableUser = Admin::find($user);
 
         $this->showDeleteModal = true;
 
-        $this->userTitle = "Delete User";
+        $this->accStatus = $this->disableUser->acc_status;
+
+        if($this->disableUser->acc_status) {
+            $this->userTitle = "Deactivate Admin User Account";
+        } else {
+            $this->userTitle = "Activate Admin User Account";
+        }
     }
 
-    public function deleteUser() {
-        $this->deleteUser->delete();
+    public function disableUser() {
+
+        if($this->disableUser->acc_status) {
+            $this->disableUser->acc_status = '0';
+        } else {
+            $this->disableUser->acc_status = '1';
+        }
+
+        $this->disableUser->save();
 
         $this->editing = $this->makeBlankUser();
 
@@ -153,9 +171,12 @@ class UserList extends Component
     {
 
         return view('livewire.user-list', [
-            'users' => Admin::where('name', 'like', '%'  . $this->search . '%')
-                    ->orWhere('username', 'like', '%'  . $this->search . '%')
-                    ->orWhere('email', 'like', '%'  . $this->search . '%')
+            'users' => Admin::whereNot(function ($query) {
+                        $query->where('id', $this->adminAuth);
+                    })
+                    ->where('name', 'like', '%'  . $this->search . '%')
+                    ->where('username', 'like', '%'  . $this->search . '%')
+                    ->where('email', 'like', '%'  . $this->search . '%')
                     ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
         ]);
     }
