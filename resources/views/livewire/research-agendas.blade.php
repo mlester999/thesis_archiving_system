@@ -164,9 +164,7 @@
 
 				  <!-- Second Col -->
 				  <div class="px-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Description:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agenda_description }}</p>
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Status:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Status:</h1> 
                     @if($agenda_status)
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                         Activated
@@ -176,6 +174,8 @@
                         Deactivated
                     </span>
                     @endif
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Description:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agenda_description }}</p>
 				  </div>
 
 				  <div class="px-4">

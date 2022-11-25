@@ -11,13 +11,15 @@
 <div class="py-10 border-t border-gray-300 space-y-4">
     <h3 class="text-2xl max-w-3xl font-bold leading-6 text-gray-900 inline-block">{{ $viewArchiveData->title }}</h3>
     <p class="text-sm">Submitted by
-        <span class="font-bold">{{ $viewArchiveData->user->first_name . " " . $viewArchiveData->user->last_name }}</span>
+        <span class="font-bold">{{ $viewArchiveData->user->first_name . " " . $viewArchiveData->user->middle_name[0] . ". " . $viewArchiveData->user->last_name }}</span>
         <span> on {{ $viewArchiveData->created_at->format('M d, Y H:i A') }}</span>
     </p>
 </div>
 <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
     <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Project Year:</h3>
     <p>{{ $viewArchiveData->year }}</p>
+    <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Research Agenda:</h3>
+    <p>{{ $viewArchiveData->research_agenda->agenda_name }}</p>
     <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Abstract:</h3>
     <p>{!! $viewArchiveData->abstract !!}</p>
     <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>

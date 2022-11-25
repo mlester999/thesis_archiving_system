@@ -70,13 +70,12 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'year' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Created at 
-				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Status
+				<span wire:click="sortBy('archive_status')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'archive_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Status </th>
-			<th class="font-semibold text-left pl-6 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-left pl-6 pr-8 md:pr-4 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -108,9 +107,6 @@
 			<td class="pl-6">
 			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->year }}</p>
 			</td>
-			<td class="pl-6">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $archive->created_at->format('m/d/Y') }}</p>
-			  </td>
 			  <td class="pl-6">
 				@if($archive->archive_status == 1)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">

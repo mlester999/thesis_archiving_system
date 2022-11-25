@@ -172,10 +172,10 @@
 	  
 				  <!-- Last Name -->
 				  <div class="px-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Curriculum:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_description }}</p>
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Acronym:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Curriculum Acronym:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_name }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Curriculum:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_description }}</p>
 					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
 				  </div>
 

@@ -73,7 +73,11 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status </th>
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status
+				<span wire:click="sortBy('status')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>

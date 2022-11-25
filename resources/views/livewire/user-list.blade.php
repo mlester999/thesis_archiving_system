@@ -73,7 +73,7 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Email Status
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status
 				<span wire:click="sortBy('acc_status')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'acc_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -110,13 +110,13 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('m/d/Y') }}</p>
 			  </td>
 			  <td class="pl-12">
-				@if($user->email_verified_at)
+				@if($user->acc_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
-                    Verified
+                    Activated
                 </span>
 				@else
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">
-                    Not Verified
+                    Deactivated
                 </span>
 				@endif
 			  </td>

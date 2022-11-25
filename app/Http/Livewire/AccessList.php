@@ -127,23 +127,31 @@ class AccessList extends Component
 
         $this->permission = Permission::find($this->editing->permission_id);
 
-        dd($this->role->givePermissionTo($this->permission));
+        if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 0) {
 
-        if($this->editing->status) {
+            if($this->editing->status) {
 
-            $this->role->givePermissionTo($this->permission);
+                $this->role->givePermissionTo($this->permission);
+
+            } else {
+
+                $this->role->revokePermissionTo($this->permission);
+
+            }
+
+            $this->editing->save();
+
+            $this->showEditModal = false;
+
+            $this->alert('success', $this->accessTitle . ' ' . 'Successfully!');
 
         } else {
+            $this->showEditModal = false;
 
-            $this->role->revokePermissionTo($this->permission);
+            $this->alert('error', 'This data is already existing!');
 
+            $this->editing = $this->makeBlankAccess();
         }
-
-        $this->editing->save();
-
-        $this->showEditModal = false;
-
-        $this->alert('success', $this->accessTitle . ' ' . 'Successfully!');
     }
 
     public function delete($access) {
