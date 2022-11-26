@@ -9,11 +9,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity, AuthenticationLoggable;
 
     /**
      * The attributes that are mass assignable.

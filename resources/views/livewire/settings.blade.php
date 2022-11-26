@@ -237,7 +237,7 @@
                 </div>
 
                 <div class="px-4 py-3 col-span-2">
-                    <x-input-label for="status" :value="__('Upload Image (Max: 10MB)')" />
+                    <x-input-label for="status" :value="__('Upload Image (Maximum File Size: 10 MB | Aspect Ratio: 16:9 only)')" />
                     <x-filepond wire:model="upload_image" />
                     <x-input-error :messages="$errors->get('upload_image')" class="-mt-1" />
                 </div>
