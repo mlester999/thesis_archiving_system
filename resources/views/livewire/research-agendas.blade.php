@@ -204,7 +204,7 @@
 		  
 			  <x-slot name="footer">
 				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Delete</x-delete-button>
+				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		

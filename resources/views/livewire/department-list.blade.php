@@ -198,13 +198,13 @@
 		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $departmentTitle }}</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete department?</h1> 
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this department?</h1> 
 			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
 		  </x-slot>
 		  
 			  <x-slot name="footer">
 				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Delete</x-delete-button>
+				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		

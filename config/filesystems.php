@@ -36,6 +36,14 @@ return [
             'throw' => false,
         ],
 
+        'home-sliders' => [
+            'driver' => 'local',
+            'root' => storage_path('app/home-sliders'),
+            'url' => env('APP_URL').'/home-sliders',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -79,7 +87,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('home-sliders') => storage_path('app/home-sliders'),
     ],
 
 ];

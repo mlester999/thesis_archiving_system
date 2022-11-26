@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ResearchAgenda;
+use App\Http\Livewire\Settings;
 use App\Http\Livewire\UserList;
 use App\Http\Livewire\AccessList;
 use App\Http\Livewire\ReportLogs;
@@ -61,6 +62,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::get('settings', Settings::class)->name('settings');
 
     Route::get('user-list', UserList::class)->name('user-list');
 
