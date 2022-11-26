@@ -33,7 +33,7 @@
 			type="button"
 			class="order-1 md:order-3 ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-xs md:text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
-			New Slider
+			New Slide
 		  </button>
 		</div>
 		</div>
@@ -93,7 +93,7 @@
                 </p>
               </td>
 			<td class="pl-12">
-			  <img src="{{ asset('home-sliders/'.$slider->img_url) }}" class="w-48 m-2" />
+			  <img src="{{ asset('home-sliders/'.$slider->img_url) }}" class="w-48 my-2 border border-2 border-black" />
 			</td>
 			<td class="pl-12">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $slider->created_at->format('m/d/Y') }}</p>
@@ -195,7 +195,7 @@
         <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $sliderTitle }}</x-slot>
     
         <x-slot name="content">
-        <h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this slider?</h1> 
+        <h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this slide?</h1> 
         <p class="text-center mt-4 mb-16">This action is irreversible.</p> 
         </x-slot>
         
@@ -219,7 +219,7 @@
 				<div class="px-4 col-span-2">
 					<x-input-label for="name" :value="__('Title')" />
 	
-					<x-text-input wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:model.defer="editing.title" id="title" class="block mt-1 w-full" type="text" name="title" placeholder="Title of Slider" :value="old('title')" autofocus />
+					<x-text-input wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:model.defer="editing.title" id="title" class="block mt-1 w-full" type="text" name="title" placeholder="Slide Title" :value="old('title')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.title')" />
 				</div>
@@ -236,14 +236,20 @@
                     <x-input-error :messages="$errors->get('editing.status')" />
                 </div>
 
+                <div class="px-4 py-3 col-span-2">
+                    <x-input-label for="status" :value="__('Upload Image (Max: 10MB)')" />
+                    <x-filepond wire:model="upload_image" />
+                    <x-input-error :messages="$errors->get('upload_image')" class="-mt-1" />
+                </div>
+
                 <!-- Background Image -->
-				<div class="px-4 py-3 col-span-2">
+				{{-- <div class="px-4 py-3 col-span-2">
                     <x-input-label for="name" :value="__('Background Image')" />
 
                     <input type="file" wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:model.defer="editingImage" name="img_url">
 
                     <x-input-error :messages="$errors->get('editingImage')" />
-                </div>
+                </div> --}}
 		</x-slot>
 		
 			<x-slot name="footer">
@@ -255,5 +261,13 @@
 	</div>
 	@include('admin.body.footer')
 </div>
+
+{{-- <script>
+    // Get a reference to the file input element
+    const inputElement = document.querySelector('input[type="file"]');
+
+    // Create a FilePond instance
+    const pond = FilePond.create(inputElement);
+</script> --}}
 
 

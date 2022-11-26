@@ -24,6 +24,13 @@
     <!-- Toaster -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+    <!-- File Pond -->
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+/>
+
     <!-- Scripts -->
     @vite(['resources/css/adminApp.css', 'resources/js/adminApp.js'])
 
@@ -45,66 +52,18 @@
 
       @include('sweetalert::alert')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- File Pond-->
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
   
   <x-livewire-alert::scripts />
 
-<script>
-    $('.settings-btn').click(function(){
-        $(this).toggleClass("click");
-        $('.sidebar').toggleClass("show");
-        });
-        $('.feat-btn').click(function(){
-            $('nav ul .feat-show').toggleClass("show");
-            $('nav ul .first').toggleClass("rotate");
-        });
-        $('.serv-btn').click(function(){
-            $('nav ul .serv-show').toggleClass("show1");
-            $('nav ul .second').toggleClass("rotate");
-        });
-        $('nav ul li').click(function(){
-            $(this).addClass("active").siblings().removeClass("active");
-        });
-
-    /*Toggle dropdown list*/
-    function toggleDD(myDropMenu) {
-        document.getElementById(myDropMenu).classList.toggle("invisible");
-        }
-        /*Filter dropdown options*/
-        function filterDD(myDropMenu, myDropMenuSearch) {
-        var input, filter, ul, li, a, i;
-        input = document.getElementById(myDropMenuSearch);
-        filter = input.value.toUpperCase();
-        div = document.getElementById(myDropMenu);
-        a = div.getElementsByTagName("a");
-        for (i = 0; i < a.length; i++) {
-            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-            } else {
-            a[i].style.display = "none";
-            }
-        }
-        }
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function (event) {
-        if (
-            !event.target.matches(".drop-button") &&
-            !event.target.matches(".drop-search")
-        ) {
-            var dropdowns = document.getElementsByClassName("dropdownlist");
-            for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (!openDropdown.classList.contains("invisible")) {
-                openDropdown.classList.add("invisible");
-            }
-            }
-        }
-        };
-</script>
 @livewireScripts
 </body>
 </html>

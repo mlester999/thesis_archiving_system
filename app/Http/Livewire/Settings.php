@@ -36,7 +36,7 @@ class Settings extends Component
     public $createdAt;
     public $status;
 
-    public $editingImage;
+    public $upload_image;
     
     // Modals
     public $showDeleteModal = false;
@@ -55,12 +55,6 @@ class Settings extends Component
         $this->editing = $this->makeBlankSlider();
     }
 
-    public function updatedEditingImgUrl() {
-
-    //     $hashImage = $this->editing->img_url->store('/', 'home-sliders');
-    //    dd($hashImage);
-    }
-
     public function closeModal() {
         $this->showEditModal = false;
     }
@@ -74,7 +68,7 @@ class Settings extends Component
 
         $this->showEditModal = true;
 
-        $this->sliderTitle = "Add Slider";
+        $this->sliderTitle = "Add Slide";
     }
 
     public function view($slider) {
@@ -92,7 +86,7 @@ class Settings extends Component
 
         $this->showViewModal = true;
 
-        $this->sliderTitle = "Slider Info";
+        $this->sliderTitle = "Slide Info";
     }
 
     public function makeBlankSlider() {
@@ -119,7 +113,7 @@ class Settings extends Component
 
         $this->showEditModal = true;
 
-        $this->sliderTitle = "Edit Slider";
+        $this->sliderTitle = "Edit Slide";
     }
 
     public function save() {
@@ -127,13 +121,13 @@ class Settings extends Component
         $this->validate();
 
         $this->validate([
-            'editingImage' => 'required|image|max:10000',
+            'upload_image' => 'required|image|max:10000',
         ]);
 
         // Save the current data to get the id
         $this->editing->save();
 
-        $filename = $this->editingImage->storeAs('/', 'home-sliders-' . $this->editing->id . '.' . $this->editingImage->getClientOriginalExtension(), 'home-sliders');
+        $filename = $this->upload_image->storeAs('/', 'home-sliders-' . $this->editing->id . '.' . $this->upload_image->getClientOriginalExtension(), 'home-sliders');
         
         $this->editing->img_url = $filename;
 
@@ -142,7 +136,9 @@ class Settings extends Component
 
         $this->showEditModal = false;
 
-        $this->editingImage = null;
+        $this->upload_image = null;
+
+        $this->dispatchBrowserEvent('remove-images');
 
         $this->alert('success', $this->sliderTitle . ' ' . 'Successfully!');
     }
@@ -152,7 +148,7 @@ class Settings extends Component
 
         $this->showDeleteModal = true;
 
-        $this->sliderTitle = "Delete Slider";
+        $this->sliderTitle = "Delete Slide";
     }
 
     public function deleteSlider() {
