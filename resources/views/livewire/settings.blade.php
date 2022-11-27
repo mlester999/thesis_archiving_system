@@ -241,15 +241,6 @@
                     <x-filepond wire:model="upload_image" />
                     <x-input-error :messages="$errors->get('upload_image')" class="-mt-1" />
                 </div>
-
-                <!-- Background Image -->
-				{{-- <div class="px-4 py-3 col-span-2">
-                    <x-input-label for="name" :value="__('Background Image')" />
-
-                    <input type="file" wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:model.defer="editingImage" name="img_url">
-
-                    <x-input-error :messages="$errors->get('editingImage')" />
-                </div> --}}
 		</x-slot>
 		
 			<x-slot name="footer">
@@ -261,13 +252,4 @@
 	</div>
 	@include('admin.body.footer')
 </div>
-
-{{-- <script>
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file"]');
-
-    // Create a FilePond instance
-    const pond = FilePond.create(inputElement);
-</script> --}}
-
 

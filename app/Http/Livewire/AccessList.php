@@ -38,6 +38,7 @@ class AccessList extends Component
 
     public $role;
     public $permission;
+    public $oldAccess;
 
     // Modals
     public $showDeleteModal = false;
@@ -127,16 +128,18 @@ class AccessList extends Component
 
         $this->permission = Permission::find($this->editing->permission_id);
 
+        $this->oldAccess = Access::find($this->editing->id);
+
         if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 0) {
 
+            if(count(Access::find($this->editing->id)->where('permission_id', $this->editing->role_id)->get()) == 0) {
+                $this->role->revokePermissionTo($this->oldAccess->permission_id);
+            }
+
             if($this->editing->status) {
-
                 $this->role->givePermissionTo($this->permission);
-
             } else {
-
                 $this->role->revokePermissionTo($this->permission);
-
             }
 
             $this->editing->save();

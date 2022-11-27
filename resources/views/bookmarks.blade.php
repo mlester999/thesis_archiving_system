@@ -11,7 +11,6 @@
     <div class="flex justify-between">
       <div>
         <h1 class="inline-block text-2xl md:text-3xl font-bold">My Bookmarks</h1>
-        {{-- <p class="mt-2 mb-6 max-w-3xl text-sm text-gray-500">Bookmark details.</p> --}}
       </div>
     <div class="relative mb-8 max-w-xl ml-auto">
       @livewire('title-search-bar', ['currentPage' => $currentPage])

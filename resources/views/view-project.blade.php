@@ -15,7 +15,6 @@
             </p>
             <div class="space-x-2 pt-2">
             <a href="{{ route('edit.project', $viewProjectData->archive_code) }}" class="py-3 px-4 bg-blue-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</a>
-            {{-- <a href="{{ route('edit.archives', $viewProjectData->id) }}" class="py-3 px-4 bg-red-500 hover:bg-opacity-80 duration-150 text-white"><i class="fa-solid fa-trash mr-1"></i> Delete</a> --}}
             </div>
         </div>
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-4">
