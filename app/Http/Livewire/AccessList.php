@@ -132,8 +132,10 @@ class AccessList extends Component
 
         if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 0) {
 
-            if(count(Access::find($this->editing->id)->where('permission_id', $this->editing->role_id)->get()) == 0) {
-                $this->role->revokePermissionTo($this->oldAccess->permission_id);
+            if($this->accessTitle == "Edit Access") {
+                if(count(Access::find($this->editing->id)->where('permission_id', $this->editing->permission_id)->get()) == 0) {
+                    $this->role->revokePermissionTo($this->oldAccess->permission_id);
+                }
             }
 
             if($this->editing->status) {

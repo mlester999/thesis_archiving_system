@@ -52,6 +52,16 @@ class UserController extends Controller
         $agendaData = ResearchAgenda::all()->where('agenda_name', $request->research_agenda)->first();
         $uploadedData = Archive::all()->where('user_id', $userUploaded->id)->last();
 
+        if($request->file('document_path')->getSize() > 10000000) {
+            Alert::error('Maximum of 10MB only', 'Your file size is too big.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            return redirect()->back();
+        }
+
+        if($request->file('document_path')->getClientMimeType() !== 'application/pdf') {
+            Alert::error('PDF File Only', 'Your file is an invalid file type.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            return redirect()->back();
+        }
+
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
             'title' => 'required',
@@ -88,8 +98,6 @@ class UserController extends Controller
         } else {
             Alert::error('You have a pending thesis already', 'Please wait for the feedback.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
         }
-
-
 
         return redirect()->route('archives');
         

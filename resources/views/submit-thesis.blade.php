@@ -22,7 +22,12 @@ if (count($errors) > 0) {
         </div>
         <div class="relative px-8 pt-8 sm:pt-0">
             <label for="year" class="text-sm font-semibold text-gray-900">Year:</label>
-        <input type="text" name="year" id="year" placeholder="Project Year" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
+            <select id="year" name="year" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
+                <option value="0" hidden>~ Select Year ~</option>
+                @for ($year=date('Y'); $year >= 2000; $year--)
+                <option value="{{ $year }}"> {{ $year }} </option>
+                @endfor
+                </select>
         </div>
         <div class="relative px-8 pt-8 sm:pt-0">
             <label for="year" class="text-sm font-semibold text-gray-900">Research Agenda:</label>
@@ -52,7 +57,7 @@ if (count($errors) > 0) {
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
     <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (PDF File only)</label>
-    <input id="document_path" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+    <input id="document_path" accept="application/pdf" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
     </div>
 </div>
 

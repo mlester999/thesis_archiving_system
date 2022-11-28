@@ -121,7 +121,7 @@ class Settings extends Component
         $this->validate();
 
         $this->validate([
-            'upload_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000|dimensions:min_width=650,min_height=650',
+            'upload_image' => 'required|image|mimes:jpeg,png,jpg|max:10000|dimensions:min_width=650,min_height=650',
         ]);
 
         // Save the current data to get the id
