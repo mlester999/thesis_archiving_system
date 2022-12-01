@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\AdminAuth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
 class PasswordResetLinkController extends Controller
@@ -15,7 +16,13 @@ class PasswordResetLinkController extends Controller
      */
     public function create()
     {
-        return view('admin.auth.forgot-password');
+        if(Auth::guard('admin')->user()) {
+            return redirect()->route('admin.dashboard');
+        } else if(Auth::user()) {
+            return redirect()->route('home');
+        } else {
+            return view('admin.auth.forgot-password');
+        }
     }
 
     /**

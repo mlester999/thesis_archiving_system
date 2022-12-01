@@ -19,7 +19,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('auth.login');
+        if(Auth::guard('admin')->user()) {
+            return redirect()->route('admin.dashboard');
+        } else if(Auth::user()) {
+            return redirect()->route('home');
+        } else {
+            return view('auth.login');
+        }
     }
 
     /**
@@ -33,18 +39,26 @@ class AuthenticatedSessionController extends Controller
 
         $loggedUser = User::all()->where('student_id', $request->student_id)->first();
 
-        if($loggedUser->acc_status) {
+        if($loggedUser) {
 
-        $request->authenticate();
+            if($loggedUser->acc_status) {
 
-        $request->session()->regenerate();
+            $request->authenticate();
 
-        activity('Login')->by($request->user)->event('login')->withProperties(['ip_address' => $request->ip()])->log('Login Successful');
+            $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            activity('Login')->by($request->user)->event('login')->withProperties(['ip_address' => $request->ip()])->log('Login Successful');
+
+            return redirect()->intended(RouteServiceProvider::HOME);
+
+            } else {
+                Alert::error('Account Deactivated', "Your account was deactivated. Please contact the administrator.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                
+                return redirect()->back();
+            }
 
         } else {
-            Alert::error('Account Deactivated', "Your account was deactivated. Please contact the administrator.")->showConfirmButton('OK', '#2678c5')->autoClose(6000);
+            Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
             
             return redirect()->back();
         }

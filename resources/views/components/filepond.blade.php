@@ -1,3 +1,8 @@
+@props([
+    'baseurl' => false,
+    'filename' => false,
+])
+
 <div 
     wire:ignore
     x-data
@@ -12,10 +17,30 @@
                 revert: (filename, load) => {
                     @this.removeUpload('{{ $attributes['wire:model'] }}', filename, load)
                 },
+                load: (uniqueFileId, load, error, progress, abort, headers) => {
+                    fetch(`{{ route('admin.settings', ['course', $filename]) }}`).then((res) => {
+                        return res.blob();
+                     }).then(load);
+                },
             },
+            @if($baseurl && $filename)
+            files: [
+                {
+                    source: '{{ $filename }}',
+
+                    options: {
+                        type: 'local',
+                    },
+                }
+            ],
+
+            onremovefile: (error, file) => {
+                @this.set('{{ $attributes['wire:model'] }}', null);
+            }
+        @endif
         });
     Pone = FilePond.create($refs.input);
     "
 >
-    <input type="file" x-ref="input">
+    <input type="file" {{ $attributes->only('accept') }} x-ref="input">
 </div>

@@ -21,9 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $guarded = [
-
-    ];
+    protected $guard = 'web';
 
     protected static $recordEvents = [];
 

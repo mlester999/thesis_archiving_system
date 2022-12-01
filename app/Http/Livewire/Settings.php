@@ -103,6 +103,10 @@ class Settings extends Component
         $this->sortField = $field;
     }
 
+    public function updatedUploadImage() {
+        // dd($this->upload_image);
+    }
+
     public function edit(FrontPageSlider $slider) {
 
         $this->resetErrorBag();
@@ -110,6 +114,8 @@ class Settings extends Component
         $this->sliderId = $slider->id;
 
         if($this->editing->isNot($slider)) $this->editing = $slider;
+
+        $this->dispatchBrowserEvent('remove-images');
 
         $this->showEditModal = true;
 

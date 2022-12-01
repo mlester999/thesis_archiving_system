@@ -20,6 +20,20 @@
         href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&family=Rokkitt:wght@600;700&display=swap"
         rel="stylesheet"
       />
+        <!-- Tailwind CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        
+        <!-- Tailwind Config -->
+        <script>
+            tailwind.config = {
+            theme: {
+                fontFamily: {
+                sans: ["Mulish", "sans-serif"],
+                mono: ["Rokkitt", "monospace"],
+                },
+            },
+            };
+        </script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\AdminAuth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rules;
+use Illuminate\Auth\Events\PasswordReset;
 
 class NewPasswordController extends Controller
 {
@@ -20,7 +21,13 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.auth.reset-password', ['request' => $request]);
+        if(Auth::guard('admin')->user()) {
+            return redirect()->route('admin.dashboard');
+        } else if(Auth::user()) {
+            return redirect()->route('home');
+        } else {
+            return view('admin.auth.reset-password', ['request' => $request]);
+        }
     }
 
     /**

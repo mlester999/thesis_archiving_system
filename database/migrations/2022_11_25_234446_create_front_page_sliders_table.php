@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('front_page_sliders', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('img_url');
+            $table->string('img_url')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });

@@ -17,7 +17,13 @@ class ConfirmablePasswordController extends Controller
      */
     public function show()
     {
-        return view('admin.auth.confirm-password');
+        if(Auth::guard('admin')->user()) {
+            return redirect()->route('admin.dashboard');
+        } else if(Auth::user()) {
+            return redirect()->route('home');
+        } else {
+            return view('admin.auth.confirm-password');
+        }
     }
 
     /**

@@ -58,7 +58,7 @@
                             @if (Route::has('login'))
 
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
+                                    <a href="{{ url('/home') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
                                     <a href="{{ route('login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
                                 @endauth

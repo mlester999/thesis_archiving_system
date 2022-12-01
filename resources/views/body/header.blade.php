@@ -5,7 +5,7 @@
       <!-- Flex Container For Logo/Menu -->
       <div class="flex items-center space-x-20">
         <!-- Logo -->
-        <a href="/dashboard"><img class="w-48 sm:w-64 md:w-80" src="{{ asset('images/Logo.png') }}" alt="" /></a>
+        <a href="{{ route('home') }}"><img class="w-48 sm:w-64 md:w-80" src="{{ asset('images/Logo.png') }}" alt="" /></a>
       </div>
 
       @php

@@ -1,14 +1,15 @@
 <?php
 
+use App\Models\User;
+use App\Models\Archive;
+use App\Models\FrontPageSlider;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
-use App\Models\Archive;
-use App\Models\FrontPageSlider;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,13 @@ use Spatie\Permission\Models\Permission;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::guard('admin')->user()) {
+        return redirect()->route('admin.dashboard');
+    } else if(Auth::user()) {
+        return redirect()->route('home');
+    } else {
+        return view('welcome');
+    }
 });
 
 // User Routes
@@ -55,7 +62,8 @@ Route::controller(UserController::class)->group(function () {
 
 });
 
-Route::get('/dashboard', function () {
+// Student Home Interface
+Route::get('/home', function () {
     $sliders = FrontPageSlider::all()->where('status', 1);
 
     return view('home', ["currentPage" => 'home'], compact('sliders'));
