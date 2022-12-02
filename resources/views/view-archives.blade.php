@@ -30,7 +30,8 @@
             <p>{!! $viewArchiveData->members !!}</p>
             <div class="space-x-2 py-6 relative">
                 @if($viewArchiveData->archive_status < 2)
-                <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download File</a>
+                <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</a>
+                <a href="{{ $viewArchiveData->signature_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download E-Signature File</a>
                 @endif
                 
                 @if($viewArchiveData->admin_comment)

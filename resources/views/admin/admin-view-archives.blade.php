@@ -24,9 +24,13 @@
     <p>{!! $viewArchiveData->abstract !!}</p>
     <h3 class="text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
     <p>{!! $viewArchiveData->members !!}</p>
+
+    @if($viewArchiveData->archive_status < 2)
     <div class="space-x-2 py-6">
-        <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download File</a>
+        <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</a>
+        <a href="{{ $viewArchiveData->signature_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white"><i class="fa-solid fa-download mr-1"></i> Download E-Signature File</a>
     </div>
+    @endif
 </div>
 </div>
 </div>

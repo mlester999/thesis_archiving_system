@@ -119,7 +119,7 @@
       @empty
       <tr wire:loading.class="opacity-50" class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
           >
-          <td colspan="7">
+          <td colspan="8">
               <div class="flex items-center justify-center">
               <div>
                   <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No archives found...</p>

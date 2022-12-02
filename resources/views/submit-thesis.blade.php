@@ -9,13 +9,14 @@ if (count($errors) > 0) {
 
 <div class="bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
 <div class="px-4 py-8 sm:px-6">
-<h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Submit Thesis / Capstone</h3>
+    <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Submit Thesis / Capstone</h3>
+    <p class="mt-1 max-w-2xl text-sm text-gray-500">Please submit your thesis file along with its e-signature verification.</p>
 </div>
 <div class="border-t border-gray-200">
 <dl>
 <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('store.thesis') }}" method="post" enctype="multipart/form-data">
 @csrf
-<div class="bg-gray px-4 py-8 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+<div class="bg-gray px-4 pt-8 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <div class="relative px-8">
             <label for="title" class="text-sm font-semibold text-gray-900">Project Title:</label>
         <input type="text" name="title" id="title" placeholder="Project Title" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" autofocus>
@@ -56,8 +57,15 @@ if (count($errors) > 0) {
 
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
-    <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (PDF File only)</label>
-    <input id="document_path" accept="application/pdf" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+        <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (PDF File only)</label>
+        <input id="document_path" accept="application/pdf" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+    </div>
+</div>
+
+<div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+    <div class="relative px-8 space-y-2">
+        <label for="signature_path" class="text-sm font-semibold text-gray-900">E-Signature Document (PDF File only)</label>
+        <input id="signature_path" accept="application/pdf" name="signature_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
     </div>
 </div>
 

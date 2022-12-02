@@ -6,7 +6,7 @@
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>
-        <h1 class="inline-block text-2xl md:text-3xl xl:text-4xl font-bold mb-8">My Archives </h1> 
+        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-8">My Archives </h1> 
       </div>
     </div>
 </form>

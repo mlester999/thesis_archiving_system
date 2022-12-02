@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('members');
             $table->text('document_path');
             $table->string('document_name');
+            $table->text('signature_path');
+            $table->string('signature_name');
             $table->boolean('archive_status')->default(0);
             $table->string('admin_comment')->nullable();
             $table->timestamps();

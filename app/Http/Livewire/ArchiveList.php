@@ -32,6 +32,10 @@ class ArchiveList extends Component
 
     public $documentName;
 
+    public $signaturePath;
+
+    public $signatureName;
+
     public $archiveTitle;
 
     public $viewUser;
@@ -80,6 +84,10 @@ class ArchiveList extends Component
 
         $this->documentName = $this->viewArchive->document_name;
 
+        $this->signaturePath = $this->viewArchive->signature_path;
+
+        $this->signatureName = $this->viewArchive->signature_name;
+
         $this->archiveTitle = "Publish Archive";
     }
 
@@ -95,19 +103,31 @@ class ArchiveList extends Component
 
             $this->currentUser = User::find($this->publishing->user_id);
 
+            // Adding Roles 
             $this->currentUser->removeRole('Seniors (Pending Thesis)');
             $this->currentUser->assignRole('Seniors (Approved Thesis)');
 
             // Moving the uploaded thesis from "For Approval" to "Approved Thesis"
             $fileUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->documentName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
+            $signatureUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->signatureName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->signatureName);
+            
+            // Changing the Thesis File Path
             $this->publishing->document_path = $fileSystem->url('Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);
+            
+            // Changing the E-Signature Path
+            $this->publishing->signature_path = $fileSystem->url('Approved Thesis' . '/' . $this->studentId . '/' .  $this->signatureName);
+            
             if(!$fileSystem->files('For Approval' . '/' . $this->studentId)) {
                 $fileSystem->delete('For Approval' . '/' . $this->studentId);
             }
         } 
         
         if($this->publishing->archive_status == 2) {
+            // Deleting the Thesis File on "For Approval" folder.
             $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->documentName);
+            
+            // Deleting the E-Signature File on "For Approval" folder.
+            $fileSystem->delete('For Approval' . '/' . $this->studentId, $this->signatureName);
         }
 
         $this->publishing->save();

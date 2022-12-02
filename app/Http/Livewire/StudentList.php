@@ -65,7 +65,7 @@ class StudentList extends Component
         'editing.middle_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
         'editing.gender' => 'required',
-        'editing.student_id' => 'required|numeric|unique:users,student_id,' . $this->userId,
+        'editing.student_id' => 'required|numeric|digits:7|unique:users,student_id,' . $this->userId,
         'editing.year_level' => 'required',
         'editing.department_id' => 'required',
         'editing.curriculum_id' => 'required',

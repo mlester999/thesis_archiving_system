@@ -7,7 +7,10 @@
         </x-slot>
 
         <div class="relative max-w-xl flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
-            <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></button>
+            </form>
             <!-- Left Side -->
             <div class="p-6 md:p-16">
             <!-- Top Content -->
@@ -28,7 +31,7 @@
 
                 <div class="flex items-center justify-center mt-8">
                     <x-primary-button>
-                        {{ __('Resend Verification Email') }}
+                        {{ __('Send Verification Email') }}
                     </x-primary-button>
                 </div>
             </div>

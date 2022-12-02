@@ -2,14 +2,18 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use App\Models\Archive;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DeleteRecord extends Component
 {
     public $delete_id;
     public $user_id;
+    public $student_id;
+    public $archive;
 
     protected $listeners = ['deleteConfirmed' => 'deleteArchive'];
 
@@ -19,12 +23,18 @@ class DeleteRecord extends Component
 
     public function deleteConfirmation($id) {
         $this->delete_id = $id;
+
+        $this->user = User::find($this->user_id);
+
         $this->dispatchBrowserEvent('show-delete-confirmation');
     }
 
     public function deleteArchive() {
         $archive = Archive::findorFail($this->delete_id);
         $archive->delete();
+
+        $fileSystem = Storage::disk('google');
+        $fileSystem->delete('For Approval' . '/' . $this->user->student_id);
 
         $this->dispatchBrowserEvent('archiveDeleted');
     }

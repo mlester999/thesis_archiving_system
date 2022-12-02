@@ -8,18 +8,39 @@
 
               if(array_key_exists("student_id", $studentIdError->toArray())) {
                 if($studentIdError['student_id'][0] == "The student id has already been taken.") {
-                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "This student id is already taken. Please try another.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "This student id is already taken. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else if($studentIdError['student_id'][0] == "The student id must be 7 digits.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "This student id must be 7 digits. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                 } else {
                   RealRashid\SweetAlert\Facades\Alert::warning("Fields is required", "You need to fill in the input fields.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                 }
               } else if(array_key_exists("email", $studentIdError->toArray())) {
                 if($studentIdError['email'][0] == "The email has already been taken.") {
-                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "This email address is already taken. Please try another.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "This email address is already taken. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else if($studentIdError['email'][0] == "The email must be a valid email address.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "The email must be a valid email address. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                 } else {
                   RealRashid\SweetAlert\Facades\Alert::warning("Fields is required", "You need to fill in the input fields.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                 }
-              }
-              else {
+              } else if(array_key_exists("first_name", $studentIdError->toArray())) {
+                if($studentIdError['first_name'][0] == "The first name format is invalid.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "The first name must be a string. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Fields is required", "You need to fill in the input fields.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
+              } else if(array_key_exists("middle_name", $studentIdError->toArray())) {
+                if($studentIdError['middle_name'][0] == "The middle name format is invalid.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "The middle name must be a string. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Fields is required", "You need to fill in the input fields.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
+              } else if(array_key_exists("last_name", $studentIdError->toArray())) {
+                if($studentIdError['last_name'][0] == "The last name format is invalid.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Something went wrong", "The last name must be a string. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Fields is required", "You need to fill in the input fields.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
+              } else {
                 RealRashid\SweetAlert\Facades\Alert::warning("Fields is required", "You need to fill in the input fields.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
               }
           }
@@ -28,6 +49,7 @@
 <div class="overflow-hidden bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
     <div class="px-4 py-8 sm:px-6">
       <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Edit Student Information</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">Edit your student information.</p>
     </div>
     <div class="border-t border-gray-200">
       <dl>

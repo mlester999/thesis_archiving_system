@@ -27,7 +27,7 @@
                 @csrf
                 <div class="flex items-center justify-center mt-8">
                     <x-primary-button>
-                        {{ __('Resend Verification Email') }}
+                        {{ __('Send Verification Email') }}
                     </x-primary-button>
                 </div>
             </div>

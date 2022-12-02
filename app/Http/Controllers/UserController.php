@@ -62,6 +62,16 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+        if($request->file('signature_path')->getSize() > 10000000) {
+            Alert::error('Maximum of 10MB only', 'Your file size is too big.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            return redirect()->back();
+        }
+
+        if($request->file('signature_path')->getClientMimeType() !== 'application/pdf') {
+            Alert::error('PDF File Only', 'Your file is an invalid file type.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            return redirect()->back();
+        }
+
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
             'title' => 'required',
@@ -69,14 +79,28 @@ class UserController extends Controller
             'abstract' => 'required',
             'members' => 'required',
             'document_path' => 'required',
+            'signature_path' => 'required',
         ]);
 
+        // Thesis File
         $fileContent = $request->file('document_path');
+
+        // E-Signature File
+        $signatureContent = $request->file('signature_path');
+
+        // Thesis Name
         $fileContentName = $request->file('document_path')->getClientOriginalName();
+        
+        // E-Signature Name
+        $signatureContentName = $request->file('signature_path')->getClientOriginalName();
 
         $fileSystem = Storage::disk('google');
 
+        // Uploading of Thesis File
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $fileContent, $fileContentName);
+        
+        // Uploading of E-Signature File
+        $signatureUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $signatureContent, $signatureContentName);
 
         if($uploadedData == null || $uploadedData->archive_status > 1) {
 
@@ -90,6 +114,8 @@ class UserController extends Controller
             'members' => $request->members,
             'document_path' => $fileSystem->url($fileUploaded),
             'document_name' => $fileContentName,
+            'signature_path' => $fileSystem->url($signatureUploaded),
+            'signature_name' => $signatureContentName,
             'user_id' => $userUploaded->id,
         ]);
             Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
@@ -207,7 +233,7 @@ class UserController extends Controller
             'middle_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
             'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2',
             'gender' => 'required',
-            'student_id' => 'required|integer|unique:users,student_id,' . $id,
+            'student_id' => 'required|integer|digits:7|unique:users,student_id,' . $id,
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
