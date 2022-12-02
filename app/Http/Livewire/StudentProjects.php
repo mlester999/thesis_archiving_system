@@ -88,12 +88,16 @@ class StudentProjects extends Component
         foreach($this->sortedArrKeys as $key => $sorted) {
             $allTopics[] = $sorted;
             $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
-        
+            $availableTopics = [];
+
             if(!$availableArchive[$key]) {
                 $availableTopics[] = $allTopics[$key];
             }
         }
-        $this->topicsAvailability = collect($availableTopics)->take(5);
+
+        if (count($this->sortedArrKeys)) {
+            $this->topicsAvailability = collect($availableTopics)->take(5);
+        } 
 
         $this->logTitle = "Suggested Topics";
 

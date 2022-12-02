@@ -9,9 +9,9 @@
         <h1 class="inline-block text-2xl md:text-3xl font-bold mb-4">List of Projects / Thesis / Capstone</h1> 
 
         <div class="flex flex-row">
-          @if($topicsAvailability)
+          {{-- @if($topicsAvailability) --}}
             <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 mr-4 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-3 mb-3 ml-2 text-sm">Suggested Topics</button>
-          @endif
+          {{-- @endif --}}
             <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 text-md mr-auto">
                 <template x-if="show">
                 <span>Hide </span>
