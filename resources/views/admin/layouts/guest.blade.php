@@ -36,7 +36,7 @@
         </script>
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     </head>
     <body class="overflow-hidden">
        <img src="/images/background.jpg" alt="" class="h-screen brightness-50 absolute z-0">
