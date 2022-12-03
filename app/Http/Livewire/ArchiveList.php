@@ -151,8 +151,8 @@ class ArchiveList extends Component
     {
 
         return view('livewire.archive-list', [
-            'archives' => Archive::join('departments', 'archives.department_id', '=', 'departments.id')
-            ->join('curricula', 'archives.curriculum_id', '=', 'curricula.id')
+            'archives' => Archive::leftJoin('departments', 'archives.department_id', '=', 'departments.id')
+            ->leftJoin('curricula', 'archives.curriculum_id', '=', 'curricula.id')
             ->where('archive_code', 'like', '%'  . $this->search . '%')
             ->orWhere('title', 'like', '%'  . $this->search . '%')
             ->orWhere('year', 'like', '%'  . $this->search . '%')

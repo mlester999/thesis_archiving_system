@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "andreiio/blade-remix-icon": "^1.1",
         "blade-ui-kit/blade-ui-kit": "^0.3.4",
+        "codeat3/blade-eos-icons": "^1.12",
         "codeat3/blade-radix-icons": "^1.5",
         "guzzlehttp/guzzle": "^7.2",
         "haruncpi/laravel-id-generator": "^1.1",

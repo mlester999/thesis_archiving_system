@@ -354,7 +354,7 @@ class UserController extends Controller
     public function DownloadThesis(Request $request, $id) {
         $viewDepartmentData = Archive::find($id);
 
-        activity('Download Thesis')->by($request->user)->event('download thesis')->withProperties(['ip_address' => $request->ip()])->log('Download Thesis Successful');
+        activity('Download Thesis')->by($request->user)->event('download thesis')->withProperties(['ip_address' => $request->ip()])->log($viewDepartmentData->title);
 
         return redirect()->away($viewDepartmentData->document_path);
     }

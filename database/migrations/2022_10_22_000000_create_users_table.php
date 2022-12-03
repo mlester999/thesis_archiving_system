@@ -26,8 +26,8 @@ return new class extends Migration
             $table->boolean('acc_status')->default(1);
             $table->integer('student_id')->unique();
             $table->string('year_level');
-            $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('curriculum_id')->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('department_id')->nullable()->constrained('departments', 'id')->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('curriculum_id')->nullable()->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('set null');
             $table->string('password')->default(Hash::make('00000000'));
             $table->rememberToken();
             $table->timestamps();

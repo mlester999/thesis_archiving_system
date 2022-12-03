@@ -26,44 +26,46 @@
 
             <img src="./images/background.jpg" alt="" class="h-screen brightness-50 absolute z-0">
 
-            <div class="w-full min-h-screen p-6 absolute z-20">
+            <div class="w-full min-h-screen px-6 flex flex-col justify-center items-center absolute z-20">
                 
-                <div class="outline outline-white outline-1 w-11/12 md:w-5/6 2xl:w-5/6 absolute top-1/3 mt-32 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-md bg-white/30 rounded-lg md:p-20 p-10">
+                <div class="outline outline-white outline-1 flex flex-col backdrop-blur-md bg-white/30 rounded-lg md:px-20 md:py-8 py-4 px-8">
+
+                    <img class="w-24 sm:w-24 md:w-32 mx-auto mb-4 mt-1 md:mt-0 md:mb-8" src="{{ asset('images/library_logo.png') }}" alt="" />
                     
-                    <h1 class="font-bold text-white text-lg text-center md:text-xl lg:text-3xl xl:text-4xl tracking-wider mb-4" style="text-shadow: 2px 1px #000;">Theses and Capstone Projects Archiving System</h1>
+                    <h1 class="font-bold text-white text-lg sm:text-2xl text-center md:text-3xl lg:text-4xl tracking-wider" style="text-shadow: 2px 1px #000;">Theses and Capstone Projects Archiving System</h1>
                 
                     {{-- Cards Container --}}
                     <div class="flex flex-wrap justify-center md:mt-10">
         
-                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full m-6 overflow-hidden sm:w-48 md:w-48 lg:w-72 xl:w-72">
+                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full my-4 mx-6 lg:mx-8 overflow-hidden md:w-56 lg:w-72 xl:w-72">
     
-                            <i class="fa-solid fa-user-shield fa-5x font-size-24 h-20 m-6 text-center"></i>
+                            <x-ri-admin-fill class="h-16 md:h-24 mt-4 mb-3" />
             
                             <h2 class="text-center px-2 pb-5">Log in as Admin</h2>  
                             
                             @if (Route::has('admin.login'))
 
                                 @auth('admin')
-                                    <a href="{{ url('admin/dashboard') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
+                                    <a href="{{ url('admin/dashboard') }}" class="bg-green-600 text-white p-2 md:p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
-                                    <a href="{{ route('admin.login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
+                                    <a href="{{ route('admin.login') }}" class="bg-green-600 text-white p-2 md:p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
                                 @endauth
                             @endif
             
                         </div>
             
-                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full m-6 overflow-hidden sm:w-48 md:w-48 lg:w-72 xl:w-72">
+                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full my-4 mx-6 lg:mx-8 overflow-hidden md:w-56 lg:w-72 xl:w-72">
             
-                            <i class="fa-solid fa-user fa-5x font-size-24 h-20 m-6 text-center"></i>
+                            <x-ri-user-3-fill class="h-16 md:h-24 mt-4 mb-3" />
 
                             <h2 class="text-center px-2 pb-5">Log in as Student</h2>  
 
                             @if (Route::has('login'))
 
                                 @auth
-                                    <a href="{{ url('/home') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
+                                    <a href="{{ url('/home') }}" class="bg-green-600 text-white p-2 md:p-3 text-center hover:bg-opacity-90 transition-all duration-150">Dashboard</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="bg-green-600 text-white p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
+                                    <a href="{{ route('login') }}" class="bg-green-600 text-white p-2 md:p-3 text-center hover:bg-opacity-90 transition-all duration-150">Login</a>
                                 @endauth
                             @endif
 

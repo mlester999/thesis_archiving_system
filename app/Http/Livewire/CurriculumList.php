@@ -128,11 +128,21 @@ class CurriculumList extends Component
     public function save() {
         $this->validate();
 
-        $this->editing->save();
+        if(count(Curriculum::where('id', $this->editing->id)->where('curr_name', $this->editing->curr_name)->where('curr_description', $this->editing->curr_description)->get()) == 1 || (count(Curriculum::where('curr_description', $this->editing->curr_description)->get()) == 0 && count(Curriculum::where('curr_name', $this->editing->curr_name)->get()) == 0)) {
 
-        $this->showEditModal = false;
+            $this->editing->save();
 
-        $this->alert('success', $this->curriculumTitle . ' ' . 'Successfully!');
+            $this->showEditModal = false;
+
+            $this->alert('success', $this->curriculumTitle . ' ' . 'Successfully!');
+
+        } else {
+            $this->showEditModal = false;
+
+            $this->alert('error', 'This data is already existing!');
+
+            $this->editing = $this->makeBlankCurriculum();
+        }
     }
 
     public function delete($curriculum) {
@@ -158,7 +168,7 @@ class CurriculumList extends Component
     {
 
         return view('livewire.curriculum-list', [
-            'curricula' => Curriculum::join('departments', 'curricula.department_id', '=', 'departments.id')
+            'curricula' => Curriculum::leftJoin('departments', 'curricula.department_id', '=', 'departments.id')
             ->where('curr_name', 'like', '%'  . $this->search . '%')
             ->orWhere('curr_description', 'like', '%'  . $this->search . '%')
             ->orWhere('dept_description', 'like', '%'  . $this->search . '%')

@@ -2,23 +2,12 @@
     $showEmptyMessage = 0;
 @endphp
 
-<div x-data="{show: false}" class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
-    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-    <div class="flex justify-between">
+<div x-data="{show: false}" class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative px-8 sm:px-4 md:px-2">
+    <label for="search" class="text-sm font-medium text-gray-900 sr-only">Search</label>
+    <div class="flex flex-col justify-between">
       <div class="flex flex-col">
-        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-4">List of Projects / Thesis / Capstone</h1> 
+        <h1 class="inline-block text-xl md:text-2xl lg:text-2xl mb-4 font-bold">List of Projects / Thesis / Capstone</h1> 
 
-        <div class="flex flex-row">
-          {{-- @if($topicsAvailability) --}}
-            <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 mr-4 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-3 mb-3 ml-2 text-sm">Suggested Topics</button>
-          {{-- @endif --}}
-            <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 text-md mr-auto">
-                <template x-if="show">
-                <span>Hide </span>
-                </template>
-                <span>Advanced Search...</span>
-            </button>
-        </div>
         {{-- Show View Modal --}}
         
         <x-dialog-modal wire:model.defer="showViewModal">
@@ -32,19 +21,19 @@
                       <tr>
                         <th
                           scope="col"
-                          class="tracking-widest py-4 px-8 text-xs sm:text-sm font-medium text-slate-800"
+                          class="tracking-widest py-4 px-8 text-sm font-medium text-slate-800"
                         >
                           #
                         </th>
                         <th
                           scope="col"
-                          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                          class="tracking-widest p-4 text-sm font-medium text-slate-800"
                         >
                           Topics
                         </th>
                         <th
                           scope="col"
-                          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                          class="tracking-widest p-4 text-sm font-medium text-slate-800"
                         >
                           Searches
                         </th>
@@ -94,7 +83,7 @@
 
       </div>
 
-      <div class="relative mb-8 max-w-xl ml-auto"> 
+      <div class="relative max-w-xl ml-auto mb-4"> 
             <div x-cloak x-data="{ searchTab: true }" class="relative">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -109,12 +98,12 @@
                         x-on:keydown.tab="searchTab = false"
                         id="search" 
                         name="search" 
-                        class="block p-4 pl-10 pr-20 sm:pr-24 w-56 sm:w-72 md:w-96 lg:w-180 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 placeholder:text-xs sm:placeholder:text-sm" placeholder="Search for Projects..."
+                        class="block py-2 sm:py-3 md:py-4 pl-10 pr-20 sm:pr-24 w-56 sm:w-72 md:w-96 lg:w-180 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 placeholder:text-xs sm:placeholder:text-sm" placeholder="Search for Projects..."
                         wire:model="search"
                         autocomplete="off"
                     />
             
-                        <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-2 sm:px-4 py-2 text-xs sm:text-sm">Search</button> 
+                        <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-1.5 sm:bottom-2 md:bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-2 sm:px-4 py-1 md:py-2 text-xs sm:text-sm">Search</button> 
                 
                 @if(!empty($search))
                     <div x-cloak x-show="searchTab" class="absolute z-50 bg-white w-full rounded-t-none shadow-lg">
@@ -132,6 +121,17 @@
                 @endif  
             </div>
       </div>
+
+      <div class="flex flex-row justify-between md:justify-start">
+        <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-2 md:px-3 mb-3 md:ml-2 text-sm">Suggested Topics</button>
+        <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 ml-2 text-sm lg:text-md">
+            <template x-if="show">
+            <span>Hide </span>
+            </template>
+            <span>Advanced Search...</span>
+        </button>
+    </div>
+
     </div>
 
     <div x-show="show" class="w-full max-h-xl p-4 mt-2 mb-4 rounded-lg bg-slate-200 shadow-sm ring-2 ring-gray-300">
@@ -169,25 +169,25 @@
                           <tr>
                             <th
                               scope="col"
-                              class="py-4 px-8 tracking-widest text-left text-xs sm:text-sm font-medium text-slate-800"
+                              class="py-4 px-8 tracking-widest text-left text-sm font-medium text-slate-800"
                             >
                               Projects
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                              class="tracking-widest p-4 text-sm font-medium text-slate-800"
                             >
                               Department
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                              class="tracking-widest p-4 text-sm font-medium text-slate-800"
                             >
                               Curriculum
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                              class="tracking-widest p-4 text-sm font-medium text-slate-800"
                             >
                               Published at
                             </th>

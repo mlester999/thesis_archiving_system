@@ -247,8 +247,8 @@ class StudentList extends Component
     {
 
         return view('livewire.student-list', [
-            'users' => User::join('departments', 'users.department_id', '=', 'departments.id')
-            ->join('curricula', 'users.curriculum_id', '=', 'curricula.id')
+            'users' => User::leftJoin('departments', 'users.department_id', '=', 'departments.id')
+            ->leftJoin('curricula', 'users.curriculum_id', '=', 'curricula.id')
             ->where('student_id', 'like', '%'  . $this->search . '%')
             ->orWhere('last_name', 'like', '%'  . $this->search . '%')
             ->orWhere('first_name', 'like', '%'  . $this->search . '%')

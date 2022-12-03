@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('archives', function (Blueprint $table) {
             $table->id();
             $table->integer('archive_code')->unique();
-            $table->foreignId('user_id')->constrained('users', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('curriculum_id')->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('research_agenda_id')->constrained('research_agendas', 'id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id')->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('department_id')->nullable()->constrained('departments', 'id')->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('curriculum_id')->nullable()->constrained('curricula', 'id')->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('research_agenda_id')->nullable()->constrained('research_agendas', 'id')->onUpdate('cascade')->onDelete('set null');
             $table->year('year');
             $table->text('title');
             $table->text('abstract');

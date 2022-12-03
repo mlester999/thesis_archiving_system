@@ -8,24 +8,34 @@
 
         @php
             if (count($errors) > 0) {
-                RealRashid\SweetAlert\Facades\Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+                $loginError = collect($errors->default)->sortBy('key');
+                $loginKeys = $loginError->keys();
+
+                if(array_key_exists('username', $loginError->toArray())) {
+                    if(str_contains($loginError['username'][0], 'Too many login attempts.')) {
+                        RealRashid\SweetAlert\Facades\Alert::error("Too Many Login Attempts", "Please wait for 60 seconds.")->showConfirmButton('OK', '#2678c5')->width('420px')->autoClose(5000);
+                    } else {
+                        RealRashid\SweetAlert\Facades\Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('Okay', '#2678c5')->width('420px')->autoClose(5000);
+                    }
+                } else {
+                    RealRashid\SweetAlert\Facades\Alert::error("Login Failed", "These credentials do not match our records.")->showConfirmButton('Okay', '#2678c5')->width('420px')->autoClose(5000);
+                }
             }
-            
         @endphp
 
-        <div class="relative flex flex-col m-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
-        <a href="/" class="absolute left-6 top-5 text-lg"><i class="fa-solid fa-arrow-left fa-xl hover:text-slate-500 duration-200"></i></a>
+        <div class="relative flex flex-col mx-6 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
+        <a href="/" class="absolute left-6 top-4 text-lg"><i class="fa-solid fa-arrow-left fa-lg md:fa-xl hover:text-slate-500 duration-200"></i></a>
         <!-- Left Side -->
-        <div class="p-6 md:p-16">
+        <div class="px-12 pt-6 pb-8 md:px-16 md:py-16">
         <!-- Top Content -->
-        <h2 class="font-sans mb-5 text-4xl font-bold">Log In</h2>
+        <h2 class="font-sans mb-4 md:mb-5 text-4xl font-bold">Log In</h2>
         <p class="max-w-sm font-sans font-light text-gray-600">
           Please log in your admin account.
         </p>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <form method="POST" action="{{ route('admin.login') }}">
+        <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" method="POST" action="{{ route('admin.login') }}">
             @csrf
 
             <!-- Username -->
@@ -53,14 +63,14 @@
                 </label>
             </div>
 
-            <div class="flex flex-col mx-auto items-center justify-between mt-6 mb-2 space-y-6 md:flex-row md:space-y-0">
+            <div class="flex flex-col mx-auto items-left lg:items-center justify-between mt-2 md:mt-6 mb-2 space-y-6 lg:flex-row lg:space-y-0">
                 @if (Route::has('admin.password.request'))
-                    <a class="font-thin mr-24 text-gray-600 hover:text-gray-900" href="{{ route('admin.password.request') }}">
+                    <a class="font-thin mr-32 sm:mr-72 md:ml-0 md:mr-0 lg:ml-0 lg:mr-24 text-blue-500 hover:text-opacity-80 text-sm" href="{{ route('admin.password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
 
-                <x-primary-button>
+                <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' ">
                     {{ __('Enter') }}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +95,7 @@
         <img
           src="/images/library.jpg"
           alt=""
-          class="w-[430px] hidden md:block rounded-r-2xl"
+          class="xl:w-96 md:w-80 hidden md:block rounded-r-2xl"
         />
     </div>
     </x-auth-card>

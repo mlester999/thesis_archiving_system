@@ -117,11 +117,21 @@ class DepartmentList extends Component
     public function save() {
         $this->validate();
 
-        $this->editing->save();
+        if(count(Department::where('id', $this->editing->id)->where('dept_name', $this->editing->dept_name)->where('dept_description', $this->editing->dept_description)->get()) == 1 || (count(Department::where('dept_description', $this->editing->dept_description)->get()) == 0 && count(Department::where('dept_name', $this->editing->dept_name)->get()) == 0)) {
 
-        $this->showEditModal = false;
+            $this->editing->save();
 
-        $this->alert('success', $this->departmentTitle . ' ' . 'Successfully!');
+            $this->showEditModal = false;
+
+            $this->alert('success', $this->departmentTitle . ' ' . 'Successfully!');
+
+        } else {
+            $this->showEditModal = false;
+
+            $this->alert('error', 'This data is already existing!');
+
+            $this->editing = $this->makeBlankDepartment();
+        }
     }
 
     public function delete($department) {

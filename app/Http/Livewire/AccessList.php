@@ -181,8 +181,8 @@ class AccessList extends Component
     public function render()
     {
         return view('livewire.access-list', [
-            'accesses' => Access::join('roles', 'accesses.role_id', '=', 'roles.id')
-                    ->join('permissions', 'accesses.permission_id', '=', 'permissions.id')
+            'accesses' => Access::leftJoin('roles', 'accesses.role_id', '=', 'roles.id')
+                    ->leftJoin('permissions', 'accesses.permission_id', '=', 'permissions.id')
                     ->where('roles.name', 'like', '%'  . $this->search . '%')
                     ->orWhere('permissions.name', 'like', '%'  . $this->search . '%')
                     ->orWhere('description', 'like', '%'  . $this->search . '%')

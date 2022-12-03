@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="rounded-lg shadow-md bg-white md:col-span-2 lg:col-span-3">
+            <div class="rounded-lg shadow-md bg-white md:col-span-2 lg:col-span-3 mb-4">
                 <div class="overflow-x-auto relative sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-100">

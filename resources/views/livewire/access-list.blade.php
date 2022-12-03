@@ -97,11 +97,11 @@
 			</td>
 			<td class="pl-12">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $access->role_name }}
+				{{ $access->role_name ?? 'Role Not Found' }}
 			  </p>
 			</td>
 			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $access->permission_name }}</p>
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $access->permission_name ?? 'Permission Not Found' }}</p>
 			</td>
 			<td class="pl-12">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($access->description, 30, '...') }}</p>

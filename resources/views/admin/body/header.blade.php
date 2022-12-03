@@ -17,10 +17,10 @@ $adminData = App\Models\Admin::find($id);
                     x-on:click="open = !open"
                     class="drop-button text-white py-2 px-2"
                   >
-                    <span class="pr-2"><i class="fa-solid fa-user"></i></span>
+                    <span class="flex items-center gap-2"><x-eos-admin class="h-7" />
                     {{ $adminData->name }}
                     <svg
-                      class="h-3 fill-current inline"
+                      class="h-4 fill-current inline"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                     >
@@ -28,6 +28,7 @@ $adminData = App\Models\Admin::find($id);
                         d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
                       />
                     </svg>
+                  </span>
                   </button>
                   <div
                     x-show="open"

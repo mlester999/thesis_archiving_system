@@ -98,7 +98,7 @@
 			</td>
 			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ \Illuminate\Support\Str::limit($curriculum->dept_description, 30, '...') }}
+				{{ \Illuminate\Support\Str::limit($curriculum->dept_description ?? 'Department Not Found', 30, '...') }}
 			  </p>
 			</td>
 			<td>
