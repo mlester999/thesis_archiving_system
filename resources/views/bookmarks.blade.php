@@ -5,12 +5,12 @@
       $showEmptyMessage = 0;
   @endphp
 
-<div class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
+<div class="rounded-lg max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-8 sm:mx-auto my-8 relative">
   <form action="{{ url('bookmarks') }}" method="get">  
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-    <div class="flex justify-between">
+    <div class="flex flex-col justify-between">
       <div>
-        <h1 class="inline-block text-2xl md:text-3xl font-bold">My Bookmarks</h1>
+        <h1 class="inline-block text-2xl md:text-3xl mb-4 font-bold">My Bookmarks</h1>
       </div>
     <div class="relative mb-8 max-w-xl ml-auto">
       @livewire('title-search-bar', ['currentPage' => $currentPage])
@@ -133,7 +133,7 @@
                             <td colspan="4">
                                 <div class="flex items-center justify-center">
                                 <div>
-                                    <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No bookmarks found...</p>
+                                    <p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No bookmarks found...</p>
                                 </div>
                                 </div>
                             </td>

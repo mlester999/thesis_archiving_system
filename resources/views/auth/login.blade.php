@@ -28,8 +28,8 @@
         <a href="/" class="absolute left-6 top-4 text-lg"><i class="fa-solid fa-arrow-left fa-lg md:fa-xl hover:text-slate-500 duration-200"></i></a>
         <div class="px-12 pt-6 pb-8 md:px-16 md:py-16">
         <!-- Top Content -->
-        <h2 class="font-sans mb-4 md:mb-5 text-4xl font-bold">Log In</h2>
-        <p class="max-w-sm font-sans font-light text-gray-600">
+        <h2 class="font-sans mb-4 md:mb-5 text-3xl md:text-4xl font-bold">Log In</h2>
+        <p class="max-w-sm font-sans font-light text-sm md:text-base text-gray-600">
           Please log in your student account.
         </p>
 
@@ -63,7 +63,7 @@
 
             <div class="flex flex-col mx-auto items-left lg:items-center justify-between mt-2 md:mt-6 mb-2 space-y-6 lg:flex-row lg:space-y-0">
                 @if (Route::has('password.request'))
-                    <a class="font-thin mr-32 sm:mr-72 md:ml-0 md:mr-0 lg:ml-0 lg:mr-24 text-blue-500 hover:text-opacity-80 text-sm" href="{{ route('password.request') }}">
+                    <a class="font-thin sm:mr-72 md:ml-0 md:mr-0 lg:ml-0 lg:mr-24 text-blue-500 hover:text-opacity-80 text-sm" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif

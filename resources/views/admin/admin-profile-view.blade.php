@@ -10,27 +10,27 @@
             <div class="w-full lg:w-3/5 flex flex-col justify-start">
 
                 <ul class="py-4 px-4">
-                    <li class="font-bold text-gray-900">Name:</li>
-                    <li class="font-base text-slate-800 text-xl">{{ $adminData->name }}</li>
+                    <li class="font-bold text-sm md:text-md text-gray-900">Name:</li>
+                    <li class="font-base text-md md:text-lg text-slate-800">{{ $adminData->name }}</li>
                 </ul>
                 <hr class="border-gray-600 ml-4">
 
                 <ul class="py-4 px-4">
-                    <li class="font-bold text-gray-900">Username:</li>
-                    <li class="font-base text-slate-800 text-xl">{{ $adminData->username }}</li>
+                    <li class="font-bold text-sm md:text-md text-gray-900">Username:</li>
+                    <li class="font-base text-md md:text-lg text-slate-800">{{ $adminData->username }}</li>
                 </ul>
 
                 <hr class="border-gray-600 ml-4">
 
                 <ul class="py-4 px-4">
-                    <li class="font-bold text-gray-900">Email:</li>
-                    <li class="font-base text-slate-800 text-xl">{{ $adminData->email }}</li>
+                    <li class="font-bold text-sm md:text-md text-gray-900">Email:</li>
+                    <li class="font-base text-md md:text-lg text-slate-800">{{ $adminData->email }}</li>
                 </ul>
 
                 <hr class="border-gray-600 ml-4">
 
-                <div class="flex justify-center mt-6 mx-24 md:mx-0">
-                <a href="{{ route('admin.edit.profile') }}" class="w-full md:w-auto flex justify-center items-center py-4 px-6 space-x-4 font-sans font-bold text-white rounded-md shadow-lg bg-gradient-to-r from-green-500 to-green-600 shadow-cyan-100 hover:bg-opacity-90 hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Edit Profile</a>
+                <div class="flex justify-center mt-6 mx-6 md:mx-0">
+                <a href="{{ route('admin.edit.profile') }}" class="w-full md:w-auto flex justify-center items-center p-2 space-x-4 font-sans font-bold text-white rounded-md shadow-lg px-8 bg-green-500 shadow-cyan-100 hover:bg-opacity-90 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150 mt-2">Edit Profile</a>
                 </div>
 
             </div>

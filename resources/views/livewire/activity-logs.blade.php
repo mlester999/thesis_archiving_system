@@ -100,7 +100,7 @@
 		  <td colspan="7" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-xl py-8 font-medium leading-none text-gray-400">No activity logs found...</p>
+				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No activity logs found...</p>
 			  </div>
 			</div>
 		  </td>

@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Admin::factory()->create([
             'name' => 'Admin',
-            'email' => 'admin@admin.com',
+            'email' => 'thesisarchivingsystem@gmail.com',
             'username' => 'admin',
-            'password' => bcrypt('00000000'),
+            'password' => bcrypt('pnclibrary'),
             'acc_status' => '1',
             'role_id' => '1',
             'created_at' => now(),

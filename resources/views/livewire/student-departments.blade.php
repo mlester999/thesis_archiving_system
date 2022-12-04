@@ -2,7 +2,7 @@
     $showEmptyMessage = 0;
 @endphp
 
-<div x-data="{show: false}" class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
+<div x-data="{show: false}" class="rounded-lg max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative px-8 sm:px-4 md:px-2">
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex  flex-col justify-between">
       <div class="flex flex-col">
@@ -21,19 +21,19 @@
                       <tr>
                         <th
                           scope="col"
-                          class="tracking-widest py-4 px-8 text-sm font-medium text-slate-800"
+                          class="tracking-widest py-4 px-8 text-xs sm:text-sm font-medium text-slate-800"
                         >
                           #
                         </th>
                         <th
                           scope="col"
-                          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+                          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                         >
                           Topics
                         </th>
                         <th
                           scope="col"
-                          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+                          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                         >
                           Searches
                         </th>
@@ -46,26 +46,26 @@
                         wire:loading.class="opacity-50"
                         class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                     >
-                    <td class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800">
+                    <td class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800">
                         <p class="text-md font-medium leading-none text-gray-800">{{ $key + 1 }}</p>
                     </td>
-                      <td class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800">
+                      <td class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800">
                         <p class="text-md font-medium leading-none text-gray-800">{{ $topicsAvailability[$key] }}</p>
                       </td>
-                      <td class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800">
-                          <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$topicsAvailability[$key]] }} {{$sortedArr[$topicsAvailability[$key]] == 1 ? ' student looking for this topic.' : ' students looking for this topic.'}}</p>
+                      <td class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800">
+                          <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$topicsAvailability[$key]] }} {{$sortedArr[$topicsAvailability[$key]] == 1 ? ' student search for this.' : ' students searches for this.'}}</p>
                         </td>
                     </tr>
           
                     @empty
                     <tr
                     wire:loading.class="opacity-50"
-                    class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+                    class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-xs sm:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
                   >
                     <td colspan="7" class="pl-8">
                       <div class="flex items-center justify-center">
                         <div>
-                          <p class="text-xl py-8 font-medium leading-none text-gray-400">No top search found...</p>
+                          <p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No top search found...</p>
                         </div>
                       </div>
                     </td>
@@ -83,7 +83,7 @@
 
       </div>
 
-      <div class="relative max-w-xl ml-auto mb-2"> 
+      <div class="relative max-w-xl ml-auto mb-4"> 
             <div x-cloak x-data="{ searchTab: true }" class="relative">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -123,9 +123,9 @@
       </div>
 
       <div class="flex flex-row justify-between md:justify-start">
-        <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-2 md:px-3 mb-3 md:ml-2 text-sm">Suggested Topics</button>
+        <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="viewSuggestedTopics()" class="text-slate-50 bg-blue-500 hover:bg-opacity-80 duration-150 rounded-full py-2 px-2 md:px-3 mb-3 md:ml-2 text-xs md:text-sm lg:text-md">Suggested Topics</button>
 
-        <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 ml-2 text-sm lg:text-md">
+        <button x-on:click.prevent="show = !show" class="text-blue-500 hover:text-blue-400 duration-150 mb-3 ml-2 text-xs md:text-sm lg:text-md">
             <template x-if="show">
             <span>Hide </span>
             </template>
@@ -134,7 +134,7 @@
     </div>
     </div>
 
-    <div x-show="show" class="w-full max-h-xl p-4 mt-2 mb-4 rounded-lg bg-slate-200 shadow-sm ring-2 ring-gray-300">
+    <div x-cloak x-show="show" class="w-full max-h-xl p-4 mt-2 mb-4 rounded-lg bg-slate-200 shadow-sm ring-2 ring-gray-300">
         <div class="bg-gray px-4 py-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
             <div class="relative px-8 pt-8 sm:pt-0">
                 <label for="year" class="text-sm font-semibold text-gray-600">Year:</label>
@@ -169,25 +169,25 @@
                           <tr>
                             <th
                               scope="col"
-                              class="py-4 px-8 tracking-widest text-left text-sm font-medium text-slate-800"
+                              class="py-4 px-8 tracking-widest text-left text-xs sm:text-sm font-medium text-slate-800"
                             >
                               Projects
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-sm font-medium text-slate-800"
+                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                             >
                               Department
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-sm font-medium text-slate-800"
+                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                             >
                               Curriculum
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-sm font-medium text-slate-800"
+                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
                             >
                               Published at
                             </th>
@@ -202,7 +202,7 @@
                             @endphp
                           <tr wire:loading.class="opacity-50">
                             <td
-                              class="whitespace-nowrap p-3 text-center text-lg font-medium tracking-wider text-slate-800"
+                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
                               <div class="flex items-center">
                                 <div>
@@ -216,7 +216,7 @@
                                   >
                                     <div class="flex items-center gap-3">
                                       <div
-                                        class="text-sm text-slate-800 tracking-[-0.4px]"
+                                        class="text-xs sm:text-sm text-slate-800 tracking-[-0.4px]"
                                       >
                                         By: {{ $archive->user->first_name . " " . $archive->user->middle_name[0] . ". " . $archive->user->last_name }}
                                       </div>
@@ -251,19 +251,19 @@
                             </td>
                     
                             <td
-                              class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
                               {{ $archive->department->dept_name }}
                             </td>
                     
                             <td
-                              class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
                               {{ $archive->curriculum->curr_name }}
                             </td>
                     
                             <td
-                              class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
                               {{ $archive->created_at->format('m/d/Y') }}
                             </td>
@@ -278,7 +278,7 @@
                               <td colspan="4">
                                   <div class="flex items-center justify-center">
                                     <div>
-                                        <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No projects found...</p>
+                                        <p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No projects found...</p>
                                     </div>
                                   </div>
                               </td>

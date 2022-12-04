@@ -14,29 +14,29 @@
         {{-- First Container --}}
         <div class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
             <div class="w-full lg:w-3/5 flex flex-col justify-start">
-                <form action="{{ route('admin.store.profile') }}" method="post">
+                <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('admin.store.profile') }}" method="post">
                     @csrf
 
                 <ul class="py-4 px-4">
-                    <label id="name" class="font-bold text-gray-900">Name:</label>
+                    <label id="name" class="font-bold text-sm md:text-md text-gray-900">Name:</label>
                     <input type="text" name="name" id="name" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="{{ $editAdminData->name }}" autofocus>
                     {{-- <x-input-error :messages="$errors->get('first_name')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="username" class="font-bold text-gray-900">Username:</label>
+                    <label id="username" class="font-bold text-sm md:text-md text-gray-900">Username:</label>
                     <input type="text" name="username" id="username" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="{{ $editAdminData->username }}">
                     {{-- <x-input-error :messages="$errors->get('username')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="email" class="font-bold text-gray-900">Email:</label>
+                    <label id="email" class="font-bold text-sm md:text-md text-gray-900">Email:</label>
                     <input type="text" name="email" id="email" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="{{ $editAdminData->email }}">
                     {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
                 </ul>
 
-                <div class="flex justify-center mt-4 mx-24 md:mx-0">
-                    <x-primary-button class="px-6 py-4">Update Profile</x-primary-button>
+                <div class="flex justify-center mt-4 mx-6 md:mx-0">
+                    <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="mt-2">Update Profile</x-primary-button>
                 </div>
 
             </form>

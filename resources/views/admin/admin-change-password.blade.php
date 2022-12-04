@@ -14,29 +14,32 @@
         {{-- First Container --}}
         <div class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
             <div class="w-full lg:w-3/5 flex flex-col justify-start">
-                <form action="{{ route('admin.update.password') }}" method="post">
+                <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('admin.update.password') }}" method="post">
                     @csrf
 
                 <ul class="py-4 px-4">
-                    <label id="currentPassword" class="font-bold text-gray-900">Current Password:</label>
+                    
+                    <label id="currentPassword" class="font-bold text-sm md:text-md text-gray-900">Current Password:</label>
                     <input type="password" name="currentPassword" id="currentPassword" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="" autofocus>
                     {{-- <x-input-error :messages="$errors->get('currentPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="newPassword" class="font-bold text-gray-900">New Password:</label>
+                    <label id="newPassword" class="font-bold text-sm md:text-md text-gray-900">New Password:</label>
                     <input type="password" name="newPassword" id="newPassword" class="w-full text-black h-10 mt-2 bg-white  rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="">
                     {{-- <x-input-error :messages="$errors->get('newPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="confirmNewPassword" class="font-bold text-gray-900">Confirm New Password:</lab>
+                    <label id="confirmNewPassword" class="font-bold text-sm md:text-md text-gray-900">Confirm New Password:</lab>
                     <input type="password" name="confirmNewPassword" id="confirmNewPassword" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="">
                     {{-- <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" /> --}}
                 </ul>
 
-                <div class="flex justify-center mt-4 mx-24 md:mx-0">
-                    <x-primary-button class="px-3 py-3 md:px-6 md:py-4 text-xs sm:text-sm md:text-base">Change Password</x-primary-button>
+                <div class="flex justify-center mt-4 mx-6 md:mx-0">
+                    <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="mt-2">
+                        Change Password
+                    </x-primary-button>
                 </div>
 
             </form>

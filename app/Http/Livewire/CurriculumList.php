@@ -128,7 +128,16 @@ class CurriculumList extends Component
     public function save() {
         $this->validate();
 
-        if(count(Curriculum::where('id', $this->editing->id)->where('curr_name', $this->editing->curr_name)->where('curr_description', $this->editing->curr_description)->get()) == 1 || (count(Curriculum::where('curr_description', $this->editing->curr_description)->get()) == 0 && count(Curriculum::where('curr_name', $this->editing->curr_name)->get()) == 0)) {
+        if(count(Curriculum::where('id', $this->editing->id)->where('curr_name', $this->editing->curr_name)
+        ->where('curr_description', $this->editing->curr_description)->get()) == 1 || 
+        (count(Curriculum::where('id', $this->editing->id)->where('curr_name', $this->editing->curr_name)
+        ->get()) == 1 && count(Curriculum::where('curr_description', $this->editing->curr_description)
+        ->get()) == 0) ||
+        (count(Curriculum::where('id', $this->editing->id)->where('curr_description', $this->editing->curr_description)
+        ->get()) == 1 && count(Curriculum::where('curr_name', $this->editing->curr_name)
+        ->get()) == 0) ||
+        (count(Curriculum::where('curr_description', $this->editing->curr_description)
+        ->get()) == 0 && count(Curriculum::where('curr_name', $this->editing->curr_name)->get()) == 0)) {
 
             $this->editing->save();
 

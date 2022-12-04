@@ -117,11 +117,30 @@ class ResearchAgendas extends Component
     public function save() {
         $this->validate();
 
-        $this->editing->save();
+        if(count(ResearchAgenda::where('id', $this->editing->id)->where('agenda_name', $this->editing->agenda_name)
+        ->where('agenda_description', $this->editing->agenda_description)->get()) == 1 || 
+        (count(ResearchAgenda::where('id', $this->editing->id)->where('agenda_name', $this->editing->agenda_name)
+        ->get()) == 1 && count(ResearchAgenda::where('agenda_description', $this->editing->agenda_description)
+        ->get()) == 0) ||
+        (count(ResearchAgenda::where('id', $this->editing->id)->where('agenda_description', $this->editing->agenda_description)
+        ->get()) == 1 && count(ResearchAgenda::where('agenda_name', $this->editing->agenda_name)
+        ->get()) == 0) ||
+        (count(ResearchAgenda::where('agenda_description', $this->editing->agenda_description)
+        ->get()) == 0 && count(ResearchAgenda::where('agenda_name', $this->editing->agenda_name)->get()) == 0)) {
 
-        $this->showEditModal = false;
+            $this->editing->save();
 
-        $this->alert('success', $this->agendaTitle . ' ' . 'Successfully!');
+            $this->showEditModal = false;
+
+            $this->alert('success', $this->agendaTitle . ' ' . 'Successfully!');
+
+        } else {
+            $this->showEditModal = false;
+
+            $this->alert('error', 'This data is already existing!');
+
+            $this->editing = $this->makeBlankAgenda();
+        }
     }
 
     public function delete($agenda) {

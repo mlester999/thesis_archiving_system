@@ -46,9 +46,9 @@
           }
         @endphp
 
-<div class="overflow-hidden bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
+<div class="overflow-hidden bg-white shadow-xl rounded-lg max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-8 sm:mx-auto my-8 relative">
     <div class="px-4 py-8 sm:px-6">
-      <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Edit Student Information</h3>
+      <h3 class="text-xl md:text-2xl font-bold leading-6 text-gray-900 inline-block">Edit Student Information</h3>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">Edit your student information.</p>
     </div>
     <div class="border-t border-gray-200">
@@ -63,7 +63,7 @@
             <dt class="text-sm font-medium text-gray-500">Middle Name</dt>
             <input type="text" name="middle_name" id="middle_name" class="mb-8 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->middle_name }}">
             <dt class="text-sm font-medium text-gray-500">Last Name</dt>
-            <input type="text" name="last_name" id="last_name" class="mb-16 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->last_name }}">
+            <input type="text" name="last_name" id="last_name" class="mb-8 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->last_name }}">
           </div>
 
           <div class="px-8 sm:pt-8 relative">
@@ -86,12 +86,12 @@
             <dt class="text-sm font-medium text-gray-500">Student Id</dt>
             <input type="text" name="student_id" id="student_id" class="mb-8 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->student_id }}">
             <dt class="text-sm font-medium text-gray-500">Email Address</dt>
-            <input type="text" name="email" id="email" class="mb-16 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->email }}">
+            <input type="text" name="email" id="email" class="mb-8 w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" value="{{ $editUserData->email }}">
           </div>
         </div>
-        <div class="bg-white px-4 mx-6 pb-8 grid grid-cols-2 gap-4 sm:px-6 sm:float-right">
-          <a href="{{ route('profile') }}" x-bind:class="buttonDisabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer' " class="w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md px-8 p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
-          <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="mx-2 py-2">Update</x-primary-button>
+        <div class="bg-white px-4 mx-8 pb-8 grid grid-cols-2 gap-4 sm:px-6 sm:float-right">
+          <a href="{{ route('profile') }}" x-bind:class="buttonDisabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer' " class="text-sm md:text-base w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md px-8 p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
+          <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="text-sm md:text-base">Update</x-primary-button>
         </div>
         </form>
       </dl>

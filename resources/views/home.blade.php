@@ -5,13 +5,13 @@
         @forelse($sliders as $slider)
         <div class="slide">
             <img class="brightness-50" src="{{ asset('home-sliders/'.$slider->img_url) }}" alt="Slider Image" />
-            <h1 class="absolute font-bold mt-40 text-white text-3xl text-center md:text-5xl lg:text-6xl xl:text-7xl tracking-wider mb-4 sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-4xl" style="text-shadow: 2px 1px #000; line-height: 80px;">{{ $slider->title }}</h1>
+            <h1 class="absolute font-bold max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl mt-40 text-white text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wider leading-1 mb-4" style="text-shadow: 2px 1px #000;">{{ $slider->title }}</h1>
         </div>
 
         @empty
         <div class="slide">
             <img class="brightness-50" src="{{ asset('images/pnc1.jpg') }}" alt="Photo 1" />
-            <h1 class="absolute font-bold mt-40 text-white text-lg text-center md:text-xl lg:text-3xl xl:text-7xl tracking-wider mb-4" style="text-shadow: 2px 1px #000; line-height: 80px;">Theses and Capstone <span class="block">Projects Archiving</span> System</h1>
+            <h1 class="absolute font-bold max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-4xl mt-40 text-white text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wider leading-1 mb-4" style="text-shadow: 2px 1px #000;">Theses and Capstone <span class="block">Projects Archiving</span> System</h1>
         </div>
         @endforelse
       <button class="slider__btn slider__btn--left"><i class="fa-solid fa-chevron-left fa-sm"></i></button>

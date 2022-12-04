@@ -52,24 +52,30 @@ class UserController extends Controller
         $agendaData = ResearchAgenda::all()->where('agenda_name', $request->research_agenda)->first();
         $uploadedData = Archive::all()->where('user_id', $userUploaded->id)->last();
 
-        if($request->file('document_path')->getSize() > 10000000) {
-            Alert::error('Maximum of 10MB only', 'Your file size is too big.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
-            return redirect()->back();
-        }
+        if(!empty($request->file('document_path'))) {
 
-        if($request->file('document_path')->getClientMimeType() !== 'application/pdf') {
-            Alert::error('PDF File Only', 'Your file is an invalid file type.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
-            return redirect()->back();
-        }
+            if($request->file('document_path')->getSize() > 10000000) {
+                Alert::error('Maximum of 10MB only', 'Your file size is too big.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
 
-        if($request->file('signature_path')->getSize() > 10000000) {
-            Alert::error('Maximum of 10MB only', 'Your file size is too big.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
-            return redirect()->back();
-        }
+            if($request->file('document_path')->getClientMimeType() !== 'application/pdf') {
+                Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+        }   
 
-        if($request->file('signature_path')->getClientMimeType() !== 'application/pdf') {
-            Alert::error('PDF File Only', 'Your file is an invalid file type.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
-            return redirect()->back();
+        if(!empty($request->file('signature_path'))) {
+
+            if($request->file('signature_path')->getSize() > 10000000) {
+                Alert::error('Maximum of 10MB only', 'Your file size is too big.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+
+            if($request->file('signature_path')->getClientMimeType() !== 'application/pdf') {
+                Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
         }
 
         $validatedInputs = $request->validate([
@@ -118,11 +124,11 @@ class UserController extends Controller
             'signature_name' => $signatureContentName,
             'user_id' => $userUploaded->id,
         ]);
-            Alert::success('Submit Successfully', 'Your file has been submitted.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            Alert::success('Submit Successfully', 'Your file has been submitted.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
             
             activity('Submit Thesis')->by($request->user)->event('submit thesis')->withProperties(['ip_address' => $request->ip()])->log('Submit Thesis Successful');
         } else {
-            Alert::error('You have a pending thesis already', 'Please wait for the feedback.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            Alert::error('You have a pending thesis already', 'Please wait for the feedback.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
         }
 
         return redirect()->route('archives');
@@ -188,6 +194,32 @@ class UserController extends Controller
 
         $agendaData = ResearchAgenda::all()->where('agenda_name', $request->research_agenda)->first();
 
+        if(!empty($request->file('document_path'))) {
+
+            if($request->file('document_path')->getSize() > 10000000) {
+                Alert::error('Maximum of 10MB only', 'Your file size is too big.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+
+            if($request->file('document_path')->getClientMimeType() !== 'application/pdf') {
+                Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+        }
+
+        if(!empty($request->file('signature_path'))) {
+
+            if($request->file('signature_path')->getSize() > 10000000) {
+                Alert::error('Maximum of 10MB only', 'Your file size is too big.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+
+            if($request->file('signature_path')->getClientMimeType() !== 'application/pdf') {
+                Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+        }
+
         $validatedInputs = $request->validate([
             'year' => 'required|integer',
             'title' => 'required',
@@ -195,16 +227,32 @@ class UserController extends Controller
             'abstract' => 'required',
             'members' => 'required',
             'document_path' => 'required',
+            'signature_path' => 'required',
         ]);
 
+        // Thesis File
         $fileContent = $request->file('document_path');
+
+        // E-Signature File
+        $signatureContent = $request->file('signature_path');
+
+        // Thesis Name
         $fileContentName = $request->file('document_path')->getClientOriginalName();
+        
+        // E-Signature Name
+        $signatureContentName = $request->file('signature_path')->getClientOriginalName();
 
         $fileSystem = Storage::disk('google');
 
         $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->document_name);
 
+        $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->signature_name);
+
+        // Uploading of Thesis File
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userData->student_id, $fileContent, $fileContentName);
+    
+        // Uploading of E-Signature File
+        $signatureUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userData->student_id, $signatureContent, $signatureContentName);
 
         $storeArchiveData->year = $request->year;
         $storeArchiveData->title = $request->title;
@@ -213,14 +261,16 @@ class UserController extends Controller
         $storeArchiveData->members = $request->members;
         $storeArchiveData->document_path = $fileSystem->url($fileUploaded);
         $storeArchiveData->document_name = $fileContentName;
+        $storeArchiveData->signature_path = $fileSystem->url($signatureUploaded);
+        $storeArchiveData->signature_name = $signatureContentName;
 
         $storeArchiveData->save();
 
-        Alert::success('Updated Successfully', 'Your archive has been updated.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+        Alert::success('Updated Successfully', 'Your thesis has been updated.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
         activity('Update Archive')->by($request->user)->event('update archive')->withProperties(['ip_address' => $request->ip()])->log('Update Archive Successful');
 
-        return redirect()->route('view.archives', $storeArchiveData->id);
+        return redirect()->route('archives');
     }
     
 
@@ -251,7 +301,7 @@ class UserController extends Controller
 
         $storeUserData->save();
 
-        Alert::success('Updated Successfully', 'Your profile has been updated.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+        Alert::success('Updated Successfully', 'Your profile has been updated.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
         activity('Update Profile')->by($request->user)->event('update profile')->withProperties(['ip_address' => $request->ip()])->log('Update Profile Successful');
 
@@ -282,7 +332,7 @@ class UserController extends Controller
 
             $user->save();
 
-            Alert::success('Updated Successfully', 'Your password has been updated.')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            Alert::success('Updated Successfully', 'Your password has been updated.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
             activity('Update Password')->by($request->user)->event('update password')->withProperties(['ip_address' => $request->ip()])->log('Update Password Successful');
 
@@ -290,7 +340,7 @@ class UserController extends Controller
 
         } else {
 
-            Alert::error('Update Password Failed', "Password do not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            Alert::error('Update Password Failed', "Password do not match. Please try again.")->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
             return redirect()->back();
 

@@ -1,12 +1,12 @@
 @extends('master')
 @section('user')
 
-<div class="rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
+<div class="rounded-lg max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-8 sm:mx-auto my-8 relative">
   <form action="{{ url('department', strtolower($currentPage)) }}" method="get">   
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="flex justify-between">
       <div>
-        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-8">My Archives </h1> 
+        <h1 class="inline-block text-2xl md:text-3xl font-bold mb-4">My Archives </h1> 
       </div>
     </div>
 </form>

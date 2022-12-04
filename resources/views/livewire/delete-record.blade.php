@@ -3,49 +3,49 @@
       <tr>
         <th
           scope="col"
-          class="p-4 tracking-widest text-sm font-medium text-slate-800"
+          class="p-4 tracking-widest text-xs sm:text-sm font-medium text-slate-800"
         >
           Archive Code
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
         >
           Project Title
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
         >
           Project Year
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
         >
           Research Agenda
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
         >
           Department
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
         >
           Curriculum
         </th>
         <th
           scope="col"
-          class="tracking-widest p-4 text-sm font-medium text-slate-800"
+          class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
         >
           Status
         </th>
         <th
           scope="col"
-          class="tracking-widest p-8 text-sm font-medium text-slate-800"
+          class="tracking-widest p-8 text-xs sm:text-sm font-medium text-slate-800"
         >
           Action
         </th>
@@ -55,43 +55,43 @@
       @forelse($archives as $archive)
       <tr wire:loading.class="opacity-50">
         <td
-          class="whitespace-nowrap px-3 py-12 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap px-3 py-12 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->archive_code }}
         </td>
 
         <td
-          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ \Illuminate\Support\Str::limit($archive->title, 40, '...') }}
         </td>
 
         <td
-          class="whitespace-nowrap px-3 py-12 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap px-3 py-12 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->year }}
         </td>
 
         <td
-          class="whitespace-nowrap px-3 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap px-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->research_agenda->agenda_name }}
         </td>
 
         <td
-          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->department->dept_name }}
         </td>
 
         <td
-          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->curriculum->curr_name }}
         </td>
 
         <td
-          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
         @if($archive->archive_status == 1)
         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
@@ -108,7 +108,7 @@
         @endif
         </td>
         <td
-          class="whitespace-nowrap p-3 text-center text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           <a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed pointer-events-none" href="{{ route('view.archives', $archive->archive_code) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
           @if($archive->archive_status != 1)
@@ -122,7 +122,7 @@
           <td colspan="8">
               <div class="flex items-center justify-center">
               <div>
-                  <p class="text-lg sm:text-xl py-8 font-medium leading-none text-gray-400">No archives found...</p>
+                  <p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No archives found...</p>
               </div>
               </div>
           </td>

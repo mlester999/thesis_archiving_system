@@ -12,12 +12,12 @@
             x-on:keydown.tab="searchTab = false"
             id="search" 
             name="search" 
-            class="block p-4 pl-10 pr-20 sm:pr-24 w-56 sm:w-72 md:w-96 lg:w-180 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 placeholder:text-xs sm:placeholder:text-sm" placeholder="Search for Projects..."
+            class="block py-2 sm:py-3 md:py-4 pl-10 pr-20 sm:pr-24 w-56 sm:w-72 md:w-96 lg:w-180 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 placeholder:text-xs sm:placeholder:text-sm" placeholder="Search for Projects..."
             wire:model="query"
             autocomplete="off"
         />
 
-            <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-2 sm:px-4 py-2 text-xs sm:text-sm">Search</button> 
+        <button type="submit" class="text-white duration-200 absolute right-2.5 bottom-1.5 sm:bottom-2 md:bottom-2.5 bg-blue-600 hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-2 sm:px-4 py-1 md:py-2 text-xs sm:text-sm">Search</button> 
     
     @if(!empty($query))
         <div x-cloak x-show="searchTab" class="absolute z-50 bg-white w-full rounded-t-none shadow-lg">

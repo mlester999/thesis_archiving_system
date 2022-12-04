@@ -1,7 +1,7 @@
 @extends('master')
 @section('user')
 
-<div class="bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto my-8 relative">
+<div class="bg-white shadow-xl rounded-lg max-w-xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-8 sm:mx-auto my-8 relative">
     <div class="px-4 py-5 sm:px-6 flex flex-col md:flex-row justify-between">
       <div>
         <h3 class="text-xl md:text-2xl lg:text-3xl font-bold md:leading-6 text-gray-900 inline-block">Student Information</h3>

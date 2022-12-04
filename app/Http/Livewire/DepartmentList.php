@@ -117,7 +117,16 @@ class DepartmentList extends Component
     public function save() {
         $this->validate();
 
-        if(count(Department::where('id', $this->editing->id)->where('dept_name', $this->editing->dept_name)->where('dept_description', $this->editing->dept_description)->get()) == 1 || (count(Department::where('dept_description', $this->editing->dept_description)->get()) == 0 && count(Department::where('dept_name', $this->editing->dept_name)->get()) == 0)) {
+        if(count(Department::where('id', $this->editing->id)->where('dept_name', $this->editing->dept_name)
+        ->where('dept_description', $this->editing->dept_description)->get()) == 1 || 
+        (count(Department::where('id', $this->editing->id)->where('dept_name', $this->editing->dept_name)
+        ->get()) == 1 && count(Department::where('dept_description', $this->editing->dept_description)
+        ->get()) == 0) ||
+        (count(Department::where('id', $this->editing->id)->where('dept_description', $this->editing->dept_description)
+        ->get()) == 1 && count(Department::where('dept_name', $this->editing->dept_name)
+        ->get()) == 0) ||
+        (count(Department::where('dept_description', $this->editing->dept_description)
+        ->get()) == 0 && count(Department::where('dept_name', $this->editing->dept_name)->get()) == 0)) {
 
             $this->editing->save();
 

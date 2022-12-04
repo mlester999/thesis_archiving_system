@@ -1,7 +1,7 @@
 @extends('master')
 @section('user')
 
-<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-auto my-8 relative">
+<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg max-w-6xl mx-8 sm:mx-auto my-8 relative">
     <div class="px-4 pt-5 sm:px-8">
         <p class="py-2 text-lg font-medium flex justify-between">
             Archive Code: {{ $viewProjectData->archive_code }}

@@ -36,7 +36,6 @@ class PermissionSeeder extends Seeder
             'Edit Submitted Thesis',
             'Delete Submitted Thesis',
             'Submit Thesis',
-            'Approved Submitted Thesis',
         ];
 
         foreach ($userPermissions as $permission)   {

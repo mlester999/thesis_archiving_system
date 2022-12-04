@@ -7,7 +7,7 @@ if (count($errors) > 0) {
 }
 @endphp
 
-<div class="bg-white shadow-xl rounded-lg max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto my-8 relative">
+<div class="bg-white shadow-xl rounded-lg max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-8 sm:mx-auto my-8 relative">
 <div class="px-4 py-8 sm:px-6">
     <h3 class="text-2xl font-bold leading-6 text-gray-900 inline-block">Submit Thesis / Capstone</h3>
     <p class="mt-1 max-w-2xl text-sm text-gray-500">Please submit your thesis file along with its e-signature verification.</p>
@@ -71,7 +71,7 @@ if (count($errors) > 0) {
 
 <div class="bg-white px-4 mx-6 xl:mx-32 py-6 grid grid-cols-2 gap-4 sm:px-6">
 <a href="{{ route('home') }}" x-bind:class="buttonDisabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer' " class="text-xs sm:text-sm md:text-base w-full md:w-auto flex justify-center items-center space-x-4 font-sans font-bold text-slate-800 rounded-md p-2 border-gray-700 bg-transparent shadow-cyan-100 hover:bg-slate-50 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">Cancel</a>
-<x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="mx-2 py-3 text-xs sm:text-sm md:text-base">Submit Thesis</x-primary-button>
+<x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="text-xs sm:text-sm md:text-base">Submit</x-primary-button>
 </div>
 </form>
 </dl>

@@ -46,6 +46,8 @@ class ReportLogs extends Component
     public function mount() {
         $this->searches = [];
 
+        $this->topicsAvailability = [];
+
         $this->activityTopics = Activity::where('event', 'search')->get();
 
         $this->topics = $this->activityTopics->unique('description')->pluck('description')->toArray();
@@ -66,12 +68,15 @@ class ReportLogs extends Component
         foreach($this->sortedArrKeys as $key => $sorted) {
             $allTopics[] = $sorted;
             $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
-        
+
             if($availableArchive[$key]) {
                 $availableTopics[] = $allTopics[$key];
             }
         }
-        $this->topicsAvailability = collect($availableTopics);
+
+        if (!empty($availableTopics)) {
+            $this->topicsAvailability = collect($availableTopics)->take(5);
+        }
 
         $this->showViewModal = true;
 
@@ -115,23 +120,27 @@ class ReportLogs extends Component
                             foreach($this->topics as $key => $topic) {
                                 $allTopics[] = $topic;
                                 $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
-                            
+
                                 if($availableArchive[$key]) {
                                     $availableTopics[] = $allTopics[$key];
                                 }
                             }
-                            $available->whereIn('description', $availableTopics);
+                            if(!empty($availableTopics)) {
+                                $available->whereIn('description', $availableTopics);
+                            }
                         })
                         ->when($this->showTopics == 'Not Available Topics', function ($notAvailable) {
                             foreach($this->topics as $key => $topic) {
                                 $allTopics[] = $topic;
                                 $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
-                            
+
                                 if(!$availableArchive[$key]) {
                                     $notAvailableTopics[] = $allTopics[$key];
                                 }
                             }
+                            if(!empty($notAvailableTopics)) {
                             $notAvailable->whereIn('description', $notAvailableTopics);
+                            }
                         });
                     })
                     ->whereNot(function ($query) {

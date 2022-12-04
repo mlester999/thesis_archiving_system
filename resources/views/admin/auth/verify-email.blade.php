@@ -29,7 +29,7 @@
             <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" method="POST" action="{{ route('admin.verification.send') }}">
                 @csrf
                 <div class="flex items-center justify-center mt-8">
-                    <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' " class="mt-4">
+                    <x-primary-button x-bind:disabled="buttonDisabled" x-bind:class="buttonDisabled ? 'cursor-not-allowed' : 'cursor-pointer' ">
                         {{ __('Send Verification Email') }}
                     </x-primary-button>
                 </div>

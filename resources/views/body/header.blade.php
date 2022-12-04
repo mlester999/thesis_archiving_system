@@ -19,9 +19,9 @@
           </div>
         </div>
 
-        <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 h-full w-full z-10 bg-gray-900 bg-opacity-60" x-transition.opacity></div>
+        <div x-show="sidebarOpen" @click="sidebarOpen = false; departmentOpen = false" class="fixed inset-0 h-full w-full z-20 bg-gray-900 bg-opacity-60" x-transition.opacity></div>
       
-        <div x-cloak wire:ignore :class="{'w-56': sidebarOpen, 'w-0': !sidebarOpen}" class="fixed top-0 bottom-0 left-0 z-30 block w-56 h-full min-h-screen overflow-y-auto text-gray-400 transition-all duration-300 ease-in-out bg-slate-50 shadow-lg overflow-x-hidden">
+        <div x-cloak wire:ignore :class="{'w-56': sidebarOpen, 'w-0': !sidebarOpen}" class="fixed top-0 bottom-0 left-0 z-30 block w-56 h-screen min-h-screen overflow-y-auto text-gray-400 transition-all duration-300 ease-in-out bg-slate-50 shadow-lg overflow-x-hidden">
           <div class="flex flex-col items-stretch justify-between h-full">
             <div class="flex flex-col flex-shrink-0 w-full">
               <div class="flex items-center justify-center w-full py-5 text-center" :class="{'opacity-1': sidebarOpen, 'opacity-0': !sidebarOpen}">
@@ -35,6 +35,7 @@
                     <span class="mx-4">Home</span>
                   </a>
       
+                  @can('View Thesis')
                   <a class="flex justify-start items-center px-4 py-3 text-gray-700 hover:bg-green-600 duration-150 hover:text-gray-100 focus:outline-none" href="{{ route('projects') }}">
                     <x-ri-file-list-3-fill class="h-5" />
                     <span class="mx-4">Projects</span>
@@ -66,10 +67,14 @@
                     @endforeach
                   </div>
 
+                  @endcan
+
+                  @can('View Submission of Thesis')
                   <a class="flex justify-start items-center px-4 py-3 text-gray-700 hover:bg-green-600 duration-150 hover:text-gray-100 focus:outline-none" href="{{ route('submit') }}">
                     <x-ri-file-upload-fill class="h-5" />
                     <span class="mx-4">Submit Thesis</span>
                   </a>
+                  @endcan
 
                   <a class="flex justify-start items-center px-4 py-3 text-gray-700 hover:bg-green-600 duration-150 hover:text-gray-100 focus:outline-none" href="{{ route('about') }}">
                     <x-ri-information-fill class="h-5" />
