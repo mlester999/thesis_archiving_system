@@ -34,7 +34,6 @@ Route::get('/', function () {
 
 // User Routes
 Route::controller(UserController::class)->group(function () {
-    Route::get('/logout', 'destroy')->middleware(['auth', 'verified'])->name('logout');
     Route::get('/projects', 'Projects')->middleware(['auth', 'verified', 'permission:View Thesis'])->name('projects');
 
     Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
@@ -73,7 +72,6 @@ require __DIR__.'/auth.php';
 
 // Admin Routes
 Route::controller(AdminController::class)->group(function () {
-    Route::get('/admin/logout', 'destroy')->middleware(['auth:admin', 'custom_verify'])->name('admin.logout');
     Route::get('/admin/profile', 'Profile')->middleware(['auth:admin', 'custom_verify'])->name('admin.profile');
     Route::get('/admin/edit/profile', 'EditProfile')->middleware(['auth:admin', 'custom_verify'])->name('admin.edit.profile');
     Route::post('/admin/store/profile', 'StoreProfile')->middleware(['auth:admin', 'custom_verify'])->name('admin.store.profile');

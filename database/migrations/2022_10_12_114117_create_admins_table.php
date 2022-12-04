@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('acc_status')->default(0);
             $table->boolean('role_id')->default(0);
             $table->string('username')->unique();
-            $table->string('password')->default(Hash::make('00000000'));
+            $table->string('password')->default(Hash::make('pnclibrary'));
             $table->rememberToken();
             $table->timestamps();
         });

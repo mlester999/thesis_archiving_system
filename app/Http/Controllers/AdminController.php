@@ -12,16 +12,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
-    public function destroy(Request $request)
-    {
-        Auth::guard('admin')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
-    }
 
     public function Profile() {
         $id = Auth::guard('admin')->user()->id;
@@ -42,7 +32,7 @@ class AdminController extends Controller
         $storeAdminData = Admin::find($id);
 
         $validatedInputs = $request->validate([
-            'name' => 'required|regex:/^[\pL\s]+$/u|min:2',
+            'name' => 'required|min:2',
             'username' => 'required|unique:admins,username,' . $id,
             'email' => 'required|email|unique:admins,email,' . $id,
         ]);

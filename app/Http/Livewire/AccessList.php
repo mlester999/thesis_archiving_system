@@ -146,6 +146,12 @@ class AccessList extends Component
 
             $this->editing->save();
 
+            $this->role = null;
+
+            $this->permission = null;
+            
+            $this->oldAccess = null;
+
             $this->showEditModal = false;
 
             $this->alert('success', $this->accessTitle . ' ' . 'Successfully!');
