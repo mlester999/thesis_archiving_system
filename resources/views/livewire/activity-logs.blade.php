@@ -10,7 +10,16 @@
 	  </h2>
 	</div>
 	  <div class="lg:flex lg:items-center lg:justify-end">
-		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
+		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0 space-x-4">
+			<x-dropdown-list label="Bulk Actions">
+				<x-dropdown.item @click="open = false" type="button" wire:click="exportSelected" class="flex items-center space-x-2">
+					<x-icon.download class="text-cool-gray-400"/> <span>Export</span>
+				</x-dropdown.item>
+
+				<x-dropdown.item @click="open = false" type="button" wire:click="beforeDeleteSelected" class="flex items-center space-x-2">
+					<x-icon.trash class="text-cool-gray-400"/> <span>Delete</span>
+				</x-dropdown.item>
+			</x-dropdown-list>
 			<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
 				<option value="5" selected>Show 5 Results</option>
 				<option value="25">Show 25 Results</option>
@@ -35,7 +44,10 @@
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 		  >
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Log Name 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal"> 
+				<x-input.checkbox wire:model="selectPage" />
+			</th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Log Name 
 				<span wire:click="sortBy('log_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'log_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
@@ -64,13 +76,35 @@
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
+			@if ($selectPage)
+			<x-table.row
+			wire:key="row-message"
+			class="bg-gray-200"
+		  >
+				<x-table.cell colspan="8">
+					@unless ($selectAll)
+					<div>
+						<span>You selected <strong>{{ $activities->count() }}</strong> activity logs, do you want to select all <strong>{{ $activities->total() }}</strong>?</span>
+						<x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-button.link>
+					</div>
+					@else
+					<span>You are currently selecting all <strong>{{ $activities->total() }}</strong> activity logs.</span>
+					@endif
+				</x-table.cell>
+			</x-table.row>
+			@endif
+
 			@forelse($activities as $key => $activity)
 		  <tr
 		  	wire:loading.class="opacity-50"
+			wire:key="row-{{ $activity->id }}"
 			tabindex="{{ $activity->id }}"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-12">
+		  <td class="pl-12">
+			<x-input.checkbox wire:model="selected" value="{{ $activity->id }}" />
+		  </td>
+			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">
 				{{ $activity->log_name }}
 			  </p>
@@ -97,7 +131,7 @@
 		  wire:loading.class="opacity-50"
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
-		  <td colspan="7" class="pl-8">
+		  <td colspan="8" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
 				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No activity logs found...</p>
@@ -131,7 +165,26 @@
 				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
 			  </x-slot>
 			  </x-confirmation-modal>
-		  </form>		
+		  </form>	
+		  
+	{{-- Show Bulk Delete Modal --}}
+	  <form wire:submit.prevent="deleteSelected">
+
+		<x-confirmation-modal wire:model.defer="showDeleteModal">
+		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $logTitle }}</x-slot>
+	  
+		  <x-slot name="content">
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete these activity logs?</h1> 
+			<p class="text-center mt-4 mb-16 text-sm lg:text-base">This action is irreversible.</p> 
+		  </x-slot>
+		  
+			  <x-slot name="footer">
+				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
+			  </x-slot>
+			  </x-confirmation-modal>
+		  </form>
+
 	</div>
 	@include('admin.body.footer')
 </div>
