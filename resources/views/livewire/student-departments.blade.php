@@ -53,7 +53,7 @@
                         <p class="text-md font-medium leading-none text-gray-800">{{ $topicsAvailability[$key] }}</p>
                       </td>
                       <td class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800">
-                          <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$topicsAvailability[$key]] }} {{$sortedArr[$topicsAvailability[$key]] == 1 ? ' student search for this.' : ' students searches for this.'}}</p>
+                          <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$topicsAvailability[$key]] }} {{$sortedArr[$topicsAvailability[$key]] == 1 ? ' search.' : ' searches.'}}</p>
                         </td>
                     </tr>
           
@@ -226,7 +226,7 @@
                                         {{ $archive->year }}
                                       </div>
                                       @php 
-                                        $colors = ['from-rose-300 to-rose-400 text-rose-800', 'from-fuchsia-300 to-fuchsia-400 text-fuchsia-800', 'from-violet-300 to-violet-400 text-violet-800', 'from-blue-300 to-blue-400 text-blue-800', 'from-cyan-300 to-cyan-400 text-cyan-800', 'from-teal-300 to-teal-400 text-teal-800', 'from-emerald-300 to-emerald-400 text-emerald-800', 'from-green-300 to-green-400 text-green-800', 'from-lime-300 to-lime-400 text-lime-800', 'from-amber-300 to-amber-400 text-amber-800', 'from-orange-300 to-orange-400 text-orange-800', 'from-red-300 to-red-400 text-red-800', 'from-pink-300 to-pink-400 text-pink-800', 'from-purple-300 to-purple-400 text-purple-800', 'from-indigo-300 to-indigo-400 text-indigo-800', 'from-sky-300 to-sky-400 text-sky-800', 'from-yellow-300 to-yellow-400 text-yellow-800'];
+                                        $colors = ['from-rose-300 to-rose-400 text-rose-800', 'from-fuchsia-300 to-fuchsia-400 text-fuchsia-800', 'from-violet-300 to-violet-400 text-violet-800', 'from-blue-300 to-blue-400 text-blue-800', 'from-cyan-300 to-cyan-400 text-cyan-800', 'from-teal-300 to-teal-400 text-teal-800', 'from-emerald-300 to-emerald-400 text-emerald-800', 'from-green-300 to-green-400 text-green-800', 'from-lime-300 to-lime-400 text-lime-800', 'from-red-300 to-red-400 text-red-800', 'from-pink-300 to-pink-400 text-pink-800', 'from-purple-300 to-purple-400 text-purple-800', 'from-indigo-300 to-indigo-400 text-indigo-800', 'from-sky-300 to-sky-400 text-sky-800', 'from-yellow-300 to-yellow-400 text-yellow-800'];
                                       @endphp
                                       <div
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r {{ $colors[$archive->research_agenda->id] ? $colors[$archive->research_agenda->id]  : 'from-gray-300 to-gray-400 text-gray-800' }} tracking-[-0.4px]"

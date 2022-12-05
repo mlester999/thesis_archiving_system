@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Admin;
 use App\Models\Archive;
 use Livewire\Component;
+use App\Models\Department;
 use Livewire\WithPagination;
 use Spatie\Activitylog\Models\Activity;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -158,6 +159,7 @@ class ReportLogs extends Component
                     ->where('student_id', 'like', '%'  . $this->search . '%')
                     ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id')
                     ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
+        'department_list' => Department::all(),
         ]);
     }
 }

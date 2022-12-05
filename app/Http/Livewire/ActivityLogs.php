@@ -4,7 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Admin;
 use Livewire\Component;
+use App\Models\Department;
 use Livewire\WithPagination;
+use App\Exports\ActivityLogsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -23,6 +26,8 @@ class ActivityLogs extends Component
 
     public $sortDirection = 'desc';
 
+    public $department = '';
+
     public $selectPage = false;
 
     public $selectAll = false;
@@ -33,9 +38,11 @@ class ActivityLogs extends Component
 
     // Modals
     public $showDeleteModal = false;
+    public $showViewModal = false;
+    public $showBulkDeleteModal = false;
 
-    public function mount() {
-        $this->logTitle = "Delete Activity Logs";
+    public function sortDepartment($dept) {
+        $this->department = $dept;
     }
 
     public function updatedSelected() {
@@ -63,22 +70,65 @@ class ActivityLogs extends Component
         $this->sortField = $field;
     }
 
-    public function exportSelected()
-    {
-        if(!$this->selectPage || !$this->selectAll || !$this->selected) {
+    public function beforeExportSelected() {
+        if($this->selectPage || $this->selectAll || $this->selected) {
+            $this->logTitle = "Export Activity Logs";
+            $this->showViewModal = true;
+        } else {
             return $this->alert('error', 'Please choose at least one activity log.');
         }
+    }
 
-        return response()->streamDownload(function () {
-            echo (clone $this->activitiesQuery)
-                ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-                ->toCsv();
-        }, 'activity-logs.csv');
+    public function exportToCsv()
+    {
+        $csvExported = Excel::download(new ActivityLogsExport((clone $this->activitiesQuery)
+        ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))->get()->pluck('id')), 'activity_logs_' . date('Y-m-d') . '_' . now()->toTimeString() . '.csv');
+        
+        $this->showViewModal = false;
+        $this->selectPage = false;
+        $this->selectAll = false;
+        $this->selected = [];
+
+        $this->alert('success', 'Export CSV Successfully!');
+
+        return $csvExported;
+    }
+
+    public function exportToXls()
+    {
+        $xlsxExported = Excel::download(new ActivityLogsExport((clone $this->activitiesQuery)
+        ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))->get()->pluck('id')), 'activity_logs_' . date('Y-m-d') . '_' . now()->toTimeString() . '.xlsx');
+        
+        $this->showViewModal = false;
+        $this->selectPage = false;
+        $this->selectAll = false;
+        $this->selected = [];
+
+        $this->alert('success', 'Export XLSX Successfully!');
+
+        return $xlsxExported;
+    }
+
+    public function exportToPdf()
+    {
+        
+        $pdfExported = Excel::download(new ActivityLogsExport((clone $this->activitiesQuery)
+        ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))->get()->pluck('id')), 'activity_logs_' . date('Y-m-d') . '_' . now()->toTimeString() . '.pdf');
+        
+        $this->showViewModal = false;
+        $this->selectPage = false;
+        $this->selectAll = false;
+        $this->selected = [];
+
+        $this->alert('success', 'Export PDF Successfully!');
+
+        return $pdfExported;
     }
 
     public function beforeDeleteSelected() {
         if($this->selectPage || $this->selectAll || $this->selected) {
-            $this->showDeleteModal = true;
+            $this->logTitle = "Delete Activity Logs";
+            $this->showBulkDeleteModal = true;
         } else {
             return $this->alert('error', 'Please choose at least one activity log.');
         }
@@ -90,13 +140,13 @@ class ActivityLogs extends Component
             ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
             ->delete();
 
-        $this->showDeleteModal = false;
+        $this->showBulkDeleteModal = false;
 
         $this->selectPage = false;
 
         $this->selectAll = false;
 
-        $this->selected = false;
+        $this->selected = [];
 
         $this->alert('success', $this->logTitle . ' ' . 'Successfully!');
     }
@@ -108,6 +158,8 @@ class ActivityLogs extends Component
     public function delete($log) {
         $this->deleteLog = Activity::find($log);
 
+        $this->showDeleteModal = true;
+
         $this->logTitle = "Delete Activity Log";
     }
 
@@ -117,16 +169,24 @@ class ActivityLogs extends Component
         $this->showDeleteModal = false;
 
         $this->alert('success', $this->logTitle . ' ' . 'Successfully!');
+
+        $this->selectPage = false;
+
+        $this->selectAll = false;
+
+        $this->selected = [];
     }
 
     public function getActivitiesQueryProperty() {
         return Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
+        ->leftJoin('departments', 'users.department_id', '=', 'departments.id')
         ->whereNot(function ($query) {
             $query->where('event', 'search')
                 ->orWhere('event', 'download thesis');
         })
+        ->where('dept_name', 'like', '%'  . $this->department . '%')
         ->where('student_id', 'like', '%'  . $this->search . '%')
-        ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id')
+        ->select('activity_log.id', 'activity_log.log_name', 'activity_log.description', 'activity_log.subject_type', 'activity_log.event', 'activity_log.properties', 'users.student_id', 'departments.dept_name')
         ->orderBy($this->sortField, $this->sortDirection);
     }
 
@@ -142,6 +202,7 @@ class ActivityLogs extends Component
 
         return view('livewire.activity-logs', [
             'activities' => $this->activities,
+            'department_list' => Department::all(),
         ]);
     }
 }

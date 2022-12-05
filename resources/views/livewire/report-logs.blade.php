@@ -1,17 +1,17 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
 	<div
-	  class="lg:px-2 py-4 lg:py-7"
+	  class="xl:px-2 py-4 xl:py-7"
 	>
 	<div class="flex-1 min-w-0 py-2">
 	  <h2
-		class="font-bold leading-7 text-gray-900 text-2xl lg:truncate uppercase"
+		class="font-bold leading-7 text-gray-900 text-2xl xl:truncate uppercase"
 	  >
 		Report Logs
 	  </h2>
 	</div>
-	  <div class="lg:flex lg:items-center lg:justify-end">
-		<div class="mt-4 flex justify-end lg:mt-0 z-0 space-x-4">
-			<div class="flex flex-col space-y-2 xl:space-y-0 xl:space-x-4 xl:flex-row">
+	  <div class="xl:flex xl:items-center xl:justify-end">
+		<div class="mt-4 flex flex-col xl:flex-row justify-end z-0 xl:space-x-4">
+			<div class="flex flex-row xl:flex-col justify-between mb-4 xl:mb-0">
 				<div class="flex flex-col space-y-1 xl:space-y-0">
 					<label class="d-block md:text-sm text-xs">
 						<input type="radio" name="topics" wire:model="showTopics" value="Available Topics" /> Available Topics
@@ -20,12 +20,30 @@
 						<input type="radio" name="topics" wire:model="showTopics" value="Not Available Topics" /> Not Available Topics
 					</label>
 				</div>
-			<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" wire:click="view()" class="inline-flex bg-blue-500 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
+			<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" wire:click="view()" class="inline-flex bg-blue-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
 				Most Searched Thesis
 			</button>
 		</div>
-		<div class="flex flex-col space-y-2 xl:space-y-0 xl:space-x-4 xl:flex-row">
-			<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="pr-6 mb-1 xl:mb-0 inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
+		<div class="flex flex-row xl:flex-col justify-between">
+			<x-dropdown-list label="Sort Department">
+				@foreach($department_list as $department)
+				<x-dropdown.item @click="open = false" type="button" wire:click="sortDepartment('{{ $department->dept_name }}')" class="flex items-center space-x-2 text-xs md:text-sm">
+					<x-icon.department class="text-cool-gray-400"/> <span>{{ $department->dept_name }}</span>
+				</x-dropdown.item>
+				@endforeach
+			</x-dropdown-list>
+			<x-dropdown-list label="Bulk Actions">
+				<x-dropdown.item @click="open = false" type="button" wire:click="beforeExportSelected" class="flex items-center space-x-2 text-xs md:text-sm">
+					<x-icon.download class="text-cool-gray-400"/> <span>Export</span>
+				</x-dropdown.item>
+				
+				<x-dropdown.item @click="open = false" type="button" wire:click="beforeDeleteSelected" class="flex items-center space-x-2 text-xs md:text-sm">
+					<x-icon.trash class="text-cool-gray-400"/> <span>Delete</span>
+				</x-dropdown.item>
+			</x-dropdown-list>
+		</div>
+		<div class="flex flex-row xl:flex-col justify-between mt-4 xl:mt-0 xl:space-y-4">
+			<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="pr-6 mb-1 xl:mb-0 inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm transition duration-150">
 				<option value="5" selected>Show 5 Results</option>
 				<option value="25">Show 25 Results</option>
 				<option value="50">Show 50 Results</option>
@@ -174,7 +192,7 @@
 					  <p class="text-md font-medium leading-none text-gray-800">{{ $sortedArrKeys[$key] }}</p>
 					</td>
 					<td class="pl-12">
-						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] }} {{$sortedArr[$sortedArrKeys[$key]] == 1 ? ' search for this.' : ' searches for this.'}}</p>
+						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] }} {{$sortedArr[$sortedArrKeys[$key]] == 1 ? ' search.' : ' searches.'}}</p>
 					  </td>
 					<td class="pl-12">
 						@if($topicsAvailability->contains($sortedArrKeys[$key]))
