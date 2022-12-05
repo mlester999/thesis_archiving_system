@@ -54,7 +54,6 @@ $adminData = App\Models\Admin::find($id);
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                     <button
-                      href="#"
                       class="p-2 w-full text-left hover:bg-gray-100 duration-150 text-red-500 text-sm no-underline hover:no-underline block"
                       ><i class="fas fa-sign-out-alt fa-fw ml-4 my-2"></i> Log Out</
                     >
@@ -91,7 +90,14 @@ $adminData = App\Models\Admin::find($id);
         <a href="{{ route('admin.profile') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-user-gear mr-1"></i> View Profile</a>
         <a href="{{ route('admin.change.password') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-lock mr-1"></i> Change Password</a>
         <a href="{{ route('admin.settings') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa fa-cog fa-fw mr-1"></i> Settings</a>
-        <a href="{{ route('admin.logout') }}" class="w-full text-center text-red-500 hover:text-opacity-50 duration-150"><i class="fas fa-sign-out-alt fa-fw mr-1"></i> Logout</a>
+        <div class="w-full">
+          <form method="POST" action="{{ route('admin.logout') }}">
+            @csrf
+            <button
+              class="w-full text-center text-red-500 hover:text-opacity-50 duration-150"><i class="fas fa-sign-out-alt fa-fw mr-1"></i> Logout</
+            >
+          </form>
+        </div>
         <a href="{{ route('admin.dashboard') }}" class="w-full text-gray-900 pt-3 border-t border-gray-400 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-dashboard-line class="w-5 mr-2" /> Dashboard</span></a
         >
