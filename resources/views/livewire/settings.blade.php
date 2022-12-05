@@ -4,7 +4,7 @@
 	>
 	<div class="flex-1 min-w-0 py-2">
 	  <h2
-		class="font-bold leading-7 text-gray-900 text-2xl lg:truncate uppercase"
+		class="font-bold leading-7 text-gray-900 text-xl md:text-2xl lg:truncate uppercase"
 	  >
 		Settings
 	  </h2>

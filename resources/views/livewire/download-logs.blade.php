@@ -4,21 +4,14 @@
 	>
 	<div class="flex-1 min-w-0 py-2">
 	  <h2
-		class="font-bold leading-7 text-gray-900 text-2xl lg:truncate uppercase"
+		class="font-bold leading-7 text-gray-900 text-xl md:text-2xl lg:truncate uppercase"
 	  >
 		Download Logs
 	  </h2>
 	</div>
 	  <div class="lg:flex lg:items-center lg:justify-end">
 		<div class="mt-4 flex flex-col md:flex-row justify-end lg:mt-0 z-0 md:space-x-4">
-			<div class="flex flex-row md:flex-col xl:flex-row justify-between xl:space-x-4 md:space-y-4 xl:space-y-0">
-					<x-dropdown-list label="Sort Department">
-						@foreach($department_list as $department)
-						<x-dropdown.item @click="open = false" type="button" wire:click="sortDepartment('{{ $department->dept_name }}')" class="flex items-center space-x-2 text-xs md:text-sm">
-							<x-icon.department class="text-cool-gray-400"/> <span>{{ $department->dept_name }}</span>
-						</x-dropdown.item>
-						@endforeach
-					</x-dropdown-list>
+			<div class="flex flex-row md:flex-col-reverse xl:flex-row justify-between xl:space-x-4 md:space-y-4 md:space-y-reverse xl:space-y-0">
 					<x-dropdown-list label="Bulk Actions">
 						<x-dropdown.item @click="open = false" type="button" wire:click="beforeExportSelected" class="flex items-center space-x-2 text-xs md:text-sm">
 							<x-icon.download class="text-cool-gray-400"/> <span>Export</span>
@@ -28,10 +21,17 @@
 							<x-icon.trash class="text-cool-gray-400"/> <span>Delete</span>
 						</x-dropdown.item>
 					</x-dropdown-list>
+					<x-dropdown-list label="Sort Department">
+						@foreach($department_list as $department)
+						<x-dropdown.item @click="open = false" type="button" wire:click="sortDepartment('{{ $department->dept_name }}')" class="flex items-center space-x-2 text-xs md:text-sm">
+							<x-icon.department class="text-cool-gray-400"/> <span>{{ $department->dept_name }}</span>
+						</x-dropdown.item>
+						@endforeach
+					</x-dropdown-list>
 			</div>
 
 			<div class="flex flex-row md:flex-col xl:flex-row xl:space-x-4 justify-between md:space-y-4 xl:space-y-0 mt-4 md:mt-0">
-				<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm transition duration-150">
+				<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex w-36 sm:w-auto items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm transition duration-150">
 					<option value="5" selected>Show 5 Results</option>
 					<option value="25">Show 25 Results</option>
 					<option value="50">Show 50 Results</option>
@@ -41,7 +41,7 @@
 					<span class="absolute inset-y-0 left-0 flex items-center pl-2">
 						<i class="fa-solid fa-magnifying-glass lg:ml-1"></i>
 					</span>
-					<input wire:model="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-40 md:w-48 border border-slate-300 rounded-md pl-7 lg:pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 text-xs md:text-sm transition duration-150" placeholder="Search for student id..." type="text" name="search"/>
+					<input wire:model="search" class="placeholder:italic placeholder:text-slate-700 block bg-white w-32 sm:w-40 md:w-48 border border-slate-300 rounded-md pl-7 lg:pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 text-xs md:text-sm transition duration-150" placeholder="Search for student id..." type="text" name="search"/>
 				</label>
 			</div>
 		</div>
@@ -95,12 +95,12 @@
 		  >
 				<x-table.cell colspan="8">
 					@unless ($selectAll)
-					<div>
+					<div class="text-xs md:text-sm">
 						<span>You selected <strong>{{ $activities->count() }}</strong> download logs, do you want to select all <strong>{{ $activities->total() }}</strong>?</span>
-						<x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-button.link>
+						<x-button.link wire:click="selectAll" class="ml-1 text-blue-600 text-xs md:text-sm">Select All</x-button.link>
 					</div>
 					@else
-					<span>You are currently selecting all <strong>{{ $activities->total() }}</strong> download logs.</span>
+					<span class="text-xs md:text-sm">You are currently selecting all <strong>{{ $activities->total() }}</strong> download logs.</span>
 					@endif
 				</x-table.cell>
 			</x-table.row>
@@ -174,7 +174,7 @@
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showBulkDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
 				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
 			  </x-slot>
 			  </x-confirmation-modal>
