@@ -17,7 +17,13 @@
                     } else {
                         RealRashid\SweetAlert\Facades\Alert::error("Password Reset Failed", "Password does not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                     }
-                }  else {
+                }  else if(array_key_exists("password", $tokenError->toArray())) {
+                    if($tokenError['password'][0] == "The password must be at least 8 characters.") {
+                    RealRashid\SweetAlert\Facades\Alert::error("Password Reset Failed", "The password must be at least 8 characters. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                    } else {
+                        RealRashid\SweetAlert\Facades\Alert::error("Password Reset Failed", "Password does not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                    }
+                }   else {
                     RealRashid\SweetAlert\Facades\Alert::error("Password Reset Failed", "Password does not match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                 }
             }
@@ -54,7 +60,7 @@
             <div class="mt-6">
                 <x-input-label for="password" :value="__('Password')" />
 
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" />
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" autofocus/>
             </div>
 
             <!-- Confirm Password -->
