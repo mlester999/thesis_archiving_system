@@ -55,7 +55,7 @@ class ActivityLogsExport implements FromCollection, WithHeadings, WithMapping, S
     public function registerEvents(): array {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A1:W1'; // All Headers
+                $cellRange = 'A1:F1'; // All Headers
 
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial');

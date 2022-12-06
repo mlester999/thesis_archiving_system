@@ -307,9 +307,9 @@ class UserController extends Controller
     public function UpdatePassword(Request $request) {
 
         $validateData = $request->validate([
-            'currentPassword' => 'required|digits:8',
-            'newPassword' => 'required|digits:8',
-            'confirmNewPassword' => 'required|digits:8|same:newPassword',
+            'currentPassword' => 'required|min:8',
+            'newPassword' => 'required|min:8',
+            'confirmNewPassword' => 'required|min:8|same:newPassword',
         ]);
 
         $hashedPassword = Auth::user()->password;
@@ -330,7 +330,7 @@ class UserController extends Controller
 
         } else {
 
-            Alert::error('Update Password Failed', "Password do not match. Please try again.")->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            Alert::error('Update Password Failed', "The current password you entered is incorrect. Please try again.")->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
 
             return redirect()->back();
 

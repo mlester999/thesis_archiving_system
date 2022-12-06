@@ -3,7 +3,26 @@
 
     @php
         if (count($errors) > 0) {
-            RealRashid\SweetAlert\Facades\Alert::warning("Fields is Required", "You need to fill in the input fields.")->showConfirmButton('Okay', '#2678c5')->autoClose(6000);
+          $passwordError = collect($errors->default)->sortBy('key');
+          $passwordKeys = $passwordError->keys();
+
+          if(array_key_exists("newPassword", $passwordError->toArray())) {
+                if($passwordError['newPassword'][0] == "The new password must be at least 8 characters.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "The new password must be at least 8 characters. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "Please check the input fields carefully.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
+          } else if(array_key_exists("confirmNewPassword", $passwordError->toArray())) {
+                if($passwordError['confirmNewPassword'][0] == "The confirm new password must be at least 8 characters.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "The confirm new password must be at least 8 characters. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else if($passwordError['confirmNewPassword'][0] == "The confirm new password and new password must match.") {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "The confirm new password and new password must match. Please try again.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                } else {
+                  RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "Please check the input fields carefully.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                }
+              } else {
+                RealRashid\SweetAlert\Facades\Alert::warning("Password Reset Failed", "Please check the input fields carefully.")->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+            }
         }
     @endphp
 
@@ -19,19 +38,19 @@
 
                 <ul class="py-4 px-4">
                     
-                    <label id="currentPassword" class="font-bold text-sm md:text-md text-gray-900">Current Password:</label>
+                    <label id="currentPassword" class="font-semibold text-sm md:text-md text-gray-900">Current Password:</label>
                     <input type="password" name="currentPassword" id="currentPassword" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="" autofocus>
                     {{-- <x-input-error :messages="$errors->get('currentPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="newPassword" class="font-bold text-sm md:text-md text-gray-900">New Password:</label>
+                    <label id="newPassword" class="font-semibold text-sm md:text-md text-gray-900">New Password:</label>
                     <input type="password" name="newPassword" id="newPassword" class="w-full text-black h-10 mt-2 bg-white  rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="">
                     {{-- <x-input-error :messages="$errors->get('newPassword')" class="mt-2" /> --}}
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="confirmNewPassword" class="font-bold text-sm md:text-md text-gray-900">Confirm New Password:</lab>
+                    <label id="confirmNewPassword" class="font-semibold text-sm md:text-md text-gray-900">Confirm New Password:</lab>
                     <input type="password" name="confirmNewPassword" id="confirmNewPassword" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="">
                     {{-- <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" /> --}}
                 </ul>
