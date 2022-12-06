@@ -307,9 +307,9 @@ class UserController extends Controller
     public function UpdatePassword(Request $request) {
 
         $validateData = $request->validate([
-            'currentPassword' => 'required',
-            'newPassword' => 'required',
-            'confirmNewPassword' => 'required|same:newPassword',
+            'currentPassword' => 'required|digits:8',
+            'newPassword' => 'required|digits:8',
+            'confirmNewPassword' => 'required|digits:8|same:newPassword',
         ]);
 
         $hashedPassword = Auth::user()->password;
