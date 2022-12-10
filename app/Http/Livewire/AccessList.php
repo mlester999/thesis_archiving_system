@@ -51,7 +51,7 @@ class AccessList extends Component
     protected $rules = [
         'editing.role_id' => 'required',
         'editing.permissions' => 'required|array',
-        'editing.permissions.*' => 'numeric',
+        'editing.permissions.*' => 'nullable',
         'editing.description' => 'required',
     ];
 
@@ -112,6 +112,8 @@ class AccessList extends Component
 
     public function edit(Access $access) {
 
+        $this->editing = $this->makeBlankAccess();
+
         $this->resetErrorBag();
 
         if($this->editing->isNot($access)) $this->editing = $access;
@@ -125,6 +127,8 @@ class AccessList extends Component
 
     public function save() {
         $this->validate();
+
+        $this->editing->permissions = collect($this->editing->permissions)->sortKeys()->toArray();
         
         $this->role = Role::find($this->editing->role_id);
 
@@ -136,16 +140,18 @@ class AccessList extends Component
         
         if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->get()) == 0) {
             
-            if($this->accessTitle == "Edit Access") {       
-                if(count(Access::find($this->editing->id)->get()) == 0) {
-                    foreach(collect($this->editing->permissions) as $permission) {
-                        $this->role->revokePermissionTo($this->oldAccess->permissions);
+            if($this->accessTitle == "Edit Access") {  
+                foreach(collect($this->editing->permissions) as $key => $permission) {
+                    if(!$permission) {
+                        $this->role->revokePermissionTo($key + 1);
                     }
                 }
             }
             
             foreach($this->permission as $permission) {
-                $this->role->givePermissionTo($permission->id);
+                if($permission) {
+                    $this->role->givePermissionTo($permission->id);
+                }
             }
 
             $this->editing->permissions = json_encode($this->editing->permissions);
