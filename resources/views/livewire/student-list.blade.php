@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="lg:px-2 py-4 lg:py-7"
 	>
@@ -68,12 +69,12 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'year_level' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">College
 				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Curriculum
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Program
 				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -198,7 +199,7 @@
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Created At:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left mt-2 mb-2">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Department:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">College:</h1> 
 					@php
 					$departmentInfo = App\Models\Department::find($departmentId);
 					@endphp
@@ -219,7 +220,7 @@
 					@else
 					<p class="text-xxs md:text-xs text-left px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Not Verified</p>
 					@endif
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-8">Curriculum:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-8">Program:</h1> 
 					@php
 					$curriculumInfo = App\Models\Curriculum::find($curriculumId);
 					@endphp
@@ -356,10 +357,10 @@
 
 				<!-- Department -->
 				<div x-data class="md:my-6 px-4 pb-4 md:pb-0">
-					<x-input-label for="department_id" :value="__('Department')" />
+					<x-input-label for="department_id" :value="__('College')" />
 	
 					<select name="department_id" wire:model="editing.department_id" id="department_id" name="department_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
-						<option value="0" hidden>~ Select Department ~</option>
+						<option value="0" hidden>~ Select College ~</option>
 						@foreach($departments as $department)
 						<option value="{{ $department->id }}" selected>{{ $department->dept_name }}</option>
 						@endforeach()
@@ -370,10 +371,10 @@
 
 				<!-- Curriculum -->
 				<div x-data class="md:my-6 px-4 pb-4 md:pb-0">
-					<x-input-label for="curriculum_id" :value="__('Curriculum')" />
+					<x-input-label for="curriculum_id" :value="__('Program')" />
 	
 					<select {{!count($curriculaOption) ? 'disabled' : ''}} wire:model.defer="editing.curriculum_id" id="curriculum_id" name="curriculum_id" class="border mt-1 px-3 border-gray-300 text-gray-900 text-xs md:text-sm xl:text-base rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full text-xs md:text-sm xl:text-base">
-						<option value="0" hidden>~ Select Curriculum ~</option> 
+						<option value="0" hidden>~ Select Program ~</option> 
 						@foreach($curriculaOption as $curriculums)
 						<option value="{{ $curriculums->id }}" selected>{{ $curriculums->curr_name }}</option>
 						@endforeach()

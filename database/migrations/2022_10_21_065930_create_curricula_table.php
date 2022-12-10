@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('curr_name');
             $table->string('curr_description');
-            $table->boolean('curr_status');
+            $table->boolean('curr_status')->default(1);
             $table->timestamps();
         });
     }

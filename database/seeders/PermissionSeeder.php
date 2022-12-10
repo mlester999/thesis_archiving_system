@@ -34,7 +34,6 @@ class PermissionSeeder extends Seeder
             'Bookmark Thesis',
             'View Submission of Thesis',
             'Edit Submitted Thesis',
-            'Delete Submitted Thesis',
             'Submit Thesis',
         ];
 

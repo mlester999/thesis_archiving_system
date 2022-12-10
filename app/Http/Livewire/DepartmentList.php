@@ -47,7 +47,6 @@ class DepartmentList extends Component
     protected $rules = [
         'editing.dept_name' => 'required',
         'editing.dept_description' => 'required',
-        'editing.dept_status' => 'required',
     ];
 
     public function mount() {
@@ -68,7 +67,7 @@ class DepartmentList extends Component
 
         $this->showEditModal = true;
 
-        $this->departmentTitle = "Add Department";
+        $this->departmentTitle = "Add College";
     }
 
     public function view($department) {
@@ -86,7 +85,7 @@ class DepartmentList extends Component
 
         $this->showViewModal = true;
 
-        $this->departmentTitle = "Department Info";
+        $this->departmentTitle = "College Info";
     }
 
     public function makeBlankDepartment() {
@@ -111,7 +110,7 @@ class DepartmentList extends Component
 
         $this->showEditModal = true;
 
-        $this->departmentTitle = "Edit Department";
+        $this->departmentTitle = "Edit College";
     }
 
     public function save() {
@@ -143,16 +142,29 @@ class DepartmentList extends Component
         }
     }
 
-    public function delete($department) {
-        $this->deleteDepartment = Department::find($department);
+    public function disable($department) {
+        $this->disableDepartment = Department::find($department);
 
         $this->showDeleteModal = true;
 
-        $this->departmentTitle = "Delete Department";
+        $this->dept_status = $this->disableDepartment->dept_status;
+
+        if($this->disableDepartment->dept_status) {
+            $this->departmentTitle = "Deactivate College";
+        } else {
+            $this->departmentTitle = "Activate College";
+        }
     }
 
-    public function deleteDepartment() {
-        $this->deleteDepartment->delete();
+    public function disableDepartment() {
+
+        if($this->disableDepartment->dept_status) {
+            $this->disableDepartment->dept_status = '0';
+        } else {
+            $this->disableDepartment->dept_status = '1';
+        }
+
+        $this->disableDepartment->save();
 
         $this->editing = $this->makeBlankDepartment();
 
@@ -160,7 +172,6 @@ class DepartmentList extends Component
 
         $this->alert('success', $this->departmentTitle . ' ' . 'Successfully!');
     }
-
 
     public function render()
     {

@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="lg:px-2 py-4 lg:py-7"
 	>
@@ -55,12 +56,12 @@
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Roles
 				<span wire:click="sortBy('roles')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'roles' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
+					<i class="fa-solid fa-arrow-{{ $sortField === 'role_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Features 
 				<span wire:click="sortBy('features')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'features' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+					<i class="fa-solid fa-arrow-{{ $sortField === 'permission_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
             <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Description 
@@ -123,7 +124,7 @@
 			<td class="pl-12">
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></butt>
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $access->id }})" class="cursor-pointer pl-1 pr-8 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></butt>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $access->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $access->status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
 			  </td>
 		  </tr>
 		  @empty
@@ -184,7 +185,7 @@
 					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Created At:</h1> 
 					<p class="text-sm lg:text-base text-left my-1">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
 					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Status:</h1> 
-					@if($status)
+					@if($access_status)
 					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
 					@else
 					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
@@ -201,19 +202,35 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteAccess">
+	  <form wire:submit.prevent="disableAccess">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $accessTitle }}</x-slot>
+			<x-slot name="title">
+				@if($access_status)
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>
+				@else
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-green-500"></i>
+				@endif
+				{{ $accessTitle }}
+			</x-slot>
 	  
-		  <x-slot name="content">
-			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this access?</h1> 
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
-		  </x-slot>
+			<x-slot name="content">
+				@if($access_status)
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this access?</h1> 
+				<p class="text-center mt-4 mb-16">This access will be deactivated immediately.</p> 
+				@else
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to activate this access?</h1> 
+				<p class="text-center mt-4 mb-16">This access will be activated immediately.</p> 
+				@endif
+			  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
+				<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				@if($access_status)
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Deactivate</x-delete-button>
+				@else
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Activate</x-delete-button>
+				@endif
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		
@@ -244,35 +261,25 @@
             <!-- Features -->
             <div class="py-2">
                 <x-input-label for="permission_id" :value="__('Features')" />
-                <select wire:model.defer="editing.permission_id" id="permission_id" name="permission_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option value="" hidden>~ Select Access Features ~</option>
-                @foreach($permissions as $permission)
-                <option value="{{ $permission->id }}">{{ $permission->name }}</option> 
-                @endforeach
-                </select>
-    
-                <x-input-error :messages="$errors->get('editing.permission_id')" />
+					<div class="flex flex-col justify-between">
+						@foreach($permissions as $key => $permission)
+						<div class="flex flex-row space-x-2 items-center">
+							<x-input.checkbox id="permission" wire:model.defer="editing.permissions.{{ $key }}" value="{{ $permission->id }}" />
+							<label for="permission">{{ $permission->name }}</label>
+						</div>
+						@endforeach
+					</div>
+
+                <x-input-error :messages="$errors->get('editing.permissions')" />
             </div>
 
             <!-- Description -->
             <div class="py-2">
                 <x-input-label for="description" :value="__('Description')" />
-                <textarea wire:model.defer="editing.description" id="description" name="description" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
+                <textarea placeholder="Put the description here..." wire:model.defer="editing.description" id="description" name="description" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
             
                 <x-input-error :messages="$errors->get('editing.description')" />
             </div>
-
-            <!-- Status -->
-            <div class="py-2">
-            <x-input-label for="status" :value="__('Status')" />
-            <select wire:model.defer="editing.status" id="status" name="status" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-            <option value="" hidden>~ Select Status ~</option>
-            <option value="0">Deactivate</option>
-            <option value="1">Activate</option> 
-            </select>
-
-            <x-input-error :messages="$errors->get('editing.status')" />
-                </div>
 	
 		</x-slot>
 		

@@ -23,8 +23,16 @@
             }
         @endphp
 
-        <div class="max-w-2xl relative flex flex-col mx-12 space-y-10 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
-            <a href="/" class="absolute left-6 top-4 text-lg"><i class="fa-solid fa-arrow-left fa-lg md:fa-xl hover:text-slate-500 duration-200"></i></a>
+        <div x-cloak x-data="{ buttonDisabled: false }" class="max-w-2xl relative flex flex-col mx-12 space-y-10 bg-white shadow-2xl rounded-lg md:flex-row md:space-y-0 md:m-0">
+            
+            <div x-cloak x-transition.opacity x-show="buttonDisabled" class="loading absolute z-20">
+                <span class="bar"></span>
+            </div>
+
+            <div x-cloak x-transition.opacity x-show="buttonDisabled" class="absolute bg-stone-600 bg-opacity-30 z-10 h-full w-full rounded-lg">
+            </div>
+            
+            <a @click="buttonDisabled = true" href="/" class="absolute left-6 top-4 text-lg"><i class="fa-solid fa-arrow-left fa-lg md:fa-xl hover:text-slate-500 duration-200"></i></a>
             <!-- Left Side -->
             <div class="px-12 pt-6 pb-8 md:p-16">
             <!-- Top Content -->
@@ -37,7 +45,7 @@
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" method="POST" action="{{ route('password.email') }}">
+        <form x-on:submit="buttonDisabled = true" method="POST" action="{{ route('password.email') }}">
             @csrf
 
             <!-- Email Address -->

@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="py-4 lg:py-7 lg:px-2"
 	>
@@ -13,6 +14,10 @@
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
 			<div class="flex flex-col items-end lg:flex-row space-y-4 space-x-4 lg:space-y-0">
 				<div class="flex flex-row">
+					<a href="https://drive.google.com/drive/u/3/folders/10g9tIt3q9iYBfR9nYRoIjxUROSajnz3h" wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" class="mr-2 inline-flex bg-green-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
+						<span class="mr-2"><i class="fa-brands fa-google-drive"></i></span> Go to Drive
+					</a>
+
 				<select name="show_results" wire:model="showResults" id="show_results" name="show_results" class="inline-flex items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
 				<option value="5" selected>Show 5 Results</option>
 				<option value="25">Show 25 Results</option>
@@ -125,7 +130,7 @@
 			<td class="pl-6">
 				<a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mx-auto"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
 				@if($archive->archive_status == 0)
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $archive->id }})" class="ml-2 mr-8"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-pen-to-square fa-xl"></i> </button>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $archive->id }})" class="ml-2 mr-8"> <i class="hover:text-opacity-70 duration-150 text-blue-500 fa-solid fa-pen-to-square fa-xl"></i> </button>
 				@endif
 			</td>
 		  </tr>

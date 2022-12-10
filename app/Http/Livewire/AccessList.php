@@ -33,7 +33,7 @@ class AccessList extends Component
     public $roleId;
     public $permissionId;
     public $description;
-    public $status;
+    public $access_status;
     public $createdAt;
 
     public $role;
@@ -50,9 +50,9 @@ class AccessList extends Component
 
     protected $rules = [
         'editing.role_id' => 'required',
-        'editing.permission_id' => 'required',
+        'editing.permissions' => 'required|array',
+        'editing.permissions.*' => 'numeric',
         'editing.description' => 'required',
-        'editing.status' => 'required',
     ];
 
     public function mount() {
@@ -83,11 +83,11 @@ class AccessList extends Component
 
         $this->roleId = $this->viewAccess->role_id;
 
-        $this->permissionId = $this->viewAccess->permission_id;
+        $this->permissionId = $this->viewAccess->permissions;
 
         $this->description = $this->viewAccess->description;
 
-        $this->status = $this->viewAccess->status;
+        $this->access_status = $this->viewAccess->status;
 
         $this->createdAt = $this->viewAccess->created_at;
 
@@ -115,6 +115,8 @@ class AccessList extends Component
         $this->resetErrorBag();
 
         if($this->editing->isNot($access)) $this->editing = $access;
+        
+        $this->editing->permissions = array_values(json_decode($this->editing->permissions, true));
 
         $this->showEditModal = true;
 
@@ -122,27 +124,37 @@ class AccessList extends Component
     }
 
     public function save() {
+        dd($this->editing);
+        
         $this->validate();
-
+        
         $this->role = Role::find($this->editing->role_id);
+        
 
-        $this->permission = Permission::find($this->editing->permission_id);
+        foreach(collect($this->editing->permissions) as $permission) {
+            $this->permission[] = Permission::find($permission);
+        }
+
 
         $this->oldAccess = Access::find($this->editing->id);
 
-        if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->where('permission_id', $this->editing->permission_id)->get()) == 0) {
-
+        
+        if(count(Access::where('id', $this->editing->id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->get()) == 0) {
+            
             if($this->accessTitle == "Edit Access") {
-                if(count(Access::find($this->editing->id)->where('permission_id', $this->editing->permission_id)->get()) == 0) {
-                    $this->role->revokePermissionTo($this->oldAccess->permission_id);
+                if(count(Access::find($this->editing->id)->get()) == 0) {
+                    // foreach(collect($this->editing->permissions) as $permission) {
+                    //     $this->role->revokePermissionTo($this->oldAccess->permissions);
+                    // }
+                    dd(Access::find($this->editing->id));
                 }
             }
-
-            if($this->editing->status) {
-                $this->role->givePermissionTo($this->permission);
-            } else {
-                $this->role->revokePermissionTo($this->permission);
+            
+            foreach($this->permission as $permission) {
+                $this->role->givePermissionTo($permission->id);
             }
+
+            $this->editing->permissions = json_encode($this->editing->permissions);
 
             $this->editing->save();
 
@@ -165,16 +177,29 @@ class AccessList extends Component
         }
     }
 
-    public function delete($access) {
-        $this->deleteAccess = Access::find($access);
+    public function disable($access) {
+        $this->disableAccess = Access::find($access);
 
         $this->showDeleteModal = true;
 
-        $this->accessTitle = "Delete Access";
+        $this->access_status = $this->disableAccess->status;
+
+        if($this->disableAccess->status) {
+            $this->accessTitle = "Deactivate Access";
+        } else {
+            $this->accessTitle = "Activate Access";
+        }
     }
 
-    public function deleteAccess() {
-        $this->deleteAccess->delete();
+    public function disableAccess() {
+
+        if($this->disableAccess->status) {
+            $this->disableAccess->status = '0';
+        } else {
+            $this->disableAccess->status = '1';
+        }
+
+        $this->disableAccess->save();
 
         $this->editing = $this->makeBlankAccess();
 
@@ -188,7 +213,7 @@ class AccessList extends Component
     {
         return view('livewire.access-list', [
             'accesses' => Access::leftJoin('roles', 'accesses.role_id', '=', 'roles.id')
-                    ->leftJoin('permissions', 'accesses.permission_id', '=', 'permissions.id')
+                    ->leftJoin('permissions', 'accesses.permissions', '=', 'permissions.id')
                     ->where('roles.name', 'like', '%'  . $this->search . '%')
                     ->orWhere('permissions.name', 'like', '%'  . $this->search . '%')
                     ->orWhere('description', 'like', '%'  . $this->search . '%')

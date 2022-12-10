@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('dept_name');
             $table->string('dept_description');
-            $table->boolean('dept_status');
+            $table->boolean('dept_status')->default(1);
             $table->timestamps();
             
         });

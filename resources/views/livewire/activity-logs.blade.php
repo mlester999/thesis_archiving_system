@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="lg:px-2 py-4 lg:py-7"
 	>

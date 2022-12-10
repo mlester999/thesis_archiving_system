@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="lg:px-2 py-4 lg:py-7"
 	>
@@ -6,7 +7,7 @@
 	  <h2
 		class="font-bold leading-7 text-gray-900 text-xl md:text-2xl sm:truncate uppercase"
 	  >
-		Department List
+		College List
 	  </h2>
 	</div>
 	  <div class="lg:flex lg:items-center lg:justify-end">
@@ -33,7 +34,7 @@
 			type="button"
 			class="order-1 md:order-3 ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-xs md:text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
-			New Department
+			New College
 		  </button>
 		</div>
 		</div>
@@ -116,8 +117,8 @@
 			</td>
 			<td class="pl-8">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $department->id }})" class="cursor-pointer pl-1 pr-8 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $department->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $department->dept_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
 			  </td>
 		  </tr>
 		  @empty
@@ -128,7 +129,7 @@
 		  <td colspan="7" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No departments found...</p>
+				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No colleges found...</p>
 			  </div>
 			</div>
 		  </td>
@@ -192,19 +193,35 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteDepartment">
+	  <form wire:submit.prevent="disableDepartment">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $departmentTitle }}</x-slot>
+			<x-slot name="title">
+				@if($dept_status)
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>
+				@else
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-green-500"></i>
+				@endif
+				{{ $departmentTitle }}
+			</x-slot>
 	  
 		  <x-slot name="content">
-			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this department?</h1> 
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
+			@if($dept_status)
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this college?</h1> 
+			<p class="text-center mt-4 mb-16">This college will be deactivated immediately.</p> 
+			@else
+			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to activate this college?</h1> 
+			<p class="text-center mt-4 mb-16">This college will be activated immediately.</p> 
+			@endif
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
+				<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				@if($dept_status)
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Deactivate</x-delete-button>
+				@else
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Activate</x-delete-button>
+				@endif
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		
@@ -221,7 +238,7 @@
 
 				<!-- Department Name -->
 				<div class="py-3">
-					<x-input-label for="dept_description" :value="__('Department Name')" />
+					<x-input-label for="dept_description" :value="__('College Name')" />
 	
 					<x-text-input wire:model.defer="editing.dept_description" id="dept_description" class="block mt-1 w-full" type="text" name="dept_description" placeholder="Department Name" :value="old('dept_description')" autofocus />
 	
@@ -230,24 +247,13 @@
 	
 				<!-- Department Acronym -->
 				<div class="py-3">
-					<x-input-label for="dept_name" :value="__('Department Acronym')" />
+					<x-input-label for="dept_name" :value="__('College Acronym')" />
 	
 					<x-text-input wire:model.defer="editing.dept_name" id="dept_name" class="block mt-1 w-full" type="text" name="dept_name" placeholder="Department Acronym" :value="old('dept_name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.dept_name')" />
 				</div>
-	
-				<!-- Status -->
-				<div class="py-3">
-				<x-input-label for="dept_status" :value="__('Status')" />
-                <select wire:model.defer="editing.dept_status" id="dept_status" name="dept_status" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option value="" hidden>~ Select the Status ~</option>
-                <option value="0" selected >Deactivated</option>
-                <option value="1">Activated</option> 
-                </select>
-	
-				<x-input-error :messages="$errors->get('editing.dept_status')" />
-			</div>
+
 		</x-slot>
 		
 			<x-slot name="footer">

@@ -52,7 +52,6 @@ class CurriculumList extends Component
         'editing.department_id' => 'required',
         'editing.curr_name' => 'required',
         'editing.curr_description' => 'required',
-        'editing.curr_status' => 'required',
     ];
 
     public function mount() {
@@ -73,7 +72,7 @@ class CurriculumList extends Component
 
         $this->showEditModal = true;
 
-        $this->curriculumTitle = "Add Curriculum";
+        $this->curriculumTitle = "Add Program";
     }
 
     public function view($curriculum) {
@@ -97,7 +96,7 @@ class CurriculumList extends Component
 
         $this->showViewModal = true;
 
-        $this->curriculumTitle = "Curriculum Info";
+        $this->curriculumTitle = "Program Info";
     }
 
     public function makeBlankCurriculum() {
@@ -122,7 +121,7 @@ class CurriculumList extends Component
 
         $this->showEditModal = true;
 
-        $this->curriculumTitle = "Edit Curriculum";
+        $this->curriculumTitle = "Edit Program";
     }
 
     public function save() {
@@ -154,16 +153,29 @@ class CurriculumList extends Component
         }
     }
 
-    public function delete($curriculum) {
-        $this->deleteCurriculum = Curriculum::find($curriculum);
+    public function disable($curriculum) {
+        $this->disableCurriculum = Curriculum::find($curriculum);
 
         $this->showDeleteModal = true;
 
-        $this->curriculumTitle = "Delete Curriculum";
+        $this->curr_status = $this->disableCurriculum->curr_status;
+
+        if($this->disableCurriculum->curr_status) {
+            $this->curriculumTitle = "Deactivate Program";
+        } else {
+            $this->curriculumTitle = "Activate Program";
+        }
     }
 
-    public function deleteCurriculum() {
-        $this->deleteCurriculum->delete();
+    public function disableCurriculum() {
+
+        if($this->disableCurriculum->curr_status) {
+            $this->disableCurriculum->curr_status = '0';
+        } else {
+            $this->disableCurriculum->curr_status = '1';
+        }
+
+        $this->disableCurriculum->save();
 
         $this->editing = $this->makeBlankCurriculum();
 
@@ -171,7 +183,6 @@ class CurriculumList extends Component
 
         $this->alert('success', $this->curriculumTitle . ' ' . 'Successfully!');
     }
-
 
     public function render()
     {

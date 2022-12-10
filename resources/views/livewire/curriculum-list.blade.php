@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="lg:px-2 py-4 lg:py-7"
 	>
@@ -6,7 +7,7 @@
 	  <h2
 		class="font-bold leading-7 text-gray-900 text-xl md:text-2xl lg:truncate uppercase"
 	  >
-		Curriculum List
+		Program List
 	  </h2>
 	</div>
 	  <div class="lg:flex lg:items-center lg:justify-end">
@@ -33,7 +34,7 @@
 			type="button"
 			class="order-1 md:order-3 ml-3 inline-flex items-center px-4 py-2 border duration-200 border-transparent rounded-md shadow-sm text-xs md:text-sm font-medium text-white bg-green-500 hover:bg-opacity-80 active:outline-none active:ring-2 active:ring-offset-2 active:ring-green-500"
 		  ><i class="fa-solid fa-plus mr-2"></i>
-			New Curriculum
+			New Program
 		  </button>
 		</div>
 		</div>
@@ -53,12 +54,12 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Department
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">College
 				<span wire:click="sortBy('department_id')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'department_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left text-gray-700 uppercase tracking-normal">Name
+			<th class="font-semibold text-left text-gray-700 uppercase tracking-normal">Program
 				<span wire:click="sortBy('curr_description')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -123,8 +124,8 @@
 			</td>
 			<td class="pl-8">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $curriculum->id }})" class="px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $curriculum->id }})" class="px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $curriculum->id }})" class="pl-1 pr-8 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $curriculum->id }})" class="px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $curriculum->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $curriculum->curr_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
 			  </td>
 		  </tr>
 		  @empty
@@ -135,7 +136,7 @@
 		  <td colspan="7" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
-				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No curricula found...</p>
+				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No programs found...</p>
 			  </div>
 			</div>
 		  </td>
@@ -163,7 +164,7 @@
 					<div class="px-4">
 						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Id:</h1> 
 						<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curriculumId }}</p>
-						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Department:</h1> 
+						<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">College:</h1> 
 						@php
 						$departmentInfo = App\Models\Department::find($departmentId);
 						@endphp
@@ -172,9 +173,9 @@
 	  
 				  <!-- Last Name -->
 				  <div class="px-4">
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Curriculum Acronym:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Program Acronym:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_name }}</p>
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Curriculum:</h1> 
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Program:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $curr_description }}</p>
 					{{-- <p class="text-left mt-2 mb-2">{{ $status }}</p> --}}
 				  </div>
@@ -203,22 +204,38 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteCurriculum">
+	  <form wire:submit.prevent="disableCurriculum">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>{{ $curriculumTitle }}</x-slot>
+			<x-slot name="title">
+				@if($curr_status)
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>
+				@else
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-green-500"></i>
+				@endif
+				{{ $curriculumTitle }}
+			</x-slot>
 	  
-		  <x-slot name="content">
-			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this curriculum?</h1> 
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
-		  </x-slot>
+			<x-slot name="content">
+				@if($curr_status)
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this program?</h1> 
+				<p class="text-center mt-4 mb-16">This program will be deactivated immediately.</p> 
+				@else
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to activate this program?</h1> 
+				<p class="text-center mt-4 mb-16">This program will be activated immediately.</p> 
+				@endif
+			  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
+				<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				@if($curr_status)
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Deactivate</x-delete-button>
+				@else
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Activate</x-delete-button>
+				@endif
 			  </x-slot>
 			  </x-confirmation-modal>
-		  </form>		
+		  </form>			
 
 
 	  {{-- Show Edit Modal --}}
@@ -232,10 +249,10 @@
 	
 				<!-- Department Name -->
 				<div class="py-3">
-					<x-input-label for="department_id" :value="__('Department')" />
+					<x-input-label for="department_id" :value="__('College')" />
 	
 					<select wire:model.defer="editing.department_id" id="department_id" name="department_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-						<option value="" hidden>~ Select Department ~</option>
+						<option value="" hidden>~ Select College ~</option>
 						@foreach($departments as $key => $department)
 						<option value="{{ $department->id }}" selected >{{ $department->dept_description }}</option>
 						@endforeach()
@@ -246,7 +263,7 @@
 
 				<!-- Curriculum Name -->
 				<div class="py-3">
-					<x-input-label for="curr_description" :value="__('Curriculum Name')" />
+					<x-input-label for="curr_description" :value="__('Program')" />
 	
 					<x-text-input wire:model.defer="editing.curr_description" id="curr_description" class="block mt-1 w-full" type="text" name="curr_description" placeholder="Curriculum Name" :value="old('curr_description')" autofocus />
 	
@@ -255,24 +272,13 @@
 	
 				<!-- Curriculum Acronym -->
 				<div class="py-3">
-					<x-input-label for="curr_name" :value="__('Curriculum Acronym')" />
+					<x-input-label for="curr_name" :value="__('Program Acronym')" />
 	
                     <x-text-input wire:model.defer="editing.curr_name" id="curr_name" class="block mt-1 w-full" type="text" name="curr_name" placeholder="Curriculum Acronym" :value="old('curr_name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.curr_name')" />
 				</div>
 
-				<!-- Status -->
-				<div class="py-3">
-				<x-input-label for="curr_status" :value="__('Status')" />
-                <select wire:model.defer="editing.curr_status" id="curr_status" name="curr_status" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option hidden selected>~ Select the Status ~</option>
-                <option value="0">Deactivate</option>
-                <option value="1">Activate</option> 
-                </select>
-	
-				<x-input-error :messages="$errors->get('editing.curr_status')" />
-			</div>
 		</x-slot>
 		
 			<x-slot name="footer">

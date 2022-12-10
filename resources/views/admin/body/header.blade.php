@@ -111,10 +111,10 @@ $adminData = App\Models\Admin::find($id);
         ><span class="flex flex-row justify-center"><x-ri-account-circle-line class="w-5 mr-2" /> Student List</span></a
         >
         <a href="{{ route('admin.department-list') }}" class="w-full pt-3 border-t text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
-        ><span class="flex flex-row justify-center"><x-ri-list-check-2 class="w-5 mr-2" /> Department List</span></a
+        ><span class="flex flex-row justify-center"><x-ri-list-check-2 class="w-5 mr-2" /> College List</span></a
         >
         <a href="{{ route('admin.curriculum-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
-        ><span class="flex flex-row justify-center"><x-ri-file-list-3-line class="w-5 mr-2" /> Curriculum List</span></a
+        ><span class="flex flex-row justify-center"><x-ri-file-list-3-line class="w-5 mr-2" /> Program List</span></a
         >
         <a href="{{ route('admin.research-agendas') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-survey-line class="w-5 mr-2" /> Research Agenda List</span></a

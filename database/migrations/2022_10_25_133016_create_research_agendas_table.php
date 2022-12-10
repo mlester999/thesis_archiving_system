@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('research_agendas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained('departments', 'id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('agenda_name');
             $table->string('agenda_description');
-            $table->boolean('agenda_status');
+            $table->boolean('agenda_status')->default(1);
             $table->timestamps();
         });
     }

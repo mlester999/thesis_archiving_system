@@ -4,9 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Admin;
 use Livewire\Component;
-use App\Models\ResearchAgenda;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Livewire\WithPagination;
+use App\Models\ResearchAgenda;
 use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -31,6 +32,8 @@ class ResearchAgendas extends Component
 
     // Viewing User Info
     public $agendaId;
+    public $dept_id;
+    public $dept_description;
     public $agenda_name;
     public $agenda_description;
     public $agenda_status;
@@ -45,9 +48,9 @@ class ResearchAgendas extends Component
     public ResearchAgenda $editing;
 
     protected $rules = [
+        'editing.department_id' => 'required',
         'editing.agenda_name' => 'required',
         'editing.agenda_description' => 'required',
-        'editing.agenda_status' => 'required',
     ];
 
     public function mount() {
@@ -75,6 +78,8 @@ class ResearchAgendas extends Component
         $this->viewAgenda = ResearchAgenda::find($agenda);
 
         $this->agendaId = $this->viewAgenda->id;
+
+        $this->dept_id = $this->viewAgenda->department_id;
 
         $this->agenda_name = $this->viewAgenda->agenda_name;
 
@@ -143,16 +148,29 @@ class ResearchAgendas extends Component
         }
     }
 
-    public function delete($agenda) {
-        $this->deleteAgenda = ResearchAgenda::find($agenda);
+    public function disable($agenda) {
+        $this->disableAgenda = ResearchAgenda::find($agenda);
 
         $this->showDeleteModal = true;
 
-        $this->agendaTitle = "Delete Research Agenda";
+        $this->agenda_status = $this->disableAgenda->agenda_status;
+
+        if($this->disableAgenda->agenda_status) {
+            $this->agendaTitle = "Deactivate Agenda";
+        } else {
+            $this->agendaTitle = "Activate Agenda";
+        }
     }
 
-    public function deleteAgenda() {
-        $this->deleteAgenda->delete();
+    public function disableAgenda() {
+
+        if($this->disableAgenda->agenda_status) {
+            $this->disableAgenda->agenda_status = '0';
+        } else {
+            $this->disableAgenda->agenda_status = '1';
+        }
+
+        $this->disableAgenda->save();
 
         $this->editing = $this->makeBlankAgenda();
 
@@ -166,12 +184,14 @@ class ResearchAgendas extends Component
     {
 
         return view('livewire.research-agendas', [
-            'agendas' => ResearchAgenda::where('id', 'like', '%'  . $this->search . '%')
-            ->orWhere('agenda_name', 'like', '%'  . $this->search . '%')
+            'agendas' => ResearchAgenda::leftJoin('departments', 'research_agendas.department_id', '=', 'departments.id')
+            ->where('agenda_name', 'like', '%'  . $this->search . '%')
             ->orWhere('agenda_status', 'like', '%'  . $this->search . '%')
             ->orWhere('agenda_description', 'like', '%'  . $this->search . '%')
-            ->select('research_agendas.id', 'research_agendas.agenda_name', 'research_agendas.agenda_status', 'research_agendas.agenda_description', 'research_agendas.created_at')
+            ->orWhere('dept_name', 'like', '%'  . $this->search . '%')
+            ->select('research_agendas.id', 'research_agendas.agenda_name', 'research_agendas.agenda_status', 'research_agendas.agenda_description', 'research_agendas.created_at',  'departments.dept_name', 'departments.dept_description')
             ->orderBy($this->sortField, $this->sortDirection)->paginate($this->showResults),
+            'departments' => Department::all()->where('dept_status', '1'),
         ]);
     }
 }

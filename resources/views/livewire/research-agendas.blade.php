@@ -1,4 +1,5 @@
 <div class="w-full px-6 pb-6 h-screen overflow-y-auto">
+	<x-loading-indicator />
 	<div
 	  class="lg:px-2 py-4 lg:py-7"
 	>
@@ -53,6 +54,11 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
+			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">College 
+				<span wire:click="sortBy('department_id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Agenda Name
 				<span wire:click="sortBy('agenda_description')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'agenda_description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
@@ -61,11 +67,6 @@
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Description
 				<span wire:click="sortBy('agenda_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'agenda_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
-				</span>
-			</th>
-			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Created at 
-				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Status
@@ -91,6 +92,9 @@
 			  </div>
 			</td>
 			<td class="pl-8">
+				<p class="text-md font-medium leading-none text-gray-800">{{ $agenda->dept_description }}</p>
+			</td>
+			<td class="pl-8">
 			  <p class="text-md font-medium leading-none text-gray-800">
 				{{ $agenda->agenda_name }}
 			  </p>
@@ -100,9 +104,6 @@
 				  {{ $agenda->agenda_description }}
 				</p>
 			  </td>
-			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $agenda->created_at->format('m/d/Y') }}</p>
-			</td>
 			<td class="pl-8">
                 @if($agenda->agenda_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
@@ -116,8 +117,8 @@
 			</td>
 			<td class="pl-8">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $agenda->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $agenda->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $agenda->id }})" class="cursor-pointer pl-1 pr-8 fa-solid fa-trash text-red-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $agenda->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $agenda->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $agenda->agenda_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
 			  </td>
 		  </tr>
 		  @empty
@@ -125,7 +126,7 @@
 		  wire:loading.class="opacity-50"
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
-		  <td colspan="7" class="pl-8">
+		  <td colspan="8" class="pl-8">
 			<div class="flex items-center justify-center">
 			  <div>
 				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No research agendas found...</p>
@@ -157,8 +158,11 @@
 				  <div class="px-4">
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left">Id:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agendaId }}</p>
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Agenda Name:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agenda_name }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">College:</h1> 
+					@php
+					$departmentInfo = App\Models\Department::find($dept_id);
+					@endphp
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $departmentInfo->dept_description ?? 'College Not Found' }}</p>
 					
 				  </div>
 
@@ -174,13 +178,15 @@
                         Deactivated
                     </span>
                     @endif
-					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Description:</h1> 
-					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agenda_description }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Agenda Name:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agenda_name }}</p>
 				  </div>
 
 				  <div class="px-4">
 					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-0">Created At:</h1> 
 					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
+					<h1 class="text-xs md:text-sm lg:text-base font-semibold text-left mt-3 md:mt-6">Description:</h1> 
+					<p class="text-xs md:text-sm lg:text-base text-left my-1">{{ $agenda_description }}</p>
 				  </div>
 			  </div>
 		  </x-slot>
@@ -192,19 +198,35 @@
 	  
 
 	  {{-- Show Delete Modal --}}
-	  <form wire:submit.prevent="deleteAgenda">
+	  <form wire:submit.prevent="disableAgenda">
 
 		<x-confirmation-modal wire:model.defer="showDeleteModal">
-		  <x-slot name="title"><i class="fa-solid fa-triangle-exclamation fa-xl pr-4 text-red-500"></i>{{ $agendaTitle }}</x-slot>
+			<x-slot name="title">
+				@if($agenda_status)
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-red-500"></i>
+				@else
+				<i class="fa-solid fa-triangle-exclamation fa-lg pr-4 text-green-500"></i>
+				@endif
+				{{ $agendaTitle }}
+			</x-slot>
 	  
-		  <x-slot name="content">
-			<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to delete this research agenda?</h1> 
-			<p class="text-center mt-4 mb-16">This action is irreversible.</p> 
-		  </x-slot>
+			<x-slot name="content">
+				@if($agenda_status)
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to deactivate this agenda?</h1> 
+				<p class="text-center mt-4 mb-16">This agenda will be deactivated immediately.</p> 
+				@else
+				<h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-semibold text-center mt-16">Are you sure you want to activate this agenda?</h1> 
+				<p class="text-center mt-4 mb-16">This agenda will be activated immediately.</p> 
+				@endif
+			  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
-				  <x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-red-500">Delete</x-delete-button>
+				<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showDeleteModal', false)" class="mx-2">Cancel</x-secondary-button>
+				@if($agenda_status)
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-red-500 to-red-600">Deactivate</x-delete-button>
+				@else
+				<x-delete-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2 bg-gradient-to-r from-green-500 to-green-600">Activate</x-delete-button>
+				@endif
 			  </x-slot>
 			  </x-confirmation-modal>
 		  </form>		
@@ -218,6 +240,20 @@
 	
 		<x-slot name="content">
 			<!--Body-->
+
+				<!-- Department Name -->
+				<div class="py-3">
+					<x-input-label for="department_id" :value="__('College')" />
+	
+					<select wire:model.defer="editing.department_id" id="department_id" name="department_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+						<option value="" hidden>~ Select College ~</option>
+						@foreach($departments as $key => $department)
+						<option value="{{ $department->id }}" selected >{{ $department->dept_description }}</option>
+						@endforeach()
+						</select>
+	
+					<x-input-error :messages="$errors->get('editing.department_id')" />
+				</div>
 
 				<!-- Agenda Name -->
 				<div class="py-3">
@@ -236,18 +272,6 @@
 	
 					<x-input-error :messages="$errors->get('editing.agenda_description')" />
 				</div>
-	
-				<!-- Status -->
-				<div class="py-3">
-				<x-input-label for="agenda_status" :value="__('Status')" />
-                <select wire:model.defer="editing.agenda_status" id="agenda_status" name="agenda_status" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option value="" hidden>~ Select the Status ~</option>
-                <option value="0" selected >Deactivated</option>
-                <option value="1">Activated</option> 
-                </select>
-	
-				<x-input-error :messages="$errors->get('editing.agenda_status')" />
-			</div>
 		</x-slot>
 		
 			<x-slot name="footer">

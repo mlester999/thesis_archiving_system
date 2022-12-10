@@ -12,7 +12,7 @@
                 <div class="w-3/5 flex justify-start">
 
                     <ul>
-                        <li class="font-bold text-gray-400">Department List</li>
+                        <li class="font-bold text-gray-400">College List</li>
                         <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Department::count() }}</li>
                     </ul>
 
@@ -28,7 +28,7 @@
                 <div class="w-3/5 flex justify-start">
 
                     <ul>
-                        <li class="font-bold text-gray-400">Curriculum List</li>
+                        <li class="font-bold text-gray-400">Program List</li>
                         <li class="font-extrabold text-slate-800 text-xl">{{ App\Models\Curriculum::count() }}</li>
                     </ul>
 

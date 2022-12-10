@@ -40,6 +40,7 @@
     <title>PNC Library Dashboard</title>
 
     @livewireStyles
+    @stack('styles')
   </head>
   <body class="bg-slate-100">
     <!-- Begin page -->
