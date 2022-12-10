@@ -124,29 +124,23 @@ class AccessList extends Component
     }
 
     public function save() {
-        dd($this->editing);
-        
         $this->validate();
         
         $this->role = Role::find($this->editing->role_id);
-        
 
         foreach(collect($this->editing->permissions) as $permission) {
             $this->permission[] = Permission::find($permission);
         }
 
-
         $this->oldAccess = Access::find($this->editing->id);
-
         
-        if(count(Access::where('id', $this->editing->id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->get()) == 0) {
+        if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->get()) == 0) {
             
-            if($this->accessTitle == "Edit Access") {
+            if($this->accessTitle == "Edit Access") {       
                 if(count(Access::find($this->editing->id)->get()) == 0) {
-                    // foreach(collect($this->editing->permissions) as $permission) {
-                    //     $this->role->revokePermissionTo($this->oldAccess->permissions);
-                    // }
-                    dd(Access::find($this->editing->id));
+                    foreach(collect($this->editing->permissions) as $permission) {
+                        $this->role->revokePermissionTo($this->oldAccess->permissions);
+                    }
                 }
             }
             
@@ -158,9 +152,9 @@ class AccessList extends Component
 
             $this->editing->save();
 
-            $this->role = null;
+            $this->permission = [];
 
-            $this->permission = null;
+            $this->role = null;
             
             $this->oldAccess = null;
 
