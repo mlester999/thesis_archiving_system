@@ -43,8 +43,8 @@
 
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
-		<thead class="bg-gray-50">
+	  <table class="min-w-full divide-y divide-gray-200 border-b-2 shadow">
+		<thead class="bg-gray-50 whitespace-nowrap">
 		  <tr
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
@@ -82,29 +82,29 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $department->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $department->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-8">
-			  <p class="text-md font-medium leading-none text-gray-800">
+			<td class="pl-8 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">
 				{{ $department->dept_description }}
 			  </p>
 			</td>
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">
 				  {{ $department->dept_name }}
 				</p>
 			  </td>
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $department->created_at->format('m/d/Y') }}</p>
 			</td>
-			<td class="pl-8">
+			<td class="pl-8 py-6">
                 @if($department->dept_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Activated
@@ -115,7 +115,7 @@
                 </span>
 				@endif
 			</td>
-			<td class="pl-8">
+			<td class="pl-8 py-6 whitespace-nowrap">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $department->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $department->dept_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
@@ -237,7 +237,7 @@
 			<!--Body-->
 
 				<!-- Department Name -->
-				<div class="py-3">
+				<div class="pt-1 pb-3">
 					<x-input-label for="dept_description" :value="__('College Name')" />
 	
 					<x-text-input wire:model.defer="editing.dept_description" id="dept_description" class="block mt-1 w-full" type="text" name="dept_description" placeholder="Department Name" :value="old('dept_description')" autofocus />
@@ -246,7 +246,7 @@
 				</div>
 	
 				<!-- Department Acronym -->
-				<div class="py-3">
+				<div class="pt-3 pb-6">
 					<x-input-label for="dept_name" :value="__('College Acronym')" />
 	
 					<x-text-input wire:model.defer="editing.dept_name" id="dept_name" class="block mt-1 w-full" type="text" name="dept_name" placeholder="Department Acronym" :value="old('dept_name')" autofocus />

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -17,16 +18,19 @@ class PermissionSeeder extends Seeder
     public function run()
     {
 
+        
+        $superAdmin = 'Super Admin';
+
+        $superAdmin = Role::create(['name' => $superAdmin, 'guard_name' => 'admin', 'user' => 'super admin']);
+
         $users = [
-            'Freshmen',
-            'Sophomores',
-            'Juniors',
-            'Seniors (Pending Thesis)',
-            'Seniors (Approved Thesis)',
+            'Regular Students',
+            'Graduating Students (Pending Thesis)',
+            'Graduating Students (Approved Thesis)',
         ];
 
         foreach ($users as $user)   {
-            $user = Role::create(['name' => $user]);
+            $user = Role::create(['name' => $user, 'user' => 'student']);
         }
 
         $userPermissions = [
@@ -39,8 +43,40 @@ class PermissionSeeder extends Seeder
 
         foreach ($userPermissions as $permission)   {
             Permission::create([
-                'name' => $permission
+                'name' => $permission,
+                'user' => 'student'
             ]);
+        }
+
+        $adminPermissions = [
+            'Archive List',
+            'Access List',
+            'Student List',
+            'College List',
+            'Program List',
+            'Research Agenda List',
+            'Admin Users List',
+            'Activity Logs',
+            'Report Logs',
+            'Download Logs',
+            'Settings',
+        ];
+
+        foreach ($adminPermissions as $key => $permission)   {
+            Permission::create([
+                'name' => $permission,
+                'guard_name' => 'admin',
+                'user' => 'admin'
+            ]);
+
+            $superAdminRole = Role::find(1);
+
+            $superAdminRole->givePermissionTo($key + 6);
+
+            $superAdminModel = Admin::find(1);
+
+            $superAdminModel->assignRole($superAdmin);
+
         }
     }
 }

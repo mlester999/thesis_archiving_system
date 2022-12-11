@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Admin;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class UserList extends Component
@@ -34,6 +35,8 @@ class UserList extends Component
     public $email_verified_at;
     public $createdAt;
     public $accStatus;
+
+    public $currentUser;
 
     public $adminAuth;
 
@@ -128,7 +131,13 @@ class UserList extends Component
     public function save() {
         $this->validate();
 
+        Role::create(['name' => $this->editing->name, 'user' => 'admin']);
+
         $this->editing->save();
+
+        $this->currentUser = Admin::find($this->editing->id);
+
+        $this->currentUser->assignRole($this->editing->name);
 
         $this->showEditModal = false;
 

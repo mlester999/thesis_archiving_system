@@ -43,8 +43,8 @@
 
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
-		<thead class="bg-gray-50">
+	  <table class="min-w-full divide-y divide-gray-200 border-b-2 shadow">
+		<thead class="bg-gray-50 whitespace-nowrap">
 		  <tr
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
@@ -54,12 +54,12 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Username 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Role Name 
 				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Admin Name 
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Username 
 				<span wire:click="sortBy('name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
@@ -87,30 +87,30 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $user->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-12">
+			<td class="pl-12 py-6">
 			  <p class="text-md font-medium leading-none text-gray-800">
-				{{ $user->username }}
+				{{ $user->name }}
 			  </p>
 			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->name }}</p>
+			<td class="pl-12 py-6">
+			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->username }}</p>
 			</td>
-			<td class="pl-12">
+			<td class="pl-12 py-6">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->email }}</p>
 			</td>
-			<td class="pl-12">
+			<td class="pl-12 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->created_at->format('m/d/Y') }}</p>
 			  </td>
-			  <td class="pl-12">
+			  <td class="pl-12 py-6">
 				@if($user->acc_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Activated
@@ -121,10 +121,10 @@
                 </span>
 				@endif
 			  </td>
-			<td class="pl-12">
+			<td class="pl-12 whitespace-nowrap">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $user->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $user->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
 			  </td>
 		  </tr>
 		  @empty
@@ -242,11 +242,11 @@
 	
 				<div class="grid grid-cols-2 py-2">
 
-				<!-- Full Name -->
+				<!-- Role Name -->
 				<div class="px-4 col-span-2">
-					<x-input-label for="name" :value="__('Full Name')" />
+					<x-input-label for="name" :value="__('Role Name')" />
 	
-					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Full Name" :value="old('name')" autofocus />
+					<x-text-input wire:model.defer="editing.name" id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Role Name" :value="old('name')" autofocus />
 	
 					<x-input-error :messages="$errors->get('editing.name')" />
 				</div>

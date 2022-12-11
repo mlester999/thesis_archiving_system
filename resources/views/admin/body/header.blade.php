@@ -5,7 +5,12 @@ $adminData = App\Models\Admin::find($id);
 
 <!-- Header -->
 <nav class="bg-gradient-to-r from-green-500 to-green-600 shadow-md">
-    <div class="mx-auto">
+    <div x-data="{loading: false}" class="mx-auto">
+
+      <div x-show="loading">
+        <x-normal-loading />
+      </div>
+
         <div class="flex justify-between py-2 px-6">
             <div class="flex items-center space-x-2 font-bold text-gray-400">
                 <a href="{{ route('admin.dashboard') }}"> <img class="w-56 md:w-64 lg:w-72 xl:w-80 cursor-pointer" src="/images/Logo.png" alt=""> </a>
@@ -13,6 +18,7 @@ $adminData = App\Models\Admin::find($id);
 
             <li class="flex-1 hidden md:flex md:flex-none md:mt-2 space-x-4 list-none">
                 <div x-data="{open: false}" x-on:click.outside="open = false" class="relative inline-block">
+                  
                   <button
                     x-on:click="open = !open"
                     class="drop-button text-white py-2 px-2"
@@ -38,22 +44,28 @@ $adminData = App\Models\Admin::find($id);
 
                     <a
                       href="{{ route('admin.profile') }}"
+                      @click="loading = true"
                       class="p-2 hover:bg-gray-100 duration-150 text-black text-sm no-underline hover:no-underline block"
                       ><i class="fa-solid fa-fw fa-user-gear ml-4 mt-2"></i> View Profile</a
                     >
                     <a
                       href="{{ route('admin.change.password') }}"
+                      @click="loading = true"
                       class="p-2 hover:bg-gray-100 duration-150 text-black text-sm no-underline hover:no-underline block"
                       ><i class="fa-solid fa-fw fa-lock ml-4 mt-2"></i> Change Password</a
                     >
+                    @can('Settings')
                     <a
                       href="{{ route('admin.settings') }}"
+                      @click="loading = true"
                       class="p-2 hover:bg-gray-100 duration-150 text-black text-sm no-underline hover:no-underline block"
                       ><i class="fa fa-cog fa-fw ml-4 mt-2"></i> Settings</a
                     >
+                    @endcan
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                     <button
+                      @click="loading = true"
                       class="p-2 w-full text-left hover:bg-gray-100 duration-150 text-red-500 text-sm no-underline hover:no-underline block"
                       ><i class="fas fa-sign-out-alt fa-fw ml-4 my-2"></i> Log Out</
                     >
@@ -87,50 +99,97 @@ $adminData = App\Models\Admin::find($id);
         <div
             class="flex flex-col items-center justify-center w-full space-y-3 font-semibold text-sm text-white rounded-sm"
         >
-        <a href="{{ route('admin.profile') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-user-gear mr-1"></i> View Profile</a>
-        <a href="{{ route('admin.change.password') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-lock mr-1"></i> Change Password</a>
-        <a href="{{ route('admin.settings') }}" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa fa-cog fa-fw mr-1"></i> Settings</a>
+        <a href="{{ route('admin.profile') }}" @click="loading = true" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-user-gear mr-1"></i> View Profile</a>
+        <a href="{{ route('admin.change.password') }}" @click="loading = true" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa-solid fa-fw fa-lock mr-1"></i> Change Password</a>
+        
+        @can('Settings')
+        <a href="{{ route('admin.settings') }}" @click="loading = true" class="w-full text-center text-gray-900 hover:text-opacity-50 duration-150"><i class="fa fa-cog fa-fw mr-1"></i> Settings</a>
+        @endcan
+
         <div class="w-full">
           <form method="POST" action="{{ route('admin.logout') }}">
             @csrf
             <button
+              @click="loading = true"
               class="w-full text-center text-red-500 hover:text-opacity-50 duration-150"><i class="fas fa-sign-out-alt fa-fw mr-1"></i> Logout</
             >
           </form>
         </div>
-        <a href="{{ route('admin.dashboard') }}" class="w-full text-gray-900 pt-3 border-t border-gray-400 hover:text-opacity-50 duration-150"
+
+        <div class="w-full border-t border-gray-400"></div>
+
+        <a href="{{ route('admin.dashboard') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-dashboard-line class="w-5 mr-2" /> Dashboard</span></a
         >
-        <a href="{{ route('admin.archive-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+
+        @can('Archive List')
+        <a href="{{ route('admin.archive-list') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-inbox-archive-fill class="w-5 mr-2" /> Archive List</span></a
         >
-        <a href="{{ route('admin.access-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @can('Access List')
+        <a href="{{ route('admin.access-list') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-mac-line class="w-5 mr-2" /> Access List</span></a
         >
-        <a href="{{ route('admin.student-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @can('Student List')
+        <a href="{{ route('admin.student-list') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-account-circle-line class="w-5 mr-2" /> Student List</span></a
         >
-        <a href="{{ route('admin.department-list') }}" class="w-full pt-3 border-t text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @if(auth()->user()->can('College List') || auth()->user()->can('Program List') || auth()->user()->can('Research Agenda List') || auth()->user()->can('Admin Users List'))
+        <div class="w-full border-t border-gray-400"></div>
+        @endif
+
+        @can('College List')
+        <a href="{{ route('admin.department-list') }}" @click="loading = true" class="w-full text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-list-check-2 class="w-5 mr-2" /> College List</span></a
         >
-        <a href="{{ route('admin.curriculum-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @can('Program List')
+        <a href="{{ route('admin.curriculum-list') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-file-list-3-line class="w-5 mr-2" /> Program List</span></a
         >
-        <a href="{{ route('admin.research-agendas') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan 
+
+        @can('Research Agenda List')
+        <a href="{{ route('admin.research-agendas') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-survey-line class="w-5 mr-2" /> Research Agenda List</span></a
         >
-        <a href="{{ route('admin.user-list') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @can('Admin Users List')
+        <a href="{{ route('admin.user-list') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-profile-line class="w-5 mr-2" /> Admin Users List</span></a
         >
-        <a href="{{ route('admin.activity-logs') }}" class="w-full text-gray-900 pt-3 border-t border-gray-400 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @if(auth()->user()->can('Activity Logs') || auth()->user()->can('Report Logs') || auth()->user()->can('Download Logs'))
+        <div class="w-full border-t border-gray-400"></div>
+        @endif
+
+        @can('Activity Logs')
+        <a href="{{ route('admin.activity-logs') }}" @click="loading = true" class="w-full text-gray-900 border-gray-400 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-radix-activity-log class="w-5 mr-2" /> Activity Logs</span></a
         >
-        <a href="{{ route('admin.report-logs') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @can('Report Logs')
+        <a href="{{ route('admin.report-logs') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-search-eye-line class="w-5 mr-2" /> Report Logs</span></a
         >
-        <a href="{{ route('admin.download-logs') }}" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
+        @endcan
+
+        @can('Download Logs')
+        <a href="{{ route('admin.download-logs') }}" @click="loading = true" class="w-full text-gray-900 hover:text-opacity-50 duration-150"
         ><span class="flex flex-row justify-center"><x-ri-file-download-line class="w-5 mr-2" /> Download Logs</span></a
         >
+        @endcan
+
         </div>
     </div>
         </div>

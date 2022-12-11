@@ -14,7 +14,7 @@
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">
 			<div class="flex flex-col items-end lg:flex-row space-y-4 space-x-4 lg:space-y-0">
 				<div class="flex flex-row">
-					<a href="https://drive.google.com/drive/u/3/folders/10g9tIt3q9iYBfR9nYRoIjxUROSajnz3h" wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" class="mr-2 inline-flex bg-green-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
+					<a href="https://drive.google.com/drive/u/3/folders/10g9tIt3q9iYBfR9nYRoIjxUROSajnz3h" wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" class="mr-4 inline-flex bg-green-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
 						<span class="mr-2"><i class="fa-brands fa-google-drive"></i></span> Go to Drive
 					</a>
 
@@ -39,8 +39,8 @@
 	
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
-		<thead class="bg-gray-50">
+	  <table class="min-w-full divide-y divide-gray-200 border-b-2 shadow">
+		<thead class="bg-gray-50 whitespace-nowrap">
 		  <tr
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
@@ -88,31 +88,31 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $archive->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $archive->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $archive->archive_code }}</p>
 			</td>
-			<td class="pl-6">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($archive->title, 20, '...') }}</p>
+			<td class="pl-6 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ \Illuminate\Support\Str::limit($archive->title, 20, '...') }}</p>
 			</td>
-			<td class="pl-6">
-			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->dept_name ?? 'Department Not Found' }}</p>
+			<td class="pl-6 py-6">
+			<p class="text-md font-medium leading-normal text-gray-800">{{ $archive->dept_name ?? 'Department Not Found' }}</p>
 			</td>
-			<td class="pl-6">
-			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->curr_name ?? 'Curriculum Not Found' }}</p>
+			<td class="pl-6 py-6">
+			<p class="text-md font-medium leading-normal text-gray-800">{{ $archive->curr_name ?? 'Curriculum Not Found' }}</p>
 			</td>
-			<td class="pl-6">
+			<td class="pl-6 py-6">
 			<p class="text-md font-medium leading-none text-gray-800">{{ $archive->year }}</p>
 			</td>
-			  <td class="pl-6">
+			  <td class="pl-6 py-6">
 				@if($archive->archive_status == 1)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Published
@@ -127,7 +127,7 @@
                 </span>
 				@endif
 			  </td>
-			<td class="pl-6">
+			<td class="pl-6 py-6 whitespace-nowrap">
 				<a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mx-auto"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
 				@if($archive->archive_status == 0)
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $archive->id }})" class="ml-2 mr-8"> <i class="hover:text-opacity-70 duration-150 text-blue-500 fa-solid fa-pen-to-square fa-xl"></i> </button>
@@ -167,7 +167,7 @@
 			  <!--Body-->
   
 				  <!-- Status -->
-				  <div class="py-3">
+				  <div class="pt-1 pb-3">
 				  <x-input-label for="archive_status" :value="__('Status')" />
 				  <select wire:model.defer="publishing.archive_status" id="archive_status" name="archive_status" class="border mt-1 border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
 				  <option value="" hidden>~ Select the Status ~</option>
@@ -179,7 +179,7 @@
 			  	  </div>
 
 				<!-- Comments -->
-				<div class="py-3">
+				<div class="pt-3 pb-6">
 					<x-input-label for="admin_comment" :value="__('Comments (Optional)')" />
 	
 					<textarea wire:model.defer="publishing.admin_comment" id="admin_comment" class="block mt-1 w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="text" name="admin_comment" placeholder="Leave empty if no comments..."> </textarea>

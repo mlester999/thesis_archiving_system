@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => bcrypt('pnclibrary'),
             'acc_status' => '1',
-            'role_id' => '1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

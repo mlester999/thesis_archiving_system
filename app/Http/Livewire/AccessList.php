@@ -40,6 +40,8 @@ class AccessList extends Component
     public $permission;
     public $oldAccess;
 
+    public $accessOption;
+
     // Modals
     public $showDeleteModal = false;
     public $showEditModal = false;
@@ -57,19 +59,54 @@ class AccessList extends Component
 
     public function mount() {
         $this->editing = $this->makeBlankAccess();
+
+        $this->accessOption = [];
     }
 
     public function closeModal() {
-
         $this->showEditModal = false;
+    }
 
+    public function displayAccessOption() {
+        $userRole = Role::find($this->editing->role_id);
+
+        if($userRole) {
+
+            if($userRole->user == 'student') {
+                $this->accessOption = Permission::where('user', 'student')->get();
+            }
+
+            if($userRole->user == 'admin') {
+                $this->accessOption = Permission::where('user', 'admin')->get();
+            }
+        } else {
+            $this->accessOption = [];
+        }
+    }
+
+    public function updatedEditingRoleId() {
+        $userRole = Role::find($this->editing->role_id);
+
+        if($userRole->user == 'student') {
+            $this->accessOption = Permission::where('user', 'student')->get();
+        }
+
+        if($userRole->user == 'admin') {
+            $this->accessOption = Permission::where('user', 'admin')->get();
+        }
     }
 
     public function create() {
 
         $this->resetErrorBag();
 
-        if ($this->editing->getKey()) $this->editing = $this->makeBlankAccess();
+        if ($this->editing->getKey()) {
+
+            $this->editing = $this->makeBlankAccess();
+    
+            $this->displayAccessOption();
+
+        }
 
         $this->showEditModal = true;
 
@@ -118,41 +155,55 @@ class AccessList extends Component
 
         if($this->editing->isNot($access)) $this->editing = $access;
         
-        $this->editing->permissions = array_values(json_decode($this->editing->permissions, true));
+        $permissionsKeys = array_keys(json_decode($this->editing->permissions, true));
+
+        $permissionsValues = array_values(json_decode($this->editing->permissions, true));
+
+        $this->editing->permissions = array_combine($permissionsKeys, $permissionsValues);
 
         $this->showEditModal = true;
 
         $this->accessTitle = "Edit Access";
+
+        $this->displayAccessOption();
+        
     }
 
     public function save() {
         $this->validate();
 
+        $this->editing->permissions = array_filter($this->editing->permissions, 'strlen');
+
         $this->editing->permissions = collect($this->editing->permissions)->sortKeys()->toArray();
         
         $this->role = Role::find($this->editing->role_id);
 
-        foreach(collect($this->editing->permissions) as $permission) {
-            $this->permission[] = Permission::find($permission);
+        foreach(collect($this->editing->permissions) as $key => $permission) {
+            if($permission) {
+                $this->permission[] = Permission::find($permission);
+            }
         }
 
         $this->oldAccess = Access::find($this->editing->id);
         
         if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->get()) == 0) {
             
-            if($this->accessTitle == "Edit Access") {  
-                foreach(collect($this->editing->permissions) as $key => $permission) {
-                    if(!$permission) {
-                        $this->role->revokePermissionTo($key + 1);
-                    }
-                }
-            }
+            // if($this->accessTitle == "Edit Access") {  
+            //     foreach(collect($this->editing->permissions) as $key => $permission) {
+            //         if(!$permission) {
+            //             dd($permission);
+            //             $this->role->revokePermissionTo($key + 2);
+            //         }
+            //     }
+            // }
             
             foreach($this->permission as $permission) {
                 if($permission) {
-                    $this->role->givePermissionTo($permission->id);
+                    $allPermissions[] = $permission->name;
                 }
             }
+            
+            $this->role->syncPermissions($allPermissions);
 
             $this->editing->permissions = json_encode($this->editing->permissions);
 
@@ -218,10 +269,12 @@ class AccessList extends Component
                     ->orWhere('permissions.name', 'like', '%'  . $this->search . '%')
                     ->orWhere('description', 'like', '%'  . $this->search . '%')
                     ->orWhere('status', 'like', '%'  . $this->search . '%')
-                    ->select('accesses.id', 'accesses.description', 'accesses.status', 'accesses.created_at', 'roles.name as role_name', 'permissions.name as permission_name')
+                    ->select('accesses.id', 'accesses.permissions', 'accesses.description', 'accesses.status', 'accesses.created_at', 'roles.name as role_name', 'permissions.name as permission_name')
                     ->orderBy($this->sortField, $this->sortDirection)
                     ->paginate($this->showResults),
-            'roles' => Role::all(),
+            'roles' => Role::whereNot(function ($query) {
+                $query->where('user', 'super admin');
+            })->get(),
             'permissions' => Permission::all(),
         ]);
     }

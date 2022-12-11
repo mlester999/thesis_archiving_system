@@ -217,7 +217,7 @@
 			<!--Body-->
 
 				<!-- Title -->
-				<div class="px-4 col-span-2">
+				<div class="px-4 pt-1 pb-3 col-span-2">
 					<x-input-label for="name" :value="__('Title')" />
 	
 					<x-text-input wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:model.defer="editing.title" id="title" class="block mt-1 w-full" type="text" name="title" placeholder="Slide Title" :value="old('title')" autofocus />
@@ -237,7 +237,7 @@
                     <x-input-error :messages="$errors->get('editing.status')" />
                 </div>
 
-                <div class="px-4 py-3 col-span-2">
+                <div class="px-4 pt-3 pb-6 col-span-2">
                     <x-input-label for="status" :value="__('Upload Image (Maximum File Size: 10 MB | Aspect Ratio: 16:9 only)')" />
                     <x-filepond wire:model="upload_image" />
                     <x-input-error :messages="$errors->get('upload_image')" class="-mt-1" />

@@ -43,8 +43,8 @@
 
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
-		<thead class="bg-gray-50">
+	  <table class="min-w-full divide-y divide-gray-200 border-b-2 shadow">
+		<thead class="bg-gray-50 whitespace-nowrap ">
 		  <tr
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
@@ -82,29 +82,29 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $agenda->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $agenda->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $agenda->dept_description }}</p>
+			<td class="pl-8 py-6">
+				<p class="text-md font-medium leading-normal text-gray-800">{{ $agenda->dept_description }}</p>
 			</td>
-			<td class="pl-8">
-			  <p class="text-md font-medium leading-none text-gray-800">
+			<td class="pl-8 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">
 				{{ $agenda->agenda_name }}
 			  </p>
 			</td>
-			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">
+			<td class="pl-8 py-6">
+				<p class="text-md font-medium leading-normal text-gray-800">
 				  {{ $agenda->agenda_description }}
 				</p>
 			  </td>
-			<td class="pl-8">
+			<td class="pl-8 py-6">
                 @if($agenda->agenda_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Activated
@@ -115,7 +115,7 @@
                 </span>
 				@endif
 			</td>
-			<td class="pl-8">
+			<td class="pl-8 whitespace-nowrap ">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $agenda->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $agenda->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $agenda->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $agenda->agenda_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
@@ -242,7 +242,7 @@
 			<!--Body-->
 
 				<!-- Department Name -->
-				<div class="py-3">
+				<div class="pt-1 pb-3">
 					<x-input-label for="department_id" :value="__('College')" />
 	
 					<select wire:model.defer="editing.department_id" id="department_id" name="department_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
@@ -265,7 +265,7 @@
 				</div>
 	
 				<!-- Agenda Description -->
-				<div class="py-3">
+				<div class="pt-3 pb-6">
 					<x-input-label for="agenda_description" :value="__('Agenda Description')" />
 	
 					<x-text-input wire:model.defer="editing.agenda_description" id="agenda_description" class="block mt-1 w-full" type="text" name="agenda_description" placeholder="Agenda Description" :value="old('agenda_description')" />

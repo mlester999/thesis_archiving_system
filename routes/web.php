@@ -36,9 +36,9 @@ Route::get('/', function () {
 Route::controller(UserController::class)->group(function () {
     Route::get('/projects', 'Projects')->middleware(['auth', 'verified', 'permission:View Thesis'])->name('projects');
 
-    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
+    Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Graduating Students (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
     Route::post('/download/thesis/{id}', 'DownloadThesis')->middleware(['auth', 'verified'])->name('download.thesis');
-    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Seniors (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');
+    Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Graduating Students (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');
 
     Route::get('/about', 'About')->middleware(['auth', 'verified'])->name('about');
     Route::get('/profile', 'Profile')->middleware(['auth', 'verified'])->name('profile');
@@ -79,7 +79,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin/change/password', 'ChangePassword')->middleware(['auth:admin', 'custom_verify'])->name('admin.change.password');
     Route::post('/admin/update/password', 'UpdatePassword')->middleware(['auth:admin', 'custom_verify'])->name('admin.update.password');
 
-    Route::get('/admin/view/archive-list/{id}', 'ViewArchives')->middleware(['auth:admin', 'verified'])->name('admin.view.archive-list');
+    Route::get('/admin/view/archive-list/{id}', 'ViewArchives')->middleware(['auth:admin', 'verified', 'permission:Archive List'])->name('admin.view.archive-list');
 });
 
 Route::get('/admin/dashboard', function () {

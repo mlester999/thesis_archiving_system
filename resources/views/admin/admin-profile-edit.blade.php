@@ -12,9 +12,14 @@
         <h5 class="pb-6 pt-3 font-bold leading-7 text-xl md:text-2xl sm:truncate uppercase">Edit Profile</h5>
 
         {{-- First Container --}}
-        <div class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
+        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
+            
+            <div x-show="buttonDisabled">
+                <x-normal-loading />
+            </div>
+
             <div class="w-full lg:w-3/5 flex flex-col justify-start">
-                <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('admin.store.profile') }}" method="post">
+                <form x-on:submit="buttonDisabled = true" action="{{ route('admin.store.profile') }}" method="post">
                     @csrf
 
                 <ul class="py-4 px-4">

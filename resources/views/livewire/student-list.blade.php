@@ -43,8 +43,8 @@
 
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
-		<thead class="bg-gray-50">
+	  <table class="min-w-full divide-y divide-gray-200 border-b-2 shadow">
+		<thead class="bg-gray-50 whitespace-nowrap">
 		  <tr
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
@@ -92,31 +92,31 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $user->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $user->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-12">
+			<td class="pl-12 py-6">
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->student_id }}</p>
 			</td>
-			<td class="pl-8">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $user->last_name . ', ' . \Illuminate\Support\Str::limit($user->first_name . ' ' . $user->middle_name[0] . '.', 15, '...') }}</p>
+			<td class="pl-8 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ $user->last_name . ', ' . $user->first_name . ' ' . $user->middle_name[0] . '.' }}</p>
 			</td>
-			<td class="pl-8">
+			<td class="pl-8 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $user->year_level }}</p>
 			  </td>
-			<td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->dept_name ?? 'Department Not Found' }}</p>
+			<td class="pl-8 py-6">
+				<p class="text-md font-medium leading-normal text-gray-800">{{ $user->dept_name ?? 'Department Not Found' }}</p>
 			  </td>
-			  <td class="pl-8">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $user->curr_name ?? 'Curriculum Not Found' }}</p>
+			  <td class="pl-8 py-6">
+				<p class="text-md font-medium leading-normal text-gray-800">{{ $user->curr_name ?? 'Curriculum Not Found' }}</p>
 			  </td>
-			  <td class="pl-8">
+			  <td class="pl-8 py-6">
 				@if($user->acc_status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Activated
@@ -127,7 +127,7 @@
                 </span>
 				@endif
 			  </td>
-			<td class="pl-8">
+			<td class="pl-8 py-6 whitespace-nowrap">
 				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $user->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-600 hover:text-opacity-70 duration-150 fa-xl"></button>
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $user->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $user->acc_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>

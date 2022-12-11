@@ -164,7 +164,7 @@
                                 </div>
                                 </td>
                             </tr>
-                                @endforelse
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

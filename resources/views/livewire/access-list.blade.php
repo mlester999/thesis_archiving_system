@@ -43,8 +43,8 @@
 
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
-		<thead class="bg-gray-50">
+	  <table class="table-fixed min-w-full divide-y divide-gray-200 border-b-2 shadow">
+		<thead class="bg-gray-50 whitespace-nowrap">
 		  <tr
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
@@ -54,24 +54,19 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Roles
+			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Access Rights
 				<span wire:click="sortBy('roles')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'role_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Features 
 				<span wire:click="sortBy('features')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'permission_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+					<i class="fa-solid fa-arrow-{{ $sortField === 'permissions' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
             <th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Description 
 				<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
-				</span>
-			</th>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Created at 
-				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
 			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Status
@@ -87,30 +82,35 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $access->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-			<td class="pl-8 cursor-pointer">
+			<td class="pl-8 cursor-pointer py-6">
 			  <div class="flex items-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $access->id }}</p>
 				</div>
 			  </div>
 			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">
+			<td class="pl-12 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">
 				{{ $access->role_name ?? 'Role Not Found' }}
 			  </p>
 			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ $access->permission_name ?? 'Permission Not Found' }}</p>
+			@php
+				foreach(json_decode($access->permissions, true) as $key => $permission) {
+					if($permission) {
+						$accessPermissions[] = Spatie\Permission\Models\Permission::find($permission)->name;
+						$stringPermissions = implode(', ', $accessPermissions);
+					}
+				}
+			@endphp
+			<td class="pl-12 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ $stringPermissions ?? 'Permission Not Found' }}</p>
 			</td>
-			<td class="pl-12">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($access->description, 30, '...') }}</p>
+			<td class="pl-12 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ $access->description }}</p>
 			</td>
-			<td class="pl-12">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $access->created_at->format('m/d/Y') }}</p>
-			  </td>
-			  <td class="pl-12">
+			  <td class="pl-12 py-6">
 				@if($access->status)
 				<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
                     Activated
@@ -121,7 +121,7 @@
                 </span>
 				@endif
 			  </td>
-			<td class="pl-12">
+			<td class="pl-12 py-6 whitespace-nowrap">
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></butt>
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $access->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $access->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $access->status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
@@ -168,29 +168,28 @@
 					@endphp
 					<h1 class="text-sm lg:text-base font-semibold text-left">Id:</h1> 
 					<p class="text-sm lg:text-base text-left my-1">{{ $accessId }}</p>
-					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Role:</h1> 
-					<p class="text-sm lg:text-base text-left my-1">{{ $roleInfo->name ?? 'Role Not Found' }}</p>
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Access Rights:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $roleInfo->name ?? 'Access Rights Not Found' }}</p>
 					</div>
 	  
 				  <!-- First Col -->
 				  <div class="px-4">
-					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Features:</h1> 
-					<p class="text-sm lg:text-base text-left my-1">{{ $permissionInfo->name ?? 'Permission Not Found' }}</p>
-					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Description:</h1> 
-					<p class="text-sm lg:text-base text-left my-1">{{ $description }}</p>
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Status:</h1> 
+					@if($access_status)
+					<p class="text-left mt-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
+					@else
+					<p class="text-left mt-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
+					@endif
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Features:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $stringPermissions ?? 'Permission Not Found' }}</p>
 				  </div>
 
 				  <!-- Second COl -->
 				  <div class="px-4">
 					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-0">Created At:</h1> 
 					<p class="text-sm lg:text-base text-left my-1">{{ date('m/d/Y', strtotime($createdAt)) }}</p>
-					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Status:</h1> 
-					@if($access_status)
-					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">Activated</p>
-					@else
-					<p class="text-left mt-2 mb-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-300 to-red-400 text-red-800">Deactivated</p>
-					@endif
-
+					<h1 class="text-sm lg:text-base font-semibold text-left mt-2 md:mt-6">Description:</h1> 
+					<p class="text-sm lg:text-base text-left my-1">{{ $description }}</p>
 				  </div>
 			  </div>
 		  </x-slot>
@@ -245,12 +244,12 @@
 		<x-slot name="content">
 			<!--Body-->
 	
-            <!-- Student -->
-            <div class="py-2">
-                <x-input-label for="role_id" :value="__('Student Role')" />
-                <select wire:model.defer="editing.role_id" id="role_id" name="role_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
-                <option value="" hidden>~ Select Student Role ~</option>
-                @foreach($roles as $role)
+            <!-- Roles -->
+            <div class="pt-1 pb-3">
+                <x-input-label for="role_id" :value="__('Access Rights')" />
+                <select wire:model="editing.role_id" id="role_id" name="role_id" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
+				<option value="" hidden>~ Select Access Rights ~</option>
+				@foreach($roles as $role)
                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                 @endforeach
                 </select>
@@ -258,12 +257,13 @@
                 <x-input-error :messages="$errors->get('editing.role_id')" />
             </div>
 
+			@if($accessOption)
             <!-- Features -->
             <div class="py-2">
                 <x-input-label for="permission_id" :value="__('Features')" />
-					<div class="flex flex-col justify-between">
-						@foreach($permissions as $key => $permission)
-						<div class="flex flex-row space-x-2 items-center">
+					<div class="grid grid-cols-2 gap-2">
+						@foreach($accessOption as $key => $permission)
+						<div class="flex flex-row space-x-2 items-center text-xs md:text-sm xl:text-base">
 							<x-input.checkbox id="permission" wire:model.defer="editing.permissions.{{ $key }}" value="{{ $permission->id }}" />
 							<label for="permission">{{ $permission->name }}</label>
 						</div>
@@ -271,10 +271,11 @@
 					</div>
 
                 <x-input-error :messages="$errors->get('editing.permissions')" />
-            </div>
+				</div>
+			@endif
 
             <!-- Description -->
-            <div class="py-2">
+            <div class="pt-3 pb-6">
                 <x-input-label for="description" :value="__('Description')" />
                 <textarea placeholder="Put the description here..." wire:model.defer="editing.description" id="description" name="description" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
             

@@ -63,25 +63,25 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
-    Route::get('settings', Settings::class)->name('settings');
+    Route::get('settings', Settings::class)->middleware(['permission:Settings'])->name('settings');
 
-    Route::get('user-list', UserList::class)->name('user-list');
+    Route::get('user-list', UserList::class)->middleware(['permission:User List'])->name('user-list');
 
-    Route::get('student-list', StudentList::class)->name('student-list');
+    Route::get('student-list', StudentList::class)->middleware(['permission:Student List'])->name('student-list');
 
-    Route::get('curriculum-list', CurriculumList::class)->name('curriculum-list');
+    Route::get('curriculum-list', CurriculumList::class)->middleware(['permission:Program List'])->name('curriculum-list');
 
-    Route::get('department-list', DepartmentList::class)->name('department-list');
+    Route::get('department-list', DepartmentList::class)->middleware(['permission:College List'])->name('department-list');
 
-    Route::get('archive-list', ArchiveList::class)->name('archive-list');
+    Route::get('archive-list', ArchiveList::class)->middleware(['permission:Archive List'])->name('archive-list');
 
-    Route::get('access-list', AccessList::class)->name('access-list');
+    Route::get('access-list', AccessList::class)->middleware(['permission:Access List'])->name('access-list');
 
-    Route::get('research-agendas', ResearchAgendas::class)->name('research-agendas');
+    Route::get('research-agendas', ResearchAgendas::class)->middleware(['permission:Research Agenda List'])->name('research-agendas');
 
-    Route::get('activity-logs', ActivityLogs::class)->name('activity-logs');
+    Route::get('activity-logs', ActivityLogs::class)->middleware(['permission:Activity Logs'])->name('activity-logs');
 
-    Route::get('report-logs', ReportLogs::class)->name('report-logs');
+    Route::get('report-logs', ReportLogs::class)->middleware(['permission:Report Logs'])->name('report-logs');
 
-    Route::get('download-logs', DownloadLogs::class)->name('download-logs');
+    Route::get('download-logs', DownloadLogs::class)->middleware(['permission:Download Logs'])->name('download-logs');
 });
