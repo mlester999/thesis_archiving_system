@@ -185,7 +185,7 @@
 		  </x-slot>
 		  
 			  <x-slot name="footer">
-				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="closeModal" class="mx-2">Cancel</x-secondary-button>
+				  <x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="closeModal" class="mx-2">Close</x-secondary-button>
 				  <x-primary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" class="mx-2">Save</x-primary-button>
 			  </x-slot>
 			  </x-dialog-modal>
