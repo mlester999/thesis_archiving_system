@@ -23,7 +23,7 @@
         }
         @endphp
 
-        <div x-cloak x-data="{ buttonDisabled: false }" class="relative flex flex-col mx-6 space-y-10 bg-white shadow-2xl rounded-lg md:flex-row md:space-y-0 md:m-0">
+        <div x-cloak x-data="{ buttonDisabled: false }" class="relative flex flex-col mx-6 bg-white shadow-2xl rounded-lg md:flex-row md:space-y-0 md:m-0">
             
         <!-- Loading bar animation -->
             <div x-cloak x-transition.opacity x-show="buttonDisabled" class="loading absolute z-20">
@@ -35,7 +35,7 @@
             
         <!-- Left Side -->
         <a @click="buttonDisabled = true" href="/" class="absolute left-6 top-4 text-lg"><i class="fa-solid fa-arrow-left fa-lg md:fa-xl hover:text-slate-500 duration-200"></i></a>
-        <div class="px-12 pt-6 pb-8 md:px-16 md:py-16">
+        <div class="px-12 md:px-16 py-16">
         <!-- Top Content -->
         <h2 class="font-sans mb-4 md:mb-5 text-3xl md:text-4xl font-bold">Log In</h2>
         <p class="max-w-sm font-sans font-light text-sm md:text-base text-gray-600">

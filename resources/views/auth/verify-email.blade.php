@@ -6,7 +6,7 @@
             </a> --}}
         </x-slot>
 
-        <div x-cloak x-data="{ buttonDisabled: false }"  class="relative max-w-xl flex flex-col mx-12 space-y-10 bg-white shadow-2xl rounded-lg md:flex-row md:space-y-0 md:m-0">
+        <div x-cloak x-data="{ buttonDisabled: false }"  class="relative max-w-xl flex flex-col mx-12 bg-white shadow-2xl rounded-lg md:flex-row md:space-y-0 md:m-0">
             
             <div x-cloak x-transition.opacity x-show="buttonDisabled" class="loading absolute z-20">
                 <span class="bar"></span>
@@ -20,7 +20,7 @@
                 <button class="absolute left-6 top-4 text-lg"><i class="fa-solid fa-arrow-left fa-lg md:fa-xl hover:text-slate-500 duration-200"></i></button>
             </form>
             <!-- Left Side -->
-            <div class="px-8 pt-6 pb-8 md:p-16">
+            <div class="px-12 md:px-16 py-16">
             <!-- Top Content -->
             <h2 class="font-sans mb-4 sm:mb-5 text-2xl sm:text-3xl font-bold md:mr-12">Verify Email Address</h2>
 

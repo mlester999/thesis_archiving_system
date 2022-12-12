@@ -4,11 +4,7 @@
 		class="xl:px-2 py-4 xl:py-7"
 		>
 		<div class="flex-1 min-w-0 py-2">
-		<h2
-			class="font-bold leading-7 text-gray-900 text-xl md:text-2xl xl:truncate uppercase"
-		>
-			Report Logs
-		</h2>
+			<p class="pb-6 pt-3 font-bold uppercase text-sm leading-7 tracking-wider text-gray-600"><span class="flex items-center gap-1"> <x-ri-home-3-fill class="w-4 h-4" /> Home<x-heroicon-o-arrow-long-right class="w-5 h-6" />Logs<x-heroicon-o-arrow-long-right class="w-5 h-6" />Report Logs</span></p>
 		</div>
 		<div class="xl:flex xl:items-center xl:justify-end">
 			<div class="mt-4 flex flex-col xl:flex-row justify-end z-0 xl:space-x-4">
@@ -63,41 +59,41 @@
 
 		<div class="overflow-x-auto sm:rounded-lg space-y-8"
 		>
-		<table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2">
+		<table class="min-w-full border-separate whitespace-nowrap divide-y divide-gray-200 border-b-2">
 			<thead class="bg-gray-50">
 			<tr
 				tabindex="0"
 				class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 			>
-			<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal"> 
+			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"> 
 				<x-input.checkbox wire:model="selectPage" />
 				</th>
-				<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal">Log Name 
+				<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Log Name 
 					<span wire:click="sortBy('log_name')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'log_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 					</span>
 				</th>
-				<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Topics
+				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Topics
 					<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Department
+				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Department
 					<span wire:click="sortBy('event')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'event' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Student ID
+				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Student ID
 					<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">IP Address
+				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">IP Address
 					<span wire:click="sortBy('properties')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'properties' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left pl-12 pr-4 text-gray-700 uppercase tracking-normal">Action</th>
+				<th class="font-semibold text-left px-6 pr-4 text-gray-700 uppercase tracking-normal">Action</th>
 			</tr>
 			</thead>
 			<tbody class="w-full" id="main-table-body">
@@ -127,27 +123,27 @@
 				tabindex="{{ $activity->id }}"
 				class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 			>
-			<td class="pl-12">
+			<td class="px-6">
 				<x-input.checkbox wire:model="selected" value="{{ $activity->id }}" />
 			</td>
-				<td class="pl-8">
+				<td class="px-4">
 				<p class="text-md font-medium leading-none text-gray-800">
 					{{ $activity->log_name }}
 				</p>
 				</td>
-				<td class="pl-12">
+				<td class="px-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->description }}</p>
 				</td>
-				<td class="pl-12">
+				<td class="px-6">
 					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->dept_name }}</p>
 				</td>
-				<td class="pl-12">
+				<td class="px-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->student_id }}</p>
 				</td>
-				<td class="pl-12">
+				<td class="px-6">
 					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
 					</td>
-					<td class="pl-12">
+					<td class="px-6">
 						<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="mr-8 cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
 				</td>
 			</tr>
@@ -157,7 +153,7 @@
 			wire:loading.class="opacity-50"
 			class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 			>
-			<td colspan="8" class="pl-8">
+			<td colspan="8" class="px-4">
 				<div class="flex items-center justify-center">
 				<div>
 					<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No report logs found...</p>
@@ -233,19 +229,19 @@
 			<x-slot name="content">
 				<div class="overflow-x-auto sm:rounded-lg space-y-8">
 				<!--Body-->
-				<table class="min-w-full whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
+				<table class="min-w-full border-separate whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
 					<thead class="bg-gray-50">
 					<tr
 						tabindex="0"
 						class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 					>
-					<th class="font-semibold text-left pl-8 text-gray-700 uppercase tracking-normal"># 
+					<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"># 
 						</th>
-						<th class="font-semibold text-left pl-12 text-gray-700 uppercase tracking-normal">Top Search
+						<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Top Search
 						</th>
-						<th class="font-semibold text-left pl-12 pr-4 text-gray-700 uppercase tracking-normal">Total Searches
+						<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Total Searches
 						</th>
-						<th class="font-semibold text-left pl-12 pr-4 text-gray-700 uppercase tracking-normal">Availability
+						<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Availability
 						</th>
 					</tr>
 					</thead>
@@ -257,20 +253,20 @@
 						tabindex="{{ $search->id }}"
 						class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 					>
-					<td class="pl-8">
+					<td class="px-6">
 						<div class="flex items-center">
 						<div>
 							<p class="text-md font-medium leading-none text-gray-800">{{ $key + 1 }}</p>
 						</div>
 						</div>
 					</td>
-						<td class="pl-12">
+						<td class="px-6">
 						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArrKeys[$key] }}</p>
 						</td>
-						<td class="pl-12">
+						<td class="px-6">
 							<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] }} {{$sortedArr[$sortedArrKeys[$key]] == 1 ? ' search.' : ' searches.'}}</p>
 						</td>
-						<td class="pl-12">
+						<td class="px-6">
 							@if($topicsAvailability->contains($sortedArrKeys[$key]))
 							<span class="px-2 mr-6 lg:mr-0 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
 								Available
@@ -288,7 +284,7 @@
 					wire:loading.class="opacity-50"
 					class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 					>
-					<td colspan="7" class="pl-8">
+					<td colspan="7" class="px-4">
 						<div class="flex items-center justify-center">
 						<div>
 							<p class="text-xl py-8 font-medium leading-none text-gray-400">No top search found...</p>

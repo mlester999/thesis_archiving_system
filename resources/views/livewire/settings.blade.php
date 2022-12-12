@@ -4,11 +4,7 @@
 	  class="lg:px-2 py-4 lg:py-7"
 	>
 	<div class="flex-1 min-w-0 py-2">
-	  <h2
-		class="font-bold leading-7 text-gray-900 text-xl md:text-2xl lg:truncate uppercase"
-	  >
-		Settings
-	  </h2>
+		<p class="pb-6 pt-3 font-bold uppercase text-sm leading-7 tracking-wider text-gray-600"><span class="flex items-center gap-1"> <x-ri-home-3-fill class="w-4 h-4" /> Home<x-heroicon-o-arrow-long-right class="w-5 h-6" />Profile<x-heroicon-o-arrow-long-right class="w-5 h-6" />Settings</span></p>
 	</div>
 	  <div class="lg:flex lg:items-center lg:justify-end">
 		<div class="mt-4 flex justify-end lg:mt-0 lg:ml-4 z-0">

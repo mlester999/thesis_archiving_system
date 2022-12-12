@@ -4,7 +4,7 @@
  <!-- Content -->
  <div class="h-screen w-full overflow-y-auto">
     <div class="px-8 py-4">
-        <h5 class="pb-6 pt-3 font-bold uppercase text-2xl leading-7">Dashboard</h5>
+        <p class="pb-6 pt-3 font-bold uppercase text-sm leading-7 tracking-wider text-gray-600"><span class="flex items-center gap-1"> <x-ri-home-3-fill class="w-4 h-4" /> Home<x-heroicon-o-arrow-long-right class="w-5 h-6" />Menu<x-heroicon-o-arrow-long-right class="w-5 h-6" />Dashboard</span></p>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
 
             {{-- First Container --}}
