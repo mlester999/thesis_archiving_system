@@ -29,6 +29,8 @@ class Archive extends Model
         'members',
         'document_path',
         'document_name',
+        'imrad_path',
+        'imrad_name',
         'signature_path',
         'signature_name',
         'archive_status',

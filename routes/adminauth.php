@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\ResearchAgenda;
 use App\Http\Livewire\Settings;
 use App\Http\Livewire\UserList;
@@ -22,7 +23,7 @@ use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
 use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
 
-Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['middleware' => ['guest:admin', 'prevent-back-history'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -43,7 +44,8 @@ Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'adm
     
 });
 
-Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['middleware' => ['auth:admin', 'prevent-back-history'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+    
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -65,7 +67,7 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     Route::get('settings', Settings::class)->middleware(['permission:Settings'])->name('settings');
 
-    Route::get('user-list', UserList::class)->middleware(['permission:User List'])->name('user-list');
+    Route::get('user-list', UserList::class)->middleware(['permission:Admin Users List'])->name('user-list');
 
     Route::get('student-list', StudentList::class)->middleware(['permission:Student List'])->name('student-list');
 

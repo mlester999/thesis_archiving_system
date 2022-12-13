@@ -19,14 +19,14 @@ if (count($errors) > 0) {
 <div class="bg-gray px-4 pt-8 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <div class="relative px-8">
             <label for="title" class="text-sm font-semibold text-gray-900">Project Title:</label>
-        <input type="text" name="title" id="title" placeholder="Project Title" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" autofocus>
+        <input type="text" name="title" id="title" placeholder="Project Title" value="{{ old('title') }}" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none" autofocus>
         </div>
         <div class="relative px-8 pt-8 sm:pt-0">
             <label for="year" class="text-sm font-semibold text-gray-900">Year:</label>
             <select id="year" name="year" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
                 <option value="0" hidden>~ Select Year ~</option>
                 @for ($year=date('Y'); $year >= 2000; $year--)
-                <option value="{{ $year }}"> {{ $year }} </option>
+                <option value="{{ $year }}" {{ old('year') == $year ? 'selected' : '' }}> {{ $year }} </option>
                 @endfor
                 </select>
         </div>
@@ -35,7 +35,7 @@ if (count($errors) > 0) {
             <select name="research_agenda" id="research_agenda" class="border mt-2 mb-8 px-3 border-gray-500 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full">
                 <option value="0" hidden>~ Select Research Agenda ~</option>
                 @foreach ($agendaData as $agenda)
-                <option value="{{ $agenda->agenda_name }}"> {{ $agenda->agenda_name }} </option>
+                <option value="{{ $agenda->agenda_name }}" {{ old('research_agenda') == $agenda->agenda_name ? 'selected' : '' }}> {{ $agenda->agenda_name }} </option>
                 @endforeach
                 </select>
         </div>
@@ -44,28 +44,35 @@ if (count($errors) > 0) {
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
         <label for="abstract" class="text-sm font-semibold text-gray-900">Abstract:</label>
-    <textarea name="abstract" id="abstract"> </textarea>
+    <textarea name="abstract" id="abstract">{{ old('abstract') }}</textarea>
     </div>
 </div>
 
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
         <label for="members" class="text-sm font-semibold text-gray-900">Project Members:</label>
-    <textarea name="members" id="members"> </textarea>
+    <textarea name="members" id="members">{{ old('members') }}</textarea>
     </div>
 </div>
 
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
-        <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (PDF File only)</label>
-        <input id="document_path" accept="application/pdf" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+        <label for="document_path" class="text-sm font-semibold text-gray-900">Full Project Document (Max: 10MB | PDF File only)</label>
+        <input id="document_path" value="{{ old('document_path') }}" accept="application/pdf" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
     </div>
 </div>
 
 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
     <div class="relative px-8 space-y-2">
-        <label for="signature_path" class="text-sm font-semibold text-gray-900">E-Signature Document (PDF File only)</label>
-        <input id="signature_path" accept="application/pdf" name="signature_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+        <label for="signature_path" class="text-sm font-semibold text-gray-900">IMRAD Document (Max: 10MB | PDF File only)</label>
+        <input id="signature_path" value="{{ old('imrad_path') }}" accept="application/pdf" name="imrad_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+    </div>
+</div>
+
+<div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+    <div class="relative px-8 space-y-2">
+        <label for="signature_path" class="text-sm font-semibold text-gray-900">E-Signature Document (Max: 10MB | PDF File only)</label>
+        <input id="signature_path" value="{{ old('signature_path') }}" accept="application/pdf" name="signature_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
     </div>
 </div>
 

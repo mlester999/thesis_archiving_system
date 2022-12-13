@@ -35,20 +35,34 @@ class ReportLogs extends Component
 
     public $showResults = '5';
 
+    public $mostViewOption = 'topic';
+
     public $selected = [];
 
     // Modals
     public $showDeleteModal = false;
-    public $showViewModal = false;
+    public $showMostSearchModal = false;
+    public $showMostViewModal = false;
     public $showBulkViewModal = false;
     public $showBulkDeleteModal = false;
 
-    public $activityLogs;
+    // Most Searched Thesis
+    public $searchLogs;
     public $searches;
     public $searchCount;
-    public $sortedArr;
-    public $sortedArrKeys;
-    public $topicsAvailability;
+    public $sortedSearchArr;
+    public $sortedSearchArrKeys;
+    public $searchTopicsAvailability;
+
+    // Most Viewed Thesis
+    public $viewLogs;
+    public $views;
+    public $arrayProps;
+    public $stringProps;
+    public $viewCount;
+    public $sortedViewArr;
+    public $sortedViewArrKeys;
+    public $viewTopicsAvailability;
     
     public $showTopics;
     public $activityTopics;
@@ -57,26 +71,30 @@ class ReportLogs extends Component
     public function mount() {
         $this->searches = [];
 
-        $this->topicsAvailability = [];
+        $this->views = [];
+
+        $this->searchTopicsAvailability = [];
+
+        $this->viewTopicsAvailability = [];
 
         $this->activityTopics = Activity::where('event', 'search')->get();
 
         $this->topics = $this->activityTopics->unique('description')->pluck('description')->toArray();
     }
 
-    public function view() {
+    public function viewMostSearch() {
 
-        $this->activityLogs = Activity::where('event', 'search')->get();
+        $this->searchLogs = Activity::where('event', 'search')->get();
         
-        $this->searches = $this->activityLogs->unique('description')->take(5);
+        $this->searches = $this->searchLogs->unique('description')->take(5);
 
-        $this->searchCount = array_count_values($this->activityLogs->pluck('description')->toArray());
+        $this->searchCount = array_count_values($this->searchLogs->pluck('description')->toArray());
 
-        $this->sortedArr = collect($this->searchCount)->sortKeys()->sortDesc();
+        $this->sortedSearchArr = collect($this->searchCount)->sortKeys()->sortDesc();
 
-        $this->sortedArrKeys = $this->sortedArr->keys();
+        $this->sortedSearchArrKeys = $this->sortedSearchArr->keys();
 
-        foreach($this->sortedArrKeys as $key => $sorted) {
+        foreach($this->sortedSearchArrKeys as $key => $sorted) {
             $allTopics[] = $sorted;
             $availableArchive[] = Archive::where('archive_status', '1')->where('title', 'like', '%'  . $allTopics[$key] . '%')->pluck('title')->toArray();
 
@@ -86,12 +104,61 @@ class ReportLogs extends Component
         }
 
         if (!empty($availableTopics)) {
-            $this->topicsAvailability = collect($availableTopics)->take(5);
+            $this->searchTopicsAvailability = collect($availableTopics)->take(5);
         }
 
-        $this->showViewModal = true;
+        $this->showMostSearchModal = true;
 
         $this->logTitle = "Most Searched Thesis";
+    }
+
+    public function viewMostView() {
+
+        $this->stringProps = [];
+
+        $this->viewLogs = Activity::where('event', 'view thesis')->get();
+        
+        $this->views = $this->viewLogs->unique('properties')->take(5);
+
+        $this->arrayProps = $this->viewLogs->pluck('properties');
+
+        foreach($this->arrayProps as $properties) {
+            $this->stringProps[] = $properties[$this->mostViewOption];
+        }
+
+        $this->viewCount = array_count_values($this->stringProps);
+
+        $this->sortedViewArr = collect($this->viewCount)->sortKeys()->sortDesc();
+        
+        $this->sortedViewArrKeys = $this->sortedViewArr->keys();
+
+        $this->showMostViewModal = true;
+
+        $this->logTitle = "Most Viewed Thesis";
+    }
+
+    public function updatedMostViewOption() {
+        $this->stringProps = [];
+
+        $this->viewLogs = Activity::where('event', 'view thesis')->get();
+        
+        $this->views = $this->viewLogs->unique('properties')->take(5);
+
+        $this->arrayProps = $this->viewLogs->pluck('properties');
+
+        foreach($this->arrayProps as $properties) {
+            $this->stringProps[] = $properties[$this->mostViewOption];
+        }
+
+        $this->viewCount = array_count_values($this->stringProps);
+
+        $this->sortedViewArr = collect($this->viewCount)->sortKeys()->sortDesc();
+        
+        $this->sortedViewArrKeys = $this->sortedViewArr->keys();
+
+        $this->showMostViewModal = true;
+
+        $this->logTitle = "Most Viewed Thesis";
     }
 
     public function sortDepartment($dept) {

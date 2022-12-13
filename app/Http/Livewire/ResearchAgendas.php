@@ -122,16 +122,16 @@ class ResearchAgendas extends Component
     public function save() {
         $this->validate();
 
-        if(count(ResearchAgenda::where('id', $this->editing->id)->where('agenda_name', $this->editing->agenda_name)
+        if(count(ResearchAgenda::where('id', $this->editing->id)->where('department_id', $this->editing->department_id)->where('agenda_name', $this->editing->agenda_name)
         ->where('agenda_description', $this->editing->agenda_description)->get()) == 1 || 
-        (count(ResearchAgenda::where('id', $this->editing->id)->where('agenda_name', $this->editing->agenda_name)
-        ->get()) == 1 && count(ResearchAgenda::where('agenda_description', $this->editing->agenda_description)
+        (count(ResearchAgenda::where('id', $this->editing->id)->where('department_id', $this->editing->department_id)->where('agenda_name', $this->editing->agenda_name)
+        ->get()) == 1 && count(ResearchAgenda::where('department_id', $this->editing->department_id)->where('agenda_description', $this->editing->agenda_description)
         ->get()) == 0) ||
-        (count(ResearchAgenda::where('id', $this->editing->id)->where('agenda_description', $this->editing->agenda_description)
-        ->get()) == 1 && count(ResearchAgenda::where('agenda_name', $this->editing->agenda_name)
+        (count(ResearchAgenda::where('id', $this->editing->id)->where('department_id', $this->editing->department_id)->where('agenda_description', $this->editing->agenda_description)
+        ->get()) == 1 && count(ResearchAgenda::where('department_id', $this->editing->department_id)->where('agenda_name', $this->editing->agenda_name)
         ->get()) == 0) ||
-        (count(ResearchAgenda::where('agenda_description', $this->editing->agenda_description)
-        ->get()) == 0 && count(ResearchAgenda::where('agenda_name', $this->editing->agenda_name)->get()) == 0)) {
+        (count(ResearchAgenda::where('department_id', $this->editing->department_id)->where('agenda_description', $this->editing->agenda_description)
+        ->get()) == 0 && count(ResearchAgenda::where('department_id', $this->editing->department_id)->where('agenda_name', $this->editing->agenda_name)->get()) == 0)) {
 
             $this->editing->save();
 

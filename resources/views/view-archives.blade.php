@@ -28,10 +28,11 @@
             <p class="text-sm md:text-lg">{!! $viewArchiveData->abstract !!}</p>
             <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
             <p class="text-sm md:text-lg">{!! $viewArchiveData->members !!}</p>
-            <div class="space-y-2 md:space-y-0 md:space-x-2 py-6 relative flex flex-col md:block">
+            <div class="space-y-2 py-6 relative flex flex-col lg:block lg:space-x-2 lg:space-y-0 md:w-max">
                 @if($viewArchiveData->archive_status < 2)
-                <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</a>
-                <a href="{{ $viewArchiveData->signature_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download E-Signature File</a>
+                <a href="{{ $viewArchiveData->document_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-sm md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download Full Thesis File</a>
+                <a href="{{ $viewArchiveData->imrad_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-sm md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download IMRAD File</a>
+                <a href="{{ $viewArchiveData->signature_path }}" target="_blank" class="py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-sm md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download E-Signature File</a>
                 @endif
                 
                 @if($viewArchiveData->admin_comment)

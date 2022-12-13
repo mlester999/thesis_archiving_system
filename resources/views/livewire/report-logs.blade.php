@@ -17,10 +17,15 @@
 							<input type="radio" name="topics" wire:model="showTopics" value="Not Available Topics" /> Not Available Topics
 						</label>
 					</div>
-				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" wire:click="view()" class="inline-flex bg-blue-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
+				</div>
+				<div class="flex flex-row xl:flex-col justify-between mb-4 xl:mb-0">
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" wire:click="viewMostView()" class="text-center bg-blue-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
+					Most Viewed Thesis
+					</button>
+				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed active:ring-0 active:ring-offset-0" wire:click="viewMostSearch()" class="inline-flex bg-blue-500 hover:bg-opacity-80 duration-150 px-4 py-2 items-center text-white rounded-md active:ring-1 active:ring-blue-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm">
 					Most Searched Thesis
 				</button>
-			</div>
+				</div>
 			<div class="flex flex-row xl:flex-col-reverse justify-between">
 				<x-dropdown-list label="Bulk Actions">
 					<x-dropdown.item @click="open = false" type="button" wire:click="beforeExportSelected" class="flex items-center space-x-2 text-xs md:text-sm">
@@ -68,32 +73,32 @@
 			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"> 
 				<x-input.checkbox wire:model="selectPage" />
 				</th>
-				<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Log Name 
+				<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Log Name 
 					<span wire:click="sortBy('log_name')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'log_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 					</span>
 				</th>
-				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Topics
+				<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Topics
 					<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Department
+				<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Department
 					<span wire:click="sortBy('event')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'event' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Student ID
+				<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Student ID
 					<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">IP Address
+				<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">IP Address
 					<span wire:click="sortBy('properties')" class="cursor-pointer ml-2">
 						<i class="fa-solid fa-arrow-{{ $sortField === 'properties' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 					</span>
 				</th>
-				<th class="font-semibold text-left px-6 pr-4 text-gray-700 uppercase tracking-normal">Action</th>
+				<th class="font-semibold text-center px-8 text-gray-700 uppercase tracking-normal">Action</th>
 			</tr>
 			</thead>
 			<tbody class="w-full" id="main-table-body">
@@ -142,9 +147,11 @@
 				</td>
 				<td class="px-6">
 					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
-					</td>
-					<td class="px-6">
-						<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="mr-8 cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
+				</td>
+				<td class="px-8">
+					<div class="flex justify-center space-x-2">
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
+					</div>
 				</td>
 			</tr>
 
@@ -221,9 +228,8 @@
 					</x-slot>
 			</x-dialog-modal>	
 
-		{{-- Show View Modal --}}
-
-			<x-dialog-modal wire:model.defer="showViewModal">
+		{{-- Show Most Search Modal --}}
+			<x-dialog-modal wire:model.defer="showMostSearchModal">
 			<x-slot name="title"><i class="fa-solid fa-magnifying-glass fa-md pr-4 text-gray-500"></i>{{ $logTitle }}</x-slot>
 		
 			<x-slot name="content">
@@ -235,13 +241,13 @@
 						tabindex="0"
 						class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 					>
-					<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"># 
+					<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal"># 
 						</th>
-						<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Top Search
+						<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Top Search
 						</th>
-						<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Total Searches
+						<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Total Searches
 						</th>
-						<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Availability
+						<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Availability
 						</th>
 					</tr>
 					</thead>
@@ -254,20 +260,20 @@
 						class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 					>
 					<td class="px-6">
-						<div class="flex items-center">
+						<div class="flex items-center justify-center">
 						<div>
 							<p class="text-md font-medium leading-none text-gray-800">{{ $key + 1 }}</p>
 						</div>
 						</div>
 					</td>
 						<td class="px-6">
-						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArrKeys[$key] }}</p>
+						<p class="text-md font-medium leading-none text-gray-800">{{ $sortedSearchArrKeys[$key] }}</p>
 						</td>
 						<td class="px-6">
-							<p class="text-md font-medium leading-none text-gray-800">{{ $sortedArr[$sortedArrKeys[$key]] }} {{$sortedArr[$sortedArrKeys[$key]] == 1 ? ' search.' : ' searches.'}}</p>
+							<p class="text-md font-medium leading-none text-gray-800">{{ $sortedSearchArr[$sortedSearchArrKeys[$key]] }} {{$sortedSearchArr[$sortedSearchArrKeys[$key]] == 1 ? ' search.' : ' searches.'}}</p>
 						</td>
 						<td class="px-6">
-							@if($topicsAvailability->contains($sortedArrKeys[$key]))
+							@if($searchTopicsAvailability->contains($sortedSearchArrKeys[$key]))
 							<span class="px-2 mr-6 lg:mr-0 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-green-300 to-green-400 text-green-800">
 								Available
 							</span>
@@ -299,9 +305,89 @@
 			</x-slot>
 			
 				<x-slot name="footer">
-					<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showViewModal', false)" class="mx-2">Close</x-secondary-button>
+					<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showMostSearchModal', false)" class="mx-2">Close</x-secondary-button>
 				</x-slot>
-				</x-dialog-modal>	
+		</x-dialog-modal>
+
+		{{-- Show Most View Modal --}}
+		<x-dialog-modal wire:model.defer="showMostViewModal">
+			<x-slot name="title">
+				<div class="flex justify-between">
+					<span>
+					<i class="fa-solid fa-magnifying-glass fa-md pr-4 text-gray-500"></i>
+					{{ $logTitle }}
+					</span>
+
+					<select name="mostViewOption" wire:model="mostViewOption" id="mostViewOption" class="inline-flex w-36 sm:w-auto items-center border border-gray-300 text-gray-900 rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none text-xs md:text-sm transition duration-150">
+						<option value="topic" selected>Topic</option>
+						<option value="agenda">Agenda</option>
+						<option value="author">Author</option>
+					</select>
+				</div>
+			</x-slot>
+		
+			<x-slot name="content">
+				<div class="overflow-x-auto sm:rounded-lg space-y-8">
+				<!--Body-->
+				<table class="min-w-full border-separate divide-y divide-gray-200 border-b-2 shadow">
+					<thead class="bg-gray-50">
+					<tr
+						tabindex="0"
+						class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
+					>
+					<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal"># 
+						</th>
+						<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Top {{ $mostViewOption }}
+						</th>
+						<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Total Views
+						</th>
+					</tr>
+					</thead>
+					<tbody class="w-full" id="main-table-body">
+						@forelse($views as $key => $view)
+					<tr
+						wire:loading.class="opacity-50"
+						tabindex="{{ $view->id }}"
+						class="odd:bg-white even:bg-slate-50 focus:outline-none text-center h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+					>
+					<td class="px-6">
+						<div class="flex items-center justify-center">
+						<div>
+							<p class="text-md font-medium leading-none text-gray-800">{{ $key + 1 }}</p>
+						</div>
+						</div>
+					</td>
+						<td class="px-6">
+						<p class="text-md font-medium leading-normal text-gray-800">{{ $sortedViewArrKeys[$key] }}</p>
+						</td>
+						<td class="px-6">
+							<p class="text-md font-medium leading-normal text-gray-800">{{ $sortedViewArr[$sortedViewArrKeys[$key]] }} {{$sortedViewArr[$sortedViewArrKeys[$key]] == 1 ? ' view.' : ' views.'}}</p>
+						</td>
+					</tr>
+			
+					@empty
+					<tr
+					wire:loading.class="opacity-50"
+					class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+					>
+					<td colspan="7" class="px-4">
+						<div class="flex items-center justify-center">
+						<div>
+							<p class="text-xl py-8 font-medium leading-none text-gray-400">No top search found...</p>
+						</div>
+						</div>
+					</td>
+					</tr>
+					@endforelse
+					</tbody>
+				</table>
+				</div>
+			</x-slot>
+			
+				<x-slot name="footer">
+					<x-secondary-button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="$set('showMostViewModal', false)" class="mx-2">Close</x-secondary-button>
+				</x-slot>
+		</x-dialog-modal>
 		
 
 		{{-- Show Delete Modal --}}

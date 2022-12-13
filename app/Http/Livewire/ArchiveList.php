@@ -104,8 +104,8 @@ class ArchiveList extends Component
             $this->currentUser = User::find($this->publishing->user_id);
 
             // Adding Roles 
-            $this->currentUser->removeRole('Seniors (Pending Thesis)');
-            $this->currentUser->assignRole('Seniors (Approved Thesis)');
+            $this->currentUser->removeRole('Graduating Students (Pending Thesis)');
+            $this->currentUser->assignRole('Graduating Students (Approved Thesis)');
 
             // Moving the uploaded thesis from "For Approval" to "Approved Thesis"
             $fileUploaded = $fileSystem->move('For Approval' . '/' . $this->studentId . '/' . $this->documentName, 'Approved Thesis' . '/' . $this->studentId . '/' .  $this->documentName);

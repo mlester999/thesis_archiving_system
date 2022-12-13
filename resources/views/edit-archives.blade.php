@@ -9,7 +9,7 @@
 
 <div class="overflow-hidden bg-white shadow-xl rounded-lg max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-8 sm:mx-auto my-8 relative">
     <div class="px-4 py-5 sm:px-6">
-        <p class="py-2 text-sm md:text-lg font-medium">Update Archive {{ $editArchiveData->archive_code }} Details</p>
+        <p class="py-2 text-sm md:text-lg font-bold">Update Archive {{ $editArchiveData->archive_code }} Details</p>
         <div class="py-10 border-t border-gray-300 space-y-4">
             <dl>
                 <form x-data="{ buttonDisabled: false }" x-on:submit="buttonDisabled = true" action="{{ route('update.archives', $editArchiveData->id) }}" method="post" enctype="multipart/form-data">
@@ -63,14 +63,21 @@
                 
                 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                     <div class="relative md:px-8 space-y-2">
-                    <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (PDF File only)</label>
-                    <input id="document_path" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+                    <label for="document_path" class="text-sm font-semibold text-gray-900">Project Document (Max: 10MB | PDF File only)</label>
+                    <input id="document_path" accept="application/pdf" name="document_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
                     </div>
                 </div>
 
                 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                     <div class="relative md:px-8 space-y-2">
-                        <label for="signature_path" class="text-sm font-semibold text-gray-900">E-Signature Document (PDF File only)</label>
+                    <label for="imrad_path" class="text-sm font-semibold text-gray-900">IMRAD Document (Max: 10MB | PDF File only)</label>
+                    <input id="imrad_path" accept="application/pdf" name="imrad_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
+                    </div>
+                </div>
+
+                <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                    <div class="relative md:px-8 space-y-2">
+                        <label for="signature_path" class="text-sm font-semibold text-gray-900">E-Signature Document (Max: 10MB | PDF File only)</label>
                         <input id="signature_path" accept="application/pdf" name="signature_path" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" type="file">
                     </div>
                 </div>

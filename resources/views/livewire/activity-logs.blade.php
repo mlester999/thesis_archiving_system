@@ -54,35 +54,35 @@
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 		  >
-			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"> 
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal"> 
 				<x-input.checkbox wire:model="selectPage" />
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Log Name 
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Log Name 
 				<span wire:click="sortBy('log_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'log_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Description
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Description
 				<span wire:click="sortBy('description')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Department
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('log')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'event' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">Student ID
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Student ID
 				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal">IP Address
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">IP Address
 				<span wire:click="sortBy('properties')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'properties' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-6 pr-4 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-center px-8 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -109,7 +109,7 @@
 		  	wire:loading.class="opacity-50"
 			wire:key="row-{{ $activity->id }}"
 			tabindex="{{ $activity->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none text-center h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
 		  <td class="px-6">
 			<x-input.checkbox wire:model="selected" value="{{ $activity->id }}" />
@@ -131,9 +131,11 @@
 			<td class="px-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
 				</td>
-			<td class="px-6">
-				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="mr-8 cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
-			  </td>
+			<td class="px-8">
+				<div class="flex justify-center space-x-2">
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
+				</div>
+			</td>
 		  </tr>
 
 		  @empty

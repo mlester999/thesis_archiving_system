@@ -45,32 +45,32 @@
 			tabindex="0"
 			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 		  >
-			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"># 
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal"># 
 				<span wire:click="sortBy('id')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">College Name
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">College Name
 				<span wire:click="sortBy('dept_description')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Acronym
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Acronym
 				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Created at 
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Created at 
 				<span wire:click="sortBy('created_at')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'created_at' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Status
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Status
 				<span wire:click="sortBy('dept_status')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-center px-8 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -78,10 +78,10 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $department->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none text-center h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
 			<td class="px-6 py-6">
-			  <div class="flex items-center">
+			  <div class="flex items-center justify-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $department->id }}</p>
 				</div>
@@ -111,18 +111,20 @@
                 </span>
 				@endif
 			</td>
-			<td class="px-4 py-6 whitespace-nowrap">
-				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
-				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $department->id }})" class="cursor-pointer px-1 fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
-				<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $department->id }})" class="cursor-pointer pl-1 pr-8 fa-solid {{ $department->dept_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
-			  </td>
+			<td class="px-8 py-6 whitespace-nowrap">
+				<div class="flex justify-center space-x-2">
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="view({{ $department->id }})" class="cursor-pointer fa-solid fa-eye text-slate-900 hover:text-opacity-70 duration-150 fa-xl"></button>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $department->id }})" class="cursor-pointer fa-solid fa-pen-to-square text-blue-500 hover:text-opacity-70 duration-150 fa-xl"></button>
+					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="disable({{ $department->id }})" class="cursor-pointer fa-solid {{ $department->dept_status ? 'fa-user-slash text-red-600' : 'fa-user-check text-green-600' }} hover:text-opacity-70 duration-150 fa-xl"></button>
+				</div>
+			</td>
 		  </tr>
 		  @empty
 		  <tr
 		  wire:loading.class="opacity-50"
 		  class="odd:bg-white even:bg-slate-50 focus:outline-none h-26 text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		>
-		  <td colspan="7" class="px-4">
+		  <td colspan="7" class="px-5">
 			<div class="flex items-center justify-center">
 			  <div>
 				<p class="text-md sm:text-lg py-8 font-medium leading-none text-gray-400">No colleges found...</p>

@@ -46,37 +46,37 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left px-4 text-gray-700 uppercase tracking-normal">Archive Code
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Archive Code
 				<span wire:click="sortBy('archive_code')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'archive_code' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>	
 				</span>
 			</th>
-			<th class="font-semibold text-left px-3 text-gray-700 uppercase tracking-normal">Project Title
+			<th class="font-semibold text-center px-3 text-gray-700 uppercase tracking-normal">Project Title
 				<span wire:click="sortBy('title')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'title' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-3 text-gray-700 uppercase tracking-normal">Department
+			<th class="font-semibold text-center px-3 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('dept_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'dept_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-3 text-gray-700 uppercase tracking-normal">Curriculum
+			<th class="font-semibold text-center px-3 text-gray-700 uppercase tracking-normal">Curriculum
 				<span wire:click="sortBy('curr_name')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'curr_name' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-3 text-gray-700 uppercase tracking-normal">Year
+			<th class="font-semibold text-center px-3 text-gray-700 uppercase tracking-normal">Year
 				<span wire:click="sortBy('year')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'year' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-3 text-gray-700 uppercase tracking-normal">Status
+			<th class="font-semibold text-center px-3 text-gray-700 uppercase tracking-normal">Status
 				<span wire:click="sortBy('archive_status')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'archive_status' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-left px-3 pr-8 md:pr-4 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-center px-8 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -84,10 +84,10 @@
 		  <tr
 		  	wire:loading.class="opacity-50"
 			tabindex="{{ $archive->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 text-center focus:outline-none h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
 			<td class="px-6 py-6">
-			  <div class="flex items-center">
+			  <div class="flex items-center justify-center">
 				<div>
 				  <p class="text-md font-medium leading-none text-gray-800">{{ $archive->id }}</p>
 				</div>
@@ -97,7 +97,7 @@
 			  <p class="text-md font-medium leading-none text-gray-800">{{ $archive->archive_code }}</p>
 			</td>
 			<td class="px-3 py-6">
-			  <p class="text-md font-medium leading-normal text-gray-800">{{ \Illuminate\Support\Str::limit($archive->title, 20, '...') }}</p>
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ $archive->title }}</p>
 			</td>
 			<td class="px-3 py-6">
 			<p class="text-md font-medium leading-normal text-gray-800">{{ $archive->dept_name ?? 'Department Not Found' }}</p>
@@ -123,11 +123,13 @@
                 </span>
 				@endif
 			  </td>
-			<td class="px-3 py-6 whitespace-nowrap">
-				<a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" href="{{ route('admin.view.archive-list', $archive->archive_code) }}" class="mx-auto"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
-				@if($archive->archive_status == 0)
-					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $archive->id }})" class="ml-2 mr-8"> <i class="hover:text-opacity-70 duration-150 text-blue-500 fa-solid fa-pen-to-square fa-xl"></i> </button>
-				@endif
+			<td class="px-8 py-6 whitespace-nowrap">
+				<div class="flex space-x-2 justify-center">
+					<a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" href="{{ route('admin.view.archive-list', $archive->archive_code) }}"> <i class="hover:text-opacity-70 duration-150 text-slate-900 fa-solid fa-eye fa-xl"></i> </a>
+					@if($archive->archive_status == 0)
+						<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="edit({{ $archive->id }})"> <i class="hover:text-opacity-70 duration-150 text-blue-500 fa-solid fa-pen-to-square fa-xl"></i> </button>
+					@endif
+				</div>
 			</td>
 		  </tr>
 		  @empty

@@ -21,16 +21,16 @@ class UserController extends Controller
 
     public function Projects(Request $request) {
 
-            if($request->search) {
-                activity('Search Title')->by($request->user)->event('search')->withProperties(['ip_address' => $request->ip()])->log($request->search)->subject($request->search);
+        if($request->search) {
+            activity('Search Title')->by($request->user)->event('search')->withProperties(['ip_address' => $request->ip()])->log($request->search)->subject($request->search);
             }
-            return view('projects', ["currentPage" => "projects", "currentSearch" => $request->search]);
+        return view('projects', ["currentPage" => "projects", "currentSearch" => $request->search]);
     }
 
     public function SubmitThesis() {
         $id = Auth::user()->id;
         $userData = User::find($id);
-        $agendaData = ResearchAgenda::all();
+        $agendaData = ResearchAgenda::where('department_id', $userData->department_id)->get();
 
         return view('submit-thesis', ["currentPage" => 'submit'], compact(['userData', 'agendaData']));
 
@@ -53,7 +53,20 @@ class UserController extends Controller
                 Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
                 return redirect()->back();
             }
-        }   
+        }  
+        
+        if(!empty($request->file('imrad_path'))) {
+
+            if($request->file('imrad_path')->getSize() > 10000000) {
+                Alert::error('Maximum of 10MB only', 'Your file size is too big.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+
+            if($request->file('imrad_path')->getClientMimeType() !== 'application/pdf') {
+                Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+        }
 
         if(!empty($request->file('signature_path'))) {
 
@@ -75,17 +88,24 @@ class UserController extends Controller
             'abstract' => 'required',
             'members' => 'required',
             'document_path' => 'required',
+            'imrad_path' => 'required',
             'signature_path' => 'required',
         ]);
 
         // Thesis File
         $fileContent = $request->file('document_path');
 
+        // Imrad File
+        $imradContent = $request->file('imrad_path');
+
         // E-Signature File
         $signatureContent = $request->file('signature_path');
 
         // Thesis Name
         $fileContentName = $request->file('document_path')->getClientOriginalName();
+        
+        // Imrad Name
+        $imradContentName = $request->file('imrad_path')->getClientOriginalName();
         
         // E-Signature Name
         $signatureContentName = $request->file('signature_path')->getClientOriginalName();
@@ -94,6 +114,9 @@ class UserController extends Controller
 
         // Uploading of Thesis File
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $fileContent, $fileContentName);
+        
+        // Uploading of Thesis File
+        $imradUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $imradContent, $imradContentName);
         
         // Uploading of E-Signature File
         $signatureUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userUploaded->student_id, $signatureContent, $signatureContentName);
@@ -110,6 +133,8 @@ class UserController extends Controller
             'members' => $request->members,
             'document_path' => $fileSystem->url($fileUploaded),
             'document_name' => $fileContentName,
+            'imrad_path' => $fileSystem->url($imradUploaded),
+            'imrad_name' => $imradContentName,
             'signature_path' => $fileSystem->url($signatureUploaded),
             'signature_name' => $signatureContentName,
             'user_id' => $userUploaded->id,
@@ -167,7 +192,8 @@ class UserController extends Controller
         
         $userId = Auth::user()->id;
         $editArchiveData = Archive::all()->where('archive_code', $id)->where('user_id', $userId)->first();
-        $agendaData = ResearchAgenda::all();
+        $userData = User::find($id);
+        $agendaData = ResearchAgenda::where('department_id', $userId)->get();
 
         if($editArchiveData) {
         return view('edit-archives', ["currentPage" => 'edit-archives'], compact(['editArchiveData', 'agendaData']));
@@ -197,6 +223,19 @@ class UserController extends Controller
             }
         }
 
+        if(!empty($request->file('imrad_path'))) {
+
+            if($request->file('imrad_path')->getSize() > 10000000) {
+                Alert::error('Maximum of 10MB only', 'Your file size is too big.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+
+            if($request->file('imrad_path')->getClientMimeType() !== 'application/pdf') {
+                Alert::error('PDF File Only', 'Your file is an invalid file type.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
+                return redirect()->back();
+            }
+        }
+
         if(!empty($request->file('signature_path'))) {
 
             if($request->file('signature_path')->getSize() > 10000000) {
@@ -217,17 +256,24 @@ class UserController extends Controller
             'abstract' => 'required',
             'members' => 'required',
             'document_path' => 'required',
+            'imrad_path' => 'required',
             'signature_path' => 'required',
         ]);
 
         // Thesis File
         $fileContent = $request->file('document_path');
 
+        // Imrad File
+        $imradContent = $request->file('imrad_path');
+
         // E-Signature File
         $signatureContent = $request->file('signature_path');
 
         // Thesis Name
         $fileContentName = $request->file('document_path')->getClientOriginalName();
+
+        // Imrad Name
+        $imradContentName = $request->file('imrad_path')->getClientOriginalName();
         
         // E-Signature Name
         $signatureContentName = $request->file('signature_path')->getClientOriginalName();
@@ -235,25 +281,54 @@ class UserController extends Controller
         $fileSystem = Storage::disk('google');
 
         $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->document_name);
+        
+        $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->imrad_name);
 
         $fileSystem->delete('For Approval' . '/' . $userData->student_id, $storeArchiveData->signature_name);
 
         // Uploading of Thesis File
         $fileUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userData->student_id, $fileContent, $fileContentName);
+
+        // Uploading of Imrad File
+        $imradUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userData->student_id, $imradContent, $imradContentName);
     
         // Uploading of E-Signature File
         $signatureUploaded = $fileSystem->putFileAs('For Approval' . '/' . $userData->student_id, $signatureContent, $signatureContentName);
 
+        // Year
         $storeArchiveData->year = $request->year;
+
+        // Title
         $storeArchiveData->title = $request->title;
+
+        // Research Agenda ID
         $storeArchiveData->research_agenda_id = $agendaData->id;
+
+        // Abstract
         $storeArchiveData->abstract = $request->abstract;
+
+        // Members
         $storeArchiveData->members = $request->members;
+
+        // Thesis Document Path
         $storeArchiveData->document_path = $fileSystem->url($fileUploaded);
+
+        // Thesis Document Name
         $storeArchiveData->document_name = $fileContentName;
+
+        // IMRaD Path
+        $storeArchiveData->imrad_path = $fileSystem->url($imradUploaded);
+
+        // IMRaD Name
+        $storeArchiveData->imrad_name = $imradContentName;
+
+        // Signature Path
         $storeArchiveData->signature_path = $fileSystem->url($signatureUploaded);
+
+        // Signature Name
         $storeArchiveData->signature_name = $signatureContentName;
 
+        // Saving the Data
         $storeArchiveData->save();
 
         Alert::success('Updated Successfully', 'Your thesis has been updated.')->width('420px')->showConfirmButton('OK', '#2678c5')->autoClose(5000);
@@ -351,7 +426,7 @@ class UserController extends Controller
         }
     }
 
-    public function ViewCollegeDepartments($dept, $id) {
+    public function ViewCollegeDepartments(Request $request, $dept, $id) {
 
         $user = auth()->user();
 
@@ -362,6 +437,8 @@ class UserController extends Controller
         $archives = Bookmark::has($viewDepartmentData, $user);
         
         if($viewDepartmentData) {
+            activity('View Thesis')->by($user)->event('view thesis')->withProperties(['ip_address' => $request->ip(), 'topic' => $viewDepartmentData->title, 'agenda' => $viewDepartmentData->research_agenda->agenda_name, 'author' => $viewDepartmentData->user->last_name . ', ' . $viewDepartmentData->user->first_name . ' ' . $viewDepartmentData->user->middle_name[0] . '.' ])->log('Submit Thesis Successful');
+
         return view('view-department', ["currentPage" => 'view-archives', 'hasBookmark' => $archives], compact(['viewDepartmentData', 'user']));
         } else {
             return redirect()->route('department', $dept);

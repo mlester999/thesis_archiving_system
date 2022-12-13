@@ -1,4 +1,4 @@
-<table class="min-w-full divide-y divide-gray-300">
+<table class="table-fixed min-w-full divide-y divide-gray-300">
     <thead class="bg-slate-100">
       <tr>
         <th
@@ -61,9 +61,9 @@
         </td>
 
         <td
-          class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-normal p-3 text-xs text-center sm:text-sm font-medium tracking-wider text-slate-800"
         >
-          {{ \Illuminate\Support\Str::limit($archive->title, 40, '...') }}
+          {{ $archive->title }}
         </td>
 
         <td
@@ -73,7 +73,7 @@
         </td>
 
         <td
-          class="whitespace-nowrap px-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+          class="whitespace-normal px-3 text-xs text-center sm:text-sm font-medium tracking-wider text-slate-800"
         >
           {{ $archive->research_agenda->agenda_name }}
         </td>
@@ -111,9 +111,6 @@
           class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
         >
           <a wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed pointer-events-none" href="{{ route('view.archives', $archive->archive_code) }}" class="mr-2"> <i class="fa-solid fa-eye text-slate-900 hover:text-opacity-80 duration-150 fa-xl"></i> </a>
-          @if($archive->archive_status != 1)
-          <button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click.prevent="deleteConfirmation({{ $archive->id }})" class="mx-2 cursor-pointer"> <i class="fa-solid text-red-500 hover:text-opacity-80 duration-150 fa-trash fa-xl"></i> </button>
-          @endif
         </td>
       </tr>
       @empty
