@@ -437,7 +437,7 @@ class UserController extends Controller
         $archives = Bookmark::has($viewDepartmentData, $user);
         
         if($viewDepartmentData) {
-            activity('View Thesis')->by($user)->event('view thesis')->withProperties(['ip_address' => $request->ip(), 'topic' => $viewDepartmentData->title, 'agenda' => $viewDepartmentData->research_agenda->agenda_name, 'author' => $viewDepartmentData->user->last_name . ', ' . $viewDepartmentData->user->first_name . ' ' . $viewDepartmentData->user->middle_name[0] . '.' ])->log('Submit Thesis Successful');
+            activity('View Thesis')->by($user)->event('view thesis')->withProperties(['ip_address' => $request->ip(), 'topic' => $viewDepartmentData->title, 'agenda' => $viewDepartmentData->research_agenda->agenda_name, 'author' => $viewDepartmentData->user->last_name . ', ' . $viewDepartmentData->user->first_name . ' ' . $viewDepartmentData->user->middle_name[0] . '.' ])->log($viewDepartmentData->title);
 
         return view('view-department', ["currentPage" => 'view-archives', 'hasBookmark' => $archives], compact(['viewDepartmentData', 'user']));
         } else {
@@ -471,8 +471,16 @@ class UserController extends Controller
     public function DownloadThesis(Request $request, $id) {
         $viewDepartmentData = Archive::find($id);
 
-        activity('Download Thesis')->by($request->user)->event('download thesis')->withProperties(['ip_address' => $request->ip()])->log($viewDepartmentData->title);
+        activity('Download Thesis')->by($request->user)->event('download thesis')->withProperties(['ip_address' => $request->ip(), 'agenda' => $viewDepartmentData->research_agenda->agenda_name])->log($viewDepartmentData->title);
 
         return redirect()->away($viewDepartmentData->document_path);
+    }
+    
+    public function DownloadImrad(Request $request, $id) {
+        $viewDepartmentData = Archive::find($id);
+
+        activity('Download IMRAD')->by($request->user)->event('download IMRAD')->withProperties(['ip_address' => $request->ip(), 'agenda' => $viewDepartmentData->research_agenda->agenda_name])->log($viewDepartmentData->title);
+
+        return redirect()->away($viewDepartmentData->imrad_path);
     }
 }

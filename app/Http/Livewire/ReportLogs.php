@@ -138,27 +138,7 @@ class ReportLogs extends Component
     }
 
     public function updatedMostViewOption() {
-        $this->stringProps = [];
-
-        $this->viewLogs = Activity::where('event', 'view thesis')->get();
-        
-        $this->views = $this->viewLogs->unique('properties')->take(5);
-
-        $this->arrayProps = $this->viewLogs->pluck('properties');
-
-        foreach($this->arrayProps as $properties) {
-            $this->stringProps[] = $properties[$this->mostViewOption];
-        }
-
-        $this->viewCount = array_count_values($this->stringProps);
-
-        $this->sortedViewArr = collect($this->viewCount)->sortKeys()->sortDesc();
-        
-        $this->sortedViewArrKeys = $this->sortedViewArr->keys();
-
-        $this->showMostViewModal = true;
-
-        $this->logTitle = "Most Viewed Thesis";
+        $this->viewMostView();
     }
 
     public function sortDepartment($dept) {
@@ -341,6 +321,7 @@ class ReportLogs extends Component
             ->orWhere('event', 'submit thesis')
             ->orWhere('event', 'reset password')
             ->orWhere('event', 'download thesis');
+            ->orWhere('event', 'download IMRAD');
         })
         ->where('dept_name', 'like', '%'  . $this->department . '%')
         ->where('student_id', 'like', '%'  . $this->search . '%')

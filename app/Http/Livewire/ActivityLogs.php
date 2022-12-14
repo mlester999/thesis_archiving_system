@@ -182,7 +182,9 @@ class ActivityLogs extends Component
         ->leftJoin('departments', 'users.department_id', '=', 'departments.id')
         ->whereNot(function ($query) {
             $query->where('event', 'search')
-                ->orWhere('event', 'download thesis');
+                ->orWhere('event', 'download thesis')
+                ->orWhere('event', 'download IMRAD')
+                ->orWhere('event', 'view thesis');
         })
         ->where('dept_name', 'like', '%'  . $this->department . '%')
         ->where('student_id', 'like', '%'  . $this->search . '%')

@@ -64,11 +64,11 @@
 
 		<div class="overflow-x-auto sm:rounded-lg space-y-8"
 		>
-		<table class="min-w-full border-separate whitespace-nowrap divide-y divide-gray-200 border-b-2">
+		<table class="min-w-full border-separate divide-y divide-gray-200 border-b-2">
 			<thead class="bg-gray-50">
 			<tr
 				tabindex="0"
-				class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
+				class="focus:outline-none whitespace-nowrap h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 			>
 			<th class="font-semibold text-left px-6 text-gray-700 uppercase tracking-normal"> 
 				<x-input.checkbox wire:model="selectPage" />
@@ -126,29 +126,29 @@
 				wire:loading.class="opacity-50"
 				wire:key="row-{{ $activity->id }}"
 				tabindex="{{ $activity->id }}"
-				class="odd:bg-white even:bg-slate-50 focus:outline-none h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+				class="odd:bg-white even:bg-slate-50 focus:outline-none text-center h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 			>
-			<td class="px-6">
+			<td class="px-6 py-6">
 				<x-input.checkbox wire:model="selected" value="{{ $activity->id }}" />
 			</td>
-				<td class="px-4">
-				<p class="text-md font-medium leading-none text-gray-800">
+				<td class="px-4 py-6">
+				<p class="text-md font-medium leading-normal text-gray-800">
 					{{ $activity->log_name }}
 				</p>
 				</td>
-				<td class="px-6">
-				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->description }}</p>
+				<td class="px-6 py-6">
+				<p class="text-md font-medium leading-normal text-gray-800">{{ $activity->description }}</p>
 				</td>
-				<td class="px-6">
+				<td class="px-6 py-6">
 					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->dept_name }}</p>
 				</td>
-				<td class="px-6">
+				<td class="px-6 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->student_id }}</p>
 				</td>
-				<td class="px-6">
+				<td class="px-6 py-6">
 					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
 				</td>
-				<td class="px-8">
+				<td class="px-8 py-6 whitespace-nowrap ">
 					<div class="flex justify-center space-x-2">
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
 					</div>

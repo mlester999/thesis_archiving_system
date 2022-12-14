@@ -189,6 +189,7 @@ class DownloadLogs extends Component
             ->orWhere('event', 'update thesis')
             ->orWhere('event', 'verify email')
             ->orWhere('event', 'reset password')
+            ->orWhere('event', 'view thesis')
             ->orWhere('event', 'submit thesis');
         })
         ->where('dept_name', 'like', '%'  . $this->department . '%')

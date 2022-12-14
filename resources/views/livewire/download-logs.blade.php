@@ -47,11 +47,11 @@
 
 	<div class="overflow-x-auto sm:rounded-lg space-y-8"
 	>
-	  <table class="min-w-full border-separate whitespace-nowrap divide-y divide-gray-200 border-b-2 shadow">
+	  <table class="min-w-full border-separate divide-y divide-gray-200 border-b-2 shadow">
 		<thead class="bg-gray-50">
 		  <tr
 			tabindex="0"
-			class="focus:outline-none h-16 w-full text-xs md:text-sm leading-none text-gray-800"
+			class="focus:outline-none  whitespace-nowrap h-16 w-full text-xs md:text-sm leading-none text-gray-800"
 		  >
 		  <th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal"> 
 			<x-input.checkbox wire:model="selectPage" />
@@ -66,22 +66,27 @@
 					<i class="fa-solid fa-arrow-{{ $sortField === 'description' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Department
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Department
 				<span wire:click="sortBy('event')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'event' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Student ID
-				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
-					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
-				</span>
-			</th>
-			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">IP Address
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Research Agenda
 				<span wire:click="sortBy('properties')" class="cursor-pointer ml-2">
 					<i class="fa-solid fa-arrow-{{ $sortField === 'properties' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
 				</span>
 			</th>
-			<th class="font-semibold text-center px-8 text-gray-700 uppercase tracking-normal">Action</th>
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">Student ID
+				<span wire:click="sortBy('student_id')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'student_id' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
+			<th class="font-semibold text-center px-4 text-gray-700 uppercase tracking-normal">IP Address
+				<span wire:click="sortBy('properties')" class="cursor-pointer ml-2">
+					<i class="fa-solid fa-arrow-{{ $sortField === 'properties' && $sortDirection === 'asc' ? 'up' : 'down' }} fa-xs"></i>
+				</span>
+			</th>
+			<th class="font-semibold text-center px-6 text-gray-700 uppercase tracking-normal">Action</th>
 		  </tr>
 		</thead>
 		<tbody class="w-full" id="main-table-body">
@@ -109,29 +114,32 @@
 		  	wire:loading.class="opacity-50"
 			wire:key="row-{{ $activity->id }}"
 			tabindex="{{ $activity->id }}"
-			class="odd:bg-white even:bg-slate-50 focus:outline-none text-center h-16 text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
+			class="odd:bg-white even:bg-slate-50 focus:outline-none text-center h-auto text-xs md:text-sm leading-none text-gray-800 bg-white border-b border-t border-gray-100"
 		  >
-		  <td class="px-6">
+		  <td class="px-4 py-6">
 			<x-input.checkbox wire:model="selected" value="{{ $activity->id }}" />
 		  </td>
-			<td class="px-4">
-			  <p class="text-md font-medium leading-none text-gray-800">
+			<td class="px-4 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">
 				{{ $activity->log_name }}
 			  </p>
 			</td>
-			<td class="px-6">
-			  <p class="text-md font-medium leading-none text-gray-800">{{ \Illuminate\Support\Str::limit($activity->description, 50, '...') }}</p>
+			<td class="px-6 py-6">
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ $activity->description }}</p>
 			</td>
-			<td class="px-6">
+			<td class="px-2 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->dept_name }}</p>
 			  </td>
-            <td class="px-6">
+			  <td class="px-4 py-6">
+				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->last() }}</p>
+				</td>
+            <td class="px-2 py-6">
             <p class="text-md font-medium leading-none text-gray-800">{{ $activity->student_id }}</p>
             </td>
-			<td class="px-6">
+			<td class="px-2 py-6">
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
 				</td>
-			<td class="px-8">
+			<td class="px-6 py-6 whitespace-nowrap">
 				<div class="flex justify-center space-x-2">
 					<button wire:loading.attr="disabled" wire:loading.class="cursor-not-allowed" wire:click="delete({{ $activity->id }})" class="cursor-pointer bg-red-500 shadow-sm rounded-md p-2 hover:bg-opacity-70 duration-150"><i class="fa-solid fa-trash text-white fa-sm md:fa-md lg:fa-lg"></i><span class="px-1 md:px-2 text-white text-semibold text-xs md:text-sm">Delete</span></button>
 				</div>

@@ -36,10 +36,17 @@
             <p class="text-sm md:text-lg">{!! $viewDepartmentData->abstract !!}</p>
             <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
             <p class="text-sm md:text-lg">{!! $viewDepartmentData->members !!}</p>
-            <div class="space-y-2 md:space-y-0 md:space-x-2 py-6 relative flex flex-col md:block">
-                <form action="{{ route('download.thesis', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
+            <div class="space-y-2 pb-6 relative flex flex-col lg:block lg:space-x-2 lg:space-y-0 md:w-max">
+                <form class="inline-block" action="{{ route('download.thesis', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <button class="w-full md:w-auto py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</button>
+                    <button name="fullThesis" class="w-full my-1 lg:my-0 md:w-auto py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</button>
+                    {{-- <button name="imradThesis" class="w-full my-1 lg:my-0 md:w-auto py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download IMRAD File</button> --}}
+                </form>
+
+                <form class="inline-block" action="{{ route('download.imrad', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    {{-- <button name="fullThesis" class="w-full my-1 lg:my-0 md:w-auto py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</button> --}}
+                    <button name="imradThesis" class="w-full my-1 lg:my-0 md:w-auto py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download IMRAD File</button>
                 </form>
             </div>
         </div>

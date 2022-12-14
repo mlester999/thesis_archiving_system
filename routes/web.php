@@ -39,6 +39,7 @@ Route::controller(UserController::class)->group(function () {
 
     Route::get('/submit', 'SubmitThesis')->middleware(['auth', 'verified', 'role:Graduating Students (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('submit');
     Route::post('/download/thesis/{id}', 'DownloadThesis')->middleware(['auth', 'verified'])->name('download.thesis');
+    Route::post('/download/imrad/{id}', 'DownloadImrad')->middleware(['auth', 'verified'])->name('download.imrad');
     Route::post('/store/thesis', 'StoreThesis')->middleware(['auth', 'verified', 'role:Graduating Students (Pending Thesis)', 'permission:View Submission of Thesis|Submit Thesis'])->name('store.thesis');
 
     Route::get('/about', 'About')->middleware(['auth', 'verified'])->name('about');

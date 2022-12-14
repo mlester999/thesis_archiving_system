@@ -175,21 +175,15 @@
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                              class="tracking-widest py-4 px-8 text-xs sm:text-sm font-medium text-slate-800"
                             >
                               Department
                             </th>
                             <th
                               scope="col"
-                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
+                              class="tracking-widest py-4 px-8 text-xs sm:text-sm font-medium text-slate-800"
                             >
                               Curriculum
-                            </th>
-                            <th
-                              scope="col"
-                              class="tracking-widest p-4 text-xs sm:text-sm font-medium text-slate-800"
-                            >
-                              Published at
                             </th>
                           </tr>
                         </thead>
@@ -202,21 +196,24 @@
                             @endphp
                           <tr wire:loading.class="opacity-50">
                             <td
-                              class="whitespace-nowrap p-3 text-center text-lg font-medium tracking-wider text-slate-800"
+                              class="whitespace-normal p-3 text-center text-lg font-medium tracking-wider text-slate-800"
                             >
                               <div class="flex items-center">
                                 <div>
                                   <a href="{{ route('view.department', [strtolower($archive->department->dept_name),  $archive->archive_code]) }}"
-                                    class="hover:text-opacity-70 duration-150 text-xs sm:text-sm md:text-md lg:text-lg text-left block font-semibold text-blue-500 mb-2 tracking-normal"
+                                    class="whitespace-nowrap hover:text-opacity-70 duration-150 text-xs sm:text-sm md:text-md lg:text-lg text-left block font-semibold text-blue-500 mb-2 tracking-normal"
                                   >
-                                    {{ \Illuminate\Support\Str::limit($archive->title, 60, '...') }}
+                                    {{ \Illuminate\Support\Str::limit($archive->title, 65, '...') }}
                                   </a>
+                                  <p class="text-xs sm:text-sm text-left block font-base text-gray-800 tracking-tight">
+                                    {{ $archive->created_at->format('F j, Y') }}  <span><x-antdesign-line-o class="w-5 h-5 inline-block" /></span>  {{ strip_tags(\Illuminate\Support\Str::limit($archive->abstract, 250, '...')) }}
+                                  </p>
                                   <div
                                     class="flex flex-wrap md:flex-row md:gap-4"
                                   >
                                     <div class="flex items-center gap-3">
                                       <div
-                                        class="text-xs sm:text-sm text-slate-800 tracking-[-0.4px]"
+                                        class="text-xs font-semibold sm:text-sm text-slate-700 tracking-[-0.4px]"
                                       >
                                         By: {{ $archive->user->first_name . " " . $archive->user->middle_name[0] . ". " . $archive->user->last_name }}
                                       </div>
@@ -250,21 +247,15 @@
                             </td>
                     
                             <td
-                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-normal py-3 px-4 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
-                              {{ $archive->department->dept_name }}
+                              {{ $archive->department->dept_description }}
                             </td>
                     
                             <td
-                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-normal py-3 px-4 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
-                              {{ $archive->curriculum->curr_name }}
-                            </td>
-                    
-                            <td
-                              class="whitespace-nowrap p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
-                            >
-                              {{ $archive->created_at->format('m/d/Y') }}
+                              {{ $archive->curriculum->curr_description }}
                             </td>
                           </tr>
                           @endif

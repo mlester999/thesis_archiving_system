@@ -27,6 +27,7 @@ class ActivityLogsExport implements FromCollection, WithHeadings, WithMapping, S
             'Log Name',
             'Description',
             'Department',
+            'Research Agenda',
             'Student ID',
             'IP Address',
             'Created At'
@@ -38,6 +39,7 @@ class ActivityLogsExport implements FromCollection, WithHeadings, WithMapping, S
             $activityLog->log_name,
             $activityLog->description,
             $activityLog->user->department->dept_name,
+            $activityLog->properties->last(),
             $activityLog->user->student_id,
             $activityLog->properties->first(),
             $activityLog->created_at,
@@ -55,11 +57,11 @@ class ActivityLogsExport implements FromCollection, WithHeadings, WithMapping, S
     public function registerEvents(): array {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A1:F1'; // All Headers
+                $cellRange = 'A1:G1'; // All Headers
 
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial');
-                $event->sheet->getDelegate()->getStyle('A1:F1')->getFont()->setBold(true);
+                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold(true);
 
                 $event->sheet->getDelegate()->getPageSetup()
                 ->setPaperSize(PageSetup::PAPERSIZE_A4)
