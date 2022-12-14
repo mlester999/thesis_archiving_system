@@ -320,7 +320,7 @@ class ReportLogs extends Component
             ->orWhere('event', 'verify email')
             ->orWhere('event', 'submit thesis')
             ->orWhere('event', 'reset password')
-            ->orWhere('event', 'download thesis');
+            ->orWhere('event', 'download thesis')
             ->orWhere('event', 'download IMRAD');
         })
         ->where('dept_name', 'like', '%'  . $this->department . '%')
