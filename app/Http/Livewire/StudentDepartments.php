@@ -15,6 +15,10 @@ class StudentDepartments extends Component
     
     // For Title Search Bar
     public $search;
+
+    public $sortField = 'id';
+    public $sortDirection = 'desc';
+
     public $titles;
     public $currentPage;
     public $currentSearch;
@@ -49,6 +53,16 @@ class StudentDepartments extends Component
         $this->currentDeptId = $currentDeptId;
 
         $this->resetSearch();
+    }
+
+    public function sortBy($field) {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 
     public function resetFilters() {
@@ -110,16 +124,21 @@ class StudentDepartments extends Component
         return view('livewire.student-departments', [
             'archiveData' => Archive::query()
                         ->join('research_agendas', 'archives.research_agenda_id', '=', 'research_agendas.id')
+                        ->join('users', 'archives.user_id', '=', 'users.id')
                         ->when($this->filters['year'], function($query, $year) {
                             $query->where('year', $year);
                         })
                         ->when($this->filters['research_agenda'], function($query, $research_agenda) {
                             $query->where('agenda_name', $research_agenda);
                         })
+                        ->where('archives.department_id', $this->currentDeptId)
                         ->where('archive_status', 1)
                         ->where('title', 'LIKE', '%' . $this->currentSearch . '%')
-                        ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.research_agenda_id', 'archives.user_id', 'archives.created_at', 'research_agendas.id', 'research_agendas.department_id', 'research_agendas.agenda_name', 'research_agendas.agenda_description', 'research_agendas.agenda_status')
-                        ->orderBy('created_at', 'desc')
+                        ->orWhere('abstract', 'LIKE', '%' . $this->currentSearch . '%')
+                        ->orWhere('first_name', 'LIKE', '%' . $this->currentSearch . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $this->currentSearch . '%')
+                        ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.research_agenda_id', 'archives.user_id', 'archives.created_at', 'research_agendas.department_id', 'research_agendas.agenda_name', 'research_agendas.agenda_description', 'research_agendas.agenda_status')
+                        ->orderBy($this->sortField, $this->sortDirection)
                         ->paginate(5),
             'agendaData' => ResearchAgenda::all()
         ]);

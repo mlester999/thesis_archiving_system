@@ -10,7 +10,7 @@
     @unless ($sortable)
         <span class="text-left text-xs leading-4 font-medium text-cool-gray-500 uppercase tracking-wider">{{ $slot }}</span>
     @else
-        <button {{ $attributes->except('class') }} class="flex items-center space-x-1 text-left text-xs leading-4 font-medium text-cool-gray-500 uppercase tracking-wider group focus:outline-none focus:underline">
+        <button {{ $attributes->except('class') }} class="flex items-center space-x-1 text-left text-xs sm:text-sm leading-4 font-medium text-slate-800 tracking-widest group focus:outline-none">
             <span>{{ $slot }}</span>
 
             <span class="relative flex items-center">

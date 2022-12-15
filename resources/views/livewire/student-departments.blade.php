@@ -167,24 +167,18 @@
                       <table class="min-w-full divide-y divide-gray-300">
                         <thead class="bg-slate-100">
                           <tr>
-                            <th
-                              scope="col"
-                              class="py-4 px-8 tracking-widest text-left text-xs sm:text-sm font-medium text-slate-800"
-                            >
+                            <x-table.heading sortable wire:click.prevent="sortBy('title')" :direction="$sortField === 'title' ? $sortDirection : null">
                               Projects
-                            </th>
-                            <th
-                              scope="col"
-                              class="tracking-widest py-4 px-8 text-xs sm:text-sm font-medium text-slate-800"
-                            >
-                              Department
-                            </th>
-                            <th
-                              scope="col"
-                              class="tracking-widest py-4 px-8 text-xs sm:text-sm font-medium text-slate-800"
-                            >
-                              Curriculum
-                            </th>
+                            </x-table.heading>
+                            <x-table.heading sortable wire:click.prevent="sortBy('department_id')" :direction="$sortField === 'department_id' ? $sortDirection : null">
+                              College
+                            </x-table.heading>
+                            <x-table.heading sortable wire:click.prevent="sortBy('curriculum_id')" :direction="$sortField === 'curriculum_id' ? $sortDirection : null">
+                              Program
+                            </x-table.heading>
+                            <x-table.heading sortable wire:click.prevent="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">
+                              Upload Date
+                            </x-table.heading>
                           </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
@@ -196,18 +190,48 @@
                             @endphp
                           <tr wire:loading.class="opacity-50">
                             <td
-                              class="whitespace-normal p-3 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-normal p-3 text-center text-lg font-medium tracking-wider text-slate-800"
                             >
                               <div class="flex items-center">
                                 <div>
                                   <a href="{{ route('view.department', [strtolower($archive->department->dept_name),  $archive->archive_code]) }}"
-                                    class="whitespace-nowrap hover:text-opacity-70 duration-150 text-sm md:text-md lg:text-lg text-left block font-semibold text-blue-500 mb-2 tracking-normal"
+                                    class="whitespace-nowrap hover:text-opacity-70 duration-150 text-xs sm:text-sm md:text-md lg:text-lg text-left block font-semibold text-blue-500 mb-2 tracking-normal visited:text-purple-600"
                                   >
-                                  {{ \Illuminate\Support\Str::limit($archive->title, 65, '...') }}
+                                    {{ \Illuminate\Support\Str::words($archive->title, 7 , '...') }}
                                   </a>
-                                  <p class="text-xs sm:text-sm text-left block font-base text-gray-800 tracking-tight">
-                                    {{ $archive->created_at->format('F j, Y') }}  <span><x-antdesign-line-o class="w-5 h-5 inline-block" /></span>  {{ strip_tags(\Illuminate\Support\Str::limit($archive->abstract, 250, '...')) }}
-                                  </p>
+                                  <div class="text-xs sm:text-sm text-left font-base text-gray-800 tracking-tight">
+                                    @php
+                                      $plainAbstract = strip_tags($archive->abstract);
+                                    
+                                      $abstractArray = explode(".", $plainAbstract);
+
+                                      $searchAbstract = [];
+
+                                      foreach($abstractArray as $key => $array) {
+                                        if($currentSearch) {
+                                            if(str_contains(strtolower($array), strtolower($currentSearch))) {
+                                            $searchAbstract = $abstractArray;
+                                            break;
+                                          } else {
+                                            unset($abstractArray[$key]);
+                                          }
+                                        }
+                                      }
+                                      
+                                      if(!$abstractArray) {
+                                        $stringSearchAbstract = $plainAbstract;
+                                      } else {
+                                        $stringSearchAbstract = implode('. ', $searchAbstract);
+                                      }
+                                      
+                                      if($currentSearch) {
+                                        $str = preg_replace("/\w*?$currentSearch\w*/i","<b>$0</b>", $stringSearchAbstract);
+                                      } else {
+                                        $str = $plainAbstract;
+                                      }
+                                      @endphp
+                                    <span class="inline-block">{!! \Illuminate\Support\Str::words($str, 35, '...') !!}</span>
+                                  </div>
                                   <div
                                     class="flex flex-wrap md:flex-row md:gap-4"
                                   >
@@ -228,7 +252,6 @@
                                       <div
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r {{ $colors[$archive->research_agenda->id] ? $colors[$archive->research_agenda->id]  : 'from-gray-300 to-gray-400 text-gray-800' }} tracking-[-0.4px]"
                                       >
-                    
                                         {{ $archive->research_agenda->agenda_name }}
                                       </div>  
                                     </div>
@@ -248,15 +271,21 @@
                             </td>
                     
                             <td
-                              class="whitespace-normal py-3 px-4 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-normal py-3 px-3 text-left text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
                               {{ $archive->department->dept_description }}
                             </td>
                     
                             <td
-                              class="whitespace-normal py-3 px-4 text-center text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+                              class="whitespace-normal py-3 px-3 text-left text-xs sm:text-sm font-medium tracking-wider text-slate-800"
                             >
                               {{ $archive->curriculum->curr_description }}
+                            </td>
+
+                            <td
+                              class="whitespace-normal py-3 px-4 text-left text-xs sm:text-sm font-medium tracking-wider text-slate-800"
+                            >
+                              {{ $archive->created_at->format('F j, Y') }}
                             </td>
                     
                           </tr>

@@ -264,8 +264,8 @@
 					<div class="grid grid-cols-2 gap-2">
 						@foreach($accessOption as $key => $permission)
 						<div class="flex flex-row space-x-2 items-center text-xs md:text-sm xl:text-base">
-							<x-input.checkbox id="permission" wire:model.defer="editing.permissions.{{ $key }}" value="{{ $permission->id }}" />
-							<label for="permission">{{ $permission->name }}</label>
+							<x-input.checkbox id="permission{{$key}}" wire:model.defer="editing.permissions.{{ $key }}" value="{{ $permission->id }}" />
+							<label for="permission{{$key}}">{{ $permission->name }}</label>
 						</div>
 						@endforeach
 					</div>

@@ -186,6 +186,8 @@ class StudentList extends Component
         $this->userId = $this->editing->id;
         
         $this->editing->save();
+        
+        $this->editing->sendEmailVerificationNotification();
 
         $this->currentUser = User::find($this->editing->id);
 
