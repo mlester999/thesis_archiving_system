@@ -23,7 +23,8 @@ use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminAuth\EmailVerificationPromptController;
 use App\Http\Controllers\AdminAuth\EmailVerificationNotificationController;
 
-Route::group(['middleware' => ['guest:admin', 'prevent-back-history'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+    // Auth::routes();
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -44,8 +45,9 @@ Route::group(['middleware' => ['guest:admin', 'prevent-back-history'], 'prefix' 
     
 });
 
-Route::group(['middleware' => ['auth:admin', 'prevent-back-history'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
-    
+Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+    // Auth::routes();
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 

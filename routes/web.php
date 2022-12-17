@@ -72,16 +72,17 @@ Route::get('/home', function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['middleware' => ['auth:admin', 'verified', 'prevent-back-history'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+    // Auth::routes();
 
-    Route::get('profile', [AdminController::class, 'Profile'])->middleware(['auth:admin', 'custom_verify'])->name('profile');
-    Route::get('edit/profile', [AdminController::class, 'EditProfile'])->middleware(['auth:admin', 'custom_verify'])->name('edit.profile');
-    Route::post('store/profile', [AdminController::class, 'StoreProfile'])->middleware(['auth:admin', 'custom_verify'])->name('store.profile');
+    Route::get('profile', [AdminController::class, 'Profile'])->middleware(['custom_verify'])->name('profile');
+    Route::get('edit/profile', [AdminController::class, 'EditProfile'])->middleware(['custom_verify'])->name('edit.profile');
+    Route::post('store/profile', [AdminController::class, 'StoreProfile'])->middleware(['custom_verify'])->name('store.profile');
 
-    Route::get('change/password', [AdminController::class, 'ChangePassword'])->middleware(['auth:admin', 'custom_verify'])->name('change.password');
-    Route::post('update/password', [AdminController::class, 'UpdatePassword'])->middleware(['auth:admin', 'custom_verify'])->name('update.password');
+    Route::get('change/password', [AdminController::class, 'ChangePassword'])->middleware(['custom_verify'])->name('change.password');
+    Route::post('update/password', [AdminController::class, 'UpdatePassword'])->middleware(['custom_verify'])->name('update.password');
 
-    Route::get('view/archive-list/{id}', [AdminController::class, 'ViewArchives'])->middleware(['auth:admin', 'verified', 'permission:Archive List'])->name('view.archive-list');
+    Route::get('view/archive-list/{id}', [AdminController::class, 'ViewArchives'])->middleware(['permission:Archive List'])->name('view.archive-list');
 
 });
 
@@ -89,6 +90,6 @@ Route::get('/admin/dashboard', function () {
     $uploadedArchive = Archive::orderBy('created_at', 'desc')->paginate(5);
 
     return view('admin.index')->with('archives', $uploadedArchive);
-})->middleware(['auth:admin', 'verified', 'custom_verify', 'prevent-back-history'])->name('admin.dashboard');
+})->middleware(['auth:admin', 'verified', 'custom_verify'])->name('admin.dashboard');
 
 require __DIR__.'/adminauth.php';

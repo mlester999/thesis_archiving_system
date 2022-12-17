@@ -60,6 +60,13 @@
                     <textarea name="members" id="members">{{ $editArchiveData->members }}</textarea>
                     </div>
                 </div>
+
+                <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                    <div class="relative px-8 space-y-2">
+                        <label for="keywords" class="text-sm font-semibold text-gray-900">Keywords:</label>
+                        <input type="text" name="keywords" id="keywords" placeholder="Keywords" value="{{ old('keywords') }}" class="w-full text-black h-10 mt-2 bg-white focus:ring-green-500 focus:border-green-500 rounded-md px-3 focus:outline-none">
+                    </div>
+                </div>
                 
                 <div class="bg-gray px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                     <div class="relative md:px-8 space-y-2">

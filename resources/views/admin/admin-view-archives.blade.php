@@ -24,6 +24,8 @@
     <p class="text-sm md:text-lg">{!! $viewArchiveData->abstract !!}</p>
     <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
     <p class="text-sm md:text-lg">{!! $viewArchiveData->members !!}</p>
+    <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Keywords:</h3>
+    <p class="text-sm md:text-lg">{{ $viewArchiveData->keywords }}</p>
 
     @if($viewArchiveData->archive_status < 2)
     <div class="space-y-2 md:space-y-0 md:space-x-2 py-6 relative flex flex-col md:block">
