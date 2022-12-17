@@ -12,13 +12,13 @@
         <p class="pb-6 pt-3 font-bold uppercase text-sm leading-7 tracking-wider text-gray-600"><span class="flex items-center gap-1"> <x-ri-home-3-fill class="w-4 h-4" /> Home<x-heroicon-o-arrow-long-right class="w-5 h-6" />Menu<x-heroicon-o-arrow-long-right class="w-5 h-6" />View Profile<x-heroicon-o-arrow-long-right class="w-5 h-6" />Edit Profile</span></p>
 
         {{-- First Container --}}
-        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
+        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white max-w-2xl mx-auto rounded-lg flex items-center h-full shadow-md">
             
             <div x-show="buttonDisabled">
                 <x-normal-loading />
             </div>
 
-            <div class="w-full lg:w-3/5 flex flex-col justify-start">
+            <div class="w-full flex flex-col justify-start">
                 <form x-on:submit="buttonDisabled = true" action="{{ route('admin.store.profile') }}" method="post">
                     @csrf
 
@@ -45,11 +45,6 @@
                 </div>
 
             </form>
-            </div>
-
-            <div class="w-2/5 hidden lg:flex justify-center">
-                
-                <img src="{{ asset('images/library_logo.png') }}" alt="" class="w-3/5">
             </div>
         </div>
 

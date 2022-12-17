@@ -6,13 +6,13 @@
         <p class="pb-6 pt-3 font-bold uppercase text-sm leading-7 tracking-wider text-gray-600"><span class="flex items-center gap-1"> <x-ri-home-3-fill class="w-4 h-4" /> Home<x-heroicon-o-arrow-long-right class="w-5 h-6" />Profile<x-heroicon-o-arrow-long-right class="w-5 h-6" />View Profile</span></p>
 
         {{-- First Container --}}
-        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
+        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white max-w-2xl mx-auto rounded-lg flex items-center h-full shadow-md">
             
             <div x-show="buttonDisabled">
                 <x-normal-loading />
             </div>
             
-            <div class="w-full lg:w-3/5 flex flex-col justify-start">
+            <div class="w-full flex flex-col justify-start">
 
                 <ul class="py-4 px-4">
                     <li class="font-bold text-sm md:text-md text-gray-900">Name:</li>
@@ -38,11 +38,6 @@
                 <a href="{{ route('admin.edit.profile') }}" @click="buttonDisabled = true" class="w-full md:w-auto flex justify-center items-center p-2 space-x-4 font-sans font-bold text-white rounded-md shadow-lg px-8 bg-green-500 shadow-cyan-100 hover:bg-opacity-90 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150 mt-2">Edit Profile</a>
                 </div>
 
-            </div>
-
-            <div class="hidden w-2/5 lg:flex justify-center">
-                
-                <img src="{{ asset('images/library_logo.png') }}" alt="" class="w-3/5">
             </div>
         </div>
 

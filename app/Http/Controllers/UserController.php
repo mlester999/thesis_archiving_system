@@ -87,6 +87,7 @@ class UserController extends Controller
             'research_agenda' => 'required',
             'abstract' => 'required',
             'members' => 'required',
+            'keywords' => 'required',
             'document_path' => 'required',
             'imrad_path' => 'required',
             'signature_path' => 'required',
@@ -131,6 +132,7 @@ class UserController extends Controller
             'title' => $request->title,
             'abstract' => $request->abstract,
             'members' => $request->members,
+            'keywords' => $request->keywords,
             'document_path' => $fileSystem->url($fileUploaded),
             'document_name' => $fileContentName,
             'imrad_path' => $fileSystem->url($imradUploaded),
@@ -255,6 +257,7 @@ class UserController extends Controller
             'research_agenda' => 'required',
             'abstract' => 'required',
             'members' => 'required',
+            'keywords' => 'required',
             'document_path' => 'required',
             'imrad_path' => 'required',
             'signature_path' => 'required',
@@ -309,6 +312,9 @@ class UserController extends Controller
 
         // Members
         $storeArchiveData->members = $request->members;
+
+        // Keywords
+        $storeArchiveData->keywords = $request->keywords;
 
         // Thesis Document Path
         $storeArchiveData->document_path = $fileSystem->url($fileUploaded);

@@ -30,13 +30,15 @@
         <div class="pt-4 pb-10 border-t border-gray-300 space-y-3">
             <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Project Year:</h3>
             <p class="text-sm md:text-lg">{{ $viewDepartmentData->year }}</p>
-            <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Research Agenda:</h3>
+            <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Research Agenda:</h3>
             <p class="text-sm md:text-lg">{{ $viewDepartmentData->research_agenda->agenda_name }}</p>
             <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Abstract:</h3>
             <p class="text-sm md:text-lg">{!! $viewDepartmentData->abstract !!}</p>
             <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block pt-4">Project Members:</h3>
             <p class="text-sm md:text-lg">{!! $viewDepartmentData->members !!}</p>
-            <div class="space-y-2 pb-6 relative flex flex-col lg:block lg:space-x-2 lg:space-y-0 md:w-max">
+            <h3 class="text-sm md:text-lg max-w-3xl font-bold leading-6 text-gray-900 inline-block">Keywords:</h3>
+            <p class="text-sm md:text-lg">{{ $viewDepartmentData->keywords }}</p>
+            <div class="space-y-2 py-6 relative flex flex-col lg:block lg:space-x-2 lg:space-y-0 md:w-max">
                 <form class="inline-block" action="{{ route('download.thesis', $viewDepartmentData->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <button name="fullThesis" class="w-full my-1 lg:my-0 md:w-auto py-3 px-4 bg-gray-500 hover:bg-opacity-80 duration-200 text-white text-xs md:text-base text-center md:text-left"><i class="fa-solid fa-download mr-1"></i> Download Thesis File</button>

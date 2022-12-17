@@ -31,33 +31,66 @@
         <p class="pb-6 pt-3 font-bold uppercase text-sm leading-7 tracking-wider text-gray-600"><span class="flex items-center gap-1"> <x-ri-home-3-fill class="w-4 h-4" /> Home<x-heroicon-o-arrow-long-right class="w-5 h-6" />Profile<x-heroicon-o-arrow-long-right class="w-5 h-6" />Change Password</span></p>
 
         {{-- First Container --}}
-        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white rounded-lg flex items-center h-full shadow-md">
+        <div x-data="{ buttonDisabled: false }" class="p-6 bg-white max-w-2xl mx-auto rounded-lg flex items-center h-full shadow-md">
             
             <div x-show="buttonDisabled">
                 <x-normal-loading />
             </div>
             
-            <div class="w-full lg:w-3/5 flex flex-col justify-start">
+            <div class="w-full flex flex-col justify-start">
                 <form x-on:submit="buttonDisabled = true" action="{{ route('admin.update.password') }}" method="post">
                     @csrf
 
                 <ul class="py-4 px-4">
                     
                     <label id="currentPassword" class="font-semibold text-sm md:text-md text-gray-900">Current Password:</label>
-                    <input type="password" name="currentPassword" id="currentPassword" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="" autofocus>
-                    {{-- <x-input-error :messages="$errors->get('currentPassword')" class="mt-2" /> --}}
+                    
+                <!-- Current Password -->
+                <div x-cloak x-data="{showPassword: false}" class="relative">
+
+                    <x-text-input x-cloak id="currentPassword" class="mt-1 w-full relative pr-12"
+                                    x-bind:type="showPassword ? 'text' : 'password' "
+                                    name="currentPassword" />
+                    
+                    <div :class="showPassword ? 'right-3.5' : 'right-4' " class="absolute top-3">
+                        <span @click="showPassword = !showPassword" class="cursor-pointer"><i :class="showPassword ? 'fa-eye-slash' : 'fa-eye' " class="fa-solid fa-lg text-stone-900 hover:text-opacity-70 duration-150"></i></span>
+                    </div>
+                </div>
+                    
                 </ul>
 
                 <ul class="py-4 px-4">
                     <label id="newPassword" class="font-semibold text-sm md:text-md text-gray-900">New Password:</label>
-                    <input type="password" name="newPassword" id="newPassword" class="w-full text-black h-10 mt-2 bg-white  rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="">
-                    {{-- <x-input-error :messages="$errors->get('newPassword')" class="mt-2" /> --}}
+                    
+                    <!-- New Password -->
+                <div x-cloak x-data="{showPassword: false}" class="relative">
+
+                    <x-text-input x-cloak id="newPassword" class="mt-1 w-full relative pr-12"
+                                    x-bind:type="showPassword ? 'text' : 'password' "
+                                    name="newPassword" />
+                    
+                    <div :class="showPassword ? 'right-3.5' : 'right-4' " class="absolute top-3">
+                        <span @click="showPassword = !showPassword" class="cursor-pointer"><i :class="showPassword ? 'fa-eye-slash' : 'fa-eye' " class="fa-solid fa-lg text-stone-900 hover:text-opacity-70 duration-150"></i></span>
+                    </div>
+                </div>
+                    
                 </ul>
 
                 <ul class="py-4 px-4">
-                    <label id="confirmNewPassword" class="font-semibold text-sm md:text-md text-gray-900">Confirm New Password:</lab>
-                    <input type="password" name="confirmNewPassword" id="confirmNewPassword" class="w-full text-black h-10 mt-2 bg-white rounded-md px-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500" value="">
-                    {{-- <x-input-error :messages="$errors->get('confirmNewPassword')" class="mt-2" /> --}}
+                    <label id="confirmNewPassword" class="font-semibold text-sm md:text-md text-gray-900">Confirm New Password:</label>
+                    
+                    <!-- New Password -->
+                <div x-cloak x-data="{showPassword: false}" class="relative">
+
+                    <x-text-input x-cloak id="confirmNewPassword" class="mt-1 w-full relative pr-12"
+                                    x-bind:type="showPassword ? 'text' : 'password' "
+                                    name="confirmNewPassword" />
+                    
+                    <div :class="showPassword ? 'right-3.5' : 'right-4' " class="absolute top-3">
+                        <span @click="showPassword = !showPassword" class="cursor-pointer"><i :class="showPassword ? 'fa-eye-slash' : 'fa-eye' " class="fa-solid fa-lg text-stone-900 hover:text-opacity-70 duration-150"></i></span>
+                    </div>
+                </div>
+                    
                 </ul>
 
                 <div class="flex justify-center mt-4 mx-6 md:mx-0">
@@ -69,10 +102,10 @@
             </form>
             </div>
 
-            <div class="w-2/5 hidden lg:flex justify-center">
+            {{-- <div class="w-2/5 hidden lg:flex justify-center">
                 
                 <img src="{{ asset('images/library_logo.png') }}" alt="" class="w-3/5">
-            </div>
+            </div> --}}
         </div>
 
         @include('admin.body.footer')

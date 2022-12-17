@@ -74,14 +74,14 @@ require __DIR__.'/auth.php';
 
 Route::group(['middleware' => ['auth:admin', 'verified', 'prevent-back-history'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
-    Route::get('/admin/profile', [AdminController::class, 'Profile'])->middleware(['auth:admin', 'custom_verify'])->name('profile');
-    Route::get('/admin/edit/profile', [AdminController::class, 'EditProfile'])->middleware(['auth:admin', 'custom_verify'])->name('edit.profile');
-    Route::post('/admin/store/profile', [AdminController::class, 'StoreProfile'])->middleware(['auth:admin', 'custom_verify'])->name('store.profile');
+    Route::get('profile', [AdminController::class, 'Profile'])->middleware(['auth:admin', 'custom_verify'])->name('profile');
+    Route::get('edit/profile', [AdminController::class, 'EditProfile'])->middleware(['auth:admin', 'custom_verify'])->name('edit.profile');
+    Route::post('store/profile', [AdminController::class, 'StoreProfile'])->middleware(['auth:admin', 'custom_verify'])->name('store.profile');
 
-    Route::get('/admin/change/password', [AdminController::class, 'ChangePassword'])->middleware(['auth:admin', 'custom_verify'])->name('change.password');
-    Route::post('/admin/update/password', [AdminController::class, 'UpdatePassword'])->middleware(['auth:admin', 'custom_verify'])->name('update.password');
+    Route::get('change/password', [AdminController::class, 'ChangePassword'])->middleware(['auth:admin', 'custom_verify'])->name('change.password');
+    Route::post('update/password', [AdminController::class, 'UpdatePassword'])->middleware(['auth:admin', 'custom_verify'])->name('update.password');
 
-    Route::get('/admin/view/archive-list/{id}', [AdminController::class, 'ViewArchives'])->middleware(['auth:admin', 'verified', 'permission:Archive List'])->name('view.archive-list');
+    Route::get('view/archive-list/{id}', [AdminController::class, 'ViewArchives'])->middleware(['auth:admin', 'verified', 'permission:Archive List'])->name('view.archive-list');
 
 });
 

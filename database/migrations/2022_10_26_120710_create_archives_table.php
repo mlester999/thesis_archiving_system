@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('title');
             $table->text('abstract');
             $table->text('members');
+            $table->text('keywords');
             $table->text('document_path');
             $table->string('document_name');
             $table->text('imrad_path');

@@ -65,24 +65,41 @@
                 {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
             </div>
 
-            <!-- Password -->
-            <div class="mt-4">
+            <div class="mt-6">
+
                 <x-input-label for="password" :value="__('Password')" />
 
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" autofocus/>
+                <!-- Password -->
+                <div x-cloak x-data="{showPassword: false}" class="relative">
 
-                {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
+                    <x-text-input x-cloak id="password" class="mt-1 w-full relative pr-12"
+                                    x-bind:type="showPassword ? 'text' : 'password' "
+                                    name="password"
+                                    autocomplete="current-password" />
+                    
+                    <div :class="showPassword ? 'right-3.5' : 'right-4' " class="absolute top-3">
+                        <span @click="showPassword = !showPassword" class="cursor-pointer"><i :class="showPassword ? 'fa-eye-slash' : 'fa-eye' " class="fa-solid fa-lg text-stone-900 hover:text-opacity-70 duration-150"></i></span>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
+            <div class="mt-6">
+
                 <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-                <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation"/>
+                <!-- Confirm Password -->
+                <div x-cloak x-data="{showPassword: false}" class="relative">
 
-                {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
+                    <x-text-input x-cloak id="password_confirmation" class="mt-1 w-full relative pr-12"
+                                    x-bind:type="showPassword ? 'text' : 'password' "
+                                    name="password_confirmation" />
+                    
+                    <div :class="showPassword ? 'right-3.5' : 'right-4' " class="absolute top-3">
+                        <span @click="showPassword = !showPassword" class="cursor-pointer"><i :class="showPassword ? 'fa-eye-slash' : 'fa-eye' " class="fa-solid fa-lg text-stone-900 hover:text-opacity-70 duration-150"></i></span>
+                    </div>
+                </div>
+
             </div>
 
             <div class="flex items-center justify-end mt-4">

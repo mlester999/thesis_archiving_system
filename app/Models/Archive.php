@@ -27,6 +27,7 @@ class Archive extends Model
         'title',
         'abstract',
         'members',
+        'keywords',
         'document_path',
         'document_name',
         'imrad_path',
