@@ -143,7 +143,7 @@ class StudentDepartments extends Component
                         ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.research_agenda_id', 'archives.user_id', 'archives.created_at', 'research_agendas.agenda_name', 'research_agendas.agenda_description', 'research_agendas.department_id', 'research_agendas.agenda_status')
                         ->orderBy($this->sortField, $this->sortDirection)
                         ->paginate(5),
-            'agendaData' => ResearchAgenda::all()
+            'agendaData' => ResearchAgenda::where('research_agendas.department_id', $this->currentDeptId)->get()
         ]);
     }
 }
