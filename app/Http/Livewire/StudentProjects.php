@@ -130,14 +130,17 @@ class StudentProjects extends Component
                             $query->where('agenda_name', $research_agenda);
                         })
                         ->where('archive_status', 1)
-                        ->where('title', 'LIKE', '%' . $this->currentSearch . '%')
-                        ->orWhere('abstract', 'LIKE', '%' . $this->currentSearch . '%')
-                        ->orWhere('first_name', 'LIKE', '%' . $this->currentSearch . '%')
-                        ->orWhere('last_name', 'LIKE', '%' . $this->currentSearch . '%')
+                        ->where(function($query) {
+                            $query->where('title', 'LIKE', '%' . $this->currentSearch . '%');
+                            $query->orWhere('abstract', 'LIKE', '%' . $this->currentSearch . '%');
+                            $query->orWhere('first_name', 'LIKE', '%' . $this->currentSearch . '%');
+                            $query->orWhere('last_name', 'LIKE', '%' . $this->currentSearch . '%');
+
+                        })
                         ->select('archives.id', 'archives.archive_code', 'archives.title', 'archives.year', 'archives.abstract', 'archives.members', 'archives.document_path', 'archives.document_name', 'archives.archive_status', 'archives.department_id', 'archives.curriculum_id', 'archives.research_agenda_id', 'archives.user_id', 'archives.created_at', 'research_agendas.agenda_name', 'research_agendas.agenda_description', 'research_agendas.agenda_status')
                         ->orderBy($this->sortField, $this->sortDirection)
                         ->paginate(5),
-            'agendaData' => ResearchAgenda::all()
+            'agendaData' => ResearchAgenda::all()->unique('agenda_name')
         ]);
     }
 }
