@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->nullable()->constrained('roles', 'id')->onUpdate('cascade')->onDelete('set null');
             $table->json('permissions')->nullable();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

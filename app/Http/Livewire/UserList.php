@@ -135,6 +135,8 @@ class UserList extends Component
 
         $this->editing->save();
 
+        $this->editing->sendEmailVerificationNotification();
+
         $this->currentUser = Admin::find($this->editing->id);
 
         $this->currentUser->assignRole($this->editing->name);

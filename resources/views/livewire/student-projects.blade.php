@@ -218,8 +218,8 @@
                                         }
                                       }
                                       
-                                      if(count($searchAbstract) == 1) {
-                                        $stringSearchAbstract = $searchAbstract[0] . '.';
+                                       if(!$abstractArray) {
+                                        $stringSearchAbstract = $plainAbstract;
                                       } else {
                                         $stringSearchAbstract = implode('. ', $searchAbstract);
                                       }

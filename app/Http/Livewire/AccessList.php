@@ -40,6 +40,8 @@ class AccessList extends Component
     public $permission;
     public $oldAccess;
 
+    public $countFalse = 0;
+
     public $accessOption;
 
     // Modals
@@ -54,7 +56,7 @@ class AccessList extends Component
         'editing.role_id' => 'required',
         'editing.permissions' => 'required|array',
         'editing.permissions.*' => 'nullable',
-        'editing.description' => 'required',
+        'editing.description' => 'nullable',
     ];
 
     public function mount() {
@@ -170,8 +172,22 @@ class AccessList extends Component
     }
 
     public function save() {
-        $this->validate();
 
+        $this->validate();
+        
+        foreach($this->editing->permissions as $key => $permission) {
+            if(!$permission){
+                $this->countFalse += 1;
+            }
+        }
+
+        if($this->countFalse == count($this->editing->permissions)) {
+            $this->editing->permissions = [];
+            $this->countFalse = 0;
+        }
+        
+        $this->validate();
+        
         $this->editing->permissions = array_filter($this->editing->permissions, 'strlen');
 
         $this->editing->permissions = collect($this->editing->permissions)->sortKeys()->toArray();
@@ -188,15 +204,6 @@ class AccessList extends Component
         
         if(count(Access::where('id', $this->editing->id)->where('role_id', $this->editing->role_id)->get()) == 1 || count(Access::where('role_id', $this->editing->role_id)->get()) == 0) {
             
-            // if($this->accessTitle == "Edit Access") {  
-            //     foreach(collect($this->editing->permissions) as $key => $permission) {
-            //         if(!$permission) {
-            //             dd($permission);
-            //             $this->role->revokePermissionTo($key + 2);
-            //         }
-            //     }
-            // }
-            
             foreach($this->permission as $permission) {
                 if($permission) {
                     $allPermissions[] = $permission->name;
@@ -211,9 +218,13 @@ class AccessList extends Component
 
             $this->permission = [];
 
+            $this->validatedPermissions = [];
+
             $this->role = null;
             
             $this->oldAccess = null;
+
+            $this->countFalse = 0;
 
             $this->showEditModal = false;
 
@@ -225,6 +236,8 @@ class AccessList extends Component
             $this->alert('error', 'This data is already existing!');
 
             $this->editing = $this->makeBlankAccess();
+
+            $this->displayAccessOption();
         }
     }
 

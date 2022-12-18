@@ -136,6 +136,8 @@ class StudentDepartments extends Component
                         ->where(function($query) {
                             $query->where('title', 'LIKE', '%' . $this->currentSearch . '%');
                             $query->orWhere('abstract', 'LIKE', '%' . $this->currentSearch . '%');
+                            $query->orWhere('members', 'LIKE', '%' . $this->currentSearch . '%');
+                            $query->orWhere('keywords', 'LIKE', '%' . $this->currentSearch . '%');
                             $query->orWhere('first_name', 'LIKE', '%' . $this->currentSearch . '%');
                             $query->orWhere('last_name', 'LIKE', '%' . $this->currentSearch . '%');
 

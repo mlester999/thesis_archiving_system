@@ -106,7 +106,7 @@
 			  <p class="text-md font-medium leading-normal text-gray-800">{{ $stringPermissions ?? 'Permission Not Found' }}</p>
 			</td>
 			<td class="px-6 py-6">
-			  <p class="text-md font-medium leading-normal text-gray-800">{{ $access->description }}</p>
+			  <p class="text-md font-medium leading-normal text-gray-800">{{ $access->description ?? 'No Description' }}</p>
 			</td>
 			  <td class="px-6 py-6">
 				@if($access->status)
@@ -276,7 +276,7 @@
 
             <!-- Description -->
             <div class="pt-3 pb-6">
-                <x-input-label for="description" :value="__('Description')" />
+                <x-input-label for="description" :value="__('Description (Optional)')" />
                 <textarea placeholder="Put the description here..." wire:model.defer="editing.description" id="description" name="description" class="border mt-1 text-xs md:text-sm xl:text-base border-gray-300 p-2 text-gray-900 text-sm rounded-md focus:ring-1 focus:ring-green-500 focus:border-green-500 placeholder:font-sans placeholder:font-light focus:outline-none block w-full"> </textarea>
             
                 <x-input-error :messages="$errors->get('editing.description')" />
