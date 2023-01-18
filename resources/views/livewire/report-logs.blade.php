@@ -146,7 +146,7 @@
 				<p class="text-md font-medium leading-none text-gray-800">{{ $activity->student_id }}</p>
 				</td>
 				<td class="px-6 py-6">
-					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties->first() }}</p>
+					<p class="text-md font-medium leading-none text-gray-800">{{ $activity->properties['ip_address'] }}</p>
 				</td>
 				<td class="px-8 py-6 whitespace-nowrap ">
 					<div class="flex justify-center space-x-2">
